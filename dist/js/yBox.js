@@ -1,4 +1,4 @@
-/*! yBox - v3.4 - 19/08/2022
+/*! yBox - v3.4 - 22/08/2022
 * By Yuval Ashkenazi
 * https://github.com/yuvalAshkenaz/yBox */
 
@@ -7,15 +7,9 @@ jQuery('body').on('click','.yBox',function(e){
 	e.preventDefault();
 	e.stopPropagation();
 	var self = jQuery(this);
-	if(typeof beforeYboxOpen != 'undefined'){
-		beforeYboxOpen(self);
-	}
 	jQuery('.yBox.yBoxFocus').removeClass('yBoxFocus');
 	self.addClass('yBoxFocus');
 	yBox('',self);
-	if(typeof yBoxIsOpen != 'undefined'){
-		yBoxIsOpen(self);
-	}
 });
 var yUrl = new URL(document.currentScript.src);
 var yLang = yUrl.searchParams.get("lang");
@@ -34,13 +28,13 @@ if(yLang == 'he' || yLang == 'he-IL'){
 }
 
 var url = new URL(window.location.href);
-var systemMessage = url.searchParams.get("systemmessage");
-if(systemMessage){
-	yBox(systemMessage,false,'yBoxContentFrame');
+var msg = url.searchParams.get("msg");
+if(msg){
+	yBox(msg,false,'yBoxContentFrame');
 	setTimeout(function(){
-		//***** Remove systemmessage from URL ***********
+		//***** Remove msg from URL ***********
 		var params = new URLSearchParams(window.location.search);
-		params.delete('systemmessage');
+		params.delete('msg');
 		if(params.toString()){
 			params = '?'+params.toString();
 		}
@@ -49,6 +43,9 @@ if(systemMessage){
 	},500);
 }
 function yBox(code,self,yBoxClass){
+	if(typeof beforeYboxOpen != 'undefined'){
+		beforeYboxOpen(self);
+	}
 	var hasSelf = true;
 	
 	if(typeof yBoxClass == 'undefined'){
@@ -102,6 +99,9 @@ function yBox(code,self,yBoxClass){
 				},200);
 			});
 		}
+	}
+	if(typeof yBoxIsOpen != 'undefined'){
+		yBoxIsOpen(self);
 	}
 };
 function insertPopHtml(self,hasSelf,url,code){
