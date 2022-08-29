@@ -31,8 +31,8 @@ var url = new URL(window.location.href);
 var msg = url.searchParams.get("msg");
 if(msg){
 	yBox(msg,false,'yBoxContentFrame');
+	//***** Remove msg from URL ***********
 	setTimeout(function(){
-		//***** Remove msg from URL ***********
 		var params = new URLSearchParams(window.location.search);
 		params.delete('msg');
 		if(params.toString()){
@@ -217,7 +217,7 @@ function yBoxPrev(self){
 };
 //Close
 jQuery('body').on('click','.yBoxOverlay',function(e){
-	if(e.target.className.indexOf('yBoxOverlay yBoxRTL active') > -1 || e.target.className.indexOf('yBoxOverlay active') > -1 || e.target.className == 'closeYbox'){
+	if(e.target.className.indexOf('yBoxOverlay yBoxRTL active') > -1 || e.target.className.indexOf('yBoxOverlay active') > -1 || e.target.className.indexOf('closeYbox') > -1){
 		if(typeof beforeYboxClose != 'undefined'){
 			var beforeClose = beforeYboxClose($('.yBox.yBoxFocus'));
 			if(beforeClose == false)
