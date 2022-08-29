@@ -179,11 +179,16 @@ function insertPopHtml(self,hasSelf,url,code){
 		}
 	}else{
 		if(!code && url){
-			var theClass = '';
-			if(jQuery(url).attr('class')){
-				theClass = 'class="'+jQuery(url).attr('class')+'"';
-			}
-			code = '<div id="'+url.replace('#','')+'" '+theClass+'>'+jQuery(url).html()+'</div>';
+			var attrs = document.querySelector(url).attributes;
+			var attrHTML = '';
+			for(var i = 0;i < attrs.length;i++){
+				var value = attrs[i].value;
+				if(value.indexOf('#') > -1){
+					value = value.replace('#','');
+				}
+				attrHTML += ' '+attrs[i].name+'="'+value+'"';
+			};
+			code = '<div'+attrHTML+'>'+jQuery(url).html()+'</div>';
 		}
 		jQuery('.insertYboxAjaxHere').html(code);
 	}
