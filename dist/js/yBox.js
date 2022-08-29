@@ -179,7 +179,11 @@ function insertPopHtml(self,hasSelf,url,code){
 		}
 	}else{
 		if(!code && url){
-			code = '<div id="'+url.replace('#','')+'">'+jQuery(url).html()+'</div>';
+			var theClass = '';
+			if(jQuery(url).attr('class')){
+				theClass = 'class="'+jQuery(url).attr('class')+'"';
+			}
+			code = '<div id="'+url.replace('#','')+'" '+theClass+'>'+jQuery(url).html()+'</div>';
 		}
 		jQuery('.insertYboxAjaxHere').html(code);
 	}
