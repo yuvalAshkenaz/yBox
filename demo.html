@@ -18,27 +18,68 @@
 			</pre>
 		</section>
 		<section>
-			<h3>
-				Open yBox on page load<br />
-				<div style="font-family:Consolas,'courier new';font-size:14px;">yBox(code,self,yBoxClass)</div>
-			</h3>
+			<h3>All parameters</h3>
+			<table border="0" cellpadding="10" cellspacing="0" width="100%" style="line-height:24px;">
+				<tr>
+					<td width="120">code</td>
+					<td width="25">:</td>
+					<td>
+						When calling to yBox from your Java Script, you can write your HTML code<br />
+						<code>yBox({ code : '&lt;div class="my-class"&gt;Some text&lt;/div&gt;' });</code>
+					</td>
+				</tr>
+				<tr style="background:#f7f7f7;">
+					<td>self</td>
+					<td>:</td>
+					<td>
+						<code>
+							&lt;a href="#popup" class="yBox <b>my-link</b>"&gt;The link&lt;/a&gt;<br />
+							yBox({ self : jQuery('.my-link') });
+						</code>
+					</td>
+				</tr>
+				<tr>
+					<td>yBoxClass</td>
+					<td>:</td>
+					<td>
+						Added to &lt;div class="yBoxFrame"&gt; in yBox window<br />
+						<code>yBox({ yBoxClass : 'my-class' });</code>
+					</td>
+				</tr>
+				<tr style="background:#f7f7f7;">
+					<td>url</td>
+					<td>:</td>
+					<td>
+						When calling to HTML from script.<br />
+						<code>yBox({ url : '#my-popup' });</code>
+					</td>
+				</tr>
+			</table>
+		</section>
+		<section>
+			<h3>Open yBox on page load</h3>
 			<pre>
-				<code><span class="blue">&lt;script&gt;</span> yBox(<span class="grey">'&lt;div class="my-class"&gt;Some text&lt;/div&gt;'</span>); <span class="blue">&lt;/script&gt;</span></code>
+				<code><span class="blue">&lt;script&gt;</span>
+yBox({
+    code : <span class="grey">'&lt;div class="my-class"&gt;Some text&lt;/div&gt;'</span>
+});
+<span class="blue">&lt;/script&gt;</span></code>
 			</pre>
 		</section>
 		<section>
-			<h3>
-				Open yBox by calling the element from JavaScript<br />
-				<div style="font-family:Consolas,'courier new';font-size:14px;">yBox(code,self,yBoxClass)</div>
-			</h3>
+			<h3>Open yBox by calling the element from JavaScript</h3>
 			<div style="display:none;">
 				<div id="popup" href="#popup">Hello :-)</div>
 			</div>
 			<pre>
 				<code><span class="blue">&lt;div</span> <span class="red">style</span>=<span class="purple">"display:none;"</span><span class="blue">&gt;</span>
-   <span class="blue">&lt;div</span> <span class="red">id</span>=<span class="purple">"popup"</span> <span class="red">href</span>=<span class="purple">"#popup"</span><span class="blue">&gt;</span>Hello :-)<span class="blue">&lt;/div&gt;
+   <span class="blue">&lt;div</span> <span class="red">id</span>=<span class="purple">"popup"</span><span class="blue">&gt;</span>Hello :-)<span class="blue">&lt;/div&gt;
 &lt;/div&gt;</span>
-<span class="blue">&lt;script&gt;</span> yBox(<span class="grey">''</span>,$(<span class="grey">'#popup'</span>)); <span class="blue">&lt;/script&gt;</span></code>
+<span class="blue">&lt;script&gt;</span>
+yBox({
+    url : <span class="grey">'#popup'</span>
+});
+<span class="blue">&lt;/script&gt;</span></code>
 			</pre>
 		</section>
 		<section>
@@ -57,7 +98,7 @@
 				<span style="font-size:16px;">self = The yBox button</span>
 			</h3>
 			<pre>
-				<code><span class="blue">function</span> yBoxIsOpen(self){ <span class="green">/* Do something after yBox is open */</span> };</code>
+				<code><span class="blue">function</span> afterYboxOpen(self){ <span class="green">/* Do something after yBox is open */</span> };</code>
 			</pre>
 			<a href="#link1" class="yBox alertAfterYbox">Click here for example</a>
 		</section>
@@ -189,7 +230,7 @@ function beforeYboxOpen(self){
 		alert('Before yBox open');
 	}
 };
-function yBoxIsOpen(self){
+function afterYboxOpen(self){
 	if ( self.hasClass('alertAfterYbox') ) {
 		alert('After yBox open');
 	}
