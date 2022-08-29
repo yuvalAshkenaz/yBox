@@ -42,7 +42,7 @@ if(msg){
 		window.history.pushState("", "", newURL);
 	},500);
 }
-function yBox(code,self,yBoxClass){
+function yBox(code,self,yBoxClass,url){
 	if(typeof beforeYboxOpen != 'undefined'){
 		beforeYboxOpen(self);
 	}
@@ -56,7 +56,7 @@ function yBox(code,self,yBoxClass){
 	}
 	if(hasSelf){
 		yBoxClass = self.data('ybox-class') || '';
-		var url = self.attr('href');
+		url = self.attr('href');
 	}
 	var html = '<div class="yBoxOverlay'+(yLang=='he'?' yBoxRTL':'')+'">\
 					<div class="yBoxFrame '+yBoxClass+'">\
@@ -154,9 +154,8 @@ function insertPopHtml(self,hasSelf,url,code){
 		}else{
 			jQuery(url).after('<div class="yBoxFramePlaceHolder"></div>');
 			if(jQuery('.insertYboxAjaxHere.isAjax').length){
-				var yBoxHTML = '<div id="'+jQuery(url).attr('id')+'">'+jQuery(url).html()+'</div>';
+				var yBoxHTML = '<div id="'+url.replace('#','')+'">'+jQuery(url).html()+'</div>';
 				jQuery('.insertYboxAjaxHere').html(yBoxHTML).removeClass('isAjax');
-				//jQuery(url).remove();
 			}else{
 				jQuery(url).appendTo('.insertYboxAjaxHere');
 			}
@@ -171,6 +170,9 @@ function insertPopHtml(self,hasSelf,url,code){
 			},500);
 		}
 	}else{
+		if(!code && url){
+			code = '<div id="'+url.replace('#','')+'">'+jQuery(url).html()+'</div>';
+		}
 		jQuery('.insertYboxAjaxHere').html(code);
 	}
 };
