@@ -64,7 +64,7 @@ function yBox(json){
 	}
 	if(hasSelf){
 		json.yBoxClass = json.self.data('ybox-class') || '';
-		url = json.self.attr('href');
+		json.url = json.self.attr('href');
 	}
 	var html = '<div class="yBoxOverlay'+(yLang=='he'?' yBoxRTL':'')+'">\
 					<div class="yBoxFrame '+json.yBoxClass+'">\
