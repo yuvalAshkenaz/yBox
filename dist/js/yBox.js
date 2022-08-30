@@ -29,16 +29,23 @@ if(yLang == 'he' || yLang == 'he-IL'){
 
 var url = new URL(window.location.href);
 var msg = url.searchParams.get("msg");
-if(msg){
+var yBoxPrm = url.searchParams.get("ybox-url");
+var yBoxClassPrm = url.searchParams.get("ybox-class");
+if(msg || yBoxPrm){
+	if(typeof yBoxPrm != 'undefined' && (yBoxPrm.indexOf('http:') == -1 && yBoxPrm.indexOf('https:') == -1)){
+		yBoxPrm = '#'+yBoxPrm;
+	}
 	yBox({
-		code	  : msg,
-		self	  : false,
-		yBoxClass : 'yBoxContentFrame'
+		code	  : yBoxPrm ? false : msg,
+		yBoxClass : yBoxClassPrm ? yBoxClassPrm : 'ybox-content-frame',
+		url		  : yBoxPrm ? yBoxPrm : false
 	});
 	//***** Remove msg from URL ***********
 	setTimeout(function(){
 		var params = new URLSearchParams(window.location.search);
 		params.delete('msg');
+		params.delete('ybox-url');
+		params.delete('ybox-class');
 		if(params.toString()){
 			params = '?'+params.toString();
 		}
