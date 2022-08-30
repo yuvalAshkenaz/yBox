@@ -1,4 +1,4 @@
-/*! yBox - v4.0 - 29/08/2022
+/*! yBox - v4.1 - 30/08/2022
 * By Yuval Ashkenazi
 * https://github.com/yuvalAshkenaz/yBox */
 
@@ -115,9 +115,11 @@ function yBox(json){
 			});
 		}
 	}
-	if(typeof afterYboxOpen != 'undefined'){
-		afterYboxOpen(json.self);
-	}
+	setTimeout(function(){
+		if(typeof afterYboxOpen != 'undefined'){
+			afterYboxOpen(json.self);
+		}
+	},200);
 };
 function insertPopHtml(self,hasSelf,url,code){
 	if(hasSelf){
