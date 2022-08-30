@@ -190,12 +190,15 @@ function insertPopHtml(self,hasSelf,url,code){
 			var attrHTML = '';
 			for(var i = 0;i < attrs.length;i++){
 				var value = attrs[i].value;
-				if(value.indexOf('#') > -1){
+				if(attrs[i].name == 'id' && value.indexOf('#') > -1){
 					value = value.replace('#','');
 				}
 				attrHTML += ' '+attrs[i].name+'="'+value+'"';
 			};
 			code = '<div'+attrHTML+'>'+jQuery(url).html()+'</div>';
+			
+			jQuery(url).after('<div class="yBoxFramePlaceHolder"></div>');
+			jQuery(url).remove();
 		}
 		jQuery('.insertYboxAjaxHere').html(code);
 	}
