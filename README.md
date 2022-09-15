@@ -1,10 +1,8 @@
 <section>
 			<h3>Files</h3>
-			<pre>
-				<code><span class="blue">&lt;link</span> <span class="red">rel</span><span class="purple">="stylesheet"</span> <span class="red">href</span><span class="purple">="dist/css/ybox.min.css"</span> <span class="blue">/&gt;</span>
+			<pre><code><span class="blue">&lt;link</span> <span class="red">rel</span><span class="purple">="stylesheet"</span> <span class="red">href</span><span class="purple">="dist/css/ybox.min.css"</span> <span class="blue">/&gt;</span>
 <span class="blue">&lt;script</span> <span class="red">type</span><span class="purple">="text/javascript"</span> <span class="red">src</span><span class="purple">="dist/js/directive.min.js"</span><span class="blue">/&gt;</span></script>
-<span class="blue">&lt;script</span> <span class="red">type</span><span class="purple">="text/javascript"</span> <span class="red">src</span><span class="purple">="dist/js/ybox.min.js?lang=he"</span><span class="blue">/&gt;</span></script></code>
-			</pre>
+<span class="blue">&lt;script</span> <span class="red">type</span><span class="purple">="text/javascript"</span> <span class="red">src</span><span class="purple">="dist/js/ybox.min.js?lang=he"</span><span class="blue">/&gt;</span></script></code></pre>
 		</section>
 		<section>
 			<h3>All parameters</h3>
