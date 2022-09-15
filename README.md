@@ -19,10 +19,8 @@
 					<td>self</td>
 					<td class="hide-on-tablet">:</td>
 					<td>
-						<code>
-							&lt;a href="#popup" class="yBox <b>my-link</b>"&gt;The link&lt;/a&gt;<br />
-							yBox({ self: jQuery('.my-link') });
-						</code>
+						<code>&lt;a href="#popup" class="yBox <b>my-link</b>"&gt;The link&lt;/a&gt;</code><br />
+						<code>&lt;script&gt; yBox({ self: $('.my-link') }); &lt;/script&gt;</code>
 					</td>
 				</tr>
 				<tr>
