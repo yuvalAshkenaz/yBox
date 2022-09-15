@@ -21,11 +21,11 @@
 			<h3>All parameters</h3>
 			<table border="0" cellpadding="10" cellspacing="0" width="100%" style="line-height:24px;">
 				<tr>
-					<td width="260">code</td>
+					<td width="360">code</td>
 					<td width="25" class="hide-on-tablet">:</td>
 					<td>
 						When calling to yBox from your Java Script, you can write your HTML code<br />
-						<code>yBox({ code : '&lt;div class="my-class"&gt;Some text&lt;/div&gt;' });</code>
+						<code>yBox({ code: '&lt;div class="my-class"&gt;Some text&lt;/div&gt;' });</code>
 					</td>
 				</tr>
 				<tr>
@@ -34,7 +34,7 @@
 					<td>
 						<code>
 							&lt;a href="#popup" class="yBox <b>my-link</b>"&gt;The link&lt;/a&gt;<br />
-							yBox({ self : jQuery('.my-link') });
+							yBox({ self: jQuery('.my-link') });
 						</code>
 					</td>
 				</tr>
@@ -43,34 +43,35 @@
 					<td class="hide-on-tablet">:</td>
 					<td>
 						Added to &lt;div class="yBoxFrame"&gt; in yBox window<br />
-						<code>yBox({ yBoxClass : 'my-class' });</code>
+						<code>yBox({ yBoxClass: 'my-class' });</code>
 					</td>
 				</tr>
 				<tr>
 					<td>url</td>
 					<td class="hide-on-tablet">:</td>
 					<td>
-						When calling to HTML from script.<br />
-						<code>yBox({ url : '#my-popup' });</code>
+						When calling to element from java script.<br />
+						<code>&lt;div id="my-popup"&gt; &lt;/div&gt;</code><br />
+						<code>&lt;script&gt; yBox({ url: '#my-popup' }); &lt;/script&gt;</code>
 					</td>
 				</tr>
 				<tr>
-					<td>msg</td>
+					<td>https://domain.com<b>?msg=</b>Some text</td>
+					<td class="hide-on-tablet">:</td>
+					<td>msg parameter in url pop the yBox with your text.</td>
+				</tr>
+				<tr>
+					<td>https://domain.com<b>?ybox-url</b>=my-popup</td>
 					<td class="hide-on-tablet">:</td>
 					<td>
-						msg parameter in url pop the yBox with your text.<br />
-						https://domain.com<b>?msg=</b>Some text
+						Call to element from URL address<br />
+						<code>&lt;div id="my-popup"&gt; &lt;/div&gt;</code>
 					</td>
 				</tr>
 				<tr>
-					<td>ybox-url</td>
+					<td>https://domain.com<b>?ybox-class</b>=my-popup-class</td>
 					<td class="hide-on-tablet">:</td>
-					<td>https://domain.com<b>?ybox-url</b>=div-id</td>
-				</tr>
-				<tr>
-					<td>ybox-class</td>
-					<td class="hide-on-tablet">:</td>
-					<td>https://domain.com<b>?ybox-class</b>=div-class</td>
+					<td>add class to yBox window from URL address</td>
 				</tr>
 				<tr>
 					<td>function beforeYboxOpen(self){ ... };</td>
