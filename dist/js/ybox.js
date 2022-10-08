@@ -1,4 +1,4 @@
-/*! yBox - v4.3 - 06/09/2022
+/*! yBox - v4.4 - 08/10/2022
 * By Yuval Ashkenazi
 * https://github.com/yuvalAshkenaz/yBox */
 
@@ -32,7 +32,7 @@ var msg = url.searchParams.get("msg");
 var yBoxPrm = url.searchParams.get("ybox-url");
 var yBoxClassPrm = url.searchParams.get("ybox-class");
 if(msg || yBoxPrm){
-	if(typeof yBoxPrm != 'undefined' && (yBoxPrm.indexOf('http:') == -1 && yBoxPrm.indexOf('https:') == -1)){
+	if(!jQuery.isEmptyObject(yBoxPrm) && (yBoxPrm.indexOf('http:') == -1 && yBoxPrm.indexOf('https:') == -1)){
 		yBoxPrm = '#'+yBoxPrm;
 	}
 	yBox({
