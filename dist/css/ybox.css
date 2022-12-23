@@ -28,7 +28,7 @@
 }
 .yBoxImgZoom{width:100%;height:100%;}
 .yBoxFrame{
-	background:#000;
+	background:#000a3b;
 	border-radius:5px;
 	box-shadow:#fff 0px 0px 40px -17px;
 	color:#fff;
@@ -44,14 +44,14 @@
 }
 .yBoxFrame.yBoxContentFrame{
 	background:#fff;
-	color:#000;
+	color:#000a3b;
 }
 .yBoxOverlay.active .yBoxFrame{
 	-webkit-transform:translate(0,0);
 	transform:translate(0,0);
 }
 .closeYbox{
-	background:#000;
+	background:#000a3b;
 	background-size:100% 100%;
 	width:35px;
 	height:35px;
@@ -99,10 +99,10 @@
 }
 .yBoxFrame.yBoxContentFrame .closeYbox::after, 
 .yBoxFrame.yBoxContentFrame .closeYbox::before{
-	background-color:#000;
+	background-color:#000a3b;
 }
 .yBoxIframe{
-	background:#000;
+	background:#000a3b;
 	width:100%;
 	height:100%;
 	position:absolute;
@@ -224,7 +224,7 @@
 	.yBoxFrame.yBoxImgWrap .yBoxNextImg,.yBoxFrame.yBoxImgWrap .yBoxPrevImg{width:50px;max-width:30%;height:50%;top:50%;-webkit-transform:translateY(-50%);transform:translateY(-50%);}
 	.yBoxFrame.yBoxImgWrap .insertYboxAjaxHere{height:-webkit-calc(100vh - 10px);height:calc(100vh - 10px);}
 	.yBoxFrame.yBoxImgWrap{width:-webkit-calc(100vw - 10px);width:calc(100vw - 10px);height:-webkit-calc(100vh - 10px);height:calc(100vh - 10px);}
-	.yBoxImgZoom{display:flex;justify-content:center;align-items:center;background:#000;overflow:hidden;}
+	.yBoxImgZoom{display:flex;justify-content:center;align-items:center;background:#000a3b;overflow:hidden;}
 }
 @media screen and (max-width:479px){
 	.yBoxFrame.yBoxImgWrap,.yBoxFrame.yBoxIframeWrap{height:-webkit-calc(100vh - 80px);height:calc(100vh - 80px);}
