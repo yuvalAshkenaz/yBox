@@ -1,4 +1,4 @@
-/*! yBox - v3.0 - 03/03/2022
+/*! yBox - v3.1 - 03/03/2022
 * By Yuval Ashkenazi
 * https://github.com/yuvalAshkenaz/yBox */
 .yBoxOverlay *{-webkit-box-sizing:border-box;box-sizing:border-box;}
@@ -28,7 +28,7 @@
 }
 .yBoxImgZoom{width:100%;height:100%;}
 .yBoxFrame{
-	background:#000a3b;
+	background:#171b1e;
 	border-radius:5px;
 	box-shadow:#fff 0px 0px 40px -17px;
 	color:#fff;
@@ -44,14 +44,14 @@
 }
 .yBoxFrame.yBoxContentFrame{
 	background:#fff;
-	color:#000a3b;
+	color:#171b1e;
 }
 .yBoxOverlay.active .yBoxFrame{
 	-webkit-transform:translate(0,0);
 	transform:translate(0,0);
 }
 .closeYbox{
-	background:#000a3b;
+	background:#171b1e;
 	background-size:100% 100%;
 	width:35px;
 	height:35px;
@@ -99,10 +99,10 @@
 }
 .yBoxFrame.yBoxContentFrame .closeYbox::after, 
 .yBoxFrame.yBoxContentFrame .closeYbox::before{
-	background-color:#000a3b;
+	background-color:#171b1e;
 }
 .yBoxIframe{
-	background:#000a3b;
+	background:#171b1e;
 	width:100%;
 	height:100%;
 	position:absolute;
@@ -224,7 +224,7 @@
 	.yBoxFrame.yBoxImgWrap .yBoxNextImg,.yBoxFrame.yBoxImgWrap .yBoxPrevImg{width:50px;max-width:30%;height:50%;top:50%;-webkit-transform:translateY(-50%);transform:translateY(-50%);}
 	.yBoxFrame.yBoxImgWrap .insertYboxAjaxHere{height:-webkit-calc(100vh - 10px);height:calc(100vh - 10px);}
 	.yBoxFrame.yBoxImgWrap{width:-webkit-calc(100vw - 10px);width:calc(100vw - 10px);height:-webkit-calc(100vh - 10px);height:calc(100vh - 10px);}
-	.yBoxImgZoom{display:flex;justify-content:center;align-items:center;background:#000a3b;overflow:hidden;}
+	.yBoxImgZoom{display:flex;justify-content:center;align-items:center;background:#171b1e;overflow:hidden;}
 }
 @media screen and (max-width:479px){
 	.yBoxFrame.yBoxImgWrap,.yBoxFrame.yBoxIframeWrap{height:-webkit-calc(100vh - 80px);height:calc(100vh - 80px);}
