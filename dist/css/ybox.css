@@ -1,4 +1,4 @@
-/*! yBox - v4.4 - 02/03/2023
+/*! yBox - v4.5 - 02/03/2023
 * By Yuval Ashkenazi
 * https://github.com/yuvalAshkenaz/yBox */
 .yBoxOverlay *{-webkit-box-sizing:border-box;box-sizing:border-box;}
@@ -144,8 +144,8 @@
 	max-height:calc(100vh - 30px);
 	vertical-align:top;
 }
-.yBoxFrame.yBoxImgWrap .yBoxNextImg,
-.yBoxFrame.yBoxImgWrap .yBoxPrevImg{
+.yBoxNext,
+.yBoxPrev{
 	background:none;
 	width:30%;
 	height:100%;
@@ -155,10 +155,10 @@
 	cursor:pointer;
 	z-index:2;
 }
-.yBoxFrame.yBoxImgWrap .yBoxNextImg{left:0;}
-.yBoxFrame.yBoxImgWrap .yBoxPrevImg{right:0;}
-.yBoxFrame.yBoxImgWrap .yBoxNextImg::after,
-.yBoxFrame.yBoxImgWrap .yBoxPrevImg::after{
+.yBoxNext{left:0;}
+.yBoxPrev{right:0;}
+.yBoxNext::after,
+.yBoxPrev::after{
 	content:'';
 	width:20px;
 	height:20px;
@@ -167,20 +167,39 @@
 	border-bottom:3px solid rgba(255,255,255,0.7);
 	border-left:3px solid rgba(255,255,255,0.7);
 }
-.yBoxFrame.yBoxImgWrap .yBoxPrevImg::after{
+.yBoxPrev::after{
 	right:50px;
 	-webkit-transform:translate(0,-50%) rotate(-135deg);
 	transform:translate(0,-50%) rotate(-135deg);
 }
-.yBoxFrame.yBoxImgWrap .yBoxNextImg::after{
+.yBoxNext::after{
 	left:50px;
 	-webkit-transform:translate(0,-50%) rotate(45deg);
 	transform:translate(0,-50%) rotate(45deg);
 }
-.yBoxFrame.yBoxImgWrap .yBoxNextImg:hover::after,
-.yBoxFrame.yBoxImgWrap .yBoxPrevImg:hover::after{
+.yBoxNext:hover::after,
+.yBoxPrev:hover::after{
 	border-bottom-color:#fff;
 	border-left-color:#fff;
+}
+.yBoxIframeWrap .yBoxNext,
+.yBoxIframeWrap .yBoxPrev {
+	width: 60px;
+	height: 60px;
+	top: 50%;
+	margin: -30px 0 0 0;
+}
+.yBoxIframeWrap .yBoxNext {
+	left: 15px;
+}
+.yBoxIframeWrap .yBoxPrev {
+	right: 15px;
+}
+.yBoxIframeWrap .yBoxNext::after {
+	left: 43%;
+}
+.yBoxIframeWrap .yBoxPrev::after {
+	right: 41%;
 }
 .yBoxLoader{
     width:16px;
@@ -221,10 +240,10 @@
 @media screen and (max-width:767px){
 	.yBoxFrame.yBoxImgWrap .insertYboxAjaxHere{padding:5px;max-height:-webkit-calc(100vh - 10px);max-height:calc(100vh - 10px);}
 	.yBoxFrame.yBoxImgWrap img.yBoxImg{max-width:-webkit-calc(100vw - 20px);max-width:calc(100vw - 20px);max-height:-webkit-calc(100vh - 20px);max-height:calc(100vh - 20px);}
-	.yBoxFrame.yBoxImgWrap .yBoxPrevImg::after{right:50%;width:14px;height:14px;}
-	.yBoxFrame.yBoxImgWrap .yBoxNextImg::after{left:50%;width:14px;height:14px;}
+	.yBoxPrev::after{right:50%;width:14px;height:14px;}
+	.yBoxNext::after{left:50%;width:14px;height:14px;}
 	.yBoxFrame.yBoxIframeWrap .insertYboxAjaxHere{left:5px;right:5px;top:5px;bottom:5px;}
-	.yBoxFrame.yBoxImgWrap .yBoxNextImg,.yBoxFrame.yBoxImgWrap .yBoxPrevImg{width:50px;max-width:30%;height:50%;top:50%;-webkit-transform:translateY(-50%);transform:translateY(-50%);}
+	.yBoxNext,.yBoxPrev{width:50px;max-width:30%;height:50%;top:50%;-webkit-transform:translateY(-50%);transform:translateY(-50%);}
 	.yBoxFrame.yBoxImgWrap .insertYboxAjaxHere{height:-webkit-calc(100vh - 10px);height:calc(100vh - 10px);}
 	.yBoxFrame.yBoxImgWrap{width:-webkit-calc(100vw - 10px);width:calc(100vw - 10px);height:-webkit-calc(100vh - 10px);height:calc(100vh - 10px);}
 	.yBoxImgZoom{display:flex;justify-content:center;align-items:center;background:#171b1e;overflow:hidden;}
