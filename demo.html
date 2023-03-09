@@ -78,7 +78,7 @@
 					<td class="hide-on-tablet">:</td>
 					<td>
 						Calling the function before opening yBox<br />
-						self = The yBox button
+						self = The yBox button -> if no button then it return the div
 					</td>
 				</tr>
 				<tr>
@@ -86,7 +86,7 @@
 					<td class="hide-on-tablet">:</td>
 					<td>
 						Calling the function after opening yBox<br />
-						self = The yBox button
+						self = The yBox button -> if no button then it return the div
 					</td>
 				</tr>
 				<tr>
@@ -94,7 +94,7 @@
 					<td class="hide-on-tablet">:</td>
 					<td>
 						Calling the function before closing yBox<br />
-						self = The yBox button
+						self = The yBox button -> if no button then it return the div
 					</td>
 				</tr>
 				<tr>
@@ -102,7 +102,7 @@
 					<td class="hide-on-tablet">:</td>
 					<td>
 						Calling the function after yBox closed<br />
-						self = The yBox button
+						self = The yBox button -> if no button then it return the div
 					</td>
 				</tr>
 			</table>
@@ -277,7 +277,7 @@ yBox({
 
 <link rel="stylesheet" href="dist/css/ybox.min.css" />
 <script type="text/javascript" src="dist/js/directive.min.js"></script>
-<script type="text/javascript" src="dist/js/ybox.min.js?lang=en"></script>
+<script type="text/javascript" src="dist/js/ybox.js?lang=en"></script>
 
 <script type="text/javascript">
 function beforeYboxOpen(self){
@@ -291,9 +291,9 @@ function afterYboxOpen(self){
 	}
 };
 function beforeYboxClose(self){
-	if(self.hasClass('alertBeforeClose')){
+	if( self.hasClass('alertBeforeClose') ) {
 		let confirmAction = confirm("Are you sure you want to close yBox?");
-        if (!confirmAction) {
+        if ( ! confirmAction ) {
 			return false;
 		}
 	}
