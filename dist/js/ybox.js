@@ -1,4 +1,4 @@
-/*! yBox - v4.5 - 02/03/2023
+/*! yBox - v4.6 - 09/03/2023
 * By Yuval Ashkenazi
 * https://github.com/yuvalAshkenaz/yBox */
 
@@ -59,8 +59,15 @@ function yBox(json){
 		// self
 		// yBoxClass
 		// url
+		var a_or_div;
+		debugger;
+		if( json.self ) {
+			a_or_div = json.self;
+		} else if( json.url ) {
+			a_or_div = jQuery(json.url);
+		}
 		if(typeof beforeYboxOpen != 'undefined'){
-			beforeYboxOpen(json.self);
+			beforeYboxOpen( a_or_div );
 		}
 		var hasSelf = true;
 		
@@ -118,7 +125,7 @@ function yBox(json){
 		}
 		setTimeout(function(){
 			if(typeof afterYboxOpen != 'undefined'){
-				afterYboxOpen(json.self);
+				afterYboxOpen( a_or_div );
 			}
 		},200);
 	}
@@ -256,8 +263,14 @@ jQuery('body').on('click','.yBoxOverlay',function(e){
 		}
 	};
 	if(classes.indexOf('yBoxOverlay active') > -1 || e.target.className.indexOf('closeYbox') > -1){
-		if(typeof beforeYboxClose != 'undefined'){
-			var beforeClose = beforeYboxClose($('.yBox.yBoxFocus'));
+		var a_or_div;
+		if( jQuery('.yBox.yBoxFocus').length ) {
+			a_or_div = jQuery('.yBox.yBoxFocus');
+		} else if( jQuery('.insertYboxAjaxHere > div').attr('id').length ) {
+			a_or_div = jQuery( '#'+jQuery('.insertYboxAjaxHere > div').attr('id') );
+		}
+		if( typeof beforeYboxClose != 'undefined' ) {
+			var beforeClose = beforeYboxClose( a_or_div );
 			if(beforeClose == false)
 				return false;
 		}
@@ -265,12 +278,12 @@ jQuery('body').on('click','.yBoxOverlay',function(e){
 		jQuery('.yBoxFocus').focus();
 		setTimeout(function(){
 			if(jQuery('.yBoxFramePlaceHolder').length){
-				jQuery('.yBoxFramePlaceHolder').before(jQuery('.insertYboxAjaxHere').html());
+				jQuery('.yBoxFramePlaceHolder').before( jQuery('.insertYboxAjaxHere').html() );
 				jQuery('.yBoxFramePlaceHolder').remove();
 			}
 			jQuery('.yBoxOverlay').remove();
 			if(typeof afterYboxClose != 'undefined'){
-				afterYboxClose($('.yBox.yBoxFocus'));
+				afterYboxClose( a_or_div );
 			}
 		},600);
 	}
