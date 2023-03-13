@@ -1,4 +1,4 @@
-/*! yBox - v4.6 - 09/03/2023
+/*! yBox - v4.7 - 13/03/2023
 * By Yuval Ashkenazi
 * https://github.com/yuvalAshkenaz/yBox */
 
@@ -60,7 +60,6 @@ function yBox(json){
 		// yBoxClass
 		// url
 		var a_or_div;
-		debugger;
 		if( json.self ) {
 			a_or_div = json.self;
 		} else if( json.url ) {
@@ -150,7 +149,9 @@ function insertPopHtml(self,hasSelf,url,code){
 		}else if(self.hasClass('yBox_video')){
 			//video
 			jQuery('.yBoxFrame').addClass('yBoxIframeWrap');
-			jQuery('.yBoxFrame .insertYboxAjaxHere').html('<video class="yBoxVideo" autoplay controls preload plays-inline playsinline><source src="'+url+'" type="video/mp4" /></video>');
+			var code = '<video class="yBoxVideo" autoplay controls preload plays-inline playsinline><source src="'+url+'" type="video/mp4" /></video>';
+			code = yBox_Group(self, code);
+			jQuery('.yBoxFrame .insertYboxAjaxHere').html( code );
 		}else if(self.hasClass('yBox_ajax')){
 			//ajax
 			jQuery.get(url,function(data){
@@ -197,22 +198,22 @@ function insertPopHtml(self,hasSelf,url,code){
 		}
 	}
 };
-function yBox_Group( self, code ) {
-	var group = self.data('ybox-group');
+function yBox_Group( yBoxLink, code ) {
+	var group = yBoxLink.data('ybox-group');
 	if( group && jQuery('.yBox[data-ybox-group="'+group+'"]').length > 1 ) {
 		code = '<button type="button" class="yBoxNext" title="'+strings.next+'"></button>'+
 					code+
 				'<button type="button" class="yBoxPrev" title="'+strings.prev+'"></button>';
 	}
 	jQuery('.insertYboxAjaxHere').html(code);
-	jQuery('.yBoxNext').click(function(e){
-		yBoxNext(self);
-	});
-	jQuery('.yBoxPrev').click(function(e){
-		yBoxPrev(self);
-	});
 	return code;
 };
+jQuery('body').on('click','.yBoxNext',function(e){
+	yBoxNext( jQuery('.yBoxFocus') );
+});
+jQuery('body').on('click','.yBoxPrev',function(e){
+	yBoxPrev( jQuery('.yBoxFocus') );
+});
 function yBoxNext( self ) {
 	var group = self.data('ybox-group');
 	var next;
