@@ -1,4 +1,4 @@
-/*! yBox - v4.7 - 13/03/2023
+/*! yBox - v5 - 23/05/2023
 * By Yuval Ashkenazi
 * https://github.com/yuvalAshkenaz/yBox */
 .yBoxOverlay *{-webkit-box-sizing:border-box;box-sizing:border-box;}
@@ -28,10 +28,10 @@
 }
 .yBoxImgZoom{width:100%;height:100%;}
 .yBoxFrame{
-	background:#171b1e;
+	background-color:#fff;
 	border-radius:5px;
-	box-shadow:#fff 0px 0px 40px -17px;
-	color:#fff;
+	-webkit-box-shadow:rgba(0,0,0,0.3) 0 0 14px 0;
+	box-shadow:rgba(0,0,0,0.3) 0 0 14px 0;
 	max-width:-webkit-calc(100% - 10px);
 	max-width:calc(100% - 10px);
 	max-height:-webkit-calc(100vh - 10px);
@@ -43,17 +43,16 @@
 	transform:translate(0,30px);
 }
 .yBoxFrame.yBoxContentFrame{
-	background:#fff;
+	background-color:#fff;
 	color:#171b1e;
 }
 .yBoxOverlay.active .yBoxFrame{
 	-webkit-transform:translate(0,0);
 	transform:translate(0,0);
 }
-.closeYbox[type="button"],
-.closeYbox{
-	background:#171b1e;
-	background-size:100% 100%;
+.closeYbox,
+.closeYbox[type="button"] {
+	background-color:#fff;
 	width:35px;
 	height:35px;
 	position:absolute;
@@ -64,7 +63,6 @@
 	border:none;
 	cursor:pointer;
 	z-index:3;
-	border-radius:0 0 0 5px;
 }
 .yBoxRTL .closeYbox{
 	right:auto;
@@ -73,7 +71,7 @@
 .closeYbox::before,
 .closeYbox::after{
 	content:'';
-	background-color:#fff;
+	background-color:#171b1e;
 	width:25px;
 	height:2px;
 	position:absolute;
@@ -97,14 +95,14 @@
 	transform:rotate(45deg);
 }
 .yBoxFrame.yBoxContentFrame .closeYbox{
-	background:#fff;
+	background-color:#fff;
 }
 .yBoxFrame.yBoxContentFrame .closeYbox::after, 
 .yBoxFrame.yBoxContentFrame .closeYbox::before{
 	background-color:#171b1e;
 }
 .yBoxIframe{
-	background:#171b1e;
+	background-color:#171b1e;
 	width:100%;
 	height:100%;
 	position:absolute;
@@ -232,7 +230,7 @@
 	100%{box-shadow:0 -27px 0 0 rgba(0,0,0,0.05),19px -19px 0 0 rgba(0,0,0,0.1),27px 0 0 0 rgba(0,0,0,0.2),19px 19px 0 0 rgba(0,0,0,0.3),0 27px 0 0 rgba(0,0,0,0.4),-19px 19px 0 0 rgba(0,0,0,0.6),-27px 0 0 0 rgba(0,0,0,0.8),-19px -19px 0 0 #ffffff;}
 }
 .yBoxVideo{
-	background:#171b1e;
+	background-color:#171b1e;
 	width:100%;
 	height:100%;
 	vertical-align:top;
@@ -246,7 +244,7 @@
 	.yBoxNext,.yBoxPrev{width:50px;max-width:30%;height:50%;top:50%;-webkit-transform:translateY(-50%);transform:translateY(-50%);}
 	.yBoxFrame.yBoxImgWrap .insertYboxAjaxHere{height:-webkit-calc(100vh - 10px);height:calc(100vh - 10px);}
 	.yBoxFrame.yBoxImgWrap{width:-webkit-calc(100vw - 10px);width:calc(100vw - 10px);height:-webkit-calc(100vh - 10px);height:calc(100vh - 10px);}
-	.yBoxImgZoom{display:flex;justify-content:center;align-items:center;background:#171b1e;overflow:hidden;}
+	.yBoxImgZoom{display:flex;justify-content:center;align-items:center;background-color:#171b1e;overflow:hidden;}
 }
 @media screen and (max-width:479px){
 	.yBoxFrame.yBoxImgWrap,.yBoxFrame.yBoxIframeWrap{height:-webkit-calc(100vh - 80px);height:calc(100vh - 80px);}
