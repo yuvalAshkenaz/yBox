@@ -101,9 +101,6 @@ code : <span class="grey">'&lt;div class="my-class"&gt;Some text&lt;/div&gt;'</s
 </section>
 <section>
 <h3>Open yBox by calling the element from JavaScript</h3>
-<div style="display:none;">
-	<div id="popup" href="#popup">Hello :-)</div>
-</div>
 <pre><code><span class="blue">&lt;div</span> <span class="red">style</span>=<span class="purple">"display:none;"</span><span class="blue">&gt;</span>
 <span class="blue">&lt;div</span> <span class="red">id</span>=<span class="purple">"popup"</span><span class="blue">&gt;</span>Hello :-)<span class="blue">&lt;/div&gt;
 &lt;/div&gt;</span>
@@ -116,14 +113,14 @@ url : <span class="grey">'#popup'</span>
 <section>
 <h3>
 	Calling the function before opening yBox<br />
-	<span style="font-size:16px;">self = The yBox button</span>
+	self = The yBox button
 </h3>
 <pre><code><span class="blue">function</span> beforeYboxOpen(self){ <span class="green">/* Do something before yBox is open */</span> };</code></pre>
 </section>
 <section>
 <h3>
 	Calling the function after opening yBox<br />
-	<span style="font-size:16px;">self = The yBox button</span>
+	self = The yBox button
 </h3>
 <pre><code><span class="blue">function</span> afterYboxOpen(self){ <span class="green">/* Do something after yBox is open */</span> };</code></pre>
 </section>
