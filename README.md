@@ -1,107 +1,98 @@
+<link rel="stylesheet" href="dist/css/ybox.min.css" />
+<script type="text/javascript" src="dist/js/directive.min.js"></script>
+<script type="text/javascript" src="dist/js/ybox.js?lang=en"></script>
 
-	<main>
-		<section>
-			<h3>Files</h3>
-			<pre>
-				<code><span class="blue">&lt;link</span> <span class="red">rel</span><span class="purple">="stylesheet"</span> <span class="red">href</span><span class="purple">="dist/css/ybox.min.css"</span> <span class="blue">/&gt;</span>
-<span class="blue">&lt;script</span> <span class="red">type</span><span class="purple">="text/javascript"</span> <span class="red">src</span><span class="purple">="dist/js/directive.min.js"</span><span class="blue">/&gt;</span></script>
-<span class="blue">&lt;script</span> <span class="red">type</span><span class="purple">="text/javascript"</span> <span class="red">src</span><span class="purple">="dist/js/ybox.min.js?lang=he"</span><span class="blue">/&gt;</span></script></code>
-			</pre>
-		</section>
-		<section>
-			<h3>All parameters</h3>
-			<table border="0" cellpadding="10" cellspacing="0" width="100%" style="line-height:24px;">
-				<tr>
-					<td width="360">code</td>
-					<td width="25" class="hide-on-tablet">:</td>
-					<td>
-						When calling to yBox from your Java Script, you can write your HTML code<br />
-						<code>yBox({ code: '&lt;div class="my-class"&gt;Some text&lt;/div&gt;' });</code>
-					</td>
-				</tr>
-				<tr>
-					<td>self</td>
-					<td class="hide-on-tablet">:</td>
-					<td>
-						<code>
-							&lt;a href="#popup" class="yBox <b>my-link</b>"&gt;The link&lt;/a&gt;<br />
-							yBox({ self: jQuery('.my-link') });
-						</code>
-					</td>
-				</tr>
-				<tr>
-					<td>yBoxClass</td>
-					<td class="hide-on-tablet">:</td>
-					<td>
-						Added to &lt;div class="yBoxFrame"&gt; in yBox window<br />
-						<code>yBox({ yBoxClass: 'my-class' });</code>
-					</td>
-				</tr>
-				<tr>
-					<td>url</td>
-					<td class="hide-on-tablet">:</td>
-					<td>
-						When calling to element from java script.<br />
-						<code>&lt;div id="my-popup"&gt; &lt;/div&gt;</code><br />
-						<code>&lt;script&gt; yBox({ url: '#my-popup' }); &lt;/script&gt;</code>
-					</td>
-				</tr>
-				<tr>
-					<td>https://domain.com<b>?msg=</b>Some text</td>
-					<td class="hide-on-tablet">:</td>
-					<td>msg parameter in url pop the yBox with your text.</td>
-				</tr>
-				<tr>
-					<td>https://domain.com<b>?ybox-url</b>=my-popup</td>
-					<td class="hide-on-tablet">:</td>
-					<td>
-						Call to element from URL address<br />
-						<code>&lt;div id="my-popup"&gt; &lt;/div&gt;</code>
-					</td>
-				</tr>
-				<tr>
-					<td>https://domain.com<b>?ybox-class</b>=my-popup-class</td>
-					<td class="hide-on-tablet">:</td>
-					<td>add class to yBox window from URL address</td>
-				</tr>
-				<tr>
-					<td>function beforeYboxOpen(self){ ... };</td>
-					<td class="hide-on-tablet">:</td>
-					<td>
-						Calling the function before opening yBox<br />
-						self = The yBox button -> if no button then it return the div
-					</td>
-				</tr>
-				<tr>
-					<td>function afterYboxOpen(self){ ... };</td>
-					<td class="hide-on-tablet">:</td>
-					<td>
-						Calling the function after opening yBox<br />
-						self = The yBox button -> if no button then it return the div
-					</td>
-				</tr>
-				<tr>
-					<td>function beforeYboxClose(self){ ... };</td>
-					<td class="hide-on-tablet">:</td>
-					<td>
-						Calling the function before closing yBox<br />
-						self = The yBox button -> if no button then it return the div
-					</td>
-				</tr>
-				<tr>
-					<td>function afterYboxClose(self){ ... };</td>
-					<td class="hide-on-tablet">:</td>
-					<td>
-						Calling the function after yBox closed<br />
-						self = The yBox button -> if no button then it return the div
-					</td>
-				</tr>
-			</table>
-		</section>
-		<section>
-			<h3>Open yBox on page load</h3>
-			<pre>
-				<code><span class="blue">&lt;script&gt;</span>
+<table border="0" cellpadding="10" cellspacing="0" width="100%" style="line-height:24px;">
+	<tr>
+		<td width="360">code</td>
+		<td width="25" class="hide-on-tablet">:</td>
+		<td>
+			When calling to yBox from your Java Script, you can write your HTML code<br />
+			<code>yBox({ code: '&lt;div class="my-class"&gt;Some text&lt;/div&gt;' });</code>
+		</td>
+	</tr>
+	<tr>
+		<td>self</td>
+		<td class="hide-on-tablet">:</td>
+		<td>
+			<code>
+				&lt;a href="#popup" class="yBox <b>my-link</b>"&gt;The link&lt;/a&gt;<br />
+				yBox({ self: jQuery('.my-link') });
+			</code>
+		</td>
+	</tr>
+	<tr>
+		<td>yBoxClass</td>
+		<td class="hide-on-tablet">:</td>
+		<td>
+			Added to &lt;div class="yBoxFrame"&gt; in yBox window<br />
+			<code>yBox({ yBoxClass: 'my-class' });</code>
+		</td>
+	</tr>
+	<tr>
+		<td>url</td>
+		<td class="hide-on-tablet">:</td>
+		<td>
+			When calling to element from java script.<br />
+			<code>&lt;div id="my-popup"&gt; &lt;/div&gt;</code><br />
+			<code>&lt;script&gt; yBox({ url: '#my-popup' }); &lt;/script&gt;</code>
+		</td>
+	</tr>
+	<tr>
+		<td>https://domain.com<b>?msg=</b>Some text</td>
+		<td class="hide-on-tablet">:</td>
+		<td>msg parameter in url pop the yBox with your text.</td>
+	</tr>
+	<tr>
+		<td>https://domain.com<b>?ybox-url</b>=my-popup</td>
+		<td class="hide-on-tablet">:</td>
+		<td>
+			Call to element from URL address<br />
+			<code>&lt;div id="my-popup"&gt; &lt;/div&gt;</code>
+		</td>
+	</tr>
+	<tr>
+		<td>https://domain.com<b>?ybox-class</b>=my-popup-class</td>
+		<td class="hide-on-tablet">:</td>
+		<td>add class to yBox window from URL address</td>
+	</tr>
+	<tr>
+		<td>function beforeYboxOpen(self){ ... };</td>
+		<td class="hide-on-tablet">:</td>
+		<td>
+			Calling the function before opening yBox<br />
+			self = The yBox button -> if no button then it return the div
+		</td>
+	</tr>
+	<tr>
+		<td>function afterYboxOpen(self){ ... };</td>
+		<td class="hide-on-tablet">:</td>
+		<td>
+			Calling the function after opening yBox<br />
+			self = The yBox button -> if no button then it return the div
+		</td>
+	</tr>
+	<tr>
+		<td>function beforeYboxClose(self){ ... };</td>
+		<td class="hide-on-tablet">:</td>
+		<td>
+			Calling the function before closing yBox<br />
+			self = The yBox button -> if no button then it return the div
+		</td>
+	</tr>
+	<tr>
+		<td>function afterYboxClose(self){ ... };</td>
+		<td class="hide-on-tablet">:</td>
+		<td>
+			Calling the function after yBox closed<br />
+			self = The yBox button -> if no button then it return the div
+		</td>
+	</tr>
+</table>
+<section>
+<h3>Open yBox on page load</h3>
+<pre>
+<code><span class="blue">&lt;script&gt;</span>
 yBox({
     code : <span class="grey">'&lt;div class="my-class"&gt;Some text&lt;/div&gt;'</span>
 });
@@ -209,17 +200,7 @@ yBox({
 			</pre>
 		</section>
 		<section>
-			<h3>Add different class <span class="grey2" style="display:inline-block;direction:ltr;">( data-ybox-class="my_class" )</span></h3>
-			<a href="#myLink" data-ybox-class="myYboxClass" class="yBox">Click here for example</a>
-			<pre> 
-				<code><span class="blue">&lt;a</span> <span class="red">href</span>="<span class="purple">#myLink</span>" <span class="red">data-ybox-class</span>="<span class="purple">myYboxClass</span>" <span class="red">class</span>="<span class="purple">yBox</span>"<span class="blue">&gt; &lt;/a&gt;</span></code>
-			</pre>
-
-			<div style="display:none;">
-				<div id="myLink" style="direction:ltr;">
-					Hey - look at me!!
-				</div> 
-			</div> 
+			<h3>Add different class ( data-ybox-class="my_class" )</h3>
 		</section>
 		<section>
 			<h3>Open with AJAX <span class="grey2" style="display:inline-block;direction:ltr;">( class="yBox yBox_ajax" )</span></h3>
