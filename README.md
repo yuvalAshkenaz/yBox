@@ -1,8 +1,8 @@
-<div>
+<code>
 <link rel="stylesheet" href="dist/css/ybox.min.css" />
 <script type="text/javascript" src="dist/js/directive.min.js"></script>
 <script type="text/javascript" src="dist/js/ybox.js?lang=en"></script>
-</div>
+</code>
 <table border="0" cellpadding="10" cellspacing="0" width="100%" style="line-height:24px;">
 	<tr>
 		<td width="360">code</td>
