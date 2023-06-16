@@ -162,7 +162,6 @@ url : <span class="grey">'#popup'</span>
 </section>
 <section>
 <h3>Open with AJAX <span class="grey2" style="display:inline-block;direction:ltr;">( class="yBox yBox_ajax" )</span></h3>
-<a href="https://www.google.com" class="yBox yBox_ajax">Click here for example</a>
 <pre><code><span class="blue">&lt;a</span> <span class="red">href</span>="<span class="purple">https://www.google.com</span>" <span class="red">class</span>="<span class="purple">yBox yBox_ajax</span>"<span class="blue">&gt; &lt;/a&gt;</span></code></pre>
 </section>
 <section>
