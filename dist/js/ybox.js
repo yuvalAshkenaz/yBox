@@ -70,13 +70,13 @@ function yBox(json){
 		}
 		var hasSelf = true;
 		
-		if(typeof json.yBoxClass == 'undefined'){
+		if( typeof json.yBoxClass == 'undefined' ) {
 			json.yBoxClass = '';
 		}
-		if(typeof json.self == 'undefined' || !json.self){
+		if( typeof json.self == 'undefined' || ! json.self ) {
 			hasSelf = false;
 		}
-		if(hasSelf){
+		if( hasSelf ) {
 			json.yBoxClass = json.self.data('ybox-class') || '';
 			json.url = json.self.attr('href');
 		}
@@ -89,20 +89,20 @@ function yBox(json){
 						</div>\
 					</div>';
 					
-		if(!jQuery('.yBoxFrame').length){
-			jQuery('body').append(html);
-			insertPopHtml(json.self,hasSelf,json.url,json.code);
+		if( ! jQuery('.yBoxFrame').length ) {
+			jQuery('body').append( html );
+			insert_yBox_html( json.self ,hasSelf, json.url, json.code );
 			setTimeout(function(){
 				jQuery('.yBoxOverlay').addClass('active');
-			},200);
+			}, 200);
 		}else{
-			if(jQuery('.yBoxFrame.yBoxImgWrap').length){
+			if( jQuery('.yBoxFrame.yBoxImgWrap').length ) {
 				if(jQuery('.yBoxFramePlaceHolder').length){
 					jQuery('.yBoxFramePlaceHolder').before(jQuery('.insertYboxAjaxHere').html());
 					jQuery('.yBoxFramePlaceHolder').remove();
 				}
 				jQuery('.insertYboxAjaxHere').html('');
-				insertPopHtml(json.self,hasSelf,json.url,json.code);
+				insert_yBox_html(json.self,hasSelf,json.url,json.code);
 			}else{
 				jQuery('.insertYboxAjaxHere').animate({
 					opacity : 0
@@ -114,7 +114,7 @@ function yBox(json){
 							jQuery('.yBoxFramePlaceHolder').remove();
 						}
 						jQuerythis.html('');
-						insertPopHtml(json.self,hasSelf,json.url,json.code);
+						insert_yBox_html(json.self,hasSelf,json.url,json.code);
 						jQuery('.insertYboxAjaxHere').animate({
 							opacity : 1
 						});
@@ -129,7 +129,7 @@ function yBox(json){
 		},200);
 	}
 };
-function insertPopHtml(self,hasSelf,url,code){
+function insert_yBox_html( self, hasSelf, url, code ) {
 	jQuery('.yBoxFrame').removeClass('yBoxIframeWrap yBoxImgWrap');
 	if(hasSelf){
 		if( self.hasClass('yBox_iframe') ) {
@@ -276,20 +276,20 @@ jQuery('body').on('click','.yBoxOverlay',function(e){
 		}
 		if( typeof beforeYboxClose != 'undefined' ) {
 			var beforeClose = beforeYboxClose( a_or_div );
-			if(beforeClose == false)
+			if( beforeClose == false )
 				return false;
 		}
 		jQuery('.yBoxOverlay').removeClass('active');
 		jQuery('.yBoxFocus').focus();
 		setTimeout(function(){
-			if(jQuery('.yBoxFramePlaceHolder').length){
+			if( typeof afterYboxClose != 'undefined' ) {
+				afterYboxClose( a_or_div );
+			}
+			if( jQuery('.yBoxFramePlaceHolder').length ) {
 				jQuery('.yBoxFramePlaceHolder').before( jQuery('.insertYboxAjaxHere').html() );
 				jQuery('.yBoxFramePlaceHolder').remove();
 			}
 			jQuery('.yBoxOverlay').remove();
-			if(typeof afterYboxClose != 'undefined'){
-				afterYboxClose( a_or_div );
-			}
 		},600);
 	}
 });
