@@ -270,11 +270,9 @@ jQuery('body').on('click','.yBoxOverlay',function(e){
 			e.target.className.indexOf('closeYbox') > -1
 		) 
 	) {
-		var a_or_div;
+		var a_or_div = jQuery('.insertYboxAjaxHere > *').eq(0);
 		if( jQuery('.yBox.yBoxFocus').length ) {
 			a_or_div = jQuery('.yBox.yBoxFocus');
-		} else if( jQuery('.insertYboxAjaxHere > div').attr('id').length ) {
-			a_or_div = jQuery( '#'+jQuery('.insertYboxAjaxHere > div').attr('id') );
 		}
 		if( typeof beforeYboxClose != 'undefined' ) {
 			var beforeClose = beforeYboxClose( a_or_div );
