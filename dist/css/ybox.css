@@ -1,4 +1,4 @@
-/*! yBox - v5 - 23/05/2023
+/*! yBox - v5.3 - 24/08/2023
 * By Yuval Ashkenazi
 * https://github.com/yuvalAshkenaz/yBox */
 .yBoxOverlay *{-webkit-box-sizing:border-box;box-sizing:border-box;}
@@ -63,10 +63,6 @@
 	border:none;
 	cursor:pointer;
 	z-index:3;
-}
-.yBoxRTL .closeYbox{
-	right:auto;
-	left:10px;
 }
 .closeYbox::before,
 .closeYbox::after{
