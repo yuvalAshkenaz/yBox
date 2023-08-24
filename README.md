@@ -1,6 +1,5 @@
 <pre><code>
 &lt;link rel="stylesheet" href="dist/css/ybox.min.css" /&gt;
-&lt;script type="text/javascript" src="dist/js/directive.min.js"&gt;&lt;/script&gt;
 &lt;script type="text/javascript" src="dist/js/ybox.js?lang=en"&gt;&lt;/script&gt;
 
 </code></pre>
