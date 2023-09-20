@@ -1,4 +1,4 @@
-/*! yBox - v5.3 - 24/08/2023
+/*! yBox - v5.4 - 20/09/2023
 * By Yuval Ashkenazi
 * https://github.com/yuvalAshkenaz/yBox */
 
@@ -658,14 +658,14 @@ function yBox( obj ) {
 			obj.yBoxClass = obj.self.data('ybox-class') || '';
 			obj.url = obj.self.attr('href');
 		}
-		var html = '<div class="yBoxOverlay no-contrast' + ( yLang == 'he' ? ' yBoxRTL' : '' ) + '">\
-						<div class="yBoxFrame ' + obj.yBoxClass + '">\
-							<button type="button" class="closeYboxOnFocus"></button>\
-							<div class="insertYboxAjaxHere" tabindex="0"></div>\
-							<button type="button" class="closeYbox" title="' + strings.close + '"></button>\
-							<button type="button" class="closeYboxOnFocus"></button>\
-						</div>\
-					</div>';
+		var html = '<div class="yBoxOverlay no-contrast' + ( yLang == 'he' ? ' yBoxRTL' : '' ) + '">'+
+						'<div class="yBoxFrame ' + obj.yBoxClass + '">'+
+							'<button type="button" class="closeYboxOnFocus"></button>'+
+							'<div class="insertYboxAjaxHere" tabindex="0"></div>'+
+							'<button type="button" class="closeYbox" title="' + strings.close + '"></button>'+
+							'<button type="button" class="closeYboxOnFocus"></button>'+
+						'</div>'+
+					'</div>';
 					
 		if( ! jQuery('.yBoxFrame').length ) {
 			jQuery('body').append( html );
@@ -675,10 +675,7 @@ function yBox( obj ) {
 			}, 200);
 		} else {
 			if( jQuery('.yBoxFrame.yBoxImgWrap').length ) {
-				if( jQuery('.yBoxFramePlaceHolder').length ) {
-					jQuery('.yBoxFramePlaceHolder').before( jQuery('.insertYboxAjaxHere').html() );
-					jQuery('.yBoxFramePlaceHolder').remove();
-				}
+				remove_yBox_placeholder();
 				jQuery('.insertYboxAjaxHere').html('');
 				insert_yBox_html(obj.self,hasSelf,obj.url,obj.code);
 			} else {
@@ -687,10 +684,7 @@ function yBox( obj ) {
 				}, function(){
 					var athis = jQuery(this);
 					setTimeout(function(){
-						if(jQuery('.yBoxFramePlaceHolder').length){
-							jQuery('.yBoxFramePlaceHolder').before( jQuery('.insertYboxAjaxHere').html() );
-							jQuery('.yBoxFramePlaceHolder').remove();
-						}
+						remove_yBox_placeholder();
 						athis.html('');
 						insert_yBox_html( obj.self, hasSelf, obj.url, obj.code );
 						jQuery('.insertYboxAjaxHere').animate({
@@ -863,14 +857,22 @@ jQuery('body').on('click','.yBoxOverlay',function(e){
 			if( typeof afterYboxClose != 'undefined' ) {
 				afterYboxClose( a_or_div );
 			}
-			if( jQuery('.yBoxFramePlaceHolder').length ) {
-				jQuery('.yBoxFramePlaceHolder').before( jQuery('.insertYboxAjaxHere').html() );
-				jQuery('.yBoxFramePlaceHolder').remove();
-			}
+			remove_yBox_placeholder();
 			jQuery('.yBoxOverlay').remove();
 		},600);
 	}
 });
+function remove_yBox_placeholder() {
+	if( jQuery('.yBoxFramePlaceHolder').length ) {
+		var element_id = jQuery('.insertYboxAjaxHere > *').eq(0).attr('id');
+		if( element_id ) {
+			jQuery('#'+element_id).insertBefore('.yBoxFramePlaceHolder');
+		} else {
+			jQuery('.yBoxFramePlaceHolder').before( jQuery('.insertYboxAjaxHere').html() );
+		}
+		jQuery('.yBoxFramePlaceHolder').remove();
+	}
+}
 jQuery('body').on('focus','.closeYboxOnFocus',function(){
 	jQuery('.closeYbox').trigger('click');
 });
