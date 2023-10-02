@@ -35,7 +35,7 @@ Added to &lt;div class="yBoxFrame"&gt; in yBox window<br />
 <td class="hide-on-tablet">:</td>
 <td>
 When calling to element from java script.<br />
-<code>&lt;div id="my-popup"&gt; &lt;/div&gt;</code><br />
+<code>&lt;div style="display:none;"&gt;&lt;div id="my-popup"&gt; &lt;/div&gt;&lt;/div&gt;</code><br />
 <code>&lt;script&gt; yBox({ url: '#my-popup' }); &lt;/script&gt;</code>
 </td>
 </tr>
@@ -49,7 +49,7 @@ When calling to element from java script.<br />
 <td class="hide-on-tablet">:</td>
 <td>
 Call to element from URL address<br />
-<code>&lt;div id="my-popup"&gt; &lt;/div&gt;</code>
+<code>&lt;div style="display:none;"&gt;&lt;div id="my-popup"&gt; &lt;/div&gt;&lt;/div&gt;</code>
 </td>
 </tr>
 <tr>
