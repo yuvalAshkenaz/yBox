@@ -1,4 +1,4 @@
-/*! yBox - v5.4 - 20/09/2023
+/*! yBox - v5.4.1 - 05/10/2023
 * By Yuval Ashkenazi
 * https://github.com/yuvalAshkenaz/yBox */
 
@@ -604,6 +604,14 @@ if( yLang == 'he' || yLang == 'he-IL' || yLang == 'he_IL' ) {
 		prev	: 'הקודם'
 	};
 }
+if( yLang == 'ar' || yLang == 'ar-ar' ) {
+	yLang = 'ar';
+	strings = {
+		close	: 'لإغلاق',
+		next	: 'التالي',
+		prev	: 'السابق'
+	};
+}
 
 var url = new URL(window.location.href);
 var msg = url.searchParams.get("msg");
@@ -658,7 +666,7 @@ function yBox( obj ) {
 			obj.yBoxClass = obj.self.data('ybox-class') || '';
 			obj.url = obj.self.attr('href');
 		}
-		var html = '<div class="yBoxOverlay no-contrast' + ( yLang == 'he' ? ' yBoxRTL' : '' ) + '">'+
+		var html = '<div class="yBoxOverlay no-contrast' + ( yLang == 'he' || yLang == 'ar' ? ' yBoxRTL' : '' ) + '">'+
 						'<div class="yBoxFrame ' + obj.yBoxClass + '">'+
 							'<button type="button" class="closeYboxOnFocus"></button>'+
 							'<div class="insertYboxAjaxHere" tabindex="0"></div>'+
