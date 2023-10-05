@@ -596,7 +596,7 @@ var strings = {
 	next	: 'Next',
 	prev	: 'Prev'
 };
-if(yLang == 'he' || yLang == 'he-IL'){
+if( yLang == 'he' || yLang == 'he-IL' || yLang == 'he_IL' ) {
 	yLang = 'he';
 	strings = {
 		close	: 'סגירה',
@@ -609,7 +609,7 @@ var url = new URL(window.location.href);
 var msg = url.searchParams.get("msg");
 var yBoxPrm = url.searchParams.get("ybox-url");
 var yBoxClassPrm = url.searchParams.get("ybox-class");
-if(msg || yBoxPrm){
+if( msg || yBoxPrm ) {
 	if(!jQuery.isEmptyObject(yBoxPrm) && (yBoxPrm.indexOf('http:') == -1 && yBoxPrm.indexOf('https:') == -1)){
 		yBoxPrm = '#'+yBoxPrm;
 	}
