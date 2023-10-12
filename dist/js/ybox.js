@@ -1,4 +1,4 @@
-/*! yBox - v5.4.1 - 05/10/2023
+/*! yBox - v5.4.2 - 12/10/2023
 * By Yuval Ashkenazi
 * https://github.com/yuvalAshkenaz/yBox */
 
@@ -765,9 +765,9 @@ function insert_yBox_html( self, hasSelf, url, code ) {
 				if( self.data('focus') ) {
 					jQuery('.insertYboxAjaxHere .'+self.data('focus')).focus();
 				} else {
-					jQuery('.insertYboxAjaxHere iframe, .insertYboxAjaxHere a, .insertYboxAjaxHere input:not([type="hidden"]), .insertYboxAjaxHere select:not(.select2), .insertYboxAjaxHere .select2-selection, .insertYboxAjaxHere button').first().focus();
+					setYboxFocus();
 				}
-			},500);
+			}, 500);
 		}
 	} else {
 		if( ! code && url ) {
@@ -776,6 +776,24 @@ function insert_yBox_html( self, hasSelf, url, code ) {
 		} else {
 			jQuery('.insertYboxAjaxHere').html( code );
 		}
+		setTimeout(function(){
+			setYboxFocus();
+		}, 500);
+	}
+};
+function setYboxFocus(){
+	var focusable = jQuery(
+		'.insertYboxAjaxHere iframe,'+
+		'.insertYboxAjaxHere a,'+
+		'.insertYboxAjaxHere input:not([type="hidden"]),'+
+		'.insertYboxAjaxHere select:not(.select2),'+
+		'.insertYboxAjaxHere .select2-selection,'+
+		'.insertYboxAjaxHere button'
+	);
+	if( focusable.length ) {
+		focusable.first().focus();
+	} else {
+		jQuery('.insertYboxAjaxHere').focus();
 	}
 };
 function yBox_Group( yBoxLink, code ) {
