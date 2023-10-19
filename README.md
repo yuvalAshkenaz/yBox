@@ -31,6 +31,14 @@ Added to &lt;div class="yBoxFrame"&gt; in yBox window<br />
 </td>
 </tr>
 <tr>
+					<td>focus</td>
+					<td class="hide-on-tablet">:</td>
+					<td>
+						Focus the element you want when yBox opens<br />
+						<code>yBox({ focus: '.focus-class' });</code>
+					</td>
+				</tr>
+<tr>
 <td>url</td>
 <td class="hide-on-tablet">:</td>
 <td>
