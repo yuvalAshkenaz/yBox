@@ -1,7 +1,6 @@
 <pre><code>
 &lt;link rel="stylesheet" href="dist/css/ybox.min.css" /&gt;
 &lt;script type="text/javascript" src="dist/js/ybox.js?lang=en"&gt;&lt;/script&gt;
-
 </code></pre>
 <table border="0" cellpadding="10" cellspacing="0" width="100%" style="line-height:24px;">
 <tr>
@@ -16,9 +15,8 @@ When calling to yBox from your Java Script, you can write your HTML code<br />
 <td>self</td>
 <td class="hide-on-tablet">:</td>
 <td>
-<code>
-	&lt;a href="#popup" class="yBox <b>my-link</b>"&gt;The link&lt;/a&gt;<br />
-	yBox({ self: jQuery('.my-link') });
+<code>&lt;a href="#popup" class="yBox <b>my-link</b>"&gt;The link&lt;/a&gt;<br />
+yBox({ self: jQuery('.my-link') });
 </code>
 </td>
 </tr>
@@ -31,13 +29,13 @@ Added to &lt;div class="yBoxFrame"&gt; in yBox window<br />
 </td>
 </tr>
 <tr>
-					<td>focus</td>
-					<td class="hide-on-tablet">:</td>
-					<td>
-						Focus the element you want when yBox opens<br />
-						<code>yBox({ focus: '.focus-class' });</code>
-					</td>
-				</tr>
+<td>focus</td>
+<td class="hide-on-tablet">:</td>
+<td>
+Focus the element you want when yBox opens<br />
+<code>yBox({ focus: '.focus-class' });</code>
+</td>
+</tr>
 <tr>
 <td>url</td>
 <td class="hide-on-tablet">:</td>
