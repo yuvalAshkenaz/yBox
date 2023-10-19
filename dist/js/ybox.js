@@ -1,4 +1,4 @@
-/*! yBox - v5.4.2 - 12/10/2023
+﻿/*! yBox - v5.5 - 19/10/2023
 * By Yuval Ashkenazi
 * https://github.com/yuvalAshkenaz/yBox */
 
@@ -590,22 +590,22 @@ jQuery('body').on('click','.yBox',function(e){
 	yBox({ self: self });
 });
 var yUrl = new URL(document.currentScript.src);
-var yLang = yUrl.searchParams.get("lang");
+var yBox_lang = yUrl.searchParams.get("lang");
 var strings = {
 	close	: 'Close',
 	next	: 'Next',
 	prev	: 'Prev'
 };
-if( yLang == 'he' || yLang == 'he-IL' || yLang == 'he_IL' ) {
-	yLang = 'he';
+if( yBox_lang == 'he' || yBox_lang == 'he-IL' || yBox_lang == 'he_IL' ) {
+	yBox_lang = 'he';
 	strings = {
 		close	: 'סגירה',
 		next	: 'הבא',
 		prev	: 'הקודם'
 	};
 }
-if( yLang == 'ar' || yLang == 'ar-ar' ) {
-	yLang = 'ar';
+if( yBox_lang == 'ar' || yBox_lang == 'ar-ar' ) {
+	yBox_lang = 'ar';
 	strings = {
 		close	: 'لإغلاق',
 		next	: 'التالي',
@@ -666,18 +666,24 @@ function yBox( obj ) {
 			obj.yBoxClass = obj.self.data('ybox-class') || '';
 			obj.url = obj.self.attr('href');
 		}
-		var html = '<div class="yBoxOverlay no-contrast' + ( yLang == 'he' || yLang == 'ar' ? ' yBoxRTL' : '' ) + '">'+
+		var html = '<div class="yBoxOverlay no-contrast' + ( yBox_lang == 'he' || yBox_lang == 'ar' ? ' yBoxRTL' : '' ) + '">'+
 						'<div class="yBoxFrame ' + obj.yBoxClass + '">'+
 							'<button type="button" class="closeYboxOnFocus"></button>'+
-							'<div class="insertYboxAjaxHere" tabindex="0"></div>'+
 							'<button type="button" class="closeYbox" title="' + strings.close + '"></button>'+
+							'<div class="insertYboxAjaxHere" tabindex="0"></div>'+
 							'<button type="button" class="closeYboxOnFocus"></button>'+
 						'</div>'+
 					'</div>';
 					
 		if( ! jQuery('.yBoxFrame').length ) {
 			jQuery('body').append( html );
-			insert_yBox_html( obj.self ,hasSelf, obj.url, obj.code );
+			insert_yBox_html({
+				self	: obj.self,
+				hasSelf	: hasSelf,
+				url		: obj.url,
+				code	: obj.code,
+				focus	: obj.focus
+			});
 			setTimeout(function(){
 				jQuery('.yBoxOverlay').addClass('active');
 			}, 200);
@@ -685,7 +691,13 @@ function yBox( obj ) {
 			if( jQuery('.yBoxFrame.yBoxImgWrap').length ) {
 				remove_yBox_placeholder();
 				jQuery('.insertYboxAjaxHere').html('');
-				insert_yBox_html(obj.self,hasSelf,obj.url,obj.code);
+				insert_yBox_html({
+					self	: obj.self,
+					hasSelf	: hasSelf,
+					url		: obj.url,
+					code	: obj.code,
+					focus	: obj.focus
+				});
 			} else {
 				jQuery('.insertYboxAjaxHere').animate({
 					opacity : 0
@@ -694,7 +706,13 @@ function yBox( obj ) {
 					setTimeout(function(){
 						remove_yBox_placeholder();
 						athis.html('');
-						insert_yBox_html( obj.self, hasSelf, obj.url, obj.code );
+						insert_yBox_html({
+							self	: obj.self,
+							hasSelf	: hasSelf,
+							url		: obj.url,
+							code	: obj.code,
+							focus	: obj.focus
+						});
 						jQuery('.insertYboxAjaxHere').animate({
 							opacity : 1
 						});
@@ -703,97 +721,87 @@ function yBox( obj ) {
 			}
 		}
 		setTimeout(function(){
-			if(typeof afterYboxOpen != 'undefined'){
+			if( typeof afterYboxOpen != 'undefined' ) {
 				afterYboxOpen( a_or_div );
 			}
 		}, 200);
 	}
 };
-function insert_yBox_html( self, hasSelf, url, code ) {
+function insert_yBox_html( obj ) {
 	jQuery('.yBoxFrame').removeClass('yBoxIframeWrap yBoxImgWrap');
-	if( hasSelf ) {
-		if( self.hasClass('yBox_iframe') ) {
+	if( obj.hasSelf ) {
+		if( obj.self.hasClass('yBox_iframe') ) {
 			//iframe
 			jQuery('.yBoxFrame').addClass('yBoxIframeWrap');
-			if(url.toLowerCase().indexOf('youtube') > -1 || url.toLowerCase().indexOf('youtu.be') > -1){
-				var youtube_id = url.replace(/^[^v]+v.(.{11}).*/,"$1").replace('https://youtu.be/','').replace(/.*youtube.com\/embed\//,'');
-				url = 'https://www.youtube.com/embed/'+youtube_id+'?wmode=transparent&rel=0&autoplay=1&hl='+yLang;
+			if( obj.url.toLowerCase().indexOf('youtube') > -1 || obj.url.toLowerCase().indexOf('youtu.be') > -1 ) {
+				var youtube_id = obj.url.replace(/^[^v]+v.(.{11}).*/,"$1").replace('https://youtu.be/','').replace(/.*youtube.com\/embed\//,'');
+				obj.url = 'https://www.youtube.com/embed/'+youtube_id+'?wmode=transparent&rel=0&autoplay=1&hl='+yBox_lang;
 			}
-			if(url.toLowerCase().indexOf('vimeo') > -1){
-				var vimeoID = url.replace(/[^0-9]/g,'');
-				url = 'https://player.vimeo.com/video/'+vimeoID+'?autoplay=1';
+			if( obj.url.toLowerCase().indexOf('vimeo') > -1 ) {
+				var vimeoID = obj.url.replace(/[^0-9]/g,'');
+				obj.url = 'https://player.vimeo.com/video/'+vimeoID+'?autoplay=1';
 			}
-			var code = '<iframe src="'+url+'" frameborder="0" wmode="Opaque" allow="autoplay" allowfullscreen class="yBoxIframe"></iframe>';
-			code = yBox_Group(self, code);
-			// jQuery('.yBoxFrame .insertYboxAjaxHere').html( code );
-		} else if( self.hasClass('yBox_video') ) {
+			var code = '<iframe src="'+obj.url+'" frameborder="0" wmode="Opaque" allow="autoplay" allowfullscreen class="yBoxIframe"></iframe>';
+			code = yBox_Group(obj.self, code);
+		} else if( obj.self.hasClass('yBox_video') ) {
 			//video
 			jQuery('.yBoxFrame').addClass('yBoxIframeWrap');
-			var code = '<video class="yBoxVideo" autoplay controls preload plays-inline playsinline><source src="'+url+'" type="video/mp4" /></video>';
-			code = yBox_Group(self, code);
+			var code = '<video class="yBoxVideo" autoplay controls preload plays-inline playsinline><source src="'+obj.url+'" type="video/mp4" /></video>';
+			code = yBox_Group(obj.self, code);
 			jQuery('.yBoxFrame .insertYboxAjaxHere').html( code );
-		} else if( self.hasClass('yBox_ajax') ) {
+		} else if( obj.self.hasClass('yBox_ajax') ) {
 			//ajax
-			jQuery.get( url, function(data) {
+			jQuery.get( obj.url, function(data) {
 				jQuery('.insertYboxAjaxHere').addClass('isAjax').html(data);
 			});
-		} else if( url.indexOf('#') == -1 ) {
+		} else if( obj.url.indexOf('#') == -1 ) {
 			//image
 			jQuery('.yBoxFrame').addClass('yBoxImgWrap');
 			jQuery('.insertYboxAjaxHere').append('<div style="text-align:center;position:absolute;right:0;left:0;top:0;bottom:0;"><div class="yBoxLoader"></div></div>');
 			var img = new Image();
-			img.src = url;
+			img.src = obj.url;
 			img.className = 'yBoxImg';
 			img.onload = function(){
-				var alt = self.data('ybox-alt') || '';
-				var code = '<div class="yBoxImgZoom"><img src="'+url+'" alt="'+alt+'" class="yBoxImg" /></div>';
-				code = yBox_Group(self, code);
+				var alt = obj.self.data('ybox-alt') || '';
+				var code = '<div class="yBoxImgZoom"><img src="'+obj.url+'" alt="'+alt+'" class="yBoxImg" /></div>';
+				code = yBox_Group(obj.self, code);
 				
-				// jQuery('.insertYboxAjaxHere').html(code);
 				if(window.screen.width <= 767)
 					ybox_zoom({zoom:'yBoxImgZoom'});
 			};
 		} else {
-			jQuery(url).after('<div class="yBoxFramePlaceHolder"></div>');
+			jQuery(obj.url).after('<div class="yBoxFramePlaceHolder"></div>');
 			if(jQuery('.insertYboxAjaxHere.isAjax').length){
 				jQuery('.insertYboxAjaxHere.isAjax').removeClass('isAjax');
 			}
-			jQuery(url).appendTo('.insertYboxAjaxHere');
+			jQuery(obj.url).appendTo('.insertYboxAjaxHere');
 		}
 		if( window.screen.width > 991 ) {
 			setTimeout(function(){
-				if( self.data('focus') ) {
-					jQuery('.insertYboxAjaxHere .'+self.data('focus')).focus();
+				if( obj.self.data('focus') ) {
+					jQuery('.insertYboxAjaxHere .'+obj.self.data('focus')).focus();
 				} else {
 					setYboxFocus();
 				}
 			}, 500);
 		}
 	} else {
-		if( ! code && url ) {
-			jQuery(url).after('<div class="yBoxFramePlaceHolder"></div>');
-			jQuery(url).appendTo('.insertYboxAjaxHere');
+		if( typeof obj.code == 'undefined' && obj.url ) {
+			jQuery(obj.url).after('<div class="yBoxFramePlaceHolder"></div>');
+			jQuery(obj.url).appendTo('.insertYboxAjaxHere');
 		} else {
-			jQuery('.insertYboxAjaxHere').html( code );
+			jQuery('.insertYboxAjaxHere').html( obj.code );
 		}
 		setTimeout(function(){
-			setYboxFocus();
+			setYboxFocus({ focus: obj.focus });
 		}, 500);
 	}
 };
-function setYboxFocus(){
-	var focusable = jQuery(
-		'.insertYboxAjaxHere iframe,'+
-		'.insertYboxAjaxHere a,'+
-		'.insertYboxAjaxHere input:not([type="hidden"]),'+
-		'.insertYboxAjaxHere select:not(.select2),'+
-		'.insertYboxAjaxHere .select2-selection,'+
-		'.insertYboxAjaxHere button'
-	);
-	if( focusable.length ) {
-		focusable.first().focus();
+function setYboxFocus( obj ){
+	if( typeof obj != 'undefined' && typeof obj.focus != 'undefined' ) {
+		jQuery( obj.focus ).focus();
 	} else {
-		jQuery('.insertYboxAjaxHere').focus();
+		jQuery('.closeYbox').focus();
 	}
 };
 function yBox_Group( yBoxLink, code ) {
