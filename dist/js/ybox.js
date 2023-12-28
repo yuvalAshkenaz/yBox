@@ -1,4 +1,4 @@
-﻿/*! yBox - v5.5 - 19/10/2023
+﻿/*! yBox - v6 - 28/12/2023
 * By Yuval Ashkenazi
 * https://github.com/yuvalAshkenaz/yBox */
 
@@ -690,7 +690,7 @@ function yBox( obj ) {
 		} else {
 			if( jQuery('.yBoxFrame.yBoxImgWrap').length ) {
 				remove_yBox_placeholder();
-				jQuery('.insertYboxAjaxHere').html('');
+				// jQuery('.insertYboxAjaxHere').html('');
 				insert_yBox_html({
 					self	: obj.self,
 					hasSelf	: hasSelf,
@@ -758,13 +758,28 @@ function insert_yBox_html( obj ) {
 			//image
 			jQuery('.yBoxFrame').addClass('yBoxImgWrap');
 			jQuery('.insertYboxAjaxHere').append('<div style="text-align:center;position:absolute;right:0;left:0;top:0;bottom:0;"><div class="yBoxLoader"></div></div>');
+			
 			var img = new Image();
 			img.src = obj.url;
 			img.className = 'yBoxImg';
+			var newWidth = 0;
+			var newHeight = 0;
 			img.onload = function(){
+				newWidth = (this.width*0.5);
+				newHeight = (this.height*0.5);
 				var alt = obj.self.data('ybox-alt') || '';
-				var code = '<div class="yBoxImgZoom"><img src="'+obj.url+'" alt="'+alt+'" class="yBoxImg" /></div>';
-				code = yBox_Group(obj.self, code);
+				var img_title = '';
+				if( obj.self.data('ybox-title') ) {
+					img_title = '<h3 class="ybox-img-title">'+obj.self.data('ybox-title')+'</h3>';
+				}
+				var code = '<div class="yBoxImgZoom" style="width:'+newWidth+'px;height:'+newHeight+'px;">'+
+								'<img src="'+obj.url+'" alt="'+alt+'" width="'+newWidth+'" height="'+newHeight+'" class="yBoxImg" />'+
+								img_title+
+							'</div>';
+				code = yBox_Group(obj.self, code, {
+					width: newWidth,
+					height: newHeight
+				});
 				
 				if(window.screen.width <= 767)
 					ybox_zoom({zoom:'yBoxImgZoom'});
@@ -804,14 +819,34 @@ function setYboxFocus( obj ){
 		jQuery('.closeYbox').focus();
 	}
 };
-function yBox_Group( yBoxLink, code ) {
+function yBox_Group( yBoxLink, code, obj ) {
 	var group = yBoxLink.data('ybox-group');
 	if( group && jQuery('.yBox[data-ybox-group="'+group+'"]').length > 1 ) {
 		code = '<button type="button" class="yBoxNext" title="'+strings.next+'"></button>'+
 					code+
 				'<button type="button" class="yBoxPrev" title="'+strings.prev+'"></button>';
 	}
-	jQuery('.insertYboxAjaxHere').html(code);
+	
+	
+	if( jQuery('.yBoxOverlay.active').length ) {
+		jQuery('.yBoxFrame').addClass('fade-out');
+		setTimeout(function(){
+			if( typeof obj != 'undefined' && typeof obj.width != 'undefined' && typeof obj.height != 'undefined' ) {
+				jQuery('.yBoxImgZoom').css({
+					width: obj.width+'px',
+					height: obj.height+'px'
+				});
+			}
+			setTimeout(function(){
+				jQuery('.insertYboxAjaxHere').html(code);
+				setTimeout(function(){
+					jQuery('.yBoxFrame').removeClass('fade-out');
+				}, 50);
+			}, 300);
+		}, 300);
+	} else {
+		jQuery('.insertYboxAjaxHere').html(code);
+	}
 	return code;
 };
 jQuery('body').on('click','.yBoxNext',function(e){
