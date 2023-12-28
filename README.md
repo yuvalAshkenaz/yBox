@@ -49,6 +49,36 @@ When calling to element from java script.<br />
 <code>&lt;script&gt; yBox({ url: '#my-popup' }); &lt;/script&gt;</code>
 </td>
 </tr>
+
+<tr>
+	<td>data-ybox-class</td>
+	<td class="hide-on-tablet">:</td>
+	<td>
+		Add class to yBox popup<br/>
+		<a href="#popup" data-ybox-class="my-class" class="yBox">Link</a>
+	</td>
+</tr>
+<tr>
+	<td>data-ybox-alt</td>
+	<td class="hide-on-tablet">:</td>
+	<td>
+		Add Alt to yBox image<br/>
+		<a href="my-img.jpg" data-ybox-alt="My Alt" class="yBox">
+	<img src="my-img.jpg" alt=""/>
+</a>
+	</td>
+</tr>
+<tr>
+	<td>data-ybox-title</td>
+	<td class="hide-on-tablet">:</td>
+	<td>
+		Add title to yBox image<br/>
+		<a href="my-img.jpg" data-ybox-title="My Title" class="yBox">
+	<img src="my-img.jpg" alt=""/>
+</a>
+	</td>
+</tr>
+
 <tr>
 <td>https://domain.com<b>?msg=</b>Some text</td>
 <td class="hide-on-tablet">:</td>
