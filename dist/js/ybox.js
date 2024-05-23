@@ -930,13 +930,26 @@ jQuery('body').on('focus','.closeYboxOnFocus',function(){
 	jQuery('.closeYbox').trigger('click');
 });
 jQuery(document).keyup(function(e){
+	var src = jQuery('.yBox[href="'+jQuery('.yBoxImg').attr('src')+'"]');
 	if(e.keyCode === 39){ //Prev
-		yBoxPrev(jQuery('.yBox[href="'+jQuery('.yBoxImg').attr('src')+'"]'));
+		if( yBox_lang == 'he' ) {
+			yBoxPrev( src );
+		} else {
+			yBoxNext( src );
+		}
 	}
 	if(e.keyCode === 37){ //Next
-		yBoxNext(jQuery('.yBox[href="'+jQuery('.yBoxImg').attr('src')+'"]'));
+		if( yBox_lang == 'he' ) {
+			yBoxNext( src );
+		} else {
+			yBoxPrev( src );
+		}
 	}
 	if(e.keyCode === 27){ //Esc
 		jQuery('.closeYbox').trigger('click');
+	}
+	//Accessibility - Focus
+	if( e.keyCode == 9 ) { //Tab
+		jQuery('body').addClass('ybox-focus');
 	}
 });
