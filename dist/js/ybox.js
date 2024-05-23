@@ -1,4 +1,4 @@
-﻿/*! yBox - v5.6 - 31/12/2023
+﻿/*! yBox - v5.7 - 23/05/2024
 * By Yuval Ashkenazi
 * https://github.com/yuvalAshkenaz/yBox */
 
@@ -828,10 +828,16 @@ jQuery('body').on('click','.yBoxPrev',function(e){
 	yBoxPrev( jQuery('.yBoxFocus') );
 });
 
-jQuery('.yBox[data-ybox-group]:not(.swiper-slide-duplicate)').each(function(i){
-	var group = jQuery(this).data('ybox-group');
-	jQuery(this).attr('data-ybox-id', group+'-'+i);
-});
+setTimeout(function(){
+	jQuery('.yBox[data-ybox-group]:not(.swiper-slide-duplicate)').each(function(i){
+		var group = jQuery(this).data('ybox-group');
+		jQuery(this).attr('data-ybox-id', group+'-'+i);
+	});
+	jQuery('.yBox[data-ybox-group].swiper-slide-duplicate').each(function(i){
+		var group = jQuery(this).data('ybox-group');
+		jQuery(this).attr('data-ybox-id', group+'-'+i);
+	});
+}, 500);
 
 function yBoxNext( self ) {
 	var group = self.data('ybox-group');
