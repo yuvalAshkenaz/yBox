@@ -151,11 +151,19 @@
     cursor: pointer;
     z-index: 2;
 }
-.yBoxNext {
+.yBoxPrev {
     left: 10px;
 }
-.yBoxPrev {
+.yBoxNext {
     right: 10px;
+}
+.yBoxRTL .yBoxPrev {
+    right: 10px;
+	left: auto;
+}
+.yBoxRTL .yBoxNext {
+    left: 10px;
+    right: auto;
 }
 .yBoxNext:focus,
 .yBoxPrev:focus {
@@ -172,15 +180,27 @@
     border-bottom: 3px solid rgba(255, 255, 255, 0.7);
     border-left: 3px solid rgba(255, 255, 255, 0.7);
 }
-.yBoxPrev::after {
+.yBoxNext::after {
     right: 50px;
     -webkit-transform: translate(0, -50%) rotate(-135deg);
     transform: translate(0, -50%) rotate(-135deg);
 }
-.yBoxNext::after {
+.yBoxPrev::after {
     left: 50px;
     -webkit-transform: translate(0, -50%) rotate(45deg);
     transform: translate(0, -50%) rotate(45deg);
+}
+.yBoxRTL .yBoxNext::after {
+    left: 50px;
+	right: auto;
+    -webkit-transform: translate(0, -50%) rotate(45deg);
+    transform: translate(0, -50%) rotate(45deg);
+}
+.yBoxRTL .yBoxPrev::after {
+    right: 50px;
+	left: auto;
+    -webkit-transform: translate(0, -50%) rotate(-135deg);
+    transform: translate(0, -50%) rotate(-135deg);
 }
 .yBoxNext:hover::after,
 .yBoxPrev:hover::after {
@@ -205,6 +225,22 @@
 }
 .yBoxIframeWrap .yBoxPrev::after {
     right: 41%;
+}
+.yBoxRTL .yBoxIframeWrap .yBoxNext {
+    right: 15px;
+	left: auto;
+}
+.yBoxRTL .yBoxIframeWrap .yBoxPrev {
+    left: 15px;
+	right: auto;
+}
+.yBoxRTL .yBoxIframeWrap .yBoxNext::after {
+    right: 43%;
+	left: auto;
+}
+.yBoxRTL .yBoxIframeWrap .yBoxPrev::after {
+    left: 41%;
+	right: auto;
 }
 .yBoxLoader {
     width: 16px;
@@ -287,16 +323,6 @@
         max-height: -webkit-calc(100vh - 20px);
         max-height: calc(100vh - 20px);
     }
-    .yBoxPrev::after {
-        right: 50%;
-        width: 14px;
-        height: 14px;
-    }
-    .yBoxNext::after {
-        left: 50%;
-        width: 14px;
-        height: 14px;
-    }
     .yBoxFrame.yBoxIframeWrap .insertYboxAjaxHere {
         left: 5px;
         right: 5px;
@@ -314,12 +340,39 @@
         top: 5px;
         bottom: 5px;
     }
-	.yBoxNext {
+	.yBoxPrev {
 		left: 5px;
 	}
-	.yBoxPrev {
+	.yBoxNext {
 		right: 5px;
 	}
+	.yBoxRTL .yBoxPrev {
+		left: auto;
+		right: 5px;
+	}
+	.yBoxRTL .yBoxNext {
+		right: auto;
+		left: 5px;
+	}
+    .yBoxNext::after,
+    .yBoxPrev::after {
+        width: 14px;
+        height: 14px;
+	}
+    .yBoxNext::after {
+        right: 50%;
+    }
+    .yBoxPrev::after {
+        left: 50%;
+    }
+    .yBoxRTL .yBoxNext::after {
+        left: 50%;
+		right: auto;
+    }
+    .yBoxRTL .yBoxPrev::after {
+        right: 50%;
+		left: auto;
+    }
     .yBoxImgZoom {
         display: flex;
         justify-content: center;
