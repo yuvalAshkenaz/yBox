@@ -1,4 +1,4 @@
-/*! yBox - v5.6 - 31/12/2023
+/*! yBox - v5.7 - 23/05/2024
 * By Yuval Ashkenazi
 * https://github.com/yuvalAshkenaz/yBox */
 .yBoxOverlay * {
@@ -64,9 +64,7 @@
     cursor: pointer;
     z-index: 3;
 }
-.yBoxIframe,
-.yBoxNext,
-.yBoxPrev {
+.yBoxIframe {
     height: 100%;
     top: 0;
     position: absolute;
@@ -146,15 +144,23 @@
 .yBoxPrev {
     background: none;
     width: 30%;
+    top: 10px;
+	bottom: 10px;
+    position: absolute;
     border: none;
     cursor: pointer;
     z-index: 2;
 }
 .yBoxNext {
-    left: 0;
+    left: 10px;
 }
 .yBoxPrev {
-    right: 0;
+    right: 10px;
+}
+.yBoxNext:focus,
+.yBoxPrev:focus {
+	background: rgba(0, 0, 0, 0.2);
+	outline: none !important;
 }
 .yBoxNext::after,
 .yBoxPrev::after {
@@ -220,7 +226,7 @@
     border: none;
 }
 .ybox-img-title {
-	background: rgba(255, 255, 255, 0.6);
+	background: rgba(255, 255, 255, 0.7);
 	padding: 7px 15px;
 	position: absolute;
 	left: 10px;
@@ -228,6 +234,7 @@
 	bottom: 10px;
 	margin: 0;
 	font-size: 18px;
+	z-index: 3;
 }
 @keyframes yBox-loader-circles {
     0%,
@@ -273,10 +280,6 @@
 @media screen and (max-width: 767px) {
     .yBoxFrame.yBoxImgWrap .insertYboxAjaxHere {
         padding: 5px;
-        max-height: -webkit-calc(100vh - 10px);
-        max-height: calc(100vh - 10px);
-        height: -webkit-calc(100vh - 10px);
-        height: calc(100vh - 10px);
     }
     .yBoxFrame.yBoxImgWrap img.yBoxImg {
         max-width: -webkit-calc(100vw - 20px);
@@ -300,21 +303,23 @@
         top: 5px;
         bottom: 5px;
     }
+	.ybox-img-title {
+		left: 5px;
+		bottom: 5px;
+		right: 5px;
+	}
     .yBoxNext,
     .yBoxPrev {
-        width: 50px;
-        max-width: 30%;
-        height: 50%;
-        top: 50%;
-        -webkit-transform: translateY(-50%);
-        transform: translateY(-50%);
+        width: 20%;
+        top: 5px;
+        bottom: 5px;
     }
-    .yBoxFrame.yBoxImgWrap {
-        width: -webkit-calc(100vw - 10px);
-        width: calc(100vw - 10px);
-        height: -webkit-calc(100vh - 10px);
-        height: calc(100vh - 10px);
-    }
+	.yBoxNext {
+		left: 5px;
+	}
+	.yBoxPrev {
+		right: 5px;
+	}
     .yBoxImgZoom {
         display: flex;
         justify-content: center;
@@ -328,8 +333,8 @@
     .yBoxFrame.yBoxIframeWrap .insertYboxAjaxHere,
     .yBoxFrame.yBoxImgWrap,
     .yBoxFrame.yBoxImgWrap .insertYboxAjaxHere {
-        height: -webkit-calc(100vh - 80px);
-        height: calc(100vh - 80px);
+        max-height: -webkit-calc(100vh - 80px);
+        max-height: calc(100vh - 80px);
     }
     .yBoxFrame.yBoxImgWrap img.yBoxImg,
     .yBoxIframe {
