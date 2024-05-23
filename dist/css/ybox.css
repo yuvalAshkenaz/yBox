@@ -167,8 +167,11 @@
 }
 .yBoxNext:focus,
 .yBoxPrev:focus {
-	background: rgba(0, 0, 0, 0.2);
 	outline: none !important;
+}
+.ybox-focus .yBoxNext:focus,
+.ybox-focus .yBoxPrev:focus {
+	background: rgba(0, 0, 0, 0.2);
 }
 .yBoxNext::after,
 .yBoxPrev::after {
