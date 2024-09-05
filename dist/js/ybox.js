@@ -1,4 +1,4 @@
-﻿/*! yBox - v5.7 - 23/05/2024
+﻿/*! yBox - v6 - 05/09/2024
 * By Yuval Ashkenazi
 * https://github.com/yuvalAshkenaz/yBox */
 
@@ -666,12 +666,12 @@ function yBox( obj ) {
 			obj.yBoxClass = obj.self.data('ybox-class') || '';
 			obj.url = obj.self.attr('href');
 		}
-		var html = '<div class="yBoxOverlay no-contrast' + ( yBox_lang == 'he' || yBox_lang == 'ar' ? ' yBoxRTL' : '' ) + '">'+
-						'<div class="yBoxFrame ' + obj.yBoxClass + '">'+
-							'<button type="button" class="closeYboxOnFocus"></button>'+
-							'<button type="button" class="closeYbox" title="' + strings.close + '"></button>'+
+		var html = '<div class="yBoxOverlay no-contrast' + ( yBox_lang == 'he' || yBox_lang == 'ar' ? ' yBoxRTL' : '' ) + '" tabindex="-1">'+
+						'<div class="yBoxFrame ' + obj.yBoxClass + '" role="modal">'+
+							// '<button type="button" class="closeYboxOnFocus"></button>'+
+							'<button type="button" class="closeYbox" title="' + strings.close + '" aria-label="' + strings.close + '"></button>'+
 							'<div class="insertYboxAjaxHere" tabindex="0"></div>'+
-							'<button type="button" class="closeYboxOnFocus"></button>'+
+							// '<button type="button" class="closeYboxOnFocus"></button>'+
 						'</div>'+
 					'</div>';
 					
@@ -930,19 +930,21 @@ jQuery('body').on('focus','.closeYboxOnFocus',function(){
 	jQuery('.closeYbox').trigger('click');
 });
 jQuery(document).keyup(function(e){
-	var src = jQuery('.yBox[href="'+jQuery('.yBoxImg').attr('src')+'"]');
-	if(e.keyCode === 39){ //Prev
-		if( yBox_lang == 'he' ) {
-			yBoxPrev( src );
-		} else {
-			yBoxNext( src );
+	if( jQuery('.yBoxImg').length ) {
+		var src = jQuery('.yBox[href="'+jQuery('.yBoxImg').attr('src')+'"]');
+		if(e.keyCode === 39){ //Prev
+			if( yBox_lang == 'he' ) {
+				yBoxPrev( src );
+			} else {
+				yBoxNext( src );
+			}
 		}
-	}
-	if(e.keyCode === 37){ //Next
-		if( yBox_lang == 'he' ) {
-			yBoxNext( src );
-		} else {
-			yBoxPrev( src );
+		if(e.keyCode === 37){ //Next
+			if( yBox_lang == 'he' ) {
+				yBoxNext( src );
+			} else {
+				yBoxPrev( src );
+			}
 		}
 	}
 	if(e.keyCode === 27){ //Esc
@@ -951,5 +953,23 @@ jQuery(document).keyup(function(e){
 	//Accessibility - Focus
 	if( e.keyCode == 9 ) { //Tab
 		jQuery('body').addClass('ybox-focus');
+	}
+});
+jQuery(document).keydown(function(e){
+	var $focusableElements = jQuery('.yBoxFrame').find('input, button, textarea, select, a').filter(':visible');
+	var $firstElement = $focusableElements.first();
+	var $lastElement = $focusableElements.last();
+	
+	if( e.keyCode == 9 ) { //Tab
+		// If Shift+Tab is pressed and focus is on the first element
+		if (e.shiftKey && jQuery(document.activeElement).is($firstElement)) {
+			e.preventDefault();
+			$lastElement.focus();
+		}
+		// If Tab is pressed and focus is on the last element
+		else if (!e.shiftKey && jQuery(document.activeElement).is($lastElement)) {
+			e.preventDefault();
+			$firstElement.focus();
+		}
 	}
 });
