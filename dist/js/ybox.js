@@ -1,4 +1,4 @@
-﻿/*! yBox - v6 - 05/09/2024
+﻿/*! yBox - v6.1 - 16/09/2024
 * By Yuval Ashkenazi
 * https://github.com/yuvalAshkenaz/yBox */
 
@@ -738,8 +738,8 @@ function insert_yBox_html( obj ) {
 				obj.url = 'https://www.youtube.com/embed/'+youtube_id+'?wmode=transparent&rel=0&autoplay=1&hl='+yBox_lang;
 			}
 			if( obj.url.toLowerCase().indexOf('vimeo') > -1 ) {
-				var vimeoID = obj.url.replace(/[^0-9]/g,'');
-				obj.url = 'https://player.vimeo.com/video/'+vimeoID+'?autoplay=1';
+				var vimeoID = obj.url.match(/video\/(\d+)/)[1];
+				obj.url = 'https://player.vimeo.com/video/'+vimeoID+'?autoplay=1&background=1';
 			}
 			var code = '<iframe src="'+obj.url+'" frameborder="0" wmode="Opaque" allow="autoplay" allowfullscreen class="yBoxIframe"></iframe>';
 			code = yBox_Group(obj.self, code);
