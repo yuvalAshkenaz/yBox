@@ -1,4 +1,4 @@
-/*! yBox - v5.7 - 23/05/2024
+/*! yBox - v6.2 - 10/11/2024
 * By Yuval Ashkenazi
 * https://github.com/yuvalAshkenaz/yBox */
 .yBoxOverlay * {
@@ -143,9 +143,12 @@
 .yBoxNext,
 .yBoxPrev {
     background: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     width: 30%;
     top: 10px;
-	bottom: 10px;
+    bottom: 10px;
     position: absolute;
     border: none;
     cursor: pointer;
@@ -178,20 +181,18 @@
     content: "";
     width: 20px;
     height: 20px;
-    position: absolute;
-    top: 50%;
     border-bottom: 3px solid rgba(255, 255, 255, 0.7);
     border-left: 3px solid rgba(255, 255, 255, 0.7);
 }
 .yBoxNext::after {
-    right: 50px;
-    -webkit-transform: translate(0, -50%) rotate(-135deg);
-    transform: translate(0, -50%) rotate(-135deg);
+    -webkit-transform: rotate(-135deg);
+    transform: rotate(-135deg);
+    margin: 0 0 0 -10px;
 }
 .yBoxPrev::after {
-    left: 50px;
-    -webkit-transform: translate(0, -50%) rotate(45deg);
-    transform: translate(0, -50%) rotate(45deg);
+    -webkit-transform: rotate(45deg);
+    transform: rotate(45deg);
+    margin: 0 -10px 0 0;
 }
 .yBoxRTL .yBoxNext::after {
     left: 50px;
@@ -216,18 +217,6 @@
     height: 60px;
     top: 50%;
     margin: -30px 0 0;
-}
-.yBoxIframeWrap .yBoxNext {
-    left: 15px;
-}
-.yBoxIframeWrap .yBoxPrev {
-    right: 15px;
-}
-.yBoxIframeWrap .yBoxNext::after {
-    left: 43%;
-}
-.yBoxIframeWrap .yBoxPrev::after {
-    right: 41%;
 }
 .yBoxRTL .yBoxIframeWrap .yBoxNext {
     right: 15px;
