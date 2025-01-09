@@ -1,4 +1,4 @@
-﻿/*! yBox - v6.2 - 10/11/2024
+﻿/*! yBox - v6.3 - 09/01/2025
 * By Yuval Ashkenazi
 * https://github.com/yuvalAshkenaz/yBox */
 
@@ -667,11 +667,9 @@ function yBox( obj ) {
 			obj.url = obj.self.attr('href');
 		}
 		var html = '<div class="yBoxOverlay no-contrast' + ( yBox_lang == 'he' || yBox_lang == 'ar' ? ' yBoxRTL' : '' ) + '" tabindex="-1">'+
-						'<div class="yBoxFrame ' + obj.yBoxClass + '" role="modal">'+
-							// '<button type="button" class="closeYboxOnFocus"></button>'+
+						'<div class="yBoxFrame ' + obj.yBoxClass + '" role="dialog" aria-hidden="true">'+
 							'<button type="button" class="closeYbox" title="' + strings.close + '" aria-label="' + strings.close + '"></button>'+
 							'<div class="insertYboxAjaxHere" tabindex="0"></div>'+
-							// '<button type="button" class="closeYboxOnFocus"></button>'+
 						'</div>'+
 					'</div>';
 					
@@ -926,9 +924,6 @@ function remove_yBox_placeholder() {
 		jQuery('.yBoxFramePlaceHolder').remove();
 	}
 }
-jQuery('body').on('focus','.closeYboxOnFocus',function(){
-	jQuery('.closeYbox').trigger('click');
-});
 jQuery(document).keyup(function(e){
 	if( jQuery('.yBoxImg').length ) {
 		var src = jQuery('.yBox[href="'+jQuery('.yBoxImg').attr('src')+'"]');
