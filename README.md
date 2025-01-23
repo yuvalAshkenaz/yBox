@@ -1,6 +1,6 @@
 <pre><code>
 &lt;link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/yuvalAshkenaz/yBox/dist/css/ybox.min.css" /&gt;
-&lt;script type="text/javascript" src="https://cdn.jsdelivr.net/gh/yuvalAshkenaz/yBox/dist/css/ybox.min.js?lang=he"&gt;&lt;/script&gt;
+&lt;script type="text/javascript" src="https://cdn.jsdelivr.net/gh/yuvalAshkenaz/yBox/dist/js/ybox.min.js?lang=he"&gt;&lt;/script&gt;
 </code></pre>
 <table border="0" cellpadding="10" cellspacing="0" width="100%" style="line-height:24px;">
 <tr>
