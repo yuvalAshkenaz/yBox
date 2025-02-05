@@ -669,7 +669,7 @@ function yBox( obj ) {
 		var html = '<div class="yBoxOverlay no-contrast' + ( yBox_lang == 'he' || yBox_lang == 'ar' ? ' yBoxRTL' : '' ) + '" tabindex="-1">'+
 						'<div class="yBoxFrame ' + obj.yBoxClass + '" role="dialog">'+
 							'<button type="button" class="closeYbox" title="' + strings.close + '" aria-label="' + strings.close + '"></button>'+
-							'<div class="insertYboxAjaxHere" tabindex="0"></div>'+
+							'<div class="insertYboxAjaxHere" tabindex="-1"></div>'+
 						'</div>'+
 					'</div>';
 					
