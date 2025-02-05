@@ -684,6 +684,9 @@ function yBox( obj ) {
 			});
 			setTimeout(function(){
 				jQuery('.yBoxOverlay').addClass('active');
+				if( typeof afterYboxOpen != 'undefined' ) {
+					afterYboxOpen( a_or_div );
+				}
 			}, 200);
 		} else {
 			if( jQuery('.yBoxFrame.yBoxImgWrap').length ) {
@@ -696,6 +699,9 @@ function yBox( obj ) {
 					code	: obj.code,
 					focus	: obj.focus
 				});
+				if( typeof afterYboxOpen != 'undefined' ) {
+					afterYboxOpen( a_or_div );
+				}
 			} else {
 				jQuery('.insertYboxAjaxHere').animate({
 					opacity : 0
@@ -713,16 +719,20 @@ function yBox( obj ) {
 						});
 						jQuery('.insertYboxAjaxHere').animate({
 							opacity : 1
+						}, function(){
+							if( typeof afterYboxOpen != 'undefined' ) {
+								afterYboxOpen( a_or_div );
+							}
 						});
 					}, 200);
 				});
 			}
 		}
-		setTimeout(function(){
-			if( typeof afterYboxOpen != 'undefined' ) {
-				afterYboxOpen( a_or_div );
-			}
-		}, 200);
+		// setTimeout(function(){
+			// if( typeof afterYboxOpen != 'undefined' ) {
+				// afterYboxOpen( a_or_div );
+			// }
+		// }, 500);
 	}
 };
 function insert_yBox_html( obj ) {
