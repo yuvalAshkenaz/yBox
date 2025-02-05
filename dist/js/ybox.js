@@ -728,11 +728,6 @@ function yBox( obj ) {
 				});
 			}
 		}
-		// setTimeout(function(){
-			// if( typeof afterYboxOpen != 'undefined' ) {
-				// afterYboxOpen( a_or_div );
-			// }
-		// }, 500);
 	}
 };
 function insert_yBox_html( obj ) {
