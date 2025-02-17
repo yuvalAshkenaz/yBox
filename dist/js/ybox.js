@@ -1,4 +1,4 @@
-﻿/*! yBox - v6.5 - 17/02/2025
+/*! yBox - v6.5 - 17/02/2025
 * By Yuval Ashkenazi
 * https://github.com/yuvalAshkenaz/yBox */
 
@@ -782,6 +782,11 @@ function insert_yBox_html( obj ) {
 		} else {
 			if( typeof obj.url === 'undefined' && typeof obj.code !== 'undefined' ) {
 				jQuery('.insertYboxAjaxHere').html( obj.code );
+				
+				if( typeof obj.self !== 'undefined' && ! obj.self.hasClass('yBoxFocus') ) {
+					jQuery('.yBoxFocus').not( obj.self ).removeClass('yBoxFocus');
+					obj.self.addClass('yBoxFocus');
+				}
 			} else {
 				jQuery(obj.url).after('<div class="yBoxFramePlaceHolder"></div>');
 				if(  jQuery('.insertYboxAjaxHere.isAjax').length ) {
@@ -912,14 +917,14 @@ jQuery('body').on('click','.yBoxOverlay',function(e){
 				return false;
 		}
 		jQuery('.yBoxOverlay').removeClass('active');
-		jQuery('.yBoxFocus').focus();
+		jQuery('.yBoxFocus').focus().removeClass('yBoxFocus');
 		setTimeout(function(){
 			if( typeof afterYboxClose != 'undefined' ) {
 				afterYboxClose( a_or_div );
 			}
 			remove_yBox_placeholder();
 			jQuery('.yBoxOverlay').remove();
-		},600);
+		}, 600);
 	}
 });
 function remove_yBox_placeholder() {
