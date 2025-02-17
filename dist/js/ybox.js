@@ -1,4 +1,4 @@
-﻿/*! yBox - v6.3 - 09/01/2025
+﻿/*! yBox - v6.5 - 17/02/2025
 * By Yuval Ashkenazi
 * https://github.com/yuvalAshkenaz/yBox */
 
@@ -574,17 +574,17 @@ function ybox_removeClass($element, targetClass) {
 
 
 //yBox
-jQuery('body').on('click','.yBox',function(e){
+jQuery('body').on('click', '.yBox',function(e){
 	e.preventDefault();
 	e.stopPropagation();
 	var self = jQuery(this);
-	if( jQuery('.yBox.yBoxFocus').length ) {
+	if( jQuery('.yBoxFocus').length ) {
 		if( typeof beforeYboxClose != 'undefined' ) {
-			var beforeClose = beforeYboxClose( jQuery('.yBox.yBoxFocus') );
+			var beforeClose = beforeYboxClose( jQuery('.yBoxFocus') );
 			if( beforeClose == false )
 				return false;
 		}
-		jQuery('.yBox.yBoxFocus').not(self).removeClass('yBoxFocus');
+		jQuery('.yBoxFocus').not(self).removeClass('yBoxFocus');
 	}
 	self.addClass('yBoxFocus');
 	yBox({ self: self });
@@ -757,7 +757,7 @@ function insert_yBox_html( obj ) {
 			jQuery.get( obj.url, function(data) {
 				jQuery('.insertYboxAjaxHere').addClass('isAjax').html(data);
 			});
-		} else if( obj.url.indexOf('#') == -1 ) {
+		} else if( typeof obj.url !== 'undefined' && obj.url.indexOf('#') == -1 ) {
 			//image
 			jQuery('.yBoxFrame').addClass('yBoxImgWrap');
 			jQuery('.insertYboxAjaxHere').append('<div style="text-align:center;position:absolute;right:0;left:0;top:0;bottom:0;"><div class="yBoxLoader"></div></div>');
@@ -780,11 +780,15 @@ function insert_yBox_html( obj ) {
 					ybox_zoom({zoom:'yBoxImgZoom'});
 			};
 		} else {
-			jQuery(obj.url).after('<div class="yBoxFramePlaceHolder"></div>');
-			if(jQuery('.insertYboxAjaxHere.isAjax').length){
-				jQuery('.insertYboxAjaxHere.isAjax').removeClass('isAjax');
+			if( typeof obj.url === 'undefined' && typeof obj.code !== 'undefined' ) {
+				jQuery('.insertYboxAjaxHere').html( obj.code );
+			} else {
+				jQuery(obj.url).after('<div class="yBoxFramePlaceHolder"></div>');
+				if(  jQuery('.insertYboxAjaxHere.isAjax').length ) {
+					jQuery('.insertYboxAjaxHere.isAjax').removeClass('isAjax');
+				}
+				jQuery(obj.url).appendTo('.insertYboxAjaxHere');
 			}
-			jQuery(obj.url).appendTo('.insertYboxAjaxHere');
 		}
 		if( window.screen.width > 991 ) {
 			setTimeout(function(){
@@ -796,7 +800,7 @@ function insert_yBox_html( obj ) {
 			}, 500);
 		}
 	} else {
-		if( typeof obj.code == 'undefined' && obj.url ) {
+		if( typeof obj.code == 'undefined' && typeof obj.url !== 'undefined' ) {
 			jQuery(obj.url).after('<div class="yBoxFramePlaceHolder"></div>');
 			jQuery(obj.url).appendTo('.insertYboxAjaxHere');
 		} else {
@@ -899,8 +903,8 @@ jQuery('body').on('click','.yBoxOverlay',function(e){
 		) 
 	) {
 		var a_or_div = jQuery('.insertYboxAjaxHere > *').eq(0);
-		if( jQuery('.yBox.yBoxFocus').length ) {
-			a_or_div = jQuery('.yBox.yBoxFocus');
+		if( jQuery('.yBoxFocus').length ) {
+			a_or_div = jQuery('.yBoxFocus');
 		}
 		if( typeof beforeYboxClose != 'undefined' ) {
 			var beforeClose = beforeYboxClose( a_or_div );
