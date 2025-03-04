@@ -55,7 +55,7 @@ When calling to element from java script.<br />
 	<td class="hide-on-tablet">:</td>
 	<td>
 		Add class to yBox popup<br/>
-		&lt;a href="#popup" data-ybox-class="my-class" class="yBox"&gt;Link&lt;/a&gt;
+		<code><pre>&lt;a href="#popup" data-ybox-class="my-class" class="yBox"&gt;Link&lt;/a&gt;</pre></code>
 	</td>
 </tr>
 <tr>
@@ -63,9 +63,9 @@ When calling to element from java script.<br />
 	<td class="hide-on-tablet">:</td>
 	<td>
 		Add Alt to yBox image<br/>
-		&lt;a href="my-img.jpg" data-ybox-alt="My Alt" class="yBox"&gt;
+		<code><pre>&lt;a href="my-img.jpg" data-ybox-alt="My Alt" class="yBox"&gt;
 	&lt;img src="my-img.jpg" alt=""/&gt;
-</a>
+&lt;/a&gt;</pre></code>
 	</td>
 </tr>
 				<tr>
@@ -83,9 +83,9 @@ When calling to element from java script.<br />
 	<td class="hide-on-tablet">:</td>
 	<td>
 		Add headline (H2) to yBox image or iframe<br/>
-		&lt;a href="my-img.jpg" data-ybox-headeline="My Headline" data-ybox-headeline-class="my-class" class="yBox"&gt;
+		<code><pre>&lt;a href="my-img.jpg" data-ybox-headeline="My Headline" data-ybox-headeline-class="my-class" class="yBox"&gt;
 	Click Here
-</a>
+&lt;/a&gt;</pre></code>
 	</td>
 </tr>
 
