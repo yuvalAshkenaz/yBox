@@ -1,4 +1,4 @@
-/*! yBox - v6.5 - 17/02/2025
+/*! yBox - v7.0 - 04/03/2025
 * By Yuval Ashkenazi
 * https://github.com/yuvalAshkenaz/yBox */
 .yBoxOverlay * {
@@ -65,9 +65,9 @@
     z-index: 3;
 }
 .yBoxIframe {
-    height: 100%;
-    top: 0;
-    position: absolute;
+    /* height: 100%; */
+    /* top: 0; */
+    /* position: absolute; */
 }
 .closeYbox::after,
 .closeYbox::before {
@@ -102,10 +102,17 @@
 .yBoxFrame.yBoxContentFrame .closeYbox::before {
     background-color: #171b1e;
 }
+#ybox-iframe-headline {
+	margin: 10px 0 15px 0;
+	text-align: center;
+	font-size: 22px;
+	font-weight: 400;
+}
 .yBoxIframe {
     background: #171b1e;
     width: 100%;
-    left: 0;
+    /* left: 0; */
+	flex-grow: 1;
 }
 .yBoxFrame.yBoxIframeWrap {
     width: 1200px;
@@ -113,7 +120,9 @@
 }
 .yBoxFrame.yBoxIframeWrap .insertYboxAjaxHere {
     position: absolute;
+	display: flex;
     max-height: 100%;
+	flex-direction: column;
     left: 10px;
     top: 10px;
     right: 10px;

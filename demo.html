@@ -88,9 +88,22 @@
 					<td>data-ybox-title</td>
 					<td class="hide-on-tablet">:</td>
 					<td>
-						Add title to image<br/>
+						Add title to image or iframe<br/>
 						<code><pre>&lt;a href="my-img.jpg" data-ybox-title="My Title" class="yBox"&gt;
-	&lt;img src="my-img.jpg" alt=""/&gt;
+	Click Here
+&lt;/a&gt;</pre></code>
+					</td>
+				</tr>
+				<tr>
+					<td>
+					data-ybox-headline<br>
+					data-ybox-headline-class
+					</td>
+					<td class="hide-on-tablet">:</td>
+					<td>
+						Add headline to image or iframe<br/>
+						<code><pre>&lt;a href="my-img.jpg" data-ybox-headline="My Headline" data-ybox-headline-class="my-class" class="yBox"&gt;
+	Click Here
 &lt;/a&gt;</pre></code>
 					</td>
 				</tr>
@@ -165,7 +178,7 @@
 			<pre>
 				<code><span class="blue">&lt;script&gt;</span>
 yBox({
-    code : <span class="grey">'&lt;div class="my-class"&gt;Some text&lt;/div&gt;'</span>
+    code: <span class="grey">'&lt;div class="my-class"&gt;Some text&lt;/div&gt;'</span>
 });
 <span class="blue">&lt;/script&gt;</span></code>
 			</pre>
@@ -181,7 +194,7 @@ yBox({
 &lt;/div&gt;</span>
 <span class="blue">&lt;script&gt;</span>
 yBox({
-    url : <span class="grey">'#popup'</span>
+    url: <span class="grey">'#popup'</span>
 });
 <span class="blue">&lt;/script&gt;</span></code>
 			</pre>
@@ -254,7 +267,7 @@ yBox({
 		</section>
 		<section class="iframeSection">
 			<h3>Open Iframe / YouTube / Vimeo with yBox <span class="grey2" style="display:inline-block;direction:ltr;">( class="yBox yBox_iframe" )</span></h3>
-			<a href="https://www.youtube.com/watch?v=eEMpCcLm6NI&list=RDeEMpCcLm6NI&start_radio=1" class="yBox yBox_iframe" rel="nofollow" title="Click Here">
+			<a href="https://www.youtube.com/watch?v=eEMpCcLm6NI&list=RDeEMpCcLm6NI&start_radio=1" class="yBox yBox_iframe" rel="nofollow" title="Click Here" data-ybox-headline="My Headline" data-ybox-title="My Title">
 				<img id="koko" src="https://img.youtube.com/vi/eEMpCcLm6NI/0.jpg" alt="" width="100" height="100" />
 			</a>
 			<pre> 
@@ -296,13 +309,13 @@ yBox({
 			You can edit the ALT of the images
 			<span class="grey2" style="display:inline-block;direction:ltr;">( data-ybox-alt="Image Alt" )</span>
 			<div class="group-wrap">
-				<a href="demo_files/1.jpg" class="yBox" data-ybox-title="Image Title 1" data-ybox-alt="Image Alt 1" data-ybox-group="group1">
+				<a href="demo_files/1.jpg" class="yBox" data-ybox-headline="Image Title 1" data-ybox-alt="Image Alt 1" data-ybox-group="group1">
 					<img src="demo_files/1.jpg" alt="" width="200" />
 				</a>
-				<a href="demo_files/2.jpg" class="yBox" data-ybox-title="Image Title 2" data-ybox-alt="Image Alt 2" data-ybox-group="group1">
+				<a href="demo_files/2.jpg" class="yBox" data-ybox-headline="Image Title 2" data-ybox-alt="Image Alt 2" data-ybox-group="group1">
 					<img src="demo_files/2.jpg" alt="" width="200" />
 				</a>
-				<a href="demo_files/3.jpg" class="yBox" data-ybox-title="Image Title 3" data-ybox-alt="Image Alt 3" data-ybox-group="group1">
+				<a href="demo_files/3.jpg" class="yBox" data-ybox-headline="Image Title 3" data-ybox-alt="Image Alt 3" data-ybox-group="group1">
 					<img src="demo_files/3.jpg" alt="" width="200" />
 				</a>
 			</div>

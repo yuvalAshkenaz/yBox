@@ -1,4 +1,4 @@
-/*! yBox - v6.5 - 17/02/2025
+﻿/*! yBox - v7.0 - 04/03/2025
 * By Yuval Ashkenazi
 * https://github.com/yuvalAshkenaz/yBox */
 
@@ -735,6 +735,18 @@ function insert_yBox_html( obj ) {
 	if( obj.hasSelf ) {
 		if( obj.self.hasClass('yBox_iframe') ) {
 			//iframe
+			var attrs = '';
+			var iframe_headline = '';
+			if( obj.self.data('ybox-title') )
+				attrs += ' title="'+obj.self.data('ybox-title')+'"';
+			if( obj.self.data('ybox-headline-class') )
+				attrs += ' class="'+obj.self.data('ybox-headline-class')+'"';
+			var aria_labelledby = '';
+			if( obj.self.data('ybox-headline') ) {
+				iframe_headline = '<h2 id="ybox-iframe-headline">'+obj.self.data('ybox-headline')+'</h2>';
+				attrs += ' aria-labelledby="ybox-iframe-headline"';
+			}
+			
 			jQuery('.yBoxFrame').addClass('yBoxIframeWrap');
 			if( obj.url.toLowerCase().indexOf('youtube') > -1 || obj.url.toLowerCase().indexOf('youtu.be') > -1 ) {
 				var youtube_id = obj.url.replace(/^[^v]+v.(.{11}).*/,"$1").replace('https://youtu.be/','').replace(/.*youtube.com\/embed\//,'');
@@ -744,7 +756,7 @@ function insert_yBox_html( obj ) {
 				var vimeoID = obj.url.match(/video\/(\d+)/)[1];
 				obj.url = 'https://player.vimeo.com/video/'+vimeoID+'?autoplay=1&background=1';
 			}
-			var code = '<iframe src="'+obj.url+'" frameborder="0" wmode="Opaque" allow="autoplay" allowfullscreen class="yBoxIframe"></iframe>';
+			var code = iframe_headline + '<iframe src="'+obj.url+'" frameborder="0" wmode="Opaque" allow="autoplay" allowfullscreen id="yBoxIframe" class="yBoxIframe" '+attrs+'></iframe>';
 			code = yBox_Group(obj.self, code);
 		} else if( obj.self.hasClass('yBox_video') ) {
 			//video
@@ -766,13 +778,16 @@ function insert_yBox_html( obj ) {
 			img.className = 'yBoxImg';
 			img.onload = function(){
 				var alt = obj.self.data('ybox-alt') || '';
-				var img_title = '';
-				if( obj.self.data('ybox-title') ) {
-					img_title = '<h3 class="ybox-img-title">'+obj.self.data('ybox-title')+'</h3>';
+				var title = obj.self.data('ybox-title') ? 'title="'+obj.self.data('ybox-title')+'"' : '';
+				var img_headline = '';
+				var aria_labelledby = '';
+				if( obj.self.data('ybox-headline') ) {
+					img_headline = '<h2 id="ybox-img-title" class="ybox-img-title">'+obj.self.data('ybox-headline')+'</h2>';
+					aria_labelledby = 'aria-labelledby="ybox-img-title"';
 				}
 				var code = '<div class="yBoxImgZoom">'+
-								'<img src="'+obj.url+'" alt="'+alt+'" class="yBoxImg" />'+
-								img_title+
+								'<img src="'+obj.url+'" alt="'+alt+'" '+title+' id="yBoxImg" class="yBoxImg" '+aria_labelledby+' />'+
+								img_headline+
 							'</div>';
 				code = yBox_Group(obj.self, code);
 				
