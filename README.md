@@ -68,13 +68,23 @@ When calling to element from java script.<br />
 </a>
 	</td>
 </tr>
+				<tr>
+					<td>data-ybox-title</td>
+					<td class="hide-on-tablet">:</td>
+					<td>
+						Add title to image or iframe<br/>
+						<code><pre>&lt;a href="my-img.jpg" data-ybox-title="My Title" class="yBox"&gt;
+	Click Here
+&lt;/a&gt;</pre></code>
+					</td>
+				</tr>
 <tr>
-	<td>data-ybox-title</td>
+	<td>data-ybox-headeline<br>data-ybox-headeline-class</td>
 	<td class="hide-on-tablet">:</td>
 	<td>
-		Add title to yBox image<br/>
-		&lt;a href="my-img.jpg" data-ybox-title="My Title" class="yBox"&gt;
-	&lt;img src="my-img.jpg" alt=""/&gt;
+		Add title to yBox image or iframe<br/>
+		&lt;a href="my-img.jpg" data-ybox-headeline="My Headline" data-ybox-headeline-class="my-class" class="yBox"&gt;
+	Click Here
 </a>
 	</td>
 </tr>
