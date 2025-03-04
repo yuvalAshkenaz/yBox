@@ -82,7 +82,7 @@ When calling to element from java script.<br />
 	<td>data-ybox-headeline<br>data-ybox-headeline-class</td>
 	<td class="hide-on-tablet">:</td>
 	<td>
-		Add title to yBox image or iframe<br/>
+		Add headline (H2) to yBox image or iframe<br/>
 		&lt;a href="my-img.jpg" data-ybox-headeline="My Headline" data-ybox-headeline-class="my-class" class="yBox"&gt;
 	Click Here
 </a>
