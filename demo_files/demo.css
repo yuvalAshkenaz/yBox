@@ -14,7 +14,6 @@ section{
 	flex-direction:column;
 }
 pre{
-	display:flex;
 	background:#fff;
 	overflow:auto;
 	align-items:center;
