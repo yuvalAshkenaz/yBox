@@ -73,19 +73,29 @@ When calling to element from java script.<br />
 					<td class="hide-on-tablet">:</td>
 					<td>
 						Add title to image or iframe<br/>
-						<code><pre>&lt;a href="my-img.jpg" data-ybox-title="My Title" class="yBox"&gt;
+						<code><pre>&lt;a href="https://www.my-iframe.com" data-ybox-title="My Title" class="yBox"&gt;
 	Click Here
-&lt;/a&gt;</pre></code>
+&lt;/a&gt;
+
+<b>Output:</b>
+&lt;iframe src="https://www.my-iframe.com" <b>title="My Title"</b>&gt;&lt;/iframe&gt;</pre></code>
 					</td>
 				</tr>
 <tr>
-	<td>data-ybox-headeline<br>data-ybox-headeline-class</td>
+	<td>
+		data-ybox-headeline<br>
+		data-ybox-headeline-class
+	</td>
 	<td class="hide-on-tablet">:</td>
 	<td>
 		Add headline (H2) to yBox image or iframe<br/>
 		<code><pre>&lt;a href="my-img.jpg" data-ybox-headeline="My Headline" data-ybox-headeline-class="my-class" class="yBox"&gt;
 	Click Here
-&lt;/a&gt;</pre></code>
+&lt;/a&gt;
+
+<b>Output:</b>
+&lt;h2 id="ybox-iframe-headline" <b>class="my-class"</b>&gt;My Headline&lt;/h2&gt;
+&lt;iframe src="https://www.my-iframe.com" &gt; &lt;/iframe&gt;</pre></code>
 	</td>
 </tr>
 
@@ -99,11 +109,11 @@ When calling to element from java script.<br />
 <td class="hide-on-tablet">:</td>
 <td>
 Call to element from URL address<br />
-<code>&lt;div style="display:none;"&gt;
+<code><pre>&lt;div style="display:none;"&gt;
 	&lt;div id="my-popup"&gt;
 	...
 	&lt;/div&gt;
-&lt;/div&gt;</code>
+&lt;/div&gt;</pre></code>
 </td>
 </tr>
 <tr>
