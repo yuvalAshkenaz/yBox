@@ -1,4 +1,4 @@
-﻿/*! yBox - v7.1 - 21/05/2025
+/*! yBox - v7.1 - 21/05/2025
 * By Yuval Ashkenazi
 * https://github.com/yuvalAshkenaz/yBox */
 
@@ -638,6 +638,10 @@ if( msg || yBoxID || yBoxURL ) {
 		params.delete('ybox-url');
 		params.delete('ybox-class');
 		params.delete('ybox-headline');
+		
+		if( yBoxURL.indexOf('youtube') > -1 )
+			params.delete('list');
+		
 		if( params.toString() ) {
 			params = '?'+params.toString();
 		}
@@ -647,10 +651,6 @@ if( msg || yBoxID || yBoxURL ) {
 }
 function yBox( obj ) {
 	if( ! jQuery('.yBoxOverlay:not(.active)').length ) {
-		// code
-		// self
-		// yBoxClass
-		// id
 		var a_or_div;
 		if( obj.self ) {
 			a_or_div = obj.self;
@@ -660,15 +660,15 @@ function yBox( obj ) {
 		if(typeof beforeYboxOpen != 'undefined'){
 			beforeYboxOpen( a_or_div );
 		}
-		var hasSelf = true;
+		obj.hasSelf = true;
 		
 		if( typeof obj.yBoxClass == 'undefined' ) {
 			obj.yBoxClass = '';
 		}
 		if( typeof obj.self == 'undefined' || ! obj.self ) {
-			hasSelf = false;
+			obj.hasSelf = false;
 		}
-		if( hasSelf ) {
+		if( obj.hasSelf ) {
 			obj.yBoxClass = obj.self.data('ybox-class') || '';
 			obj.url = obj.self.attr('href');
 		}
@@ -681,14 +681,15 @@ function yBox( obj ) {
 					
 		if( ! jQuery('.yBoxFrame').length ) {
 			jQuery('body').append( html );
-			insert_yBox_html({
-				self	: obj.self,
-				hasSelf	: hasSelf,
-				id		: obj.id,
-				url		: obj.url,
-				code	: obj.code,
-				focus	: obj.focus
-			});
+			insert_yBox_html(obj);
+			// {
+				// self	: obj.self,
+				// hasSelf	: hasSelf,
+				// id		: obj.id,
+				// url		: obj.url,
+				// code	: obj.code,
+				// focus	: obj.focus
+			// }
 			setTimeout(function(){
 				jQuery('.yBoxOverlay').addClass('active');
 				if( typeof afterYboxOpen != 'undefined' ) {
@@ -699,14 +700,15 @@ function yBox( obj ) {
 			if( jQuery('.yBoxFrame.yBoxImgWrap').length ) {
 				remove_yBox_placeholder();
 				jQuery('.insertYboxAjaxHere').html('');
-				insert_yBox_html({
-					self	: obj.self,
-					hasSelf	: hasSelf,
-					id		: obj.id,
-					url		: obj.url,
-					code	: obj.code,
-					focus	: obj.focus
-				});
+				insert_yBox_html(obj);
+				// {
+					// self	: obj.self,
+					// hasSelf	: hasSelf,
+					// id		: obj.id,
+					// url		: obj.url,
+					// code	: obj.code,
+					// focus	: obj.focus
+				// };
 				if( typeof afterYboxOpen != 'undefined' ) {
 					afterYboxOpen( a_or_div );
 				}
@@ -718,14 +720,15 @@ function yBox( obj ) {
 					setTimeout(function(){
 						remove_yBox_placeholder();
 						athis.html('');
-						insert_yBox_html({
-							self	: obj.self,
-							hasSelf	: hasSelf,
-							id		: obj.id,
-							url		: obj.url,
-							code	: obj.code,
-							focus	: obj.focus
-						});
+						insert_yBox_html(obj);
+						// {
+							// self	: obj.self,
+							// hasSelf	: hasSelf,
+							// id		: obj.id,
+							// url		: obj.url,
+							// code	: obj.code,
+							// focus	: obj.focus
+						// };
 						jQuery('.insertYboxAjaxHere').animate({
 							opacity : 1
 						}, function(){
@@ -754,6 +757,7 @@ function ybox_iframe(obj){
 			attrs += ' aria-labelledby="ybox-iframe-headline"';
 		}
 	} else {
+		// console.log( 'obj.headline', obj.headline );
 		if( obj.headline ) {
 			iframe_headline = '<h2 id="ybox-iframe-headline">'+obj.headline+'</h2>';
 			attrs += ' aria-labelledby="ybox-iframe-headline"';
