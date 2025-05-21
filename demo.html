@@ -15,14 +15,14 @@
 <span class="blue">&lt;script</span> <span class="red">type</span><span class="purple">="text/javascript"</span> <span class="red">src</span><span class="purple">="https://cdn.jsdelivr.net/gh/yuvalAshkenaz/yBox/dist/js/ybox.min.js?lang=he"</span><span class="blue">&gt;&lt;/script&gt;</span></pre></code>
 		</section>
 		<section>
-			<h3>All parameters</h3>
-			<table border="0" cellpadding="10" cellspacing="0" width="100%" style="line-height:24px;">
+			<h3>JavaScript parameters</h3>
+			<table border="0" cellpadding="10" cellspacing="0" class="top-table">
 				<tr>
-					<td width="360">code</td>
+					<td>code</td>
 					<td width="25" class="hide-on-tablet">:</td>
 					<td>
 						When calling to yBox from your Java Script, you can write your HTML code<br />
-						<code>yBox({ code: '&lt;div class="my-class"&gt;Some text&lt;/div&gt;' });</code>
+						<code><span class="blue">&lt;script&gt;</span> yBox({ code: '&lt;div class="my-class"&gt;Some text&lt;/div&gt;' }); <span class="blue">&lt;/script&gt;</span></code>
 					</td>
 				</tr>
 				<tr>
@@ -30,8 +30,8 @@
 					<td class="hide-on-tablet">:</td>
 					<td>
 						<code>
-							&lt;a href="#popup" class="yBox <b>my-link</b>"&gt;The link&lt;/a&gt;<br />
-							yBox({ self: jQuery('.my-link') });
+							<span class="blue">&lt;a</span> <span class="red">href</span>=<span class="purple">"#popup"</span> <span class="red">class</span>=<span class="purple">"yBox <b>my-link</b>"</span><span class="blue">&gt;</span>The link<span class="blue">&lt;/a&gt;</span><br />
+							<span class="blue">&lt;script&gt;</span> yBox({ self: jQuery('.my-link') }); <span class="blue">&lt;/script&gt;</span>
 						</code>
 					</td>
 				</tr>
@@ -40,7 +40,7 @@
 					<td class="hide-on-tablet">:</td>
 					<td>
 						Added to &lt;div class="yBoxFrame"&gt; in yBox window<br />
-						<code>yBox({ yBoxClass: 'my-class' });</code>
+						<code><span class="blue">&lt;script&gt;</span> yBox({ yBoxClass: 'my-class' }); <span class="blue">&lt;/script&gt;</span></code>
 					</td>
 				</tr>
 				<tr>
@@ -48,7 +48,7 @@
 					<td class="hide-on-tablet">:</td>
 					<td>
 						Focus the element you want when yBox opens<br />
-						<code>yBox({ focus: '.focus-class' });</code>
+						<code><span class="blue">&lt;script&gt;</span> yBox({ focus: '.focus-class' }); <span class="blue">&lt;/script&gt;</span></code>
 					</td>
 				</tr>
 				<tr>
@@ -56,20 +56,26 @@
 					<td class="hide-on-tablet">:</td>
 					<td>
 						When calling to element from java script.<br />
-						<code><pre>&lt;div style="display:none;"&gt;
-	&lt;div id="my-popup"&gt;
+						<code><pre><span class="blue">&lt;div</span> <span class="red">style</span>=<span class="purple">"display:none;"</span><span class="blue">&gt;</span>
+	<span class="blue">&lt;div</span> <span class="red">id</span>=<span class="purple">"my-popup"</span><span class="blue">&gt;</span>
 	...
-	&lt;/div&gt;
-&lt;/div&gt;</pre></code><br />
-						<code>&lt;script&gt; yBox({ url: '#my-popup' }); &lt;/script&gt;</code>
+	<span class="blue">&lt;/div&gt;</span>
+<span class="blue">&lt;/div&gt;</span></pre></code>
+						<code><span class="blue">&lt;script&gt;</span> yBox({ url: '#my-popup' }); <span class="blue">&lt;/script&gt;</span></code>
 					</td>
 				</tr>
+			</table>
+			
+			<h3>Button Attributes</h3>
+			<table border="0" cellpadding="10" cellspacing="0" class="top-table">
 				<tr>
 					<td>data-ybox-class</td>
 					<td class="hide-on-tablet">:</td>
 					<td>
 						Add class to yBox popup<br/>
-						<code><pre>&lt;a href="#popup" data-ybox-class="my-class" class="yBox"&gt;Link&lt;/a&gt;</pre></code>
+						<code><pre>&lt;button type="button" href="#popup" <b><span class="red">data-ybox-class</span>=<span class="purple">"my-class"</span></b> class="yBox"&gt;
+	Click Here
+&lt;/button&gt;</pre></code>
 					</td>
 				</tr>
 				<tr>
@@ -77,7 +83,7 @@
 					<td class="hide-on-tablet">:</td>
 					<td>
 						Add Alt to yBox image<br/>
-						<code><pre>&lt;a href="my-img.jpg" data-ybox-alt="My Alt" class="yBox"&gt;
+						<code><pre>&lt;a href="my-img.jpg" <b><span class="red">data-ybox-alt</span>=<span class="purple">"My Alt"</span></b> class="yBox"&gt;
 	&lt;img src="my-img.jpg" alt=""/&gt;
 &lt;/a&gt;</pre></code>
 					</td>
@@ -87,7 +93,7 @@
 					<td class="hide-on-tablet">:</td>
 					<td>
 						Add title to image or iframe<br/>
-						<code><pre>&lt;a href="https://www.my-iframe.com" data-ybox-title="My Title" class="yBox"&gt;
+						<code><pre>&lt;a href="https://www.my-iframe.com" <b><span class="red">data-ybox-title</span>=<span class="purple">"My Title"</span></b> class="yBox"&gt;
 	Click Here
 &lt;/a&gt;
 
@@ -103,13 +109,13 @@
 					<td class="hide-on-tablet">:</td>
 					<td>
 						Add headline (H2) to image or iframe<br/>
-						<code><pre>&lt;a href="my-img.jpg" data-ybox-headline="My Headline" data-ybox-headline-class="my-class" class="yBox"&gt;
+						<code><pre>&lt;a href="my-img.jpg" <b><span class="red">data-ybox-headline</span>=<span class="purple">"My Headline"</span> <span class="red">data-ybox-headline-class</span>=<span class="purple">"my-class"</span></b> class="yBox"&gt;
 	Click Here
 &lt;/a&gt;
 
 <b>Output:</b>
-&lt;h2 id="ybox-iframe-headline" <b>class="my-class"</b>&gt;My Headline&lt;/h2&gt;
-&lt;iframe src="https://www.my-iframe.com"&gt;&lt;/iframe&gt;</pre></code>
+&lt;h2 id="ybox-iframe-headline" <b><span class="red">class</span>=<span class="purple">"my-class"</span></b>&gt; <b>My Headline</b> &lt;/h2&gt;
+&lt;iframe src="https://www.my-iframe.com" id="yBoxIframe" class="yBoxIframe"&gt;&lt;/iframe&gt;</pre></code>
 					</td>
 				</tr>
 				<tr>
@@ -117,23 +123,35 @@
 					<td class="hide-on-tablet">:</td>
 					<td>
 						Switch images<br/>
-						<code><pre>&lt;a href="my-img.jpg" data-ybox-group="my-group" class="yBox"&gt;
+						<code><pre>&lt;a href="my-img.jpg" <b><span class="red">data-ybox-group</span>=<span class="purple">"my-group"</span></b> class="yBox"&gt;
 	&lt;img src="my-img.jpg" alt=""/&gt;
 &lt;/a&gt;</pre></code>
 					</td>
 				</tr>
+			</table>
+			
+			<h3>URL Attributes</h3>
+			<table border="0" cellpadding="10" cellspacing="0" class="top-table">
 				<tr>
 					<td>https://domain.com<b>?msg=</b>Some text</td>
 					<td class="hide-on-tablet">:</td>
 					<td>msg parameter in url pop the yBox with your text.</td>
 				</tr>
 				<tr>
-					<td>https://domain.com<b>?ybox-url</b>=my-popup</td>
+					<td>
+						https://domain.com<b>?ybox-url=</b>https://www.domain.com<br>
+						https://domain.com<b>?ybox-headline=</b>Some Title
+					</td>
+					<td class="hide-on-tablet">:</td>
+					<td>Pop iframe with the url.</td>
+				</tr>
+				<tr>
+					<td>https://domain.com<b>?ybox-id</b>=my-popup</td>
 					<td class="hide-on-tablet">:</td>
 					<td>
 						Call to element from URL address<br />
 						<code><pre>&lt;div style="display:none;"&gt;
-	&lt;div id="my-popup"&gt;
+	&lt;div <b><span class="red">id</span>=<span class="purple">"my-popup"</span></b>&gt;
 	...
 	&lt;/div&gt;
 &lt;/div&gt;</pre></code>
@@ -144,6 +162,10 @@
 					<td class="hide-on-tablet">:</td>
 					<td>add class to yBox window from URL address</td>
 				</tr>
+			</table>
+			<br><br>
+			<h3>Callbacks</h3>
+			<table border="0" cellpadding="10" cellspacing="0" class="top-table">
 				<tr>
 					<td>function beforeYboxOpen(self){ ... };</td>
 					<td class="hide-on-tablet">:</td>
@@ -180,38 +202,32 @@
 		</section>
 		<section>
 			<h3>Open yBox on page load</h3>
-			<pre>
-				<code><span class="blue">&lt;script&gt;</span>
+			<code><pre><span class="blue">&lt;script&gt;</span>
 yBox({
     code: <span class="grey">'&lt;div class="my-class"&gt;Some text&lt;/div&gt;'</span>
 });
-<span class="blue">&lt;/script&gt;</span></code>
-			</pre>
+<span class="blue">&lt;/script&gt;</span></pre></code>
 		</section>
 		<section>
 			<h3>Open yBox by calling the element from JavaScript</h3>
 			<div style="display:none;">
 				<div id="popup" href="#popup">Hello :-)</div>
 			</div>
-			<pre>
-				<code><span class="blue">&lt;div</span> <span class="red">style</span>=<span class="purple">"display:none;"</span><span class="blue">&gt;</span>
+			<code><pre><span class="blue">&lt;div</span> <span class="red">style</span>=<span class="purple">"display:none;"</span><span class="blue">&gt;</span>
    <span class="blue">&lt;div</span> <span class="red">id</span>=<span class="purple">"popup"</span><span class="blue">&gt;</span>Hello :-)<span class="blue">&lt;/div&gt;
 &lt;/div&gt;</span>
 <span class="blue">&lt;script&gt;</span>
 yBox({
     url: <span class="grey">'#popup'</span>
 });
-<span class="blue">&lt;/script&gt;</span></code>
-			</pre>
+<span class="blue">&lt;/script&gt;</span></pre></code>
 		</section>
 		<section>
 			<h3>
 				Calling the function before opening yBox<br />
 				<span style="font-size:16px;">self = The yBox button</span>
 			</h3>
-			<pre>
-				<code><span class="blue">function</span> beforeYboxOpen(self){ <span class="green">/* Do something before yBox is open */</span> };</code>
-			</pre>
+			<code><pre><span class="blue">function</span> beforeYboxOpen(self){ <span class="green">/* Do something before yBox is open */</span> };</pre></code>
 			<a href="#link1" class="yBox alertBeforeYbox">Click here for example</a>
 		</section>
 		<section>
@@ -219,9 +235,7 @@ yBox({
 				Calling the function after opening yBox<br />
 				<span style="font-size:16px;">self = The yBox button</span>
 			</h3>
-			<pre>
-				<code><span class="blue">function</span> afterYboxOpen(self){ <span class="green">/* Do something after yBox is open */</span> };</code>
-			</pre>
+			<code><pre><span class="blue">function</span> afterYboxOpen(self){ <span class="green">/* Do something after yBox is open */</span> };</pre></code>
 			<a href="#link1" class="yBox alertAfterYbox">Click here for example</a>
 		</section>
 		<section>
@@ -229,9 +243,7 @@ yBox({
 				Calling the function before closing yBox<br />
 				<span style="font-size:16px;">self = The yBox button</span>
 			</h3>
-			<pre>
-				<code><span class="blue">function</span> beforeYboxClose(self){ <span class="green">/* Do something before yBox is close */</span> };</code>
-			</pre>
+			<code><pre><span class="blue">function</span> beforeYboxClose(self){ <span class="green">/* Do something before yBox is close */</span> };</pre></code>
 			<a href="#link1" class="yBox alertBeforeClose">Click here for example</a>
 		</section>
 		<section>
@@ -239,23 +251,18 @@ yBox({
 				Calling the function after yBox closed<br />
 				<span style="font-size:16px;">self = The yBox button</span>
 			</h3>
-			<pre>
-				<code><span class="blue">function</span> afterYboxClose(self){ <span class="green">/* Do something after yBox is close */</span> };</code>
-			</pre>
+			<code><pre><span class="blue">function</span> afterYboxClose(self){ <span class="green">/* Do something after yBox is close */</span> };</pre></code>
 			<a href="#link1" class="yBox alertAfterClose">Click here for example</a>
 		</section>
 		<section>
 			<h3>Add "msg" parameter to URL</h3>
-			<pre>
-				<code>https://www.domain.com/?<span style="color:red;">msg</span>=Some text</code>
-			</pre>
+			<code><pre>https://www.domain.com/?<span style="color:red;">msg</span>=Some text</pre></code>
 		</section>
 		<section>
 			<h3>Calling to yBox in yBox window</h3>
 			<a href="#link1" class="yBox">Click here for example</a>
-			<pre> 
-				<code><span class="blue">&lt;a</span> <span class="red">href</span>="<span class="purple">#link1</span>"<span class="blue"> <span class="red">class</span>="<span class="purple">yBox</span>"&gt; &lt;/a&gt;</span></code>
-			</pre>
+			<code><pre><span class="blue">&lt;a</span> <span class="red">href</span>="<span class="purple">#link1</span>"<span class="blue"> <span class="red">class</span>="<span class="purple">yBox</span>"&gt; &lt;/a&gt;</span></pre></code>
+			
 			<div style="display:none;">
 				<div id="link1">
 					<div class="inner" style="width:200px;height:100px">
@@ -273,27 +280,27 @@ yBox({
 		<section class="iframeSection">
 			<h3>Open Iframe / YouTube / Vimeo with yBox <span class="grey2" style="display:inline-block;direction:ltr;">( class="yBox yBox_iframe" )</span></h3>
 			<a href="https://www.youtube.com/watch?v=eEMpCcLm6NI&list=RDeEMpCcLm6NI&start_radio=1" class="yBox yBox_iframe" rel="nofollow" title="Click Here" data-ybox-headline="My Headline" data-ybox-title="My Title">
-				<img id="koko" src="https://img.youtube.com/vi/eEMpCcLm6NI/0.jpg" alt="" width="100" height="100" />
+				<img id="koko1" src="https://img.youtube.com/vi/eEMpCcLm6NI/0.jpg" alt="" width="100" height="100" />
 			</a>
-			<pre> 
-				<code><span class="blue">&lt;a</span> <span class="red">href</span>="<span class="purple">https://www.youtube.com...</span>" <span class="red">class</span>="<span class="purple">yBox yBox_iframe</span>"<span class="blue">&gt; &lt;/a&gt;</span></code>
-			</pre>
+			 
+				<code><pre><span class="blue">&lt;a</span> <span class="red">href</span>="<span class="purple">https://www.youtube.com...</span>" <span class="red">class</span>="<span class="purple">yBox yBox_iframe</span>"<span class="blue">&gt; &lt;/a&gt;</span></pre></code>
+			
 		</section>
 		<section class="iframeSection">
 			<h3>Open inner video file <span class="grey2" style="display:inline-block;direction:ltr;">( class="yBox yBox_video" )</span></h3>
 			<a href="demo_files/mov_bbb.mp4" class="yBox yBox_video" rel="nofollow" title="Click Here">
-				<img id="koko" src="demo_files/movie_img.jpg" alt="" width="100" height="100" />
+				<img id="koko2" src="demo_files/movie_img.jpg" alt="" width="100" height="100" />
 			</a>
-			<pre> 
-				<code><span class="blue">&lt;a</span> <span class="red">href</span>="<span class="purple">/path/to/video.mp4</span>" <span class="red">class</span>="<span class="purple">yBox yBox_video</span>"<span class="blue">&gt; &lt;/a&gt;</span></code>
-			</pre>
+			
+				<code><pre> <span class="blue">&lt;a</span> <span class="red">href</span>="<span class="purple">/path/to/video.mp4</span>" <span class="red">class</span>="<span class="purple">yBox yBox_video</span>"<span class="blue">&gt; &lt;/a&gt;</span></pre></code>
+			
 		</section>
 		<section>
 			<h3>Add different class <span class="grey2" style="display:inline-block;direction:ltr;">( data-ybox-class="my_class" )</span></h3>
 			<a href="#myLink" data-ybox-class="myYboxClass" class="yBox">Click here for example</a>
-			<pre> 
-				<code><span class="blue">&lt;a</span> <span class="red">href</span>="<span class="purple">#myLink</span>" <span class="red">data-ybox-class</span>="<span class="purple">myYboxClass</span>" <span class="red">class</span>="<span class="purple">yBox</span>"<span class="blue">&gt; &lt;/a&gt;</span></code>
-			</pre>
+			
+				<code><pre> <span class="blue">&lt;a</span> <span class="red">href</span>="<span class="purple">#myLink</span>" <span class="red">data-ybox-class</span>="<span class="purple">myYboxClass</span>" <span class="red">class</span>="<span class="purple">yBox</span>"<span class="blue">&gt; &lt;/a&gt;</span></pre></code>
+			
 
 			<div style="display:none;">
 				<div id="myLink" style="direction:ltr;">
@@ -304,9 +311,9 @@ yBox({
 		<section>
 			<h3>Open with AJAX <span class="grey2" style="display:inline-block;direction:ltr;">( class="yBox yBox_ajax" )</span></h3>
 			<a href="https://www.google.com" class="yBox yBox_ajax">Click here for example</a>
-			<pre> 
-				<code><span class="blue">&lt;a</span> <span class="red">href</span>="<span class="purple">https://www.google.com</span>" <span class="red">class</span>="<span class="purple">yBox yBox_ajax</span>"<span class="blue">&gt; &lt;/a&gt;</span></code>
-			</pre>
+			 
+				<code><pre><span class="blue">&lt;a</span> <span class="red">href</span>="<span class="purple">https://www.google.com</span>" <span class="red">class</span>="<span class="purple">yBox yBox_ajax</span>"<span class="blue">&gt; &lt;/a&gt;</span></pre></code>
+			
 		</section>
 		<section>
 			<h3>Grouped galleries <span class="grey2" style="display:inline-block;direction:ltr;">( data-ybox-group="group_name" )</span></h3>
@@ -324,9 +331,9 @@ yBox({
 					<img src="demo_files/3.jpg" alt="" width="200" />
 				</a>
 			</div>
-			<pre> 
-				<code><span class="blue">&lt;a</span> <span class="red">href</span>="<span class="purple">image.jpg</span>" <span class="red">data-ybox-group</span>="<span class="purple">group1</span>" <span class="red">data-ybox-alt</span>="<span class="purple">Image Alt</span>" <span class="red">class</span>="<span class="purple">yBox</span>"<span class="blue">&gt; &lt;/a&gt;</span></code>
-			</pre>
+			
+				<code><pre><span class="blue">&lt;a</span> <span class="red">href</span>="<span class="purple">image.jpg</span>" <span class="red">data-ybox-group</span>="<span class="purple">group1</span>" <span class="red">data-ybox-alt</span>="<span class="purple">Image Alt</span>" <span class="red">class</span>="<span class="purple">yBox</span>"<span class="blue">&gt; &lt;/a&gt;</span></pre></code>
+			
 			<h4>Group 2</h4>
 			<div class="group-wrap">
 				<a href="demo_files/4.jpg" class="yBox" data-ybox-group="group2">
@@ -340,9 +347,9 @@ yBox({
 					<div class="play"></div>
 				</a>
 			</div>
-			<pre> 
-				<code><span class="blue">&lt;a</span> <span class="red">href</span>="<span class="purple">image.jpg</span>" <span class="red">data-ybox-group</span>="<span class="purple">group2</span>" <span class="red">class</span>="<span class="purple">yBox</span>"<span class="blue">&gt; &lt;/a&gt;</span></code>
-			</pre>
+			 
+				<code><pre><span class="blue">&lt;a</span> <span class="red">href</span>="<span class="purple">image.jpg</span>" <span class="red">data-ybox-group</span>="<span class="purple">group2</span>" <span class="red">class</span>="<span class="purple">yBox</span>"<span class="blue">&gt; &lt;/a&gt;</span></pre></code>
+			
 		</section>
 	</main>
 

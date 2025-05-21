@@ -1,4 +1,4 @@
-﻿/*! yBox - v7.0 - 04/03/2025
+﻿/*! yBox - v7.1 - 21/05/2025
 * By Yuval Ashkenazi
 * https://github.com/yuvalAshkenaz/yBox */
 
@@ -613,26 +613,32 @@ if( yBox_lang == 'ar' || yBox_lang == 'ar-ar' ) {
 	};
 }
 
-var url = new URL(window.location.href);
-var msg = url.searchParams.get("msg");
-var yBoxPrm = url.searchParams.get("ybox-url");
+var url 		 = new URL( window.location.href );
+var msg 		 = url.searchParams.get("msg");
+var yBoxID 		 = url.searchParams.get("ybox-id");
+var yBoxURL		 = url.searchParams.get("ybox-url");
+var yBoxHeadline = url.searchParams.get("ybox-headline");
 var yBoxClassPrm = url.searchParams.get("ybox-class");
-if( msg || yBoxPrm ) {
-	if(!jQuery.isEmptyObject(yBoxPrm) && (yBoxPrm.indexOf('http:') == -1 && yBoxPrm.indexOf('https:') == -1)){
-		yBoxPrm = '#'+yBoxPrm;
+if( msg || yBoxID || yBoxURL ) {
+	if( ! jQuery.isEmptyObject( yBoxID ) && ( yBoxID.indexOf('http:') == -1 && yBoxID.indexOf('https:') == -1 ) ) {
+		yBoxID = '#'+yBoxID;
 	}
 	yBox({
-		code	  : yBoxPrm ? false : msg,
+		code	  : yBoxID ? false : msg,
 		yBoxClass : yBoxClassPrm ? yBoxClassPrm : 'ybox-content-frame',
-		url		  : yBoxPrm ? yBoxPrm : false
+		id		  : yBoxID ? yBoxID : false,
+		url		  : yBoxURL ? yBoxURL : false,
+		headline  : yBoxHeadline ? yBoxHeadline : false
 	});
 	//***** Remove msg from URL ***********
 	setTimeout(function(){
 		var params = new URLSearchParams(window.location.search);
 		params.delete('msg');
+		params.delete('ybox-id');
 		params.delete('ybox-url');
 		params.delete('ybox-class');
-		if(params.toString()){
+		params.delete('ybox-headline');
+		if( params.toString() ) {
 			params = '?'+params.toString();
 		}
 		var newURL = window.location.pathname+params;
@@ -644,12 +650,12 @@ function yBox( obj ) {
 		// code
 		// self
 		// yBoxClass
-		// url
+		// id
 		var a_or_div;
 		if( obj.self ) {
 			a_or_div = obj.self;
-		} else if( obj.url ) {
-			a_or_div = jQuery(obj.url);
+		} else if( obj.id ) {
+			a_or_div = jQuery(obj.id);
 		}
 		if(typeof beforeYboxOpen != 'undefined'){
 			beforeYboxOpen( a_or_div );
@@ -678,6 +684,7 @@ function yBox( obj ) {
 			insert_yBox_html({
 				self	: obj.self,
 				hasSelf	: hasSelf,
+				id		: obj.id,
 				url		: obj.url,
 				code	: obj.code,
 				focus	: obj.focus
@@ -695,6 +702,7 @@ function yBox( obj ) {
 				insert_yBox_html({
 					self	: obj.self,
 					hasSelf	: hasSelf,
+					id		: obj.id,
 					url		: obj.url,
 					code	: obj.code,
 					focus	: obj.focus
@@ -713,6 +721,7 @@ function yBox( obj ) {
 						insert_yBox_html({
 							self	: obj.self,
 							hasSelf	: hasSelf,
+							id		: obj.id,
 							url		: obj.url,
 							code	: obj.code,
 							focus	: obj.focus
@@ -730,34 +739,48 @@ function yBox( obj ) {
 		}
 	}
 };
+function ybox_iframe(obj){
+	//iframe
+	var attrs = '';
+	var iframe_headline = '';
+	
+	if( obj.hasSelf ) {
+		if( obj.self.data('ybox-title') )
+			attrs += ' title="'+obj.self.data('ybox-title')+'"';
+		if( obj.self.data('ybox-headline-class') )
+			attrs += ' class="'+obj.self.data('ybox-headline-class')+'"';
+		if( obj.self.data('ybox-headline') ) {
+			iframe_headline = '<h2 id="ybox-iframe-headline">'+obj.self.data('ybox-headline')+'</h2>';
+			attrs += ' aria-labelledby="ybox-iframe-headline"';
+		}
+	} else {
+		if( obj.headline ) {
+			iframe_headline = '<h2 id="ybox-iframe-headline">'+obj.headline+'</h2>';
+			attrs += ' aria-labelledby="ybox-iframe-headline"';
+		}
+	}
+	
+	jQuery('.yBoxFrame').addClass('yBoxIframeWrap');
+	if( obj.url.toLowerCase().indexOf('youtube') > -1 || obj.url.toLowerCase().indexOf('youtu.be') > -1 ) {
+		var youtube_id = obj.url.replace(/^[^v]+v.(.{11}).*/,"$1").replace('https://youtu.be/','').replace(/.*youtube.com\/embed\//,'');
+		obj.url = 'https://www.youtube.com/embed/'+youtube_id+'?wmode=transparent&rel=0&autoplay=1&hl='+yBox_lang;
+	} else if( obj.url.toLowerCase().indexOf('vimeo') > -1 ) {
+		var vimeoID = obj.url.match(/video\/(\d+)/)[1];
+		obj.url = 'https://player.vimeo.com/video/'+vimeoID+'?autoplay=1&background=1';
+	}
+	var code = iframe_headline + '<iframe src="'+obj.url+'" frameborder="0" wmode="Opaque" allow="autoplay" allowfullscreen id="yBoxIframe" class="yBoxIframe" '+attrs+'></iframe>';
+	
+	if( obj.hasSelf )
+		code = yBox_Group(obj.self, code);
+	
+	return code;
+}
 function insert_yBox_html( obj ) {
 	jQuery('.yBoxFrame').removeClass('yBoxIframeWrap yBoxImgWrap');
 	if( obj.hasSelf ) {
 		if( obj.self.hasClass('yBox_iframe') ) {
 			//iframe
-			var attrs = '';
-			var iframe_headline = '';
-			if( obj.self.data('ybox-title') )
-				attrs += ' title="'+obj.self.data('ybox-title')+'"';
-			if( obj.self.data('ybox-headline-class') )
-				attrs += ' class="'+obj.self.data('ybox-headline-class')+'"';
-			var aria_labelledby = '';
-			if( obj.self.data('ybox-headline') ) {
-				iframe_headline = '<h2 id="ybox-iframe-headline">'+obj.self.data('ybox-headline')+'</h2>';
-				attrs += ' aria-labelledby="ybox-iframe-headline"';
-			}
-			
-			jQuery('.yBoxFrame').addClass('yBoxIframeWrap');
-			if( obj.url.toLowerCase().indexOf('youtube') > -1 || obj.url.toLowerCase().indexOf('youtu.be') > -1 ) {
-				var youtube_id = obj.url.replace(/^[^v]+v.(.{11}).*/,"$1").replace('https://youtu.be/','').replace(/.*youtube.com\/embed\//,'');
-				obj.url = 'https://www.youtube.com/embed/'+youtube_id+'?wmode=transparent&rel=0&autoplay=1&hl='+yBox_lang;
-			}
-			if( obj.url.toLowerCase().indexOf('vimeo') > -1 ) {
-				var vimeoID = obj.url.match(/video\/(\d+)/)[1];
-				obj.url = 'https://player.vimeo.com/video/'+vimeoID+'?autoplay=1&background=1';
-			}
-			var code = iframe_headline + '<iframe src="'+obj.url+'" frameborder="0" wmode="Opaque" allow="autoplay" allowfullscreen id="yBoxIframe" class="yBoxIframe" '+attrs+'></iframe>';
-			code = yBox_Group(obj.self, code);
+			ybox_iframe(obj);
 		} else if( obj.self.hasClass('yBox_video') ) {
 			//video
 			jQuery('.yBoxFrame').addClass('yBoxIframeWrap');
@@ -820,11 +843,16 @@ function insert_yBox_html( obj ) {
 			}, 500);
 		}
 	} else {
-		if( typeof obj.code == 'undefined' && typeof obj.url !== 'undefined' ) {
-			jQuery(obj.url).after('<div class="yBoxFramePlaceHolder"></div>');
-			jQuery(obj.url).appendTo('.insertYboxAjaxHere');
-		} else {
+		if( obj.url ) {
+			obj.code = ybox_iframe( obj );
 			jQuery('.insertYboxAjaxHere').html( obj.code );
+		} else {
+			if( typeof obj.code == 'undefined' && typeof obj.id !== 'undefined' ) {
+				jQuery(obj.id).after('<div class="yBoxFramePlaceHolder"></div>');
+				jQuery(obj.id).appendTo('.insertYboxAjaxHere');
+			} else {
+				jQuery('.insertYboxAjaxHere').html( obj.code );
+			}
 		}
 		setTimeout(function(){
 			setYboxFocus({ focus: obj.focus });
