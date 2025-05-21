@@ -24,7 +24,7 @@ pre{
 }
 code{font-family:Consolas,"courier new";}
 main{
-	width:1200px;
+	width: 1370px;
 	max-width:100%;
 	margin:auto;
 }
@@ -140,6 +140,23 @@ tr:nth-child(even) {
 	border-bottom: 8px solid transparent;
 	border-left: 15px solid #FF0000;
 }
+.top-table {
+	width: 100%;
+	line-height:24px;
+}
+.top-table td:first-child {
+	width: 400px;
+}
+.top-table code {
+	display: block;
+	width: 860px;
+	max-width: 100%;
+}
+h3 {
+	border-bottom: 1px solid #959595;
+	padding: 0 0 15px 0;
+}
+
 @media screen and (max-width: 991px) {
 	.hide-on-tablet{display: none !important;}
 	table,
