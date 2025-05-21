@@ -3,9 +3,9 @@
 &lt;script type="text/javascript" src="https://cdn.jsdelivr.net/gh/yuvalAshkenaz/yBox/dist/js/ybox.min.js?lang=he"&gt;&lt;/script&gt;
 </code></pre>
 <h3>JavaScript parameters</h3>
-<table border="0" cellpadding="10" cellspacing="0" style="width:100%;" style="line-height:24px;">
+<table border="0" cellpadding="10" cellspacing="0" width="100%" style="line-height:24px;">
 <tr>
-<td style="width:360px;">code</td>
+<td width="360">code</td>
 <td width="25" class="hide-on-tablet">:</td>
 <td>
 When calling to yBox from your Java Script, you can write your HTML code<br />
@@ -53,9 +53,9 @@ When calling to element from java script.<br />
 </table>
 
 <h3>Button Attributes</h3>
-<table border="0" cellpadding="10" cellspacing="0" style="width:100%;" style="line-height:24px;">
+<table border="0" cellpadding="10" cellspacing="0" width="100%" style="line-height:24px;">
 <tr>
-	<td style="width:360px;">data-ybox-class</td>
+	<td>data-ybox-class</td>
 	<td class="hide-on-tablet">:</td>
 	<td>
 		Add class to yBox popup<br/>
@@ -105,20 +105,20 @@ When calling to element from java script.<br />
 </table>
 
 <h3>URL Attributes</h3>
-<table border="0" cellpadding="10" cellspacing="0" style="width:100%;" style="line-height:24px;">
+<table border="0" cellpadding="10" cellspacing="0" width="100%" style="line-height:24px;">
 <tr>
-<td style="width:360px;">https://domain.com<b>?msg=</b>Some text</td>
+<td>domain.com<b>?msg=</b>Some text</td>
 <td class="hide-on-tablet">:</td>
 <td>msg parameter in url pop the yBox with your text.</td>
 </tr>
 <tr>
-<td>https://domain.com?ybox-url=https://www.domain.com
-https://domain.com?ybox-headline=Some Title</td>
+<td>domain.com<b>?ybox-url</b>=domain.com<br>
+domain.com<b>?ybox-headline</b>=Some Title</td>
 <td class="hide-on-tablet">:</td>
 <td>Pop iframe with the url.</td>
 </tr>
 <tr>
-<td>https://domain.com<b>?ybox-id</b>=my-popup</td>
+<td>domain.com<b>?ybox-id</b>=my-popup</td>
 <td class="hide-on-tablet">:</td>
 <td>
 Call to element from URL address<br />
@@ -130,16 +130,16 @@ Call to element from URL address<br />
 </td>
 </tr>
 <tr>
-<td>https://domain.com<b>?ybox-class</b>=my-popup-class</td>
+<td>domain.com<b>?ybox-class</b>=my-popup-class</td>
 <td class="hide-on-tablet">:</td>
 <td>add class to yBox window from URL address</td>
 </tr>
 </table>
 
 <h3>Callbacks</h3>
-<table border="0" cellpadding="10" cellspacing="0" style="width:100%;" style="line-height:24px;">
+<table border="0" cellpadding="10" cellspacing="0" width="100%" style="line-height:24px;">
 <tr>
-<td style="width:360px;">function beforeYboxOpen(self){ ... };</td>
+<td>function beforeYboxOpen(self){ ... };</td>
 <td class="hide-on-tablet">:</td>
 <td>
 Calling the function before opening yBox<br />
@@ -220,7 +220,7 @@ url : <span class="grey">'#popup'</span>
 </section>
 <section>
 <h3>Add "msg" parameter to URL</h3>
-<pre><code>https://www.domain.com/?<span style="color:red;">msg</span>=Some text</code></pre>
+<pre><code>domain.com/?<span style="color:red;">msg</span>=Some text</code></pre>
 </section>
 <section class="iframeSection">
 <h3>Open Iframe / YouTube / Vimeo with yBox <span class="grey2" style="display:inline-block;direction:ltr;">( class="yBox yBox_iframe" )</span></h3>
