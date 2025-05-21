@@ -2,9 +2,10 @@
 &lt;link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/yuvalAshkenaz/yBox/dist/css/ybox.min.css" /&gt;
 &lt;script type="text/javascript" src="https://cdn.jsdelivr.net/gh/yuvalAshkenaz/yBox/dist/js/ybox.min.js?lang=he"&gt;&lt;/script&gt;
 </code></pre>
-<table border="0" cellpadding="10" cellspacing="0" width="100%" style="line-height:24px;">
+<h3>JavaScript parameters</h3>
+<table border="0" cellpadding="10" cellspacing="0" style="width:100%;" style="line-height:24px;">
 <tr>
-<td width="360">code</td>
+<td style="width:360px;">code</td>
 <td width="25" class="hide-on-tablet">:</td>
 <td>
 When calling to yBox from your Java Script, you can write your HTML code<br />
@@ -49,13 +50,16 @@ When calling to element from java script.<br />
 <code>&lt;script&gt; yBox({ url: '#my-popup' }); &lt;/script&gt;</code>
 </td>
 </tr>
+</table>
 
+<h3>Button Attributes</h3>
+<table border="0" cellpadding="10" cellspacing="0" style="width:100%;" style="line-height:24px;">
 <tr>
-	<td>data-ybox-class</td>
+	<td style="width:360px;">data-ybox-class</td>
 	<td class="hide-on-tablet">:</td>
 	<td>
 		Add class to yBox popup<br/>
-		<code><pre>&lt;a href="#popup" data-ybox-class="my-class" class="yBox"&gt;Link&lt;/a&gt;</pre></code>
+		<pre><code>&lt;a href="#popup" data-ybox-class="my-class" class="yBox"&gt;Link&lt;/a&gt;</code></pre>
 	</td>
 </tr>
 <tr>
@@ -63,9 +67,9 @@ When calling to element from java script.<br />
 	<td class="hide-on-tablet">:</td>
 	<td>
 		Add Alt to yBox image<br/>
-		<code><pre>&lt;a href="my-img.jpg" data-ybox-alt="My Alt" class="yBox"&gt;
+		<pre><code>&lt;a href="my-img.jpg" data-ybox-alt="My Alt" class="yBox"&gt;
 	&lt;img src="my-img.jpg" alt=""/&gt;
-&lt;/a&gt;</pre></code>
+&lt;/a&gt;</code></pre>
 	</td>
 </tr>
 				<tr>
@@ -73,12 +77,12 @@ When calling to element from java script.<br />
 					<td class="hide-on-tablet">:</td>
 					<td>
 						Add title to image or iframe<br/>
-						<code><pre>&lt;a href="https://www.my-iframe.com" data-ybox-title="My Title" class="yBox"&gt;
+						<pre><code>&lt;a href="https://www.my-iframe.com" data-ybox-title="My Title" class="yBox"&gt;
 	Click Here
 &lt;/a&gt;
 
 <b>Output:</b>
-&lt;iframe src="https://www.my-iframe.com" <b>title="My Title"</b>&gt;&lt;/iframe&gt;</pre></code>
+&lt;iframe src="https://www.my-iframe.com" <b>title="My Title"</b>&gt;&lt;/iframe&gt;</code></pre>
 					</td>
 				</tr>
 <tr>
@@ -89,31 +93,40 @@ When calling to element from java script.<br />
 	<td class="hide-on-tablet">:</td>
 	<td>
 		Add headline (H2) to yBox image or iframe<br/>
-		<code><pre>&lt;a href="my-img.jpg" data-ybox-headeline="My Headline" data-ybox-headeline-class="my-class" class="yBox"&gt;
+		<pre><code>&lt;a href="my-img.jpg" data-ybox-headeline="My Headline" data-ybox-headeline-class="my-class" class="yBox"&gt;
 	Click Here
 &lt;/a&gt;
 
 <b>Output:</b>
 &lt;h2 id="ybox-iframe-headline" <b>class="my-class"</b>&gt;My Headline&lt;/h2&gt;
-&lt;iframe src="https://www.my-iframe.com" &gt; &lt;/iframe&gt;</pre></code>
+&lt;iframe src="https://www.my-iframe.com" &gt; &lt;/iframe&gt;</code></pre>
 	</td>
 </tr>
+</table>
 
+<h3>URL Attributes</h3>
+<table border="0" cellpadding="10" cellspacing="0" style="width:100%;" style="line-height:24px;">
 <tr>
-<td>https://domain.com<b>?msg=</b>Some text</td>
+<td style="width:360px;">https://domain.com<b>?msg=</b>Some text</td>
 <td class="hide-on-tablet">:</td>
 <td>msg parameter in url pop the yBox with your text.</td>
 </tr>
 <tr>
-<td>https://domain.com<b>?ybox-url</b>=my-popup</td>
+<td>https://domain.com?ybox-url=https://www.domain.com
+https://domain.com?ybox-headline=Some Title</td>
+<td class="hide-on-tablet">:</td>
+<td>Pop iframe with the url.</td>
+</tr>
+<tr>
+<td>https://domain.com<b>?ybox-id</b>=my-popup</td>
 <td class="hide-on-tablet">:</td>
 <td>
 Call to element from URL address<br />
-<code><pre>&lt;div style="display:none;"&gt;
-	&lt;div id="my-popup"&gt;
+<pre><code>&lt;div style="display:none;"&gt;
+	<b>&lt;div id="my-popup"&gt;</b>
 	...
 	&lt;/div&gt;
-&lt;/div&gt;</pre></code>
+&lt;/div&gt;</code></pre>
 </td>
 </tr>
 <tr>
@@ -121,8 +134,12 @@ Call to element from URL address<br />
 <td class="hide-on-tablet">:</td>
 <td>add class to yBox window from URL address</td>
 </tr>
+</table>
+
+<h3>Callbacks</h3>
+<table border="0" cellpadding="10" cellspacing="0" style="width:100%;" style="line-height:24px;">
 <tr>
-<td>function beforeYboxOpen(self){ ... };</td>
+<td style="width:360px;">function beforeYboxOpen(self){ ... };</td>
 <td class="hide-on-tablet">:</td>
 <td>
 Calling the function before opening yBox<br />
