@@ -13,6 +13,14 @@ When calling to yBox from your Java Script, you can write your HTML code<br />
 </td>
 </tr>
 <tr>
+<td>url</td>
+<td width="25" class="hide-on-tablet">:</td>
+<td>
+When calling to yBox from your JavaScript, you can show URL address in iframe<br />
+<code>yBox({ <b>url</b>: 'https://www.dooble.co.il' });</code>
+</td>
+</tr>
+<tr>
 <td>self</td>
 <td class="hide-on-tablet">:</td>
 <td>
@@ -38,7 +46,7 @@ Focus the element you want when yBox opens<br />
 </td>
 </tr>
 <tr>
-<td>url</td>
+<td>id</td>
 <td class="hide-on-tablet">:</td>
 <td>
 When calling to element from JavaScript.<br />
@@ -47,7 +55,7 @@ When calling to element from JavaScript.<br />
 	...
 	&lt;/div&gt;
 &lt;/div&gt;</code><br />
-<code>&lt;script&gt; yBox({ <b>url</b>: '#my-popup' }); &lt;/script&gt;</code>
+<code>&lt;script&gt; yBox({ <b>id</b>: '#my-popup' }); &lt;/script&gt;</code>
 </td>
 </tr>
 </table>
