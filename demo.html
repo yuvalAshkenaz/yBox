@@ -10,6 +10,9 @@
 <body>
 	<main>
 		<section>
+			<h1>yBox 8.1</h1>
+		</section>
+		<section>
 			<h3>Files</h3>
 				<pre><code><span class="blue">&lt;link</span> <span class="red">rel</span><span class="purple">="stylesheet"</span> <span class="red">href</span><span class="purple">="https://cdn.jsdelivr.net/gh/yuvalAshkenaz/yBox/dist/css/ybox.min.css"</span> <span class="blue">/&gt;</span>
 <span class="blue">&lt;script</span> <span class="red">type</span><span class="purple">="text/javascript"</span> <span class="red">src</span><span class="purple">="https://cdn.jsdelivr.net/gh/yuvalAshkenaz/yBox/dist/js/ybox.min.js?lang=he"</span><span class="blue">&gt;&lt;/script&gt;</span></code></pre>
@@ -21,8 +24,16 @@
 					<td>code</td>
 					<td width="25" class="hide-on-tablet">:</td>
 					<td>
-						When calling to yBox from your Java Script, you can write your HTML code<br />
+						When calling to yBox from your JavaScript, you can write your HTML code<br />
 						<code><span class="blue">&lt;script&gt;</span> yBox({ code: '&lt;div class="my-class"&gt;Some text&lt;/div&gt;' }); <span class="blue">&lt;/script&gt;</span></code>
+					</td>
+				</tr>
+				<tr>
+					<td>url</td>
+					<td width="25" class="hide-on-tablet">:</td>
+					<td>
+						When calling to yBox from your JavaScript, you can show URL address in iframe<br />
+						<code><span class="blue">&lt;script&gt;</span> yBox({ url: 'https://www.dooble.co.il' }); <span class="blue">&lt;/script&gt;</span></code>
 					</td>
 				</tr>
 				<tr>
@@ -52,21 +63,21 @@
 					</td>
 				</tr>
 				<tr>
-					<td>url</td>
+					<td>id</td>
 					<td class="hide-on-tablet">:</td>
 					<td>
-						When calling to element from java script.<br />
+						When calling to element from JavaScript.<br />
 						<pre><code><span class="blue">&lt;div</span> <span class="red">style</span>=<span class="purple">"display:none;"</span><span class="blue">&gt;</span>
 	<span class="blue">&lt;div</span> <span class="red">id</span>=<span class="purple">"my-popup"</span><span class="blue">&gt;</span>
 	...
 	<span class="blue">&lt;/div&gt;</span>
 <span class="blue">&lt;/div&gt;</span></code></pre>
-						<code><span class="blue">&lt;script&gt;</span> yBox({ url: '#my-popup' }); <span class="blue">&lt;/script&gt;</span></code>
+						<code><span class="blue">&lt;script&gt;</span> yBox({ id: '#my-popup' }); <span class="blue">&lt;/script&gt;</span></code>
 					</td>
 				</tr>
 			</table>
 			
-			<h3>Button Attributes</h3>
+			<h3 style="margin-top:30px;">Button Attributes</h3>
 			<table border="0" cellpadding="10" cellspacing="0" class="top-table">
 				<tr>
 					<td>data-ybox-class</td>
@@ -354,7 +365,7 @@ yBox({
 	</main>
 
 <link rel="stylesheet" href="dist/css/ybox.min.css" />
-<script type="text/javascript" src="dist/js/ybox.min.js?lang=en"></script>
+<script type="text/javascript" src="dist/js/ybox.js?lang=en"></script>
 
 <script type="text/javascript">
 function beforeYboxOpen(self){

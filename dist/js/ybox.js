@@ -1,4 +1,4 @@
-﻿/*! yBox - v8 - 21/05/2025
+﻿/*! yBox - v8.1 - 22/05/2025
 * By Yuval Ashkenazi
 * https://github.com/yuvalAshkenaz/yBox */
 
@@ -656,8 +656,10 @@ function yBox( obj ) {
 			a_or_div = obj.self;
 		} else if( obj.id ) {
 			a_or_div = jQuery(obj.id);
+		} else if( obj.url ) {
+			a_or_div = jQuery('body');
 		}
-		if(typeof beforeYboxOpen != 'undefined'){
+		if( typeof beforeYboxOpen !== 'undefined' && a_or_div ) {
 			beforeYboxOpen( a_or_div );
 		}
 		obj.hasSelf = true;
@@ -692,7 +694,7 @@ function yBox( obj ) {
 			// }
 			setTimeout(function(){
 				jQuery('.yBoxOverlay').addClass('active');
-				if( typeof afterYboxOpen != 'undefined' ) {
+				if( typeof afterYboxOpen != 'undefined' && a_or_div ) {
 					afterYboxOpen( a_or_div );
 				}
 			}, 200);
