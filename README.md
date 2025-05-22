@@ -5,11 +5,11 @@
 <h3>JavaScript parameters</h3>
 <table border="0" cellpadding="10" cellspacing="0" width="100%" style="line-height:24px;">
 <tr>
-<td width="360">code</td>
+<td>code</td>
 <td width="25" class="hide-on-tablet">:</td>
 <td>
 When calling to yBox from your Java Script, you can write your HTML code<br />
-<code>yBox({ code: '&lt;div class="my-class"&gt;Some text&lt;/div&gt;' });</code>
+<code>yBox({ <b>code</b>: '&lt;div class="my-class"&gt;Some text&lt;/div&gt;' });</code>
 </td>
 </tr>
 <tr>
@@ -17,7 +17,7 @@ When calling to yBox from your Java Script, you can write your HTML code<br />
 <td class="hide-on-tablet">:</td>
 <td>
 <code>&lt;a href="#popup" class="yBox <b>my-link</b>"&gt;The link&lt;/a&gt;<br />
-yBox({ self: jQuery('.my-link') });
+yBox({ <b>self</b>: jQuery('.my-link') });
 </code>
 </td>
 </tr>
@@ -26,7 +26,7 @@ yBox({ self: jQuery('.my-link') });
 <td class="hide-on-tablet">:</td>
 <td>
 Added to &lt;div class="yBoxFrame"&gt; in yBox window<br />
-<code>yBox({ yBoxClass: 'my-class' });</code>
+<code>yBox({ <b>yBoxClass</b>: 'my-class' });</code>
 </td>
 </tr>
 <tr>
@@ -34,20 +34,20 @@ Added to &lt;div class="yBoxFrame"&gt; in yBox window<br />
 <td class="hide-on-tablet">:</td>
 <td>
 Focus the element you want when yBox opens<br />
-<code>yBox({ focus: '.focus-class' });</code>
+<code>yBox({ <b>focus</b>: '.focus-class' });</code>
 </td>
 </tr>
 <tr>
 <td>url</td>
 <td class="hide-on-tablet">:</td>
 <td>
-When calling to element from java script.<br />
+When calling to element from JavaScript.<br />
 <code>&lt;div style="display:none;"&gt;
-	&lt;div id="my-popup"&gt;
+	&lt;div id="<b>my-popup</b>"&gt;
 	...
 	&lt;/div&gt;
 &lt;/div&gt;</code><br />
-<code>&lt;script&gt; yBox({ url: '#my-popup' }); &lt;/script&gt;</code>
+<code>&lt;script&gt; yBox({ <b>url</b>: '#my-popup' }); &lt;/script&gt;</code>
 </td>
 </tr>
 </table>
