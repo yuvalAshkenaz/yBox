@@ -61,7 +61,8 @@ main{
 	overflow:hidden;
 	position:relative;
 }
-.iframeSection img, .group-wrap img{
+.iframeSection img,
+.group-wrap img{
 	width:auto;
 	max-width:none;
 	min-width:100%;
@@ -75,7 +76,8 @@ main{
 	-webkit-transition:all 0.5s ease;
 	transition:all 0.5s ease;
 }
-.iframeSection a:hover img, .group-wrap a:hover img{
+.iframeSection a:hover img,
+.group-wrap a:hover img{
 	-webkit-transform:translate(-50%,-50%) scale(1.05);
 	transform:translate(-50%,-50%) scale(1.05);
 }
@@ -83,6 +85,12 @@ h1,h2, h3{
     font-size:22px;
     font-weight:400;
     margin:0 0 30px 0;
+}
+h1 {
+	color: #e79500;
+	margin: 20px 0 0 0;
+	font-weight: 700;
+	font-size: 40px;
 }
 .yBox{
 	display:inline-block;
