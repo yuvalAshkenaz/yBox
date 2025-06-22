@@ -3,8 +3,32 @@
 &lt;link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/yuvalAshkenaz/yBox/dist/css/ybox.min.css" /&gt;
 &lt;script type="text/javascript" src="https://cdn.jsdelivr.net/gh/yuvalAshkenaz/yBox/dist/js/ybox.min.js?lang=he"&gt;&lt;/script&gt;
 </code></pre>
+<h3>Class</h3>
+			<table border="0" cellpadding="10" cellspacing="0">
+				<tr>
+					<td>class="yBox yBox_iframe"</td>
+					<td width="25" class="hide-on-tablet">:</td>
+					<td>
+						Opens href in iframe
+					</td>
+				</tr>
+				<tr>
+					<td>class="yBox yBox_ajax"</td>
+					<td width="25" class="hide-on-tablet">:</td>
+					<td>
+						Opens href as AJAX
+					</td>
+				</tr>
+				<tr>
+					<td>class="yBox yBox_video"</td>
+					<td width="25" class="hide-on-tablet">:</td>
+					<td>
+						Opens href as Video tag
+					</td>
+				</tr>
+			</table>
 <h3>JavaScript parameters</h3>
-<table border="0" cellpadding="10" cellspacing="0" width="100%" style="line-height:24px;">
+<table border="0" cellpadding="10" cellspacing="0" style="line-height:24px;">
 <tr>
 <td>code</td>
 <td width="25" class="hide-on-tablet">:</td>
@@ -62,7 +86,7 @@ When calling to element from JavaScript.<br />
 </table>
 
 <h3>Button Attributes</h3>
-<table border="0" cellpadding="10" cellspacing="0" width="100%" style="line-height:24px;">
+<table border="0" cellpadding="10" cellspacing="0" style="line-height:24px;">
 <tr>
 	<td>data-ybox-class</td>
 	<td class="hide-on-tablet">:</td>
