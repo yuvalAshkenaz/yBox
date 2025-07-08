@@ -1,4 +1,4 @@
-﻿/*! yBox - v8.1 - 22/05/2025
+﻿/*! yBox - v8.2 - 08/07/2025
 * By Yuval Ashkenazi
 * https://github.com/yuvalAshkenaz/yBox */
 
@@ -594,14 +594,16 @@ var yBox_lang = yUrl.searchParams.get("lang");
 var strings = {
 	close	: 'Close',
 	next	: 'Next',
-	prev	: 'Prev'
+	prev	: 'Prev',
+	press_tab_again_to_return_to_the_first_button: 'Press Tab again to return to the first button'
 };
 if( yBox_lang == 'he' || yBox_lang == 'he-IL' || yBox_lang == 'he_IL' ) {
 	yBox_lang = 'he';
 	strings = {
 		close	: 'סגירה',
 		next	: 'הבא',
-		prev	: 'הקודם'
+		prev	: 'הקודם',
+		press_tab_again_to_return_to_the_first_button: 'לחצו שוב על טאב כדי לחזור לכפתור הראשון'
 	};
 }
 if( yBox_lang == 'ar' || yBox_lang == 'ar-ar' ) {
@@ -609,7 +611,8 @@ if( yBox_lang == 'ar' || yBox_lang == 'ar-ar' ) {
 	strings = {
 		close	: 'لإغلاق',
 		next	: 'التالي',
-		prev	: 'السابق'
+		prev	: 'السابق',
+		press_tab_again_to_return_to_the_first_button: 'اضغط على Tab مرة أخرى للرجوع إلى الزر الأول'
 	};
 }
 
@@ -774,7 +777,9 @@ function ybox_iframe(obj){
 		var vimeoID = obj.url.match(/video\/(\d+)/)[1];
 		obj.url = 'https://player.vimeo.com/video/'+vimeoID+'?autoplay=1&background=1';
 	}
-	var code = iframe_headline + '<iframe src="'+obj.url+'" frameborder="0" wmode="Opaque" allow="autoplay" allowfullscreen id="yBoxIframe" class="yBoxIframe" '+attrs+'></iframe>';
+	var code = iframe_headline + 
+				'<iframe src="' + obj.url + '" frameborder="0" wmode="Opaque" allow="autoplay" allowfullscreen id="yBoxIframe" class="yBoxIframe" '+attrs+'></iframe>' + 
+				'<button type="button" class="btn-for-focus-only" aria-label="' + strings.press_tab_again_to_return_to_the_first_button + '"></button>';
 	
 	if( obj.hasSelf )
 		code = yBox_Group(obj.self, code);
@@ -1014,7 +1019,7 @@ jQuery(document).keyup(function(e){
 	}
 });
 jQuery(document).keydown(function(e){
-	var $focusableElements = jQuery('.yBoxFrame').find('input, button, textarea, select, a').filter(':visible');
+	var $focusableElements = jQuery('.yBoxFrame').find('button:visible, textarea:not(:disabled), input:not(:disabled):not([type="hidden"]), a:visible, select, iframe, video').filter(':visible');
 	var $firstElement = $focusableElements.first();
 	var $lastElement = $focusableElements.last();
 	
