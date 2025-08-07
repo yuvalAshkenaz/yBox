@@ -54,6 +54,22 @@
     -webkit-transform: translate(0, 0);
     transform: translate(0, 0);
 }
+.admin-bar .yBoxFrame {
+	max-height: -webkit-calc(100vh - 42px);
+	max-height: calc(100vh - 42px);
+}
+.admin-bar .yBoxFrame.yBoxImgWrap .insertYboxAjaxHere {
+	max-height: -webkit-calc(100vh - 42px);
+	max-height: calc(100vh - 42px);
+}
+.admin-bar .yBoxFrame.yBoxImgWrap img.yBoxImg {
+	max-height: -webkit-calc(100vh - 62px);
+	max-height: calc(100vh - 62px);
+}
+.admin-bar .yBoxOverlay.active .yBoxFrame {
+	-webkit-transform: translate(0, 16px);
+	transform: translate(0, 16px);
+}
 .closeYbox,
 .closeYbox[type="button"] {
     background-color: #fff;
