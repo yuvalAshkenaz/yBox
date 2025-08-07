@@ -1,4 +1,4 @@
-﻿/*! yBox - v8.2 - 08/07/2025
+﻿/*! yBox - v8.3 - 07/08/2025
 * By Yuval Ashkenazi
 * https://github.com/yuvalAshkenaz/yBox */
 
@@ -677,8 +677,8 @@ function yBox( obj ) {
 			obj.yBoxClass = obj.self.data('ybox-class') || '';
 			obj.url = obj.self.attr('href');
 		}
-		var html = '<div class="yBoxOverlay no-contrast' + ( yBox_lang == 'he' || yBox_lang == 'ar' ? ' yBoxRTL' : '' ) + '" tabindex="-1">'+
-						'<div class="yBoxFrame ' + obj.yBoxClass + '" role="dialog">'+
+		var html = '<div class="yBoxOverlay no-contrast' + ( yBox_lang == 'he' || yBox_lang == 'ar' ? ' yBoxRTL' : '' ) + ' ' + obj.yBoxClass + '" tabindex="-1">'+
+						'<div class="yBoxFrame" role="dialog">'+
 							'<button type="button" class="closeYbox" title="' + strings.close + '" aria-label="' + strings.close + '"></button>'+
 							'<div class="insertYboxAjaxHere" tabindex="-1"></div>'+
 						'</div>'+
