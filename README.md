@@ -95,6 +95,13 @@ When calling to element from JavaScript.<br />
 		<pre><code>&lt;a href="#popup" data-ybox-class="my-class" class="yBox"&gt;Link&lt;/a&gt;</code></pre>
 	</td>
 </tr>
+				<tr>
+					<td>data-ybox-class="no-bg"</td>
+					<td class="hide-on-tablet">:</td>
+					<td>
+						Remove the white background
+					</td>
+				</tr>
 <tr>
 	<td>data-ybox-alt</td>
 	<td class="hide-on-tablet">:</td>
