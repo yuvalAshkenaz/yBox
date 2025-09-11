@@ -1,4 +1,4 @@
-<h1>yBox 8.3</h1>
+<h1>yBox 8.4</h1>
 <pre><code>
 &lt;link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/yuvalAshkenaz/yBox/dist/css/ybox.min.css" /&gt;
 &lt;script type="text/javascript" src="https://cdn.jsdelivr.net/gh/yuvalAshkenaz/yBox/dist/js/ybox.min.js?lang=he"&gt;&lt;/script&gt;
