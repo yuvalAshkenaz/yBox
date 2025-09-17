@@ -1,4 +1,4 @@
-﻿/*! yBox - v8.4 - 11/09/2025
+﻿/*! yBox - v9.0 - 17/09/2025
 * By Yuval Ashkenazi
 * https://github.com/yuvalAshkenaz/yBox */
 
@@ -617,11 +617,11 @@ if( yBox_lang == 'ar' || yBox_lang == 'ar-ar' ) {
 }
 
 var url 		 = new URL( window.location.href );
-var msg 		 = url.searchParams.get("msg");
+var msg 		 = ''; // url.searchParams.get("msg");
 var yBoxID 		 = url.searchParams.get("ybox-id");
-var yBoxURL		 = url.searchParams.get("ybox-url");
-var yBoxHeadline = url.searchParams.get("ybox-headline");
-var yBoxClassPrm = url.searchParams.get("ybox-class");
+var yBoxURL		 = ''; // url.searchParams.get("ybox-url");
+var yBoxHeadline = ''; // url.searchParams.get("ybox-headline");
+var yBoxClassPrm = ''; // url.searchParams.get("ybox-class");
 if( msg || yBoxID || yBoxURL ) {
 	if( ! jQuery.isEmptyObject( yBoxID ) && ( yBoxID.indexOf('http:') == -1 && yBoxID.indexOf('https:') == -1 ) ) {
 		yBoxID = '#'+yBoxID;
