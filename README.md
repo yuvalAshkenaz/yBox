@@ -147,17 +147,6 @@ When calling to element from JavaScript.<br />
 <h3>URL Attributes</h3>
 <table border="0" cellpadding="10" cellspacing="0" width="100%" style="line-height:24px;">
 <tr>
-<td>domain.com<b>?msg=</b>Some text</td>
-<td class="hide-on-tablet">:</td>
-<td>msg parameter in url pop the yBox with your text.</td>
-</tr>
-<tr>
-<td>domain.com<b>?ybox-url</b>=domain.com<br>
-domain.com<b>?ybox-headline</b>=Some Title</td>
-<td class="hide-on-tablet">:</td>
-<td>Pop iframe with the url.</td>
-</tr>
-<tr>
 <td>domain.com<b>?ybox-id</b>=my-popup</td>
 <td class="hide-on-tablet">:</td>
 <td>
@@ -168,11 +157,6 @@ Call to element from URL address<br />
 	&lt;/div&gt;
 &lt;/div&gt;</code></pre>
 </td>
-</tr>
-<tr>
-<td>domain.com<b>?ybox-class</b>=my-popup-class</td>
-<td class="hide-on-tablet">:</td>
-<td>add class to yBox window from URL address</td>
 </tr>
 </table>
 
