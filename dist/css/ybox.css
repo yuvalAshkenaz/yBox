@@ -1,4 +1,4 @@
-/*! yBox - v9.0 - 17/09/2025
+﻿/*! yBox - v9.1 - 25/09/2025
 * By Yuval Ashkenazi
 * https://github.com/yuvalAshkenaz/yBox */
 .yBoxOverlay * {
@@ -83,7 +83,7 @@
     border: none;
     cursor: pointer;
     z-index: 3;
-	border-radius: 2px;
+	border-radius: 0 0 0 2px;
 }
 .closeYbox::after,
 .closeYbox::before {
@@ -175,6 +175,7 @@
     max-height: -webkit-calc(100vh - 30px);
     max-height: calc(100vh - 30px);
 	margin: auto;
+	border-radius: 5px;
 }
 .yBoxNext,
 .yBoxPrev {
