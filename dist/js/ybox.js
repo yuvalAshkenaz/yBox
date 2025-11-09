@@ -3,7 +3,7 @@
 * https://github.com/yuvalAshkenaz/yBox */
 
 //yBox
-jQuery('body').on('click', '.yBox',function(e){
+jQuery('body').on('click', '.yBox, .ybox', function(e){
 	e.preventDefault();
 	e.stopPropagation();
 	var self = jQuery(this);
