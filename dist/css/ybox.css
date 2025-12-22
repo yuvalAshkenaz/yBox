@@ -301,30 +301,6 @@
 	font-size: 18px;
 	z-index: 3;
 }
-.ybox-share-title {
-	margin: 0;
-	font-size: 18px;
-	z-index: 3;
-	position: absolute;
-	bottom: auto;
-	top: 10px;
-	left: 19px;
-	right: 40px;
-	padding: 7px 15px 13px 0;
-}
-.ybox-share-title::after {
-	content: "";
-	background: #000;
-	width: 35px;
-	height: 3px;
-	position: absolute;
-	left: 0;
-	bottom: 0;
-}
-.yBoxRTL .ybox-share-title {
-	text-align: right;
-	direction: rtl;
-}
 @keyframes yBox-loader-circles {
     0%,
     100% {
@@ -374,16 +350,89 @@
 	left: 0;
 	top: 0;
 }
+.yBoxOverlay.ybox-share-btns {
+	background-color: rgba(0, 0, 0, 0.9);
+}
+.yBoxOverlay.ybox-share-btns .yBoxFrame {
+	background: none;
+    box-shadow: none;
+	color: #fff;
+}
+.yBoxOverlay.ybox-share-btns .closeYbox,
+.yBoxOverlay.ybox-share-btns .closeYbox[type="button"] {
+	background: none;
+}
+.yBoxOverlay.ybox-share-btns .closeYbox::after,
+.yBoxOverlay.ybox-share-btns .closeYbox::before {
+	background: #fff;
+}
+.yBoxOverlay.ybox-share-btns .insertYboxAjaxHere {
+	padding-top: 110px;
+}
+.ybox-share-title {
+	margin: 0;
+	font-size: 26px;
+	z-index: 3;
+	position: absolute;
+	bottom: auto;
+	top: 10px;
+	left: 19px;
+	right: 40px;
+	padding: 0 15px 18px 0;
+}
+.ybox-share-title::after {
+	content: "";
+	background: #fff;
+	width: 35px;
+	height: 3px;
+	position: absolute;
+	left: 0;
+	bottom: 0;
+}
+.yBoxRTL .ybox-share-title {
+	text-align: right;
+	direction: rtl;
+}
 .ybox-socials-list {
 	display: flex;
-	min-height: 100px;
+	width: 500px;
+	max-width: 100%;
+	gap: 20px 0;
 	flex-wrap: wrap;
-	gap: 20px;
 	align-items: center;
 	list-style: none;
-	margin: 20px 0 0 0;
+	margin: 0;
 	padding: 0;
 	line-height: 1px;
+}
+.ybox-socials-list > li {
+	width: 20%;
+}
+.ybox-share-btn {
+	display: inline-block;
+	text-decoration: none;
+	position: relative;
+}
+.ybox-share-btn::before {
+	content: "";
+	width: 1px;
+	height: 1px;
+	border-radius: 50%;
+	z-index: -1;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    box-shadow: #fff 0 0 30px 10px;
+	-webkit-transition: all 0.3s ease;
+	transition: all 0.3s ease;
+	filter: alpha(opacity=0);
+	opacity: 0;
+	-khtml-opacity: 0;
+}
+.ybox-share-btn:hover::before {
+	filter: alpha(opacity=100);
+	opacity: 1;
+	-khtml-opacity: 1;
 }
 @media print {
 	.yBoxOverlay {
@@ -393,6 +442,7 @@
 .ybox-copy-text-btn {
 	position: relative;
 	line-height: 1px;
+	margin: 33px 0;
 }
 .ybox-copy-show-on-check {
 	position: absolute;
@@ -423,6 +473,7 @@
 	width: 100%;
     font-size: 12px;
     line-height: 13px;
+	color: #fff;
     margin: 7px 0 0 0;
 	-webkit-transform: translate(0,-10px);
 	transform: translate(0,-10px);
@@ -444,29 +495,16 @@
 	-webkit-transform: translate(0,0);
 	transform: translate(0,0);
 }
-.ybox-twitter-share-btn {
+.ybox-socials-list svg {
 	width: 40px;
 	height: 40px;
-	overflow: hidden;
 }
-.ybox-twitter-share-btn svg {
-	width: 66px;
-	height: 66px;
-	margin: -13px 0 0 -13px;
+.ybox-socials-list path {
+	fill: #fff;
 }
-.ybox-telegram-share-btn svg,
-.ybox-pinterest-share-btn svg {
-	background: #000;
-	border-radius: 50%;
-	padding: 2px;
-}
-.ybox-linkedin-share-btn svg {
-	border-radius: 50%;
-	border: 2px solid #000;
-}
-.ybox-telegram-share-btn svg path,
-.ybox-pinterest-share-btn svg path {
-	fill: #fff !important;
+.ybox-telegram-share-btn path {
+	-webkit-transform: scale(1.5);
+	transform: scale(1.5);
 }
 
 @media screen and (min-width: 768px) {
