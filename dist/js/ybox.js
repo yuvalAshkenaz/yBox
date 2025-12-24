@@ -141,9 +141,9 @@ function yBox( obj ) {
 		if( obj.hasSelf ) {
 			obj.yBoxClass = obj.self.data('ybox-class') || '';
 			obj.url = obj.self.attr('href');
-		}
-		if( obj.self.hasClass('yBox_share') ) {
-			obj.yBoxClass += ' ybox-share-btns';
+			if( obj.self.hasClass('yBox_share') ) {
+				obj.yBoxClass += ' ybox-share-btns';
+			}
 		}
 		var html = '<div class="yBoxOverlay no-contrast' + ( yBox_lang == 'he' || yBox_lang == 'ar' ? ' yBoxRTL' : '' ) + ' ' + obj.yBoxClass + '" tabindex="-1">'+
 						'<div class="yBoxFrame" role="dialog">'+
