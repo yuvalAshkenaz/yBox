@@ -1,4 +1,4 @@
-﻿/*! yBox - v10.0 - 22/12/2025
+﻿/*! yBox - v10.2 - 25/12/2025
 * By Yuval Ashkenazi
 * https://github.com/yuvalAshkenaz/yBox */
 
@@ -6,10 +6,10 @@
 jQuery('body').on('click', '.yBox', function(e){
 	e.preventDefault();
 	e.stopPropagation();
-	var self = jQuery(this);
+	let self = jQuery(this);
 	if( jQuery('.yBoxFocus').length ) {
 		if( typeof beforeYboxClose != 'undefined' ) {
-			var beforeClose = beforeYboxClose( jQuery('.yBoxFocus') );
+			let beforeClose = beforeYboxClose( jQuery('.yBoxFocus') );
 			if( beforeClose == false )
 				return false;
 		}
@@ -18,9 +18,9 @@ jQuery('body').on('click', '.yBox', function(e){
 	self.addClass('yBoxFocus');
 	yBox({ self: self });
 });
-var yUrl = new URL(document.currentScript.src);
-var yBox_lang = yUrl.searchParams.get("lang");
-var strings = {
+let yUrl = new URL(document.currentScript.src);
+let yBox_lang = yUrl.searchParams.get("lang");
+let strings = {
 	close				: 'Close',
 	next				: 'Next',
 	prev				: 'Prev',
@@ -81,12 +81,12 @@ if( yBox_lang == 'ar' || yBox_lang == 'ar-ar' ) {
 	};
 }
 
-var url 		 = new URL( window.location.href );
-var msg 		 = ''; // url.searchParams.get("msg");
-var yBoxID 		 = url.searchParams.get("ybox-id");
-var yBoxURL		 = ''; // url.searchParams.get("ybox-url");
-var yBoxHeadline = ''; // url.searchParams.get("ybox-headline");
-var yBoxClassPrm = ''; // url.searchParams.get("ybox-class");
+let url 		 = new URL( window.location.href );
+let msg 		 = ''; // url.searchParams.get("msg");
+let yBoxID 		 = url.searchParams.get("ybox-id");
+let yBoxURL		 = ''; // url.searchParams.get("ybox-url");
+let yBoxHeadline = ''; // url.searchParams.get("ybox-headline");
+let yBoxClassPrm = ''; // url.searchParams.get("ybox-class");
 if( msg || yBoxID || yBoxURL ) {
 	if( ! jQuery.isEmptyObject( yBoxID ) && ( yBoxID.indexOf('http:') == -1 && yBoxID.indexOf('https:') == -1 ) ) {
 		yBoxID = '#'+yBoxID;
@@ -100,7 +100,7 @@ if( msg || yBoxID || yBoxURL ) {
 	});
 	//***** Remove msg from URL ***********
 	setTimeout(function(){
-		var params = new URLSearchParams(window.location.search);
+		let params = new URLSearchParams(window.location.search);
 		params.delete('msg');
 		params.delete('ybox-id');
 		params.delete('ybox-url');
@@ -113,13 +113,13 @@ if( msg || yBoxID || yBoxURL ) {
 		if( params.toString() ) {
 			params = '?'+params.toString();
 		}
-		var newURL = window.location.pathname+params;
+		let newURL = window.location.pathname+params;
 		window.history.pushState("", "", newURL);
 	},500);
 }
 function yBox( obj ) {
 	if( ! jQuery('.yBoxOverlay:not(.active)').length ) {
-		var a_or_div;
+		let a_or_div;
 		if( obj.self ) {
 			a_or_div = obj.self;
 		} else if( obj.id ) {
@@ -145,7 +145,7 @@ function yBox( obj ) {
 				obj.yBoxClass += ' ybox-share-btns';
 			}
 		}
-		var html = '<div class="yBoxOverlay no-contrast' + ( yBox_lang == 'he' || yBox_lang == 'ar' ? ' yBoxRTL' : '' ) + ' ' + obj.yBoxClass + '" tabindex="-1">'+
+		let html = '<div class="yBoxOverlay no-contrast' + ( yBox_lang == 'he' || yBox_lang == 'ar' ? ' yBoxRTL' : '' ) + ' ' + obj.yBoxClass + '" tabindex="-1">'+
 						'<div class="yBoxFrame" role="dialog">'+
 							'<button type="button" class="closeYbox" title="' + strings.close + '" aria-label="' + strings.close + '"></button>'+
 							'<div class="insertYboxAjaxHere" tabindex="-1"></div>'+
@@ -172,7 +172,7 @@ function yBox( obj ) {
 		} else {
 			if( jQuery('.yBoxFrame.yBoxImgWrap').length ) {
 				remove_yBox_placeholder();
-				jQuery('.insertYboxAjaxHere').html('');
+				// jQuery('.insertYboxAjaxHere').html('');
 				insert_yBox_html(obj);
 				// {
 					// self	: obj.self,
@@ -189,7 +189,7 @@ function yBox( obj ) {
 				jQuery('.insertYboxAjaxHere').animate({
 					opacity : 0
 				}, function(){
-					var athis = jQuery(this);
+					let athis = jQuery(this);
 					setTimeout(function(){
 						remove_yBox_placeholder();
 						athis.html('');
@@ -217,8 +217,8 @@ function yBox( obj ) {
 };
 function ybox_iframe(obj){
 	//iframe
-	var attrs = '';
-	var iframe_headline = '';
+	let attrs = '';
+	let iframe_headline = '';
 	
 	if( obj.hasSelf ) {
 		if( obj.self.data('ybox-title') )
@@ -239,13 +239,13 @@ function ybox_iframe(obj){
 	
 	jQuery('.yBoxFrame').addClass('yBoxIframeWrap');
 	if( obj.url.toLowerCase().indexOf('youtube') > -1 || obj.url.toLowerCase().indexOf('youtu.be') > -1 ) {
-		var youtube_id = obj.url.replace(/^[^v]+v.(.{11}).*/,"$1").replace('https://youtu.be/','').replace(/.*youtube.com\/embed\//,'');
+		let youtube_id = obj.url.replace(/^[^v]+v.(.{11}).*/,"$1").replace('https://youtu.be/','').replace(/.*youtube.com\/embed\//,'');
 		obj.url = 'https://www.youtube.com/embed/'+youtube_id+'?wmode=transparent&rel=0&autoplay=1&hl='+yBox_lang;
 	} else if( obj.url.toLowerCase().indexOf('vimeo') > -1 ) {
-		var vimeoID = obj.url.match(/video\/(\d+)/)[1];
+		let vimeoID = obj.url.match(/video\/(\d+)/)[1];
 		obj.url = 'https://player.vimeo.com/video/'+vimeoID+'?autoplay=1&background=1';
 	}
-	var code = iframe_headline + 
+	let code = iframe_headline + 
 				'<iframe src="' + obj.url + '" frameborder="0" wmode="Opaque" allow="autoplay" allowfullscreen id="yBoxIframe" class="yBoxIframe" '+attrs+'></iframe>' + 
 				'<button type="button" class="btn-for-focus-only" aria-label="' + strings.press_tab_again_to_return_to_the_first_button + '"></button>';
 	
@@ -272,7 +272,7 @@ jQuery('body').on('click', '.ybox-linkedin-share-btn', function(){
 });
 // Copy URL
 jQuery('body').on('click', '.ybox-copy-text-btn', function(){
-	var $temp = jQuery("<input>");
+	let $temp = jQuery("<input>");
 	jQuery("body").append($temp);
 	$temp.val( location.href ).select();
 	document.execCommand("copy");
@@ -291,7 +291,7 @@ function insert_yBox_html( obj ) {
 		} else if( obj.self.hasClass('yBox_video') ) {
 			// Video
 			jQuery('.yBoxFrame').addClass('yBoxIframeWrap');
-			var code = '<video class="yBoxVideo" autoplay controls preload plays-inline playsinline><source src="'+obj.url+'" type="video/mp4" /></video>';
+			let code = '<video class="yBoxVideo" autoplay controls preload plays-inline playsinline><source src="'+obj.url+'" type="video/mp4" /></video>';
 			code = yBox_Group(obj.self, code);
 			jQuery('.yBoxFrame .insertYboxAjaxHere').html( code );
 		} else if( obj.self.hasClass('yBox_ajax') ) {
@@ -367,24 +367,31 @@ function insert_yBox_html( obj ) {
 		} else if( typeof obj.url !== 'undefined' && obj.url.indexOf('#') == -1 ) {
 			// Image
 			jQuery('.yBoxFrame').addClass('yBoxImgWrap');
-			jQuery('.insertYboxAjaxHere').append('<div style="text-align:center;position:absolute;right:0;left:0;top:0;bottom:0;"><div class="yBoxLoader"></div></div>');
-			var img = new Image();
+			
+			let loaderTimeout = setTimeout(function(){
+				jQuery('.insertYboxAjaxHere').append('<div style="text-align:center;position:absolute;right:0;left:0;top:0;bottom:0;"><div class="yBoxLoader"></div></div>');
+			}, 500);
+			
+			let img = new Image();
 			img.src = obj.url;
 			img.className = 'yBoxImg';
 			img.onload = function(){
-				var alt = obj.self.data('ybox-alt') || '';
-				var title = obj.self.data('ybox-title') ? 'title="'+obj.self.data('ybox-title')+'"' : '';
-				var img_headline = '';
-				var aria_labelledby = '';
+				let alt = obj.self.data('ybox-alt') || '';
+				let title = obj.self.data('ybox-title') ? 'title="'+obj.self.data('ybox-title')+'"' : '';
+				let img_headline = '';
+				let aria_labelledby = '';
 				if( obj.self.data('ybox-headline') ) {
 					img_headline = '<h2 id="ybox-img-title" class="ybox-img-title">'+obj.self.data('ybox-headline')+'</h2>';
 					aria_labelledby = 'aria-labelledby="ybox-img-title"';
 				}
-				var code = '<div class="yBoxImgWrap2">'+
+				let code = '<div class="yBoxImgWrap2">'+
 								'<img src="'+obj.url+'" alt="'+alt+'" '+title+' id="yBoxImg" class="yBoxImg" '+aria_labelledby+' />'+
 								img_headline+
 							'</div>';
 				code = yBox_Group(obj.self, code);
+				
+				if( typeof loaderTimeout !== 'undefined' )
+					clearTimeout( loaderTimeout );
 			};
 		} else {
 			if( typeof obj.url === 'undefined' && typeof obj.code !== 'undefined' ) {
@@ -436,7 +443,7 @@ function setYboxFocus( obj ){
 	}
 };
 function yBox_Group( yBoxLink, code ) {
-	var group = yBoxLink.data('ybox-group');
+	let group = yBoxLink.data('ybox-group');
 	if( group && jQuery('.yBox[data-ybox-group="'+group+'"]').length > 1 ) {
 		code = '<button type="button" class="yBoxNext" title="'+strings.next+'"></button>'+
 					code+
@@ -454,19 +461,19 @@ jQuery('body').on('click','.yBoxPrev',function(e){
 
 setTimeout(function(){
 	jQuery('.yBox[data-ybox-group]:not(.swiper-slide-duplicate)').each(function(i){
-		var group = jQuery(this).data('ybox-group');
+		let group = jQuery(this).data('ybox-group');
 		jQuery(this).attr('data-ybox-id', group+'-'+i);
 	});
 	jQuery('.yBox[data-ybox-group].swiper-slide-duplicate').each(function(i){
-		var group = jQuery(this).data('ybox-group');
+		let group = jQuery(this).data('ybox-group');
 		jQuery(this).attr('data-ybox-id', group+'-'+i);
 	});
 }, 500);
 
 function yBoxNext( self ) {
-	var group = self.data('ybox-group');
-	var next;
-	var entered = false;
+	let group = self.data('ybox-group');
+	let next;
+	let entered = false;
 	jQuery('.yBox[data-ybox-group="'+group+'"]:not(.swiper-slide-duplicate)').each(function(i){
 		if( ! entered ) {
 			if( jQuery(this).attr('data-ybox-id') == self.attr('data-ybox-id') ) {
@@ -486,14 +493,14 @@ function yBoxNext( self ) {
 	}
 };
 function yBoxPrev( self ) {
-	var group = self.data('ybox-group');
-	var prev;
+	let group = self.data('ybox-group');
+	let prev;
 	jQuery('.yBox[data-ybox-group="'+group+'"]:not(.swiper-slide-duplicate)').each(function(i){
 		if( jQuery(this).attr('data-ybox-id') == self.attr('data-ybox-id') ) {
 			if( jQuery('.yBox[data-ybox-group="'+group+'"]:not(.swiper-slide-duplicate)').eq(i-1).length ) {
 				prev = jQuery('.yBox[data-ybox-group="'+group+'"]:not(.swiper-slide-duplicate)').eq(i-1);
 			} else {
-				var count = jQuery('.yBox[data-ybox-group="'+group+'"]:not(.swiper-slide-duplicate)').length;
+				let count = jQuery('.yBox[data-ybox-group="'+group+'"]:not(.swiper-slide-duplicate)').length;
 				prev = jQuery('.yBox[data-ybox-group="'+group+'"]:not(.swiper-slide-duplicate)').eq(count-1);
 			}
 		}
@@ -506,8 +513,8 @@ function yBoxPrev( self ) {
 };
 //Close
 jQuery('body').on('click','.yBoxOverlay',function(e){
-	var classes = '';
-	for(var i = 0;i < e.target.classList.length;i++){
+	let classes = '';
+	for(let i = 0;i < e.target.classList.length;i++){
 		if(e.target.classList[i].indexOf('yBoxOverlay') > -1 || e.target.classList[i].indexOf('active') > -1){
 			classes += e.target.classList[i]+' ';
 		}
@@ -519,12 +526,12 @@ jQuery('body').on('click','.yBoxOverlay',function(e){
 			e.target.className.indexOf('closeYbox') > -1
 		) 
 	) {
-		var a_or_div = jQuery('.insertYboxAjaxHere > *').eq(0);
+		let a_or_div = jQuery('.insertYboxAjaxHere > *').eq(0);
 		if( jQuery('.yBoxFocus').length ) {
 			a_or_div = jQuery('.yBoxFocus');
 		}
 		if( typeof beforeYboxClose != 'undefined' ) {
-			var beforeClose = beforeYboxClose( a_or_div );
+			let beforeClose = beforeYboxClose( a_or_div );
 			if( beforeClose == false )
 				return false;
 		}
@@ -541,7 +548,7 @@ jQuery('body').on('click','.yBoxOverlay',function(e){
 });
 function remove_yBox_placeholder() {
 	if( jQuery('.yBoxFramePlaceHolder').length ) {
-		var element_id = jQuery('.insertYboxAjaxHere > *').eq(0).attr('id');
+		let element_id = jQuery('.insertYboxAjaxHere > *').eq(0).attr('id');
 		if( element_id ) {
 			jQuery('#'+element_id).insertBefore('.yBoxFramePlaceHolder');
 		} else {
@@ -552,7 +559,7 @@ function remove_yBox_placeholder() {
 }
 jQuery(document).on('keyup', function(e){
 	if( jQuery('.yBoxImg').length ) {
-		var src = jQuery('.yBox[href="'+jQuery('.yBoxImg').attr('src')+'"]');
+		let src = jQuery('.yBox[href="'+jQuery('.yBoxImg').attr('src')+'"]');
 		if(e.keyCode === 39){ //Prev
 			if( yBox_lang == 'he' ) {
 				yBoxPrev( src );
@@ -577,9 +584,9 @@ jQuery(document).on('keyup', function(e){
 	}
 });
 jQuery(document).on('keydown', function(e){
-	var $focusableElements = jQuery('.yBoxFrame').find('button:visible, textarea:not(:disabled), input:not(:disabled):not([type="hidden"]), a:visible, select, iframe, video').filter(':visible');
-	var $firstElement = $focusableElements.first();
-	var $lastElement = $focusableElements.last();
+	let $focusableElements = jQuery('.yBoxFrame').find('button:visible, textarea:not(:disabled), input:not(:disabled):not([type="hidden"]), a:visible, select, iframe, video').filter(':visible');
+	let $firstElement = $focusableElements.first();
+	let $lastElement = $focusableElements.last();
 	
 	if( e.keyCode == 9 ) { //Tab
 		// If Shift+Tab is pressed and focus is on the first element
