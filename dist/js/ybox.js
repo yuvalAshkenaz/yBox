@@ -18,8 +18,8 @@ jQuery('body').on('click', '.yBox', function(e){
 	self.addClass('yBoxFocus');
 	yBox({ self: self });
 });
-let yUrl = new URL(document.currentScript.src);
-let yBox_lang = yUrl.searchParams.get("lang");
+const yBoxUrl = new URL( document.currentScript.src );
+let yBox_lang = yBoxUrl.searchParams.get("lang") || '';
 let strings = {
 	close				: 'Close',
 	next				: 'Next',
