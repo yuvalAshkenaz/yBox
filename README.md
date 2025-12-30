@@ -249,10 +249,6 @@ url : <span class="grey">'#popup'</span>
 </h3>
 <pre><code><span class="blue">function</span> afterYboxClose(self){ <span class="green">/* Do something after yBox is close */</span> };</code></pre>
 </section>
-<section>
-<h3>Add "msg" parameter to URL</h3>
-<pre><code>domain.com/?<span style="color:red;">msg</span>=Some text</code></pre>
-</section>
 <section class="iframeSection">
 <h3>Open Iframe / YouTube / Vimeo with yBox <span class="grey2" style="display:inline-block;direction:ltr;">( class="yBox yBox_iframe" )</span></h3>
 <a href="https://www.youtube.com/watch?v=eEMpCcLm6NI&list=RDeEMpCcLm6NI&start_radio=1" class="yBox yBox_iframe" rel="nofollow" title="Click Here">
