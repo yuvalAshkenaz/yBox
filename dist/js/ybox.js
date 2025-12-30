@@ -510,7 +510,7 @@ function yBoxPrev( self ) {
 	}
 };
 //Close
-jQuery('body').on('click','.yBoxOverlay',function(e){
+jQuery('body').on('click', '.yBoxOverlay', function(e){
 	let classes = '';
 	for(let i = 0;i < e.target.classList.length;i++){
 		if(e.target.classList[i].indexOf('yBoxOverlay') > -1 || e.target.classList[i].indexOf('active') > -1){
@@ -582,7 +582,7 @@ jQuery(document).on('keyup', function(e){
 	}
 });
 jQuery(document).on('keydown', function(e){
-	let $focusableElements = jQuery('.yBoxFrame').find('button:visible, textarea:not(:disabled), input:not(:disabled):not([type="hidden"]), a:visible, select, iframe, video').filter(':visible');
+	let $focusableElements = jQuery('.yBoxFrame').find('button:not(:disabled):visible, textarea:not(:disabled), input:not(:disabled):not([type="hidden"]), a:visible, select, iframe, video').filter(':visible');
 	let $firstElement = $focusableElements.first();
 	let $lastElement = $focusableElements.last();
 	
