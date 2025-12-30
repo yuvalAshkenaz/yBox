@@ -282,7 +282,7 @@ jQuery('body').on('click', '.ybox-copy-text-btn', function(){
 		jQuery('.ybox-copy-text-btn').removeClass('active');
 	}, 3000);
 });
-jQuery('.yBox[href*="#"]').attr('aria-haspopup', 'dialog');
+jQuery('.yBox').attr('aria-haspopup', 'dialog');
 function insert_yBox_html( obj ) {
 	jQuery('.yBoxFrame').removeClass('yBoxIframeWrap yBoxImgWrap');
 	if( obj.hasSelf ) {
