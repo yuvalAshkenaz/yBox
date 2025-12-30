@@ -1,4 +1,4 @@
-﻿/*! yBox - v10.2 - 25/12/2025
+﻿/*! yBox - v10.3 - 30/12/2025
 * By Yuval Ashkenazi
 * https://github.com/yuvalAshkenaz/yBox */
 
@@ -282,6 +282,7 @@ jQuery('body').on('click', '.ybox-copy-text-btn', function(){
 		jQuery('.ybox-copy-text-btn').removeClass('active');
 	}, 3000);
 });
+jQuery('.yBox[href*="#"]').attr('aria-haspopup', 'dialog');
 function insert_yBox_html( obj ) {
 	jQuery('.yBoxFrame').removeClass('yBoxIframeWrap yBoxImgWrap');
 	if( obj.hasSelf ) {
@@ -396,16 +397,13 @@ function insert_yBox_html( obj ) {
 		} else {
 			if( typeof obj.url === 'undefined' && typeof obj.code !== 'undefined' ) {
 				jQuery('.insertYboxAjaxHere').html( obj.code );
-				
 				if( typeof obj.self !== 'undefined' && ! obj.self.hasClass('yBoxFocus') ) {
 					jQuery('.yBoxFocus').not( obj.self ).removeClass('yBoxFocus');
 					obj.self.addClass('yBoxFocus');
 				}
 			} else {
 				jQuery(obj.url).after('<div class="yBoxFramePlaceHolder"></div>');
-				if(  jQuery('.insertYboxAjaxHere.isAjax').length ) {
-					jQuery('.insertYboxAjaxHere.isAjax').removeClass('isAjax');
-				}
+				jQuery('.insertYboxAjaxHere.isAjax').removeClass('isAjax');
 				jQuery(obj.url).appendTo('.insertYboxAjaxHere');
 			}
 		}
