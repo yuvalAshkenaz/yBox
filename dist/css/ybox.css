@@ -1,4 +1,4 @@
-﻿/*! yBox - v10.3 - 30/12/2025
+﻿/*! yBox - 11.0 - 03/01/2026
 * By Yuval Ashkenazi
 * https://github.com/yuvalAshkenaz/yBox */
 
@@ -7,8 +7,10 @@
     box-sizing: border-box;
 }
 .yBoxOverlay {
-	background-color: rgba(0, 0, 0, 0.7);
-	backdrop-filter: blur(16px);
+    /* שיניתי מעט את השקיפות והוספתי אפקט טשטוש מודרני */
+	background-color: rgba(0, 0, 0, 0.75);
+	backdrop-filter: blur(8px); 
+    -webkit-backdrop-filter: blur(8px);
     display: flex;
     width: 100%;
     height: 100%;
@@ -21,8 +23,8 @@
     visibility: hidden;
     opacity: 0;
     -khtml-opacity: 0;
-    -webkit-transition: 0.5s;
-    transition: 0.5s;
+    -webkit-transition: 0.4s cubic-bezier(0.16, 1, 0.3, 1); /* אנימציה חלקה יותר */
+    transition: 0.4s cubic-bezier(0.16, 1, 0.3, 1);
 }
 .yBoxOverlay.active {
     visibility: visible;
@@ -31,17 +33,20 @@
 }
 .yBoxFrame {
     background-color: #fff;
-    border-radius: 5px;
-    -webkit-box-shadow: rgba(0, 0, 0, 0.3) 0 0 14px 0;
-    box-shadow: rgba(0, 0, 0, 0.3) 0 0 14px 0;
-    max-width: -webkit-calc(100% - 10px);
-    max-width: calc(100% - 10px);
-    max-height: -webkit-calc(100vh - 10px);
-    max-height: calc(100vh - 10px);
-    -webkit-transition: 0.5s;
-    transition: 0.5s;
-    -webkit-transform: translate(0, 30px);
-    transform: translate(0, 30px);
+    /* פינות עגולות יותר - מודרני */
+    border-radius: 12px; 
+    /* צל רך ועמוק יותר */
+    -webkit-box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.35);
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.35);
+    max-width: -webkit-calc(100% - 20px);
+    max-width: calc(100% - 20px);
+    max-height: -webkit-calc(100vh - 20px);
+    max-height: calc(100vh - 20px);
+    -webkit-transition: 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    transition: 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    -webkit-transform: translate(0, 40px) scale(0.95); /* אפקט פתיחה של זום */
+    transform: translate(0, 40px) scale(0.95);
+    overflow: hidden; /* חשוב כדי שהפינות העגולות יחתכו את התוכן */
 }
 .yBoxOverlay.no-bg .yBoxFrame {
 	background: none;
@@ -52,8 +57,8 @@
     color: #171b1e;
 }
 .yBoxOverlay.active .yBoxFrame {
-    -webkit-transform: translate(0, 0);
-    transform: translate(0, 0);
+    -webkit-transform: translate(0, 0) scale(1);
+    transform: translate(0, 0) scale(1);
 }
 .admin-bar .yBoxFrame {
 	max-height: -webkit-calc(100vh - 42px);
@@ -73,9 +78,9 @@
 }
 .closeYbox,
 .closeYbox[type="button"] {
-    background-color: #fff;
-    width: 35px;
-    height: 35px;
+    background-color: #f3f4f6; /* רקע אפרפר עדין במקום לבן */
+    width: 40px; /* קצת יותר גדול ללחיצה נוחה */
+    height: 40px;
     position: absolute;
     top: 10px;
     right: 10px;
@@ -84,25 +89,37 @@
     border: none;
     cursor: pointer;
     z-index: 5;
-	border-radius: 0 0 0 2px;
+	border-radius: 50%; /* עיגול מלא */
+    transition: all 0.3s ease; /* אנימציה לכפתור */
+}
+/* אפקט בעת מעבר עכבר על הכפתור */
+.closeYbox:hover,
+.closeYbox[type="button"]:hover {
+    background-color: #e5e7eb;
+    transform: rotate(90deg); /* סיבוב מגניב */
 }
 .closeYbox::after,
 .closeYbox::before {
     content: "";
-    background-color: #000;
-    width: 25px;
+    background-color: #374151; /* צבע כהה יותר לאיקס */
+    width: 20px;
     height: 2px;
     position: absolute;
-    left: 5px;
-    top: 16px;
+    left: 10px; /* מירכוז מחדש בגלל שינוי הגודל */
+    top: 19px;
     -webkit-transform: rotate(45deg);
     transform: rotate(45deg);
     -webkit-transition: 0.5s;
     transition: 0.5s;
+    border-radius: 2px;
 }
 .yBoxOverlay.no-bg .closeYbox,
 .yBoxOverlay.no-bg .closeYbox[type="button"] {
-	background-color: transparent;
+	background-color: rgba(255,255,255,0.2); /* שקוף למחצה */
+}
+.yBoxOverlay.no-bg .closeYbox:hover,
+.yBoxOverlay.no-bg .closeYbox[type="button"]:hover {
+    background-color: rgba(255,255,255,0.4);
 }
 .yBoxOverlay.no-bg .closeYbox::after,
 .yBoxOverlay.no-bg .closeYbox::before {
@@ -121,7 +138,7 @@
     transform: rotate(45deg);
 }
 .yBoxFrame.yBoxContentFrame .closeYbox {
-    background: #fff;
+    background: #f3f4f6;
 }
 .yBoxFrame.yBoxContentFrame .closeYbox::after,
 .yBoxFrame.yBoxContentFrame .closeYbox::before {
@@ -134,23 +151,24 @@
 	font-weight: 400;
 }
 .yBoxIframe {
-    background: #171b1e;
+    background: #000; /* שינוי לשחור כדי למנוע הבהובים */
     width: 100%;
 	flex-grow: 1;
 }
 .yBoxFrame.yBoxIframeWrap {
     width: 1200px;
     height: 750px;
+    background: #000;
 }
 .yBoxFrame.yBoxIframeWrap .insertYboxAjaxHere {
     position: absolute;
 	display: flex;
     max-height: 100%;
 	flex-direction: column;
-    left: 10px;
-    top: 10px;
-    right: 10px;
-    bottom: 10px;
+    left: 0; /* הסרת רווחים לבנים מסביב לוידאו */
+    top: 0;
+    right: 0;
+    bottom: 0;
     padding: 0;
 }
 .insertYboxAjaxHere {
@@ -159,38 +177,46 @@
     max-height: -webkit-calc(100vh - 100px);
     max-height: calc(100vh - 100px);
     overflow: auto;
-    padding: 50px 19px 13px;
+    padding: 50px 20px 20px; /* קצת יותר אוויר */
 }
 .yBoxFrame.yBoxImgWrap .insertYboxAjaxHere {
-    padding: 10px;
+    padding: 0; /* ללא פדינג לתמונות */
     max-height: -webkit-calc(100vh - 10px);
     max-height: calc(100vh - 10px);
 }
 .yBoxFrame.yBoxImgWrap .yBoxImgWrap2 {
 	display: flex;
 	min-height: 80px;
+    justify-content: center;
+    background: transparent;
 }
 .yBoxFrame.yBoxImgWrap img.yBoxImg {
-    max-width: -webkit-calc(100vw - 50px);
-    max-width: calc(100vw - 50px);
-    max-height: -webkit-calc(100vh - 30px);
-    max-height: calc(100vh - 30px);
+    max-width: -webkit-calc(100vw - 40px);
+    max-width: calc(100vw - 40px);
+    max-height: -webkit-calc(100vh - 40px);
+    max-height: calc(100vh - 40px);
 	margin: auto;
-	border-radius: 5px;
+	border-radius: 8px; /* פינות עגולות לתמונה עצמה */
+    box-shadow: 0 5px 20px rgba(0,0,0,0.2);
+    display: block;
 }
 .yBoxNext,
 .yBoxPrev {
-    background: none;
+    background: transparent;
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 30%;
-    top: 10px;
-    bottom: 10px;
+    width: 50px; /* כפתורים מוגדרים יותר */
+    height: 50px;
+    border-radius: 50%; /* עיגול */
+    top: 50%;
+    margin-top: -25px;
+    bottom: auto;
     position: absolute;
     border: none;
     cursor: pointer;
     z-index: 2;
+    transition: background-color 0.2s;
 }
 .yBoxPrev {
     left: 10px;
@@ -210,28 +236,30 @@
 .yBoxPrev:focus {
 	outline: none !important;
 }
+.yBoxNext:hover,
+.yBoxPrev:hover,
 .ybox-focus .yBoxNext:focus,
 .ybox-focus .yBoxPrev:focus {
-	background: rgba(0, 0, 0, 0.2);
+	background: rgba(255, 255, 255, 0.2); /* רקע עדין במעבר עכבר */
 }
 .yBoxNext::after,
 .yBoxPrev::after {
     content: "";
-    width: 20px;
-    height: 20px;
-	box-shadow: rgba(0, 0, 0, 0.5) -2px 2px 2px 0px;
-    border-bottom: 3px solid rgba(255, 255, 255, 0.7);
-    border-left: 3px solid rgba(255, 255, 255, 0.7);
+    width: 14px;
+    height: 14px;
+	box-shadow: 2px 2px 2px rgba(0,0,0,0.2); /* צל עדין לחץ */
+    border-bottom: 3px solid #fff;
+    border-left: 3px solid #fff;
 }
 .yBoxNext::after {
     -webkit-transform: rotate(-135deg);
     transform: rotate(-135deg);
-    margin: 0 0 0 -10px;
+    margin: 0 0 0 -6px;
 }
 .yBoxPrev::after {
     -webkit-transform: rotate(45deg);
     transform: rotate(45deg);
-    margin: 0 -10px 0 0;
+    margin: 0 -6px 0 0;
 }
 .yBoxRTL .yBoxNext::after {
     left: 50px;
@@ -274,14 +302,20 @@
 	right: auto;
 }
 .yBoxLoader {
-    width: 16px;
-    height: 16px;
+    width: 30px;
+    height: 30px;
     border-radius: 50%;
+    border: 3px solid rgba(255,255,255,0.2);
+    border-top-color: #fff;
     position: relative;
-    animation: 1s linear infinite yBox-loader-circles;
+    animation: yBox-spin 1s infinite linear;
     top: 50%;
-    margin: -8px auto 0;
-    zoom: 0.5;
+    margin: -15px auto 0;
+    zoom: 1;
+}
+@keyframes yBox-spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
 }
 .closeYboxOnFocus {
     width: 0;
@@ -293,53 +327,22 @@
     border: none;
 }
 .ybox-img-title {
-	background: rgba(255, 255, 255, 0.7);
-	padding: 7px 15px;
+	background: linear-gradient(to top, rgba(0,0,0,0.8), transparent); /* גרדיאנט במקום צבע אחיד */
+	padding: 20px 15px 15px;
+    color: #fff;
 	position: absolute;
-	left: 10px;
-	right: 10px;
-	bottom: 10px;
+	left: 0;
+	right: 0;
+	bottom: 0;
 	margin: 0;
-	font-size: 18px;
+	font-size: 16px;
 	z-index: 3;
+    border-radius: 0 0 8px 8px;
 }
-@keyframes yBox-loader-circles {
-    0%,
-    100% {
-        box-shadow: 0 -27px 0 0 rgba(0, 0, 0, 0.05), 19px -19px 0 0 rgba(0, 0, 0, 0.1), 27px 0 0 0 rgba(0, 0, 0, 0.2), 19px 19px 0 0 rgba(0, 0, 0, 0.3), 0 27px 0 0 rgba(0, 0, 0, 0.4), -19px 19px 0 0 rgba(0, 0, 0, 0.6),
-            -27px 0 0 0 rgba(0, 0, 0, 0.8), -19px -19px 0 0 #fff;
-    }
-    12.5% {
-        box-shadow: 0 -27px 0 0 #fff, 19px -19px 0 0 rgba(0, 0, 0, 0.05), 27px 0 0 0 rgba(0, 0, 0, 0.1), 19px 19px 0 0 rgba(0, 0, 0, 0.2), 0 27px 0 0 rgba(0, 0, 0, 0.3), -19px 19px 0 0 rgba(0, 0, 0, 0.4), -27px 0 0 0 rgba(0, 0, 0, 0.6),
-            -19px -19px 0 0 rgba(0, 0, 0, 0.8);
-    }
-    25% {
-        box-shadow: 0 -27px 0 0 rgba(0, 0, 0, 0.8), 19px -19px 0 0 #fff, 27px 0 0 0 rgba(0, 0, 0, 0.05), 19px 19px 0 0 rgba(0, 0, 0, 0.1), 0 27px 0 0 rgba(0, 0, 0, 0.2), -19px 19px 0 0 rgba(0, 0, 0, 0.3), -27px 0 0 0 rgba(0, 0, 0, 0.4),
-            -19px -19px 0 0 rgba(0, 0, 0, 0.6);
-    }
-    37.5% {
-        box-shadow: 0 -27px 0 0 rgba(0, 0, 0, 0.6), 19px -19px 0 0 rgba(0, 0, 0, 0.8), 27px 0 0 0 #fff, 19px 19px 0 0 rgba(0, 0, 0, 0.05), 0 27px 0 0 rgba(0, 0, 0, 0.1), -19px 19px 0 0 rgba(0, 0, 0, 0.2), -27px 0 0 0 rgba(0, 0, 0, 0.3),
-            -19px -19px 0 0 rgba(0, 0, 0, 0.4);
-    }
-    50% {
-        box-shadow: 0 -27px 0 0 rgba(0, 0, 0, 0.4), 19px -19px 0 0 rgba(0, 0, 0, 0.6), 27px 0 0 0 rgba(0, 0, 0, 0.8), 19px 19px 0 0 #fff, 0 27px 0 0 rgba(0, 0, 0, 0.05), -19px 19px 0 0 rgba(0, 0, 0, 0.1), -27px 0 0 0 rgba(0, 0, 0, 0.2),
-            -19px -19px 0 0 rgba(0, 0, 0, 0.3);
-    }
-    62.5% {
-        box-shadow: 0 -27px 0 0 rgba(0, 0, 0, 0.3), 19px -19px 0 0 rgba(0, 0, 0, 0.4), 27px 0 0 0 rgba(0, 0, 0, 0.6), 19px 19px 0 0 rgba(0, 0, 0, 0.8), 0 27px 0 0 #fff, -19px 19px 0 0 rgba(0, 0, 0, 0.05), -27px 0 0 0 rgba(0, 0, 0, 0.1),
-            -19px -19px 0 0 rgba(0, 0, 0, 0.2);
-    }
-    75% {
-        box-shadow: 0 -27px 0 0 rgba(0, 0, 0, 0.2), 19px -19px 0 0 rgba(0, 0, 0, 0.3), 27px 0 0 0 rgba(0, 0, 0, 0.4), 19px 19px 0 0 rgba(0, 0, 0, 0.6), 0 27px 0 0 rgba(0, 0, 0, 0.8), -19px 19px 0 0 #fff, -27px 0 0 0 rgba(0, 0, 0, 0.05),
-            -19px -19px 0 0 rgba(0, 0, 0, 0.1);
-    }
-    87.5% {
-        box-shadow: 0 -27px 0 0 rgba(0, 0, 0, 0.1), 19px -19px 0 0 rgba(0, 0, 0, 0.2), 27px 0 0 0 rgba(0, 0, 0, 0.3), 19px 19px 0 0 rgba(0, 0, 0, 0.4), 0 27px 0 0 rgba(0, 0, 0, 0.6), -19px 19px 0 0 rgba(0, 0, 0, 0.8), -27px 0 0 0 #fff,
-            -19px -19px 0 0 rgba(0, 0, 0, 0.05);
-    }
-}
+/* הסרתי את האנימציה הישנה והארוכה של ה-Loader לטובת החדשה והקלה למעלה */
+
 .yBoxVideo {
-    background-color: #171b1e;
+    background-color: #000;
     width: 100%;
     height: 100%;
     vertical-align: top;
@@ -372,6 +375,7 @@
 	padding-top: 110px;
 }
 .ybox-share-title {
+	color: #fff;
 	margin: 0;
 	font-size: 26px;
 	z-index: 3;
@@ -391,10 +395,6 @@
 	left: 0;
 	bottom: 0;
 }
-.yBoxRTL .ybox-share-title {
-	text-align: right;
-	direction: rtl;
-}
 .ybox-socials-list {
 	display: flex;
 	width: 500px;
@@ -407,6 +407,25 @@
 	padding: 0;
 	line-height: 1px;
 }
+.yBoxRTL .ybox-share-title {
+	text-align: right;
+	direction: rtl;
+	padding: 0 0 18px 15px;
+	right: 19px;
+	left: 40px;
+}
+.yBoxRTL .ybox-share-title::after {
+	left: auto;
+	right: 0;
+}
+.ybox-share-btns.yBoxRTL .closeYbox,
+.ybox-share-btns.yBoxRTL .closeYbox[type="button"] {
+	right:auto;
+	left: 10px;
+}
+.ybox-share-btns.yBoxRTL .ybox-socials-list {
+	direction: rtl;
+}
 .ybox-socials-list > li {
 	width: 20%;
 }
@@ -414,6 +433,10 @@
 	display: inline-block;
 	text-decoration: none;
 	position: relative;
+    transition: transform 0.2s;
+}
+.ybox-share-btn:hover {
+    transform: scale(1.1);
 }
 .ybox-share-btn::before {
 	content: "";
@@ -500,9 +523,7 @@
 .ybox-socials-list svg {
 	width: 40px;
 	height: 40px;
-}
-.ybox-socials-list path {
-	fill: #fff;
+    fill: #fff;
 }
 .ybox-telegram-share-btn path {
 	-webkit-transform: scale(1.5);
@@ -519,7 +540,7 @@
 		display: none !important;
 	}
     .yBoxFrame.yBoxImgWrap .insertYboxAjaxHere {
-        padding: 5px;
+        padding: 0; /* תוקן */
     }
     .yBoxFrame.yBoxImgWrap img.yBoxImg {
         max-width: -webkit-calc(100vw - 20px);
@@ -528,60 +549,27 @@
         max-height: calc(100vh - 20px);
     }
     .yBoxFrame.yBoxIframeWrap .insertYboxAjaxHere {
-        left: 5px;
-        right: 5px;
-        top: 5px;
-        bottom: 5px;
+        left: 0; right: 0; top: 0; bottom: 0;
     }
 	.ybox-img-title {
-		left: 5px;
-		bottom: 5px;
-		right: 5px;
+		left: 0; bottom: 0; right: 0;
 	}
+    /* השארתי את ה-Nav המקורי שלך למובייל */
     .yBoxNext,
     .yBoxPrev {
-        width: 20%;
-        top: 5px;
-        bottom: 5px;
+        width: 40px;
+        height: 40px;
     }
-	.yBoxPrev {
-		left: 5px;
-	}
-	.yBoxNext {
-		right: 5px;
-	}
-	.yBoxRTL .yBoxPrev {
-		left: auto;
-		right: 5px;
-	}
-	.yBoxRTL .yBoxNext {
-		right: auto;
-		left: 5px;
-	}
-    .yBoxNext::after,
-    .yBoxPrev::after {
-        width: 14px;
-        height: 14px;
-	}
-    .yBoxNext::after {
-        right: 50%;
-    }
-    .yBoxPrev::after {
-        left: 50%;
-    }
-    .yBoxRTL .yBoxNext::after {
-        left: 50%;
-		right: auto;
-    }
-    .yBoxRTL .yBoxPrev::after {
-        right: 50%;
-		left: auto;
-    }
+	.yBoxPrev { left: 5px; }
+	.yBoxNext { right: 5px; }
+	.yBoxRTL .yBoxPrev { left: auto; right: 5px; }
+	.yBoxRTL .yBoxNext { right: auto; left: 5px; }
+    
     .yBoxImgWrap2 {
         display: flex;
         justify-content: center;
         align-items: center;
-        background-color: #171b1e;
+        background-color: transparent;
         overflow: hidden;
     }
 }
@@ -590,12 +578,12 @@
     .yBoxFrame.yBoxIframeWrap .insertYboxAjaxHere,
     .yBoxFrame.yBoxImgWrap,
     .yBoxFrame.yBoxImgWrap .insertYboxAjaxHere {
-        max-height: -webkit-calc(100vh - 80px);
-        max-height: calc(100vh - 80px);
+        max-height: -webkit-calc(100vh - 40px); /* קצת יותר מקום */
+        max-height: calc(100vh - 40px);
     }
     .yBoxFrame.yBoxImgWrap img.yBoxImg,
     .yBoxIframe {
-        max-height: -webkit-calc(100vh - 90px);
-        max-height: calc(100vh - 90px);
+        max-height: -webkit-calc(100vh - 60px);
+        max-height: calc(100vh - 60px);
     }
 }

@@ -1,11 +1,27 @@
-/*! yBox - v10.0 - 22/12/2025
+/*! yBox - v11.0 - 03/01/2026
 * By Yuval Ashkenazi
 * https://github.com/yuvalAshkenaz/yBox */
 
-* {
-	-webkit-box-sizing: border-box;
-	box-sizing: border-box;
+/* yBox Demo Modern Redesign */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Fira+Code:wght@400;500&display=swap');
+
+:root {
+    --primary-color: #4f46e5; /* Indigo */
+    --primary-hover: #4338ca;
+    --accent-color: #ec4899; /* Pink/Magenta for accents */
+    --text-main: #1f2937;
+    --text-secondary: #4b5563;
+    --bg-body: #f3f4f6;
+    --bg-card: #ffffff;
+    --border-color: #e5e7eb;
+    --code-bg: #1e293b; /* Dark slate */
+    --success: #10b981;
 }
+
+* {
+    box-sizing: border-box;
+}
+
 button {
 	padding: 0;
 	margin: 0;
@@ -13,202 +29,230 @@ button {
 	border: none;
 	cursor: pointer;
 }
+
 body {
-	background: #eee;
-	font-family: sans-serif;
-	font-size: 14px;
-	box-sizing: border-box;
-	direction: ltr;
-	margin:  0;
-}
-section {
-	padding: 25px;
-	border-bottom: 1px dotted #ccc;
-	justify-content: center;
-	flex-direction: column;
-}
-pre {
-	background: #fff;
-	overflow: auto;
-	align-items: center;
-	border-radius: 4px;
-	padding: 15px;
-	border: 1px solid #bcbbbb;
-	direction: ltr;
-}
-code {
-	font-family: Consolas, "courier new";
-}
-main {
-	width: 1370px;
-	max-width: 100%;
-	margin: auto;
-}
-.myYboxClass .yBoxFrame {
-	background: cadetblue !important;
-	border-radius: 10px;
-	overflow: hidden;
-}
-.myYboxClass .closeYbox {
-	background: cadetblue !important;
-}
-.myYboxClass .insertYboxAjaxHere {
-	padding: 17px 60px 17px 30px;
-	font-size: 20px;
-}
-.yBoxltr.myYboxClass .insertYboxAjaxHere {
-	padding-left: 60px;
-	padding-right: 30px;
-}
-.group-wrap {
-	display: flex;
-	flex-wrap:  wrap;
-	margin: 10px 0;
-	align-items: center;
-	justify-content: center;
-}
-.iframeSection a,
-.group-wrap a {
-	display: inline-block;
-	vertical-align: top;
-	width: 200px;
-	height: 150px;
-	border: 1px solid #ccc;
-	margin: 10px;
-	text-decoration: none;
-	overflow: hidden;
-	position: relative;
-}
-.iframeSection img,
-.group-wrap img {
-	width: auto;
-	max-width: none;
-	min-width: 100%;
-	height: 100%;
-	position: absolute;
-	left: 50%;
-	top: 50%;
-	-webkit-transform: translate(-50%,-50%) scale(1);
-	transform: translate(-50%,-50%) scale(1);
-	object-fit: cover;
-	-webkit-transition: all 0.5s ease;
-	transition: all 0.5s ease;
-}
-.iframeSection a:hover img,
-.group-wrap a:hover img {
-	-webkit-transform: translate(-50%,-50%) scale(1.05);
-	transform: translate(-50%,-50%) scale(1.05);
-}
-h1,h2, h3 {
-    font-size: 22px;
-    font-weight: 400;
-    margin: 0 0 30px 0;
-}
-h1  {
-	color: #e79500;
-	margin: 20px 0 0 0;
-	font-weight: 700;
-	font-size: 40px;
-}
-.yBox {
-	display: inline-block;
-	vertical-align: top;
-	width: auto;
-	border-radius: 4px;
-	background: #409344;
-	text-decoration: none;
-	font-size: 15px;
-	color: #fff;
-	padding: 8px 20px;
-	-webkit-transition: all 0.2s ease;
-	transition: all 0.2s ease;
-}
-.yBox: hover {
-	background: #4CAF50;
-}
-.green {
-	color: green;
-}
-.red {
-	color: red;
-}
-.brown {
-	color: #804000;
-}
-.grey {
-	color: #808080;
-}
-.blue {
-	color: blue;
-}
-.purple {
-	color: #8000FF;
-}
-.blue2 {
-	color: blue;
-	font-style: italic;
-	font-weight: bold;
-}
-.grey2 {
-	color: #808080;
-	font-size: 13px;
-	font-family: Consolas,"courier new";
-}
-tr:nth-child(even) {
-	background: #f7f7f7;
-}
-.play {
-	display: flex;
-	width: 40px;
-	height: 40px;
-	margin: -20px 0 0 -20px;
-	align-items: center;
-	justify-content: center;
-	border-radius: 50%;
-	border: 2px solid #fff;
-	position: absolute;
-	left: 50%;
-	top: 50%;
-}
-.play::after {
-	content: "";
-	display: block;
-	width: 0;
-	height: 0;
-	margin: 0 0 0 5px;
-	border-top: 8px solid transparent;
-	border-bottom: 8px solid transparent;
-	border-left: 15px solid #FF0000;
-}
-.top-table {
-	width: 100%;
-	line-height:24px;
-}
-.top-table td:first-child {
-	width: 400px;
-}
-.top-table code {
-	display: block;
-	width: 860px;
-	max-width: 100%;
-}
-h3 {
-	border-bottom: 1px solid #959595;
-	padding: 0 0 15px 0;
+    background-color: var(--bg-body);
+    font-family: 'Inter', sans-serif;
+    color: var(--text-main);
+    font-size: 16px;
+    line-height: 1.6;
+    margin: 0;
+    padding-bottom: 50px;
 }
 
-@media screen and (max-width: 991px) {
-	.hide-on-tablet {
-		display: none !important;
-	}
-	table,
-	tbody,
-	tr,
-	td {
-		display: block;
-		width: 100%;
-	}
-	section {
-		padding: 25px 15px;
-	}
+main {
+    max-width: 1220px;
+    margin: 40px auto;
+    padding: 0 20px;
+}
+
+/* --- Header --- */
+h1 {
+    font-size: 3rem;
+    font-weight: 800;
+    background: linear-gradient(to right, var(--primary-color), var(--accent-color));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin-bottom: 10px;
+    text-align: center;
+}
+
+h2, h3 {
+    color: var(--text-main);
+    margin-top: 0;
+}
+
+h3 {
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin-bottom: 1.5rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 2px solid var(--border-color);
+}
+
+h4 {
+    margin: 1.5rem 0 0.5rem;
+    color: var(--text-secondary);
+}
+
+/* --- Cards / Sections --- */
+section {
+    background: var(--bg-card);
+    border-radius: 12px;
+    padding: 2rem;
+    margin-bottom: 2rem;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    border: 1px solid rgba(0,0,0,0.05);
+}
+
+/* --- Code Blocks --- */
+pre {
+    background: var(--code-bg);
+    color: #e2e8f0;
+    padding: 1.5rem;
+    border-radius: 8px;
+    overflow-x: auto;
+    font-family: 'Fira Code', monospace;
+    font-size: 0.9rem;
+    border: 1px solid #334155;
+    position: relative;
+}
+
+code {
+    font-family: 'Fira Code', monospace;
+}
+
+/* Syntax Highlighting overrides for dark theme */
+pre .blue { color: #60a5fa !important; } /* Tag names */
+pre .red { color: #f472b6 !important; }  /* Attributes */
+pre .purple { color: #a78bfa !important; } /* Values */
+pre .grey { color: #94a3b8 !important; } /* Comments/Strings */
+pre .green { color: #34d399 !important; } /* Comments */
+
+/* --- Custom Tables / Lists --- */
+/* Replacing the old table layout with a clean flex list */
+.param-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.param-item {
+    display: grid;
+    grid-template-columns: 200px 1fr;
+    gap: 1rem;
+    padding: 1rem;
+    background: #f9fafb;
+    border-radius: 8px;
+    border: 1px solid var(--border-color);
+    align-items: center;
+}
+
+.param-name {
+    font-family: 'Fira Code', monospace;
+    font-weight: bold;
+    color: var(--primary-color);
+    word-break: break-word;
+}
+
+.param-desc {
+    font-size: 0.95rem;
+    color: var(--text-secondary);
+}
+
+.param-desc code {
+    background: rgba(0,0,0,0.05);
+    padding: 2px 6px;
+    border-radius: 4px;
+    color: #d946ef;
+}
+
+/* --- Buttons & Links (.yBox triggers) --- */
+a.yBox, button.yBox {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--primary-color);
+    color: white;
+    padding: 10px 24px;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: 500;
+    transition: all 0.2s ease;
+    border: none;
+    cursor: pointer;
+    box-shadow: 0 4px 6px rgba(79, 70, 229, 0.3);
+    font-size: 14px;
+}
+
+a.yBox:hover, button.yBox:hover {
+    background: var(--primary-hover);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 12px rgba(79, 70, 229, 0.4);
+}
+
+/* --- Gallery Grid --- */
+.group-wrap {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: 15px;
+    margin-top: 20px;
+}
+
+.group-wrap a, .iframeSection a {
+    position: relative;
+    display: block;
+    width: 100%;
+    padding-top: 75%; /* 4:3 Aspect Ratio */
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    border: 2px solid transparent;
+    transition: all 0.3s ease;
+}
+
+.group-wrap a:hover, .iframeSection a:hover {
+    border-color: var(--primary-color);
+    transform: scale(1.02);
+}
+
+.group-wrap img, .iframeSection img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* --- Play Button Icon --- */
+.play {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 50px;
+    height: 50px;
+    background: rgba(0,0,0,0.6);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    backdrop-filter: blur(2px);
+    border: 2px solid white;
+}
+
+.play::after {
+    content: "";
+    display: block;
+    margin-left: 4px;
+    border-top: 8px solid transparent;
+    border-bottom: 8px solid transparent;
+    border-left: 14px solid white; /* Changed to white for better contrast */
+}
+
+/* --- Responsive --- */
+@media screen and (max-width: 768px) {
+    .param-item {
+        grid-template-columns: 1fr;
+        gap: 0.5rem;
+    }
+    
+    .param-name {
+        border-bottom: 1px solid #eee;
+        padding-bottom: 5px;
+    }
+
+    h1 { font-size: 2rem; }
+    main { margin-top: 20px; }
+}
+
+/* --- yBox Custom Styling Override Example --- */
+.myYboxClass .yBoxFrame {
+    background: #fff !important;
+    border-radius: 12px !important;
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+}
+.myYboxClass .closeYbox {
+    filter: invert(1); /* Make default close button dark if background is light */
 }
