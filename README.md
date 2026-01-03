@@ -3,6 +3,8 @@
 **yBox** is a lightweight, high-performance, and dependency-free Lightbox library built with modern **Vanilla JavaScript**.
 It supports images, videos, iframes, AJAX content, and complex HTML layouts with smooth transitions and full accessibility support.
 
+> 🚀 **Live Demo:** [Check out the demo here](https://test.dooble.io/ybox/demo)
+
 ## ✨ Key Features
 
 * **Zero Dependencies:** Pure JavaScript (ES6+). No external libraries required.
