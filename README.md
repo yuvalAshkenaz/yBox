@@ -1,304 +1,205 @@
-<h1>yBox 10.3</h1>
-<pre><code>
-&lt;link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/yuvalAshkenaz/yBox/dist/css/ybox.min.css" /&gt;
-&lt;script type="text/javascript" src="https://cdn.jsdelivr.net/gh/yuvalAshkenaz/yBox/dist/js/ybox.min.js?lang=he"&gt;&lt;/script&gt;
-</code></pre>
-<h3>Class</h3>
-			<table border="0" cellpadding="10" cellspacing="0">
-				<tr>
-					<td>class="yBox yBox_iframe"</td>
-					<td width="25" class="hide-on-tablet">:</td>
-					<td>
-						Opens href in iframe
-					</td>
-				</tr>
-				<tr>
-					<td>class="yBox yBox_ajax"</td>
-					<td width="25" class="hide-on-tablet">:</td>
-					<td>
-						Opens href as AJAX
-					</td>
-				</tr>
-				<tr>
-					<td>class="yBox yBox_video"</td>
-					<td width="25" class="hide-on-tablet">:</td>
-					<td>
-						Opens href as Video tag
-					</td>
-				</tr>
-				<tr>
-					<td>class="yBox yBox_share"</td>
-					<td width="25" class="hide-on-tablet">:</td>
-					<td>
-						Opens share buttons
-					</td>
-				</tr>
-			</table>
-<h3>JavaScript parameters</h3>
-<table border="0" cellpadding="10" cellspacing="0" style="line-height:24px;">
-<tr>
-<td>code</td>
-<td width="25" class="hide-on-tablet">:</td>
-<td>
-When calling to yBox from your Java Script, you can write your HTML code<br />
-<code>yBox({ <b>code</b>: '&lt;div class="my-class"&gt;Some text&lt;/div&gt;' });</code>
-</td>
-</tr>
-<tr>
-<td>url</td>
-<td width="25" class="hide-on-tablet">:</td>
-<td>
-When calling to yBox from your JavaScript, you can show URL address in iframe<br />
-<code>yBox({ <b>url</b>: 'https://www.dooble.co.il' });</code>
-</td>
-</tr>
-<tr>
-<td>self</td>
-<td class="hide-on-tablet">:</td>
-<td>
-<code>&lt;a href="#popup" class="yBox <b>my-link</b>"&gt;The link&lt;/a&gt;<br />
-yBox({ <b>self</b>: jQuery('.my-link') });
-</code>
-</td>
-</tr>
-<tr>
-<td>yBoxClass</td>
-<td class="hide-on-tablet">:</td>
-<td>
-Added to &lt;div class="yBoxFrame"&gt; in yBox window<br />
-<code>yBox({ <b>yBoxClass</b>: 'my-class' });</code>
-</td>
-</tr>
-<tr>
-<td>focus</td>
-<td class="hide-on-tablet">:</td>
-<td>
-Focus the element you want when yBox opens<br />
-<code>yBox({ <b>focus</b>: '.focus-class' });</code>
-</td>
-</tr>
-<tr>
-<td>id</td>
-<td class="hide-on-tablet">:</td>
-<td>
-When calling to element from JavaScript.<br />
-<code>&lt;div style="display:none;"&gt;
-	&lt;div id="<b>my-popup</b>"&gt;
-	...
-	&lt;/div&gt;
-&lt;/div&gt;</code><br />
-<code>&lt;script&gt; yBox({ <b>id</b>: '#my-popup' }); &lt;/script&gt;</code>
-</td>
-</tr>
-</table>
+# yBox.js 11.0
 
-<h3>Button Attributes</h3>
-<table border="0" cellpadding="10" cellspacing="0" style="line-height:24px;">
-<tr>
-	<td>data-ybox-class</td>
-	<td class="hide-on-tablet">:</td>
-	<td>
-		Add class to yBox popup<br/>
-		<pre><code>&lt;a href="#popup" data-ybox-class="my-class" class="yBox"&gt;Link&lt;/a&gt;</code></pre>
-	</td>
-</tr>
-				<tr>
-					<td>data-ybox-class="no-bg"</td>
-					<td class="hide-on-tablet">:</td>
-					<td>
-						Remove the white background
-					</td>
-				</tr>
-<tr>
-	<td>data-ybox-alt</td>
-	<td class="hide-on-tablet">:</td>
-	<td>
-		Add Alt to yBox image<br/>
-		<pre><code>&lt;a href="my-img.jpg" data-ybox-alt="My Alt" class="yBox"&gt;
-	&lt;img src="my-img.jpg" alt=""/&gt;
-&lt;/a&gt;</code></pre>
-	</td>
-</tr>
-				<tr>
-					<td>data-ybox-title</td>
-					<td class="hide-on-tablet">:</td>
-					<td>
-						Add title to image or iframe<br/>
-						<pre><code>&lt;a href="https://www.my-iframe.com" data-ybox-title="My Title" class="yBox"&gt;
-	Click Here
-&lt;/a&gt;
+**yBox** is a lightweight, high-performance, and dependency-free Lightbox library built with modern **Vanilla JavaScript**.
+It supports images, videos, iframes, AJAX content, and complex HTML layouts with smooth transitions and full accessibility support.
 
-<b>Output:</b>
-&lt;iframe src="https://www.my-iframe.com" <b>title="My Title"</b>&gt;&lt;/iframe&gt;</code></pre>
-					</td>
-				</tr>
-<tr>
-	<td>
-		data-ybox-headeline<br>
-		data-ybox-headeline-class
-	</td>
-	<td class="hide-on-tablet">:</td>
-	<td>
-		Add headline (H2) to yBox image or iframe<br/>
-		<pre><code>&lt;a href="my-img.jpg" data-ybox-headeline="My Headline" data-ybox-headeline-class="my-class" class="yBox"&gt;
-	Click Here
-&lt;/a&gt;
+## ✨ Key Features
 
-<b>Output:</b>
-&lt;h2 id="ybox-iframe-headline" <b>class="my-class"</b>&gt;My Headline&lt;/h2&gt;
-&lt;iframe src="https://www.my-iframe.com" &gt; &lt;/iframe&gt;</code></pre>
-	</td>
-</tr>
-</table>
+* **Zero Dependencies:** Pure JavaScript (ES6+). No external libraries required.
+* **Lightweight:** Optimized for speed and performance.
+* **Media Support:** Built-in support for Images, YouTube/Vimeo, HTML5 Video, Iframes, and AJAX.
+* **Gallery Mode:** Group content effortlessly with Next/Prev navigation.
+* **Smooth Animations:** Modern cross-fade transitions and visual effects.
+* **Social Sharing:** Integrated social media sharing modal.
+* **Accessibility:** Keyboard navigation (Arrows, ESC, Tab trap) and ARIA support.
+* **Customizable:** Easy to style via CSS variables and helper classes.
 
-<h3>URL Attributes</h3>
-<table border="0" cellpadding="10" cellspacing="0" width="100%" style="line-height:24px;">
-<tr>
-<td>domain.com<b>?ybox-id</b>=my-popup</td>
-<td class="hide-on-tablet">:</td>
-<td>
-Call to element from URL address<br />
-<pre><code>&lt;div style="display:none;"&gt;
-	<b>&lt;div id="my-popup"&gt;</b>
-	...
-	&lt;/div&gt;
-&lt;/div&gt;</code></pre>
-</td>
-</tr>
-</table>
+---
 
-<h3>Callbacks</h3>
-<table border="0" cellpadding="10" cellspacing="0" width="100%" style="line-height:24px;">
-<tr>
-<td>function beforeYboxOpen(self){ ... };</td>
-<td class="hide-on-tablet">:</td>
-<td>
-Calling the function before opening yBox<br />
-self = The yBox button -> if no button then it return the div
-</td>
-</tr>
-<tr>
-<td>function afterYboxOpen(self){ ... };</td>
-<td class="hide-on-tablet">:</td>
-<td>
-Calling the function after opening yBox<br />
-self = The yBox button -> if no button then it return the div
-</td>
-</tr>
-<tr>
-<td>function beforeYboxClose(self){ ... };</td>
-<td class="hide-on-tablet">:</td>
-<td>
-Calling the function before closing yBox<br />
-self = The yBox button -> if no button then it return the div
-</td>
-</tr>
-<tr>
-<td>function afterYboxClose(self){ ... };</td>
-<td class="hide-on-tablet">:</td>
-<td>
-Calling the function after yBox closed<br />
-self = The yBox button -> if no button then it return the div
-</td>
-</tr>
-</table>
-<section>
-<h3>Open yBox on page load</h3>
-<pre><code><span class="blue">&lt;script&gt;</span>
-yBox({
-code : <span class="grey">'&lt;div class="my-class"&gt;Some text&lt;/div&gt;'</span>
-});
-<span class="blue">&lt;/script&gt;</span></code></pre>
-</section>
-<section>
-<h3>Open yBox by calling the element from JavaScript</h3>
-<pre><code><span class="blue">&lt;div</span> <span class="red">style</span>=<span class="purple">"display:none;"</span><span class="blue">&gt;</span>
-<span class="blue">&lt;div</span> <span class="red">id</span>=<span class="purple">"popup"</span><span class="blue">&gt;</span>Hello :-)<span class="blue">&lt;/div&gt;
-&lt;/div&gt;</span>
-<span class="blue">&lt;script&gt;</span>
-yBox({
-url : <span class="grey">'#popup'</span>
-});
-<span class="blue">&lt;/script&gt;</span></code></pre>
-</section>
-<section>
-<h3>
-	Calling the function before opening yBox<br />
-	self = The yBox button
-</h3>
-<pre><code><span class="blue">function</span> beforeYboxOpen(self){ <span class="green">/* Do something before yBox is open */</span> };</code></pre>
-</section>
-<section>
-<h3>
-	Calling the function after opening yBox<br />
-	self = The yBox button
-</h3>
-<pre><code><span class="blue">function</span> afterYboxOpen(self){ <span class="green">/* Do something after yBox is open */</span> };</code></pre>
-</section>
-<section>
-<h3>
-	Calling the function before closing yBox<br />
-	<span style="font-size:16px;">self = The yBox button</span>
-</h3>
-<pre><code><span class="blue">function</span> beforeYboxClose(self){ <span class="green">/* Do something before yBox is close */</span> };</code></pre>
-</section>
-<section>
-<h3>
-	Calling the function after yBox closed<br />
-	<span style="font-size:16px;">self = The yBox button</span>
-</h3>
-<pre><code><span class="blue">function</span> afterYboxClose(self){ <span class="green">/* Do something after yBox is close */</span> };</code></pre>
-</section>
-<section class="iframeSection">
-<h3>Open Iframe / YouTube / Vimeo with yBox <span class="grey2" style="display:inline-block;direction:ltr;">( class="yBox yBox_iframe" )</span></h3>
-<a href="https://www.youtube.com/watch?v=eEMpCcLm6NI&list=RDeEMpCcLm6NI&start_radio=1" class="yBox yBox_iframe" rel="nofollow" title="Click Here">
-	<img id="koko" src="https://img.youtube.com/vi/eEMpCcLm6NI/0.jpg" alt="" width="100" height="100" />
+## 📦 Installation
+
+Simply include the stylesheet and the JavaScript file in your HTML document:
+
+```html
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/yuvalAshkenaz/yBox/dist/css/ybox.min.css" />
+<script src="https://cdn.jsdelivr.net/gh/yuvalAshkenaz/yBox/dist/js/ybox.min.js?lang=he"></script>
+
+```
+
+---
+
+## 🚀 Usage
+
+### 1. Single Image
+
+Add the class `yBox` to any anchor link. The `href` attribute defines the source.
+
+```html
+<a href="image.jpg" class="yBox" data-ybox-alt="Image Description">
+    <img src="thumbnail.jpg" alt="Thumb" />
 </a>
-<pre> <code><span class="blue">&lt;a</span> <span class="red">href</span>="<span class="purple">https://www.youtube.com...</span>" <span class="red">class</span>="<span class="purple">yBox yBox_iframe</span>"<span class="blue">&gt; &lt;/a&gt;</span></code></pre>
-</section>
-<section class="iframeSection">
-<h3>Open inner video file <span class="grey2" style="display:inline-block;direction:ltr;">( class="yBox yBox_video" )</span></h3>
-<a href="demo_files/mov_bbb.mp4" class="yBox yBox_video" rel="nofollow" title="Click Here">
-	<img id="koko" src="demo_files/movie_img.jpg" alt="" width="100" height="100" />
-</a>
-<pre> <code><span class="blue">&lt;a</span> <span class="red">href</span>="<span class="purple">/path/to/video.mp4</span>" <span class="red">class</span>="<span class="purple">yBox yBox_video</span>"<span class="blue">&gt; &lt;/a&gt;</span></code></pre>
-</section>
-<section>
-<h3>Add different class ( data-ybox-class="my_class" )</h3>
-<pre><code><span class="blue">&lt;a</span> <span class="red">href</span>="<span class="purple">#myLink</span>" <span class="red">data-ybox-class</span>="<span class="purple">myYboxClass</span>" <span class="red">class</span>="<span class="purple">yBox</span>"<span class="blue">&gt; &lt;/a&gt;</span></code></pre>
-</section>
-<section>
-<h3>Open with AJAX <span class="grey2" style="display:inline-block;direction:ltr;">( class="yBox yBox_ajax" )</span></h3>
-<pre><code><span class="blue">&lt;a</span> <span class="red">href</span>="<span class="purple">https://www.google.com</span>" <span class="red">class</span>="<span class="purple">yBox yBox_ajax</span>"<span class="blue">&gt; &lt;/a&gt;</span></code></pre>
-</section>
-<section>
-<h3>Grouped galleries ( data-ybox-group="group_name" )</h3>
-<h4>Group 1</h4>
-You can edit the ALT of the images ( data-ybox-alt="Image Alt" )
-<div class="group-wrap">
-	<a href="demo_files/1.jpg" class="yBox" data-ybox-alt="Image Alt 1" data-ybox-group="group1">
-		<img src="demo_files/1.jpg" alt="" width="200" />
-	</a>
-	<a href="demo_files/2.jpg" class="yBox" data-ybox-alt="Image Alt 2" data-ybox-group="group1">
-		<img src="demo_files/2.jpg" alt="" width="200" />
-	</a>
-	<a href="demo_files/3.jpg" class="yBox" data-ybox-alt="Image Alt 3" data-ybox-group="group1">
-		<img src="demo_files/3.jpg" alt="" width="200" />
-	</a>
+
+```
+
+### 2. Gallery (Grouping)
+
+Add `data-ybox-group="groupName"` to multiple items to create a gallery with navigation.
+
+```html
+<div class="gallery">
+    <a href="img1.jpg" class="yBox" data-ybox-group="myGallery">Item 1</a>
+    <a href="img2.jpg" class="yBox" data-ybox-group="myGallery">Item 2</a>
+    <a href="img3.jpg" class="yBox" data-ybox-group="myGallery">Item 3</a>
 </div>
-<pre><code><span class="blue">&lt;a</span> <span class="red">href</span>="<span class="purple">image.jpg</span>" <span class="red">data-ybox-group</span>="<span class="purple">group1</span>" <span class="red">data-ybox-alt</span>="<span class="purple">Image Alt</span>" <span class="red">class</span>="<span class="purple">yBox</span>"<span class="blue">&gt; &lt;/a&gt;</span></code></pre>
-<h4>Group 2</h4>
-<div class="group-wrap">
-	<a href="demo_files/4.jpg" class="yBox" data-ybox-group="group2">
-		<img src="demo_files/4.jpg" alt="" width="200" />
-	</a>
-	<a href="demo_files/5.jpg" class="yBox" data-ybox-group="group2">
-		<img src="demo_files/5.jpg" alt="" width="200" />
-	</a>
-	<a href="https://www.youtube.com/watch?v=c7ZZ04Yo7lw" class="yBox yBox_iframe" data-ybox-alt="Image Alt 3" data-ybox-group="group2">
-		<img src="demo_files/video-img.jpg" alt="" width="200" />
-		<div class="play"></div>
-	</a>
-</div>
-<pre><code><span class="blue">&lt;a</span> <span class="red">href</span>="<span class="purple">image.jpg</span>" <span class="red">data-ybox-group</span>="<span class="purple">group2</span>" <span class="red">class</span>="<span class="purple">yBox</span>"<span class="blue">&gt; &lt;/a&gt;</span></code></pre>
-</section>
+
+```
+
+### 3. Video & Iframes
+
+Use helper classes to define the media type.
+
+* **Iframe / YouTube / Vimeo:** Add class `yBox_iframe`
+* **HTML5 Video (MP4):** Add class `yBox_video`
+
+```html
+<a href="https://www.youtube.com/watch?v=VIDEO_ID" class="yBox yBox_iframe">Open Video</a>
+
+<a href="video.mp4" class="yBox yBox_video">Open MP4</a>
+
+```
+
+### 4. AJAX Content
+
+Add class `yBox_ajax` to fetch and display external HTML content.
+
+```html
+<a href="content.html" class="yBox yBox_ajax">Load Content via AJAX</a>
+
+```
+
+### 5. Social Sharing
+
+Add class `yBox_share` to open the built-in sharing window.
+
+```html
+<button type="button" class="yBox yBox_share">Share this page</button>
+
+```
+
+---
+
+## ⚙️ JavaScript API
+
+You can trigger yBox programmatically using the `yBox()` function.
+
+### Open HTML String
+
+```javascript
+yBox({
+    code: '<div class="custom-modal"><h1>Hello World</h1><p>Dynamic content</p></div>'
+});
+
+```
+
+### Open by Element ID
+
+Opens a hidden element from the DOM.
+
+```javascript
+yBox({ url: '#my-hidden-div' });
+
+```
+
+### Open URL in Iframe
+
+```javascript
+yBox({ 
+    url: 'https://example.com'
+});
+
+```
+
+### API Parameters
+
+| Parameter | Type | Description |
+| --- | --- | --- |
+| `code` | `String` | Raw HTML content to display. |
+| `url` | `String` | URL to image, iframe, or CSS selector (`#myDiv`). |
+| `self` | `Element` | The DOM element triggering the yBox (passes data attributes). |
+| `yBoxClass` | `String` | Custom class added to the main wrapper `.yBoxFrame`. |
+| `focus` | `String` | Selector of the element to focus on after opening. |
+| `id` | `String` | Alias for `url` when targeting a DOM element ID. |
+
+---
+
+## 🎨 HTML Attributes
+
+Configure individual links using `data-` attributes:
+
+| Attribute | Description |
+| --- | --- |
+| `data-ybox-class` | Adds a custom class to the modal (e.g., `no-bg`). |
+| `data-ybox-group` | Creates a gallery group for navigation. |
+| `data-ybox-alt` | Sets the `alt` attribute for the opened image. |
+| `data-ybox-title` | Sets the `title` attribute for the image/iframe. |
+| `data-ybox-headline` | Adds an `<h2>` headline inside the modal. |
+| `data-ybox-headline-class` | Adds a class to the headline element. |
+
+---
+
+## 🪝 Event Hooks (Callbacks)
+
+Define global functions to handle yBox lifecycle events.
+
+```javascript
+// Triggered before yBox opens
+function beforeYboxOpen(element) {
+    console.log('Opening...', element);
+}
+
+// Triggered after yBox is fully open
+function afterYboxOpen(element) {
+    console.log('Opened!');
+}
+
+// Triggered before closing. Return false to prevent closing.
+function beforeYboxClose(element) {
+    // Example: Confirm before closing
+    // if(!confirm('Are you sure?')) return false;
+}
+
+// Triggered after yBox is closed
+function afterYboxClose(element) {
+    console.log('Closed.');
+}
+
+```
+
+---
+
+## 🌍 URL Parameters
+
+Trigger yBox automatically on page load by adding a query parameter:
+
+`https://your-site.com/?ybox-id=myPopup`
+
+This will automatically open the element with `id="myPopup"`.
+
+---
+
+## ⌨️ Accessibility & Shortcuts
+
+* **ESC**: Close window.
+* **Right Arrow**: Next item (Gallery).
+* **Left Arrow**: Previous item (Gallery).
+* **Tab**: Focus trap within the modal for accessibility.
+
+---
+
+## 📄 License
+
+MIT License. Free for personal and commercial use.
+
+```
+
+```
