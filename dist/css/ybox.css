@@ -70,8 +70,8 @@
 	max-height: calc(100vh - 62px);
 }
 .admin-bar .yBoxOverlay.active .yBoxFrame {
-	-webkit-transform: translate(0, 16px);
-	transform: translate(0, 16px);
+	-webkit-transform: translate(0, 16px) scale(1);
+	transform: translate(0, 16px) scale(1);
 }
 .closeYbox,
 .closeYbox[type="button"] {
