@@ -257,29 +257,16 @@
 }
 .yBoxRTL .yBoxNext::after {
     transform: rotate(45deg);
+    margin: 0 -7px 0 0;
 }
 .yBoxRTL .yBoxPrev::after {
     transform: rotate(-135deg);
+    margin: 0 5px 0 0;
 }
 .yBoxNext:hover::after,
 .yBoxPrev:hover::after {
     border-bottom-color: #fff;
     border-left-color: #fff;
-}
-.yBoxIframeWrap .yBoxNext,
-.yBoxIframeWrap .yBoxPrev {
-    width: 60px;
-    height: 60px;
-    top: 50%;
-    margin: -30px 0 0;
-}
-.yBoxRTL .yBoxIframeWrap .yBoxNext::after {
-    right: 43%;
-	left: auto;
-}
-.yBoxRTL .yBoxIframeWrap .yBoxPrev::after {
-    left: 41%;
-	right: auto;
 }
 .yBoxLoader {
     width: 30px;
