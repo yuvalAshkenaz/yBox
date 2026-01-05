@@ -1,4 +1,4 @@
-﻿/*! yBox - 11.0 - 03/01/2026
+﻿/*! yBox - v11.1- 05/01/2026
 * By Yuval Ashkenazi
 * https://github.com/yuvalAshkenaz/yBox */
 
@@ -147,14 +147,12 @@
 	font-weight: 400;
 }
 .yBoxIframe {
-    background: #000;
     width: 100%;
 	flex-grow: 1;
 }
 .yBoxFrame.yBoxIframeWrap {
     width: 1200px;
     height: 750px;
-    background: #000;
 }
 .yBoxFrame.yBoxIframeWrap .insertYboxAjaxHere {
     position: absolute;
@@ -243,19 +241,19 @@
     content: "";
     width: 14px;
     height: 14px;
-	box-shadow: 2px 2px 2px rgba(0,0,0,0.2);
+	box-shadow: -1px 1px 2px rgba(0,0,0,0.2);
     border-bottom: 3px solid #fff;
     border-left: 3px solid #fff;
 }
 .yBoxNext::after {
     -webkit-transform: rotate(-135deg);
     transform: rotate(-135deg);
-    margin: 0 -8px 0 0;
+    margin: 0 3px 0 0;
 }
 .yBoxPrev::after {
     -webkit-transform: rotate(45deg);
     transform: rotate(45deg);
-    margin: 0 0 0 -4px;
+    margin: 0 0 0 5px;
 }
 .yBoxRTL .yBoxNext::after {
     transform: rotate(45deg);
