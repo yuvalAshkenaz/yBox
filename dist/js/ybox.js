@@ -1,4 +1,4 @@
-﻿/*! yBox - v11.1- 05/01/2026
+﻿/*! yBox - v11.2- 06/01/2026
 * By Yuval Ashkenazi
 * https://github.com/yuvalAshkenaz/yBox */
 
@@ -483,6 +483,7 @@ function setYboxFocus(obj) {
 
 function yBox_Group(yBoxLink, code) {
     let group = yBoxLink.dataset.yboxGroup;
+	// console.log( document.querySelectorAll('.yBox[data-ybox-group="' + group + '"]') );
     if (group && document.querySelectorAll('.yBox[data-ybox-group="' + group + '"]').length > 1) {
         code = `<button type="button" class="yBoxNext" title="${strings.next}"></button>
                     ${code}
@@ -503,25 +504,33 @@ document.body.addEventListener('click', function(e) {
 });
 
 
-setTimeout(function() {
+function addYboxID( clickedGroup ) {
+	if(
+		document.querySelectorAll('.yBox[data-ybox-id*="' + clickedGroup + '"]').length 
+		== document.querySelectorAll('.yBox[data-ybox-group="' + clickedGroup + '"]').length
+	) {
+		return;
+	}
     document.querySelectorAll('.yBox[data-ybox-group]:not(.swiper-slide-duplicate)').forEach((el, i) => {
         let group = el.dataset.yboxGroup;
-        el.setAttribute('data-ybox-id', group + '-' + i);
+		let yBoxID = group + '-' + i;
+        el.setAttribute('data-ybox-id', yBoxID);
     });
     document.querySelectorAll('.yBox[data-ybox-group].swiper-slide-duplicate').forEach((el, i) => {
         let group = el.dataset.yboxGroup;
-        el.setAttribute('data-ybox-id', group + '-' + i);
+        el.setAttribute('data-ybox-id', yBoxID);
     });
-}, 500);
+};
 
 function yBoxNext(self) {
     if(!self) return;
     let group = self.dataset.yboxGroup;
     let next;
     let entered = false;
-    
     const groupItems = document.querySelectorAll('.yBox[data-ybox-group="' + group + '"]:not(.swiper-slide-duplicate)');
     
+	addYboxID( group );
+	
     groupItems.forEach((el, i) => {
         if (!entered) {
             if (el.getAttribute('data-ybox-id') == self.getAttribute('data-ybox-id')) {
@@ -550,6 +559,8 @@ function yBoxPrev(self) {
     
     const groupItems = document.querySelectorAll('.yBox[data-ybox-group="' + group + '"]:not(.swiper-slide-duplicate)');
 
+	addYboxID( group );
+	
     groupItems.forEach((el, i) => {
         if (el.getAttribute('data-ybox-id') == self.getAttribute('data-ybox-id')) {
             if (groupItems[i - 1]) {
