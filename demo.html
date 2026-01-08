@@ -11,7 +11,7 @@
 <body>
 	<main>
 		<section style="text-align: center; background: transparent; box-shadow: none; padding-top:0;">
-			<h1>yBox 11.2</h1>
+			<h1>yBox 12</h1>
             <p style="color: var(--text-secondary);">A lightweight, flexible, and modern lightbox library.</p>
 		</section>
 		
@@ -161,9 +161,9 @@ yBox({
 
             <h4 style="margin-top: 2rem;">Call specific hidden element</h4>
 			<div style="display:none;">
-				<div id="popup" href="#popup">Hello from the hidden div! :-)</div>
+				<div id="popup">Hello from the hidden div! :-)</div>
 			</div>
-			<pre><code><span class="blue">yBox</span>({ url: <span class="grey">'#popup'</span> });</code></pre>
+			<pre><code><span class="blue">yBox</span>({ id: <span class="grey">'#popup'</span> });</code></pre>
 		</section>
 		
 		<section>
@@ -176,7 +176,7 @@ yBox({
                     <div class="param-desc">
                         <pre style="margin:0; padding:10px;"><code><span class="blue">function</span> beforeYboxOpen(self){ ... }</code></pre>
                         <br>
-                        <a href="#link1" class="yBox alertBeforeYbox">Try Example</a>
+                        <button type="button" href="#link1" class="yBox alertBeforeYbox">Try Example</button>
                     </div>
                 </div>
 
@@ -185,7 +185,7 @@ yBox({
                     <div class="param-desc">
                          <pre style="margin:0; padding:10px;"><code><span class="blue">function</span> afterYboxOpen(self){ ... }</code></pre>
                         <br>
-                        <a href="#link1" class="yBox alertAfterYbox">Try Example</a>
+                        <button type="button" href="#link1" class="yBox alertAfterYbox">Try Example</button>
                     </div>
                 </div>
 
@@ -194,7 +194,7 @@ yBox({
                     <div class="param-desc">
                          <pre style="margin:0; padding:10px;"><code><span class="blue">function</span> beforeYboxClose(self){ ... }</code></pre>
                          <br>
-                        <a href="#link1" class="yBox alertBeforeClose">Try Example (Confirm)</a>
+                        <button type="button" href="#link1" class="yBox alertBeforeClose">Try Example (Confirm)</button>
                     </div>
                 </div>
 
@@ -203,7 +203,7 @@ yBox({
                     <div class="param-desc">
                          <pre style="margin:0; padding:10px;"><code><span class="blue">function</span> afterYboxClose(self){ ... }</code></pre>
                          <br>
-                        <a href="#link1" class="yBox alertAfterClose">Try Example</a>
+                        <button type="button" href="#link1" class="yBox alertAfterClose">Try Example</button>
                     </div>
                 </div>
             </div>
@@ -211,7 +211,7 @@ yBox({
 		
 		<section>
             <h3>Nested yBox (Modal inside Modal)</h3>
-			<a href="#link1" class="yBox">Open Modal</a>
+			<button type="button" href="#link1" class="yBox">Open Modal</button>
 			
 			<div style="display:none;">
 				<div id="link1">
@@ -219,7 +219,7 @@ yBox({
 						<h3>Step 1</h3>
 						<p>This is the first window.</p>
 						<div style="padding-top:10px;">
-							<a href="#link2" class="yBox">Go to Step 2 &rarr;</a>
+							<button type="button" href="#link2" class="yBox">Go to Step 2 &rarr;</button>
 						</div>
 					</div>
 				</div>
@@ -235,25 +235,25 @@ yBox({
 		<section class="iframeSection">
 			<h3>Media Embeds</h3>
             
-            <div style="display: flex; gap: 20px; flex-wrap: wrap;">
+            <div style="display: flex;width:100%; gap: 20px; flex-wrap: wrap;">
                 <div style="flex:1; min-width: 300px;">
                     <h4>YouTube / Vimeo (Iframe)</h4>
-                    <a href="https://www.youtube.com/watch?v=eEMpCcLm6NI" class="yBox yBox_iframe" rel="nofollow" title="Click Here" data-ybox-headline="Cool Video" data-ybox-title="YouTube Video">
+                    <button type="button" href="https://www.youtube.com/watch?v=eEMpCcLm6NI" class="yBox yBox_iframe" rel="nofollow" title="Click Here" data-ybox-headline="Cool Video" data-ybox-title="YouTube Video">
                         <div style="position:absolute;top:0;left:0;width:100%;height:100%;">
                             <img src="https://img.youtube.com/vi/eEMpCcLm6NI/0.jpg" alt="" style="width:100%; display:block;" />
                             <div class="play"></div>
                         </div>
-                    </a>
+                    </button>
                 </div>
 
                 <div style="flex:1; min-width: 300px;">
                     <h4>Self-Hosted Video (MP4)</h4>
-                    <a href="demo_files/mov_bbb.mp4" class="yBox yBox_video" rel="nofollow" title="Click Here">
+                    <button type="button" href="demo_files/mov_bbb.mp4" class="yBox yBox_video" rel="nofollow" title="Click Here">
                         <div style="position:absolute;top:0;left:0;width:100%;height:100%;">
                             <img src="demo_files/movie_img.jpg" alt="" style="width:100%; display:block;" />
                             <div class="play"></div>
                         </div>
-                    </a>
+                    </button>
                 </div>
             </div>
 		</section>
@@ -261,8 +261,8 @@ yBox({
 		<section>
 			<h3>Custom Styling & AJAX</h3>
             <div style="display: flex; gap: 15px; flex-wrap: wrap;">
-                <a href="#myLink" data-ybox-class="myYboxClass" class="yBox">Custom Class Demo</a>
-                <a href="https://www.google.com" class="yBox yBox_ajax">AJAX Demo</a>
+                <button type="button" href="#myLink" data-ybox-class="myYboxClass" class="yBox">Custom Class Demo</button>
+                <button type="button" href="https://www.google.com" class="yBox yBox_ajax">AJAX Demo</button>
             </div>
 
 			<div style="display:none;">
@@ -279,29 +279,35 @@ yBox({
             
 			<h4>Nature Collection (Group 1)</h4>
 			<div class="group-wrap">
-				<a href="demo_files/1.jpg" class="yBox" data-ybox-headline="Image Title 1" data-ybox-alt="Image Alt 1" data-ybox-group="group1">
+				<button type="button" href="demo_files/1.jpg" class="yBox" data-ybox-headline="Image Title 1" data-ybox-alt="Image Alt 1" data-ybox-group="group1">
 					<img src="demo_files/1.jpg" alt="Nature 1" />
-				</a>
-				<a href="demo_files/2.jpg" class="yBox" data-ybox-headline="Image Title 2" data-ybox-alt="Image Alt 2" data-ybox-group="group1">
+				</button>
+				<button type="button" href="demo_files/2.jpg" class="yBox" data-ybox-headline="Image Title 2" data-ybox-alt="Image Alt 2" data-ybox-group="group1">
 					<img src="demo_files/2.jpg" alt="Nature 2" />
-				</a>
-				<a href="demo_files/3.jpg" class="yBox" data-ybox-headline="Image Title 3" data-ybox-alt="Image Alt 3" data-ybox-group="group1">
+				</button>
+				<button type="button" href="demo_files/3.jpg" class="yBox" data-ybox-headline="Image Title 3" data-ybox-alt="Image Alt 3" data-ybox-group="group1">
 					<img src="demo_files/3.jpg" alt="Nature 3" />
-				</a>
+				</button>
 			</div>
 			
 			<h4 style="margin-top:30px;">Mixed Media (Group 2)</h4>
 			<div class="group-wrap">
-				<a href="demo_files/4.jpg" class="yBox" data-ybox-group="group2">
+				<button type="button" href="demo_files/4.jpg" class="yBox" data-ybox-group="group2">
 					<img src="demo_files/4.jpg" alt="Urban" />
-				</a>
-				<a href="demo_files/5.jpg" class="yBox" data-ybox-group="group2">
+				</button>
+				<button type="button" href="demo_files/5.jpg" class="yBox" data-ybox-group="group2">
 					<img src="demo_files/5.jpg" alt="Urban" />
-				</a>
-				<a href="https://www.youtube.com/watch?v=eEMpCcLm6NI" class="yBox yBox_iframe" data-ybox-alt="Video" data-ybox-group="group2">
+				</button>
+				<button type="button" href="https://www.youtube.com/watch?v=eEMpCcLm6NI" class="yBox yBox_iframe" data-ybox-alt="Video" data-ybox-group="group2">
 					<img src="https://img.youtube.com/vi/eEMpCcLm6NI/0.jpg" alt="Video" />
 					<div class="play"></div>
-				</a>
+				</button>
+				<button type="button" href="demo_files/mov_bbb.mp4" class="yBox yBox_video" data-ybox-group="group2">
+					<div style="position:absolute;top:0;left:0;width:100%;height:100%;">
+						<img src="demo_files/movie_img.jpg" alt="" style="width:100%; display:block;">
+						<div class="play"></div>
+					</div>
+				</button>
 			</div>
 		</section>
 		
@@ -312,7 +318,7 @@ yBox({
 	</main>
 
 <link rel="stylesheet" href="dist/css/ybox.css" />
-<script type="text/javascript" src="dist/js/ybox.js?lang=he"></script>
+<script type="text/javascript" src="dist/js/ybox.js"></script>
 
 <script type="text/javascript">
 function beforeYboxOpen(self){
