@@ -1,6 +1,4 @@
-/* yBox Demo Modern Redesign */
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Fira+Code:wght@400;500&display=swap');
-
 :root {
     --primary-color: #4f46e5; /* Indigo */
     --primary-hover: #4338ca;
@@ -13,19 +11,17 @@
     --code-bg: #1e293b; /* Dark slate */
     --success: #10b981;
 }
-
 * {
     box-sizing: border-box;
+	word-break: break-word;
 }
-
 button {
-	padding: 0;
-	margin: 0;
-	background: none;
-	border: none;
-	cursor: pointer;
+    padding: 0;
+    margin: 0;
+    background: none;
+    border: none;
+    cursor: pointer;
 }
-
 body {
     background-color: var(--bg-body);
     font-family: 'Inter', sans-serif;
@@ -34,16 +30,22 @@ body {
     line-height: 1.6;
     margin: 0;
     padding-bottom: 50px;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
 }
-
 main {
+    width: 100%;
     max-width: 1220px;
     margin: 40px auto;
     padding: 0 20px;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
 }
-
-/* --- Header --- */
 h1 {
+	width: 100%;
     font-size: 3rem;
     font-weight: 800;
     background: linear-gradient(to right, var(--primary-color), var(--accent-color));
@@ -52,12 +54,12 @@ h1 {
     margin-bottom: 10px;
     text-align: center;
 }
-
-h2, h3 {
+h2,
+h3 {
+	width: 100%;
     color: var(--text-main);
     margin-top: 0;
 }
-
 h3 {
     font-size: 1.5rem;
     font-weight: 600;
@@ -65,13 +67,11 @@ h3 {
     padding-bottom: 0.5rem;
     border-bottom: 2px solid var(--border-color);
 }
-
 h4 {
+	width: 100%;
     margin: 1.5rem 0 0.5rem;
     color: var(--text-secondary);
 }
-
-/* --- Cards / Sections --- */
 section {
     background: var(--bg-card);
     border-radius: 12px;
@@ -79,10 +79,12 @@ section {
     margin-bottom: 2rem;
     box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
     border: 1px solid rgba(0,0,0,0.05);
+    display: flex;
+    flex-direction: column;
+	align-items: flex-start;
 }
-
-/* --- Code Blocks --- */
 pre {
+	width: 100%;
     background: var(--code-bg);
     color: #e2e8f0;
     padding: 1.5rem;
@@ -93,57 +95,50 @@ pre {
     border: 1px solid #334155;
     position: relative;
 }
-
 code {
     font-family: 'Fira Code', monospace;
 }
-
-/* Syntax Highlighting overrides for dark theme */
-pre .blue { color: #60a5fa !important; } /* Tag names */
-pre .red { color: #f472b6 !important; }  /* Attributes */
-pre .purple { color: #a78bfa !important; } /* Values */
-pre .grey { color: #94a3b8 !important; } /* Comments/Strings */
-pre .green { color: #34d399 !important; } /* Comments */
-
-/* --- Custom Tables / Lists --- */
-/* Replacing the old table layout with a clean flex list */
+pre .blue { color: #60a5fa !important; } 
+pre .red { color: #f472b6 !important; }  
+pre .purple { color: #a78bfa !important; } 
+pre .grey { color: #94a3b8 !important; } 
+pre .green { color: #34d399 !important; } 
 .param-list {
+	width: 100%;
     display: flex;
     flex-direction: column;
     gap: 1rem;
 }
-
 .param-item {
-    display: grid;
-    grid-template-columns: 200px 1fr;
+	width: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
     gap: 1rem;
     padding: 1rem;
     background: #f9fafb;
     border-radius: 8px;
     border: 1px solid var(--border-color);
-    align-items: center;
 }
-
 .param-name {
     font-family: 'Fira Code', monospace;
     font-weight: bold;
     color: var(--primary-color);
     word-break: break-word;
+    flex: 0 0 200px; 
 }
-
 .param-desc {
+	width: 100%;
     font-size: 0.95rem;
     color: var(--text-secondary);
+    flex: 1; 
 }
-
 .param-desc code {
     background: rgba(0,0,0,0.05);
     padding: 2px 6px;
     border-radius: 4px;
     color: #d946ef;
 }
-
-/* --- Buttons & Links (.yBox triggers) --- */
 a.yBox, button.yBox {
     display: inline-flex;
     align-items: center;
@@ -160,39 +155,45 @@ a.yBox, button.yBox {
     box-shadow: 0 4px 6px rgba(79, 70, 229, 0.3);
     font-size: 14px;
 }
-
 a.yBox:hover, button.yBox:hover {
     background: var(--primary-hover);
     transform: translateY(-2px);
     box-shadow: 0 6px 12px rgba(79, 70, 229, 0.4);
 }
-
-/* --- Gallery Grid --- */
 .group-wrap {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    width: calc(100% + 4rem);
+    display: flex;
     gap: 15px;
-    margin-top: 20px;
+    overflow: auto;
+    padding: 20px;
+    margin: 0 -2rem;
 }
-
-.group-wrap a, .iframeSection a {
+.group-wrap a,
+.iframeSection a,
+.group-wrap button,
+.iframeSection button {
+	width: 100%;
     position: relative;
     display: block;
-    width: 100%;
-    padding-top: 75%; /* 4:3 Aspect Ratio */
+    flex: 1 1 150px; 
+    min-width: 200px;
+    padding-top: 225px;
     border-radius: 8px;
     overflow: hidden;
     box-shadow: 0 2px 4px rgba(0,0,0,0.1);
     border: 2px solid transparent;
     transition: all 0.3s ease;
 }
-
-.group-wrap a:hover, .iframeSection a:hover {
+.group-wrap a:hover,
+.iframeSection a:hover,
+.group-wrap button:hover,
+.iframeSection button:hover {
     border-color: var(--primary-color);
     transform: scale(1.02);
+    z-index: 2;
 }
-
-.group-wrap img, .iframeSection img {
+.group-wrap img,
+.iframeSection img {
     position: absolute;
     top: 0;
     left: 0;
@@ -200,8 +201,6 @@ a.yBox:hover, button.yBox:hover {
     height: 100%;
     object-fit: cover;
 }
-
-/* --- Play Button Icon --- */
 .play {
     position: absolute;
     top: 50%;
@@ -217,38 +216,45 @@ a.yBox:hover, button.yBox:hover {
     backdrop-filter: blur(2px);
     border: 2px solid white;
 }
-
 .play::after {
     content: "";
     display: block;
     margin-left: 4px;
     border-top: 8px solid transparent;
     border-bottom: 8px solid transparent;
-    border-left: 14px solid white; /* Changed to white for better contrast */
+    border-left: 14px solid white; 
 }
-
-/* --- Responsive --- */
-@media screen and (max-width: 768px) {
-    .param-item {
-        grid-template-columns: 1fr;
-        gap: 0.5rem;
-    }
-    
-    .param-name {
-        border-bottom: 1px solid #eee;
-        padding-bottom: 5px;
-    }
-
-    h1 { font-size: 2rem; }
-    main { margin-top: 20px; }
-}
-
-/* --- yBox Custom Styling Override Example --- */
 .myYboxClass .yBoxFrame {
     background: #fff !important;
     border-radius: 12px !important;
     box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
 }
 .myYboxClass .closeYbox {
-    filter: invert(1); /* Make default close button dark if background is light */
+    filter: invert(1); 
+}
+@media screen and (max-width: 767px) {
+    .param-item {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.5rem;
+    }
+    .param-name {
+        flex: 0 0 auto;
+        width: 100%;
+        border-bottom: 1px solid #eee;
+        padding-bottom: 5px;
+    }
+    h1 { font-size: 2rem; }
+    main { margin-top: 20px; }
+    section {
+        padding: 1rem;
+    }
+	.group-wrap a, .iframeSection a, .group-wrap button, .iframeSection button {
+		min-width: 170px;
+		padding-top: 55vw;
+	}
+	.group-wrap {
+		width: calc(100% + 2rem);
+		margin: 0 -1rem;
+	}
 }
