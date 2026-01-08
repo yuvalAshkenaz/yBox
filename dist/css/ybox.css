@@ -1,4 +1,4 @@
-﻿/*! yBox - v12- 08/01/2026
+/*! yBox - v12- 08/01/2026
 * By Yuval Ashkenazi
 * https://github.com/yuvalAshkenaz/yBox */
 
@@ -85,8 +85,6 @@
 .yBoxPrev,
 .closeYbox,
 .closeYbox[type="button"] {
-    /* background-color: rgba(0, 0, 0, 0.5); */
-    /* border: 1px solid rgba(255, 255, 255, 0.4); */
     width: 40px;
     height: 40px;
     position: absolute;
@@ -517,9 +515,6 @@
 	-webkit-transform: scale(1.5);
 	transform: scale(1.5);
 }
-/* --- תוספות עבור yBox Gallery עם Thumbs ומעבר Opacity --- */
-
-/* הגדרת אזור התוכן כדי לאפשר לכל השקופיות להיות אחת על השנייה */
 .yBoxFrame.yBoxImgWrap .insertYboxAjaxHere,
 .yBoxFrame.yBoxIframeWrap .insertYboxAjaxHere {
     position: relative;
@@ -548,10 +543,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    /* box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.35); */
 }
-
-/* עיצוב שקופית בודדת - כולם מוסתרים ב-Opacity 0 */
 .yBoxSlide {
     position: absolute;
     top: 0;
@@ -585,35 +577,27 @@
 }
 .yBoxThumbsWrapper {
     width: 100%;
-    overflow: hidden; /* מסתיר את מה שיוצא מהגבולות */
+    overflow: hidden;
     position: relative;
     height: 80px;
     margin-top: 10px;
-    direction: ltr; /* חשוב לחישובי המיקום */
+    direction: ltr;
     flex-shrink: 0;
 }
-
-/* הפס הפנימי שזז */
 .yBoxThumbs {
-    display: inline-flex; /* מאפשר רוחב לפי התוכן */
+    display: inline-flex;
     gap: 10px;
-    padding: 0 10px; /* רווחים בצדדים */
+    padding: 0 10px;
     height: 100%;
-    
-    /* הגדרות גרירה */
     cursor: grab;
-    user-select: none; /* מניעת בחירת טקסט/תמונה */
-    touch-action: pan-y; /* מונע גלילה אנכית של הדף בזמן גרירה אופקית */
-    
-    /* מצב התחלתי */
+    user-select: none;
+    touch-action: pan-y;
     transform: translateX(0px);
-    transition: transform 0.1s ease-out; /* אנימציה קצרה לתחושה חלקה */
-    width: max-content; /* הרוחב הוא סך כל הכפתורים */
-    min-width: 100%; /* שלא יהיה קטן מרוחב המסך */
-    justify-content: center; /* מירכוז אם יש מעט תמונות */
+    transition: transform 0.1s ease-out;
+    width: max-content;
+    min-width: 100%;
+    justify-content: center;
 }
-
-/* במובייל או כשיש הרבה תמונות - יישור לשמאל */
 .yBoxThumbs.is-overflowing {
     justify-content: flex-start;
 }
