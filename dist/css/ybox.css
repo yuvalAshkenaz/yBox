@@ -205,20 +205,26 @@
 .yBoxFrame.yBoxImgWrap .yBoxImgWrap2 {
 	display: flex;
 	min-height: 80px;
+	max-height: 100%;
 	border-radius: 12px;
+	position: relative;
 	overflow: hidden;
-    justify-content: center;
-    background: transparent;
+	justify-content: center;
+	background: transparent;
 }
 .yBoxFrame.yBoxImgWrap img.yBoxImg {
     max-width: -webkit-calc(100vw - 40px);
     max-width: calc(100vw - 40px);
     max-height: -webkit-calc(100vh - 40px);
     max-height: calc(100vh - 40px);
-	margin: auto;
-	border-radius: 8px;
+    margin: auto;
+    border-radius: 8px;
     box-shadow: 0 5px 20px rgba(0,0,0,0.2);
     display: block;
+}
+.yBoxGroupOverlay .yBoxFrame.yBoxImgWrap img.yBoxImg {
+    max-height: -webkit-calc(100vh - 110px);
+    max-height: calc(100vh - 110px);
 }
 .yBoxNext,
 .yBoxPrev {
@@ -535,7 +541,7 @@
 .yBoxSlidesWrap {
     position: relative;
     width: calc(100% - 100px);
-    height: 100%;
+    height: calc(100% - 90px);
     border-radius: 12px;
     overflow: hidden;
     flex-grow: 1;
@@ -584,6 +590,7 @@
     height: 80px;
     margin-top: 10px;
     direction: ltr; /* חשוב לחישובי המיקום */
+    flex-shrink: 0;
 }
 
 /* הפס הפנימי שזז */
@@ -672,19 +679,21 @@
 	}
     .yBoxNext,
     .yBoxPrev {
+		background-color: rgba(0, 0, 0, 0.5);
+		border: 1px solid rgba(255, 255, 255, 0.4);
         width: 40px;
         height: 40px;
     }
-	.yBoxPrev { left: 5px; }
-	.yBoxNext { right: 5px; }
+	.yBoxPrev { left: 15px; }
+	.yBoxNext { right: 15px; }
 	.yBoxRTL .yBoxPrev { left: auto; right: 5px; }
 	.yBoxRTL .yBoxNext { right: auto; left: 5px; }
     .yBoxNext::after,
 	.yBoxPrev::after {
 		border-bottom-width: 2px;
 		border-left-width: 2px;
-		width: 10px;
-		height: 10px;
+		width: 8px;
+		height: 8px;
 	}
     .yBoxImgWrap2 {
         display: flex;
@@ -698,6 +707,9 @@
     .yBoxSlide video {
         max-height: calc(100vh - 120px);
     }
+	.yBoxSlidesWrap {
+		width: 100%;
+	}
 }
 @media screen and (max-width: 479px) {
     .yBoxFrame.yBoxIframeWrap,
