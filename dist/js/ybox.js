@@ -293,12 +293,14 @@ function insert_yBox_html(obj) {
 			obj.code = ybox_iframe(obj);
 			insertArea.innerHTML = obj.code;
             attachDragToThumbs();
+			attachSwipeToSlides();
 		} else if (obj.self.classList.contains('yBox_video')) {
 			frame.classList.add('yBoxIframeWrap', 'yBoxVideoWrap');
 			let code = '<video class="yBoxVideo" autoplay controls preload plays-inline playsinline><source src="' + obj.url + '" type="video/mp4" /></video>';
 			code = yBox_Group(obj.self, code);
 			insertArea.innerHTML = code;
             attachDragToThumbs();
+			attachSwipeToSlides();
 		} else if (obj.self.classList.contains('yBox_ajax')) {
 			fetch(obj.url)
 				.then(function(response) { return response.text(); })
@@ -349,6 +351,7 @@ function insert_yBox_html(obj) {
 				insertArea.innerHTML = code;
                 
                 attachDragToThumbs();
+				attachSwipeToSlides();
 			};
 		} else {
             if (typeof obj.url === 'undefined' && typeof obj.code !== 'undefined') {
@@ -383,6 +386,7 @@ function insert_yBox_html(obj) {
 			obj.code = ybox_iframe(obj);
 			insertArea.innerHTML = obj.code;
             attachDragToThumbs();
+			attachSwipeToSlides();
 		} else {
             if (typeof obj.code === 'undefined' && typeof obj.id !== 'undefined') {
 				let targetEl = document.querySelector(obj.id);
@@ -798,3 +802,53 @@ document.addEventListener('keydown', function(e) {
 		}
 	}
 });
+
+function attachSwipeToSlides() {
+    const wrapper = document.querySelector('.yBoxSlidesWrap');
+    if (!wrapper) return;
+
+    // wrapper.querySelectorAll('img').forEach(function(img) {
+        // img.addEventListener('dragstart', function(e) {
+            // e.preventDefault();
+        // });
+    // });
+
+    let touchStartX = 0;
+    let touchStartY = 0;
+    let touchEndX = 0;
+    let touchEndY = 0;
+
+    wrapper.addEventListener('touchstart', function(e) {
+        touchStartX = e.changedTouches[0].clientX;
+        touchStartY = e.changedTouches[0].clientY;
+    }, {passive: true});
+
+    wrapper.addEventListener('touchend', function(e) {
+        touchEndX = e.changedTouches[0].clientX;
+        touchEndY = e.changedTouches[0].clientY;
+        handleSwipe();
+    }, {passive: true});
+
+    function handleSwipe() {
+        const diffX = touchEndX - touchStartX;
+        const diffY = touchEndY - touchStartY;
+
+        if (Math.abs(diffX) > 30 && Math.abs(diffX) > Math.abs(diffY)) {
+            if (diffX > 0) {
+                // ltr
+                if (typeof yBox_lang !== 'undefined' && (yBox_lang === 'he' || yBox_lang === 'ar')) {
+                    yBoxNext();
+                } else {
+                    yBoxPrev();
+                }
+            } else {
+                // rtl
+                if (typeof yBox_lang !== 'undefined' && (yBox_lang === 'he' || yBox_lang === 'ar')) {
+                    yBoxPrev();
+                } else {
+                    yBoxNext();
+                }
+            }
+        }
+    }
+}
