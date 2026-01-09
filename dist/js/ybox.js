@@ -1,4 +1,4 @@
-﻿/*! yBox - v12.0 - 08/01/2026
+﻿/*! yBox - v12.1 - 09/01/2026
 * By Yuval Ashkenazi
 * https://github.com/yuvalAshkenaz/yBox */
 
@@ -269,9 +269,11 @@ function ybox_iframe(obj) {
 	if (obj.url.toLowerCase().indexOf('youtube') > -1 || obj.url.toLowerCase().indexOf('youtu.be') > -1) {
 		let youtube_id = obj.url.replace(/^[^v]+v.(.{11}).*/, "$1").replace('https://youtu.be/', '').replace(/.*youtube.com\/embed\//, '');
 		obj.url = 'https://www.youtube.com/embed/' + youtube_id + '?wmode=transparent&rel=0&autoplay=1&hl=' + yBox_lang;
+		frame.classList.add('yBoxVideoWrap');
 	} else if (obj.url.toLowerCase().indexOf('vimeo') > -1) {
 		let vimeoID = obj.url.match(/video\/(\d+)/)[1];
 		obj.url = 'https://player.vimeo.com/video/' + vimeoID + '?autoplay=1&background=1';
+		frame.classList.add('yBoxVideoWrap');
 	}
 	
 	let code = iframe_headline +
@@ -292,7 +294,7 @@ function insert_yBox_html(obj) {
 			insertArea.innerHTML = obj.code;
             attachDragToThumbs();
 		} else if (obj.self.classList.contains('yBox_video')) {
-			frame.classList.add('yBoxIframeWrap');
+			frame.classList.add('yBoxIframeWrap', 'yBoxVideoWrap');
 			let code = '<video class="yBoxVideo" autoplay controls preload plays-inline playsinline><source src="' + obj.url + '" type="video/mp4" /></video>';
 			code = yBox_Group(obj.self, code);
 			insertArea.innerHTML = code;
