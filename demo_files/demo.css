@@ -1,14 +1,14 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Fira+Code:wght@400;500&display=swap');
 :root {
-    --primary-color: #4f46e5; /* Indigo */
+    --primary-color: #4f46e5;
     --primary-hover: #4338ca;
-    --accent-color: #ec4899; /* Pink/Magenta for accents */
+    --accent-color: #ec4899;
     --text-main: #1f2937;
     --text-secondary: #4b5563;
     --bg-body: #f3f4f6;
     --bg-card: #ffffff;
     --border-color: #e5e7eb;
-    --code-bg: #1e293b; /* Dark slate */
+    --code-bg: #1e293b;
     --success: #10b981;
 }
 * {
@@ -173,16 +173,15 @@ a.yBox:hover, button.yBox:hover {
 .group-wrap button,
 .iframeSection button {
 	width: 100%;
-    position: relative;
-    display: block;
-    flex: 1 1 150px; 
-    min-width: 200px;
-    padding-top: 225px;
-    border-radius: 8px;
-    overflow: hidden;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-    border: 2px solid transparent;
-    transition: all 0.3s ease;
+	position: relative;
+	display: block;
+	min-width: 200px;
+	aspect-ratio: 16 / 16;
+	border-radius: 8px;
+	overflow: hidden;
+	box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+	border: 2px solid transparent;
+	transition: all 0.3s ease;
 }
 .group-wrap a:hover,
 .iframeSection a:hover,
@@ -251,7 +250,6 @@ a.yBox:hover, button.yBox:hover {
     }
 	.group-wrap a, .iframeSection a, .group-wrap button, .iframeSection button {
 		min-width: 170px;
-		padding-top: 55vw;
 	}
 	.group-wrap {
 		width: calc(100% + 2rem);
