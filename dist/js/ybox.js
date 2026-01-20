@@ -1,4 +1,4 @@
-﻿/*! yBox - v12.1 - 09/01/2026
+﻿/*! yBox - v12.2 - 20/01/2026
 * By Yuval Ashkenazi
 * https://github.com/yuvalAshkenaz/yBox */
 
@@ -407,8 +407,12 @@ function setYboxFocus(obj) {
 		let el = document.querySelector(obj.focus);
 		if(el) el.focus();
 	} else {
-		let closeBtn = document.querySelector('.closeYbox');
-		if(closeBtn) closeBtn.focus();
+		let closeBtns = document.querySelectorAll('.closeYbox');
+		let visibleBtn = Array.from(closeBtns).find(function(btn) {
+			return btn.offsetWidth > 0 || btn.offsetHeight > 0;
+		});
+		
+		if(visibleBtn) visibleBtn.focus();
 	}
 }
 
