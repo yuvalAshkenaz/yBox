@@ -20,18 +20,30 @@
     top: 0;
     z-index: 10000000000;
     visibility: hidden;
+    filter: alpha(opacity=0);
     opacity: 0;
     -khtml-opacity: 0;
-    -webkit-transition: 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-    transition: 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    -webkit-transition: 
+		opacity 0.4s cubic-bezier(0.16, 1, 0.3, 1),
+		visibility 0s ease 0.4s;
+    transition: 
+		opacity 0.4s cubic-bezier(0.16, 1, 0.3, 1),
+		visibility 0s ease 0.4s;
 }
 .yBoxGroupOverlay {
 	background-color: rgba(0, 0, 0, 0.9);
 }
 .yBoxOverlay.active {
     visibility: visible;
-    opacity: 1;
-    -khtml-opacity: 1;
+	filter: alpha(opacity=100);
+	opacity: 1;
+	-khtml-opacity: 1;
+	-webkit-transition: 
+		opacity 0.4s cubic-bezier(0.16, 1, 0.3, 1),
+		visibility 0s ease 0s;
+    transition: 
+		opacity 0.4s cubic-bezier(0.16, 1, 0.3, 1),
+		visibility 0s ease 0s;
 }
 .yBoxFrame {
     background-color: #fff;
@@ -501,8 +513,14 @@
 	position: absolute;
 	top: 100%;
 	right: 0;
-	-webkit-transition: all 0.5s ease;
-	transition: all 0.5s ease;
+	-webkit-transition: 
+		transform 0.5s ease,
+		opacity 0.5s ease,
+		visibility 0s ease 0.5s;
+	transition: 
+		transform 0.5s ease,
+		opacity 0.5s ease,
+		visibility 0s ease 0.5s;
 }
 .ybox-copy-text-btn.active .ybox-copy-show-text-on-check {
 	filter: alpha(opacity=100);
@@ -511,6 +529,14 @@
 	visibility: visible;
 	-webkit-transform: translate(0,0);
 	transform: translate(0,0);
+	-webkit-transition: 
+		transform 0.5s ease,
+		opacity 0.5s ease,
+		visibility 0s ease 0s;
+	transition: 
+		transform 0.5s ease,
+		opacity 0.5s ease,
+		visibility 0s ease 0s;
 }
 .ybox-socials-list svg {
 	width: 40px;
@@ -555,19 +581,28 @@
     left: 0;
     bottom: 0;
     width: 100%;
-    opacity: 0;
-    visibility: hidden;
-    transition: opacity 0.5s ease, visibility 0.5s ease;
     display: flex;
     align-items: center;
     justify-content: center;
     z-index: 1;
+    filter: alpha(opacity=0);
+    opacity: 0;
+    -khtml-opacity: 0;
+    visibility: hidden;
+    transition: 
+		opacity 0.5s ease,
+		visibility 0s ease 0.5s;
 }
 .yBoxSlide.active {
+    filter: alpha(opacity=100);
     opacity: 1;
+    -khtml-opacity: 1;
     visibility: visible;
     position: relative;
     z-index: 2;
+    transition: 
+		opacity 0.5s ease,
+		visibility 0s ease 0s;
 }
 .yBoxSlide .yBoxIframe {
 	height: 100%;
