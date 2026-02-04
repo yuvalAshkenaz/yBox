@@ -362,6 +362,7 @@
 	padding-top: 110px;
 }
 .ybox-share-title {
+	width: auto;
 	color: #fff;
 	margin: 0;
 	font-size: 26px;
