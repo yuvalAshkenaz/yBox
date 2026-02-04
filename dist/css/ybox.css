@@ -1,4 +1,4 @@
-﻿/*! yBox - v12.2 - 20/01/2026
+﻿/*! yBox - v12.3 - 04/02/2026
 * By Yuval Ashkenazi
 * https://github.com/yuvalAshkenaz/yBox */
 .yBoxOverlay * {
@@ -7,8 +7,8 @@
 	word-wrap: break-word;
 }
 .yBoxOverlay {
-	background-color: rgba(0, 0, 0, 0.8);
-	backdrop-filter: blur(8px); 
+	background-color: rgba(0, 0, 0, 0.5);
+	backdrop-filter: blur(6px); 
     -webkit-backdrop-filter: blur(8px);
     display: flex;
     width: 100%;
@@ -24,6 +24,9 @@
     -khtml-opacity: 0;
     -webkit-transition: 0.4s cubic-bezier(0.16, 1, 0.3, 1);
     transition: 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.yBoxGroupOverlay {
+	background-color: rgba(0, 0, 0, 0.9);
 }
 .yBoxOverlay.active {
     visibility: visible;
