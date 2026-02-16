@@ -1,4 +1,4 @@
-﻿/*! yBox - v12.3 - 04/02/2026
+﻿/*! yBox - v12.4 - 16/02/2026
 * By Yuval Ashkenazi
 * https://github.com/yuvalAshkenaz/yBox */
 .yBoxOverlay * {
@@ -29,6 +29,9 @@
     transition: 
 		opacity 0.4s cubic-bezier(0.16, 1, 0.3, 1),
 		visibility 0s ease 0.4s;
+}
+.yBoxGroupOverlay{
+	align-items: stretch;
 }
 .yBoxGroupOverlay {
 	background-color: rgba(0, 0, 0, 0.9);
