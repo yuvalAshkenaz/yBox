@@ -11,7 +11,7 @@
 <body>
 	<main>
 		<section style="text-align: center; background: transparent; box-shadow: none; padding-top:0;">
-			<h1>yBox 12.4</h1>
+			<h1>yBox 12.5</h1>
             <p style="color: var(--text-secondary);">A lightweight, flexible, and modern lightbox library.</p>
 		</section>
 		
@@ -26,16 +26,12 @@
 			<h3>Helper Classes</h3>
             <div class="param-list">
                 <div class="param-item">
-                    <div class="param-name">.yBox_iframe</div>
+                    <div class="param-name">.yBox_ifarme</div>
                     <div class="param-desc">Opens the <code>href</code> link inside an iframe container.</div>
                 </div>
                 <div class="param-item">
                     <div class="param-name">.yBox_ajax</div>
                     <div class="param-desc">Fetches content via AJAX from the <code>href</code> attribute.</div>
-                </div>
-                <div class="param-item">
-                    <div class="param-name">.yBox_video</div>
-                    <div class="param-desc">Embeds a video file (MP4, etc.) using the HTML5 Video tag.</div>
                 </div>
                 <div class="param-item">
                     <div class="param-name">.yBox_share</div>
@@ -238,7 +234,7 @@ yBox({
             <div style="display: flex;width:100%; gap: 20px; flex-wrap: wrap;">
                 <div style="flex:1; min-width: 300px;">
                     <h4>YouTube / Vimeo (Iframe)</h4>
-                    <button type="button" href="https://www.youtube.com/watch?v=eEMpCcLm6NI" class="yBox yBox_iframe" rel="nofollow" title="Click Here" data-ybox-headline="Cool Video" data-ybox-title="YouTube Video">
+                    <button type="button" href="https://www.youtube.com/watch?v=eEMpCcLm6NI" class="yBox" rel="nofollow" title="Click Here" data-ybox-headline="Cool Video" data-ybox-title="YouTube Video">
                         <div style="position:absolute;top:0;left:0;width:100%;height:100%;">
                             <img src="https://img.youtube.com/vi/eEMpCcLm6NI/0.jpg" alt="" style="width:100%; display:block;" />
                             <div class="play"></div>
@@ -248,7 +244,7 @@ yBox({
 
                 <div style="flex:1; min-width: 300px;">
                     <h4>Self-Hosted Video (MP4)</h4>
-                    <button type="button" href="demo_files/mov_bbb.mp4" class="yBox yBox_video" rel="nofollow" title="Click Here">
+                    <button type="button" href="demo_files/mov_bbb.mp4" class="yBox" rel="nofollow" title="Click Here">
                         <div style="position:absolute;top:0;left:0;width:100%;height:100%;">
                             <img src="demo_files/movie_img.jpg" alt="" style="width:100%; display:block;" />
                             <div class="play"></div>
@@ -298,11 +294,11 @@ yBox({
 				<button type="button" href="demo_files/5.jpg" class="yBox" data-ybox-group="group2">
 					<img src="demo_files/5.jpg" alt="Urban" />
 				</button>
-				<button type="button" href="https://www.youtube.com/watch?v=eEMpCcLm6NI" class="yBox yBox_iframe" data-ybox-alt="Video" data-ybox-group="group2">
+				<button type="button" href="https://www.youtube.com/watch?v=eEMpCcLm6NI" class="yBox" data-ybox-alt="Video" data-ybox-group="group2">
 					<img src="https://img.youtube.com/vi/eEMpCcLm6NI/0.jpg" alt="Video" />
 					<div class="play"></div>
 				</button>
-				<button type="button" href="demo_files/mov_bbb.mp4" class="yBox yBox_video" data-ybox-group="group2">
+				<button type="button" href="demo_files/mov_bbb.mp4" class="yBox" data-ybox-group="group2">
 					<div style="position:absolute;top:0;left:0;width:100%;height:100%;">
 						<img src="demo_files/movie_img.jpg" alt="" style="width:100%; display:block;">
 						<div class="play"></div>

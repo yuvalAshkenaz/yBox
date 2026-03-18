@@ -1,4 +1,4 @@
-﻿/*! yBox - v12.4 - 16/02/2026
+﻿/*! yBox - v12.5 - 18/03/2026
 * By Yuval Ashkenazi
 * https://github.com/yuvalAshkenaz/yBox */
 
@@ -308,12 +308,15 @@ function insert_yBox_html(obj) {
 	frame.classList.remove('yBoxIframeWrap', 'yBoxImgWrap');
 
 	if (obj.hasSelf) {
-		if (obj.self.classList.contains('yBox_iframe')) {
+		let isIframe = obj.self.classList.contains('yBox_iframe') || (obj.url && (obj.url.toLowerCase().includes('youtube') || obj.url.toLowerCase().includes('youtu.be') || obj.url.toLowerCase().includes('vimeo')));
+		let isVideo = obj.self.classList.contains('yBox_video') || (obj.url && obj.url.toLowerCase().match(/\.(mp4|webm)$/i));
+
+		if (isIframe) {
 			obj.code = ybox_iframe(obj);
 			insertArea.innerHTML = obj.code;
             attachDragToThumbs();
 			attachSwipeToSlides();
-		} else if (obj.self.classList.contains('yBox_video')) {
+		} else if (isVideo) {
 			frame.classList.add('yBoxIframeWrap', 'yBoxVideoWrap');
 			let code = '<video class="yBoxVideo" autoplay controls preload plays-inline playsinline><source src="' + obj.url + '" type="video/mp4" /></video>';
 			code = yBox_Group(obj.self, code);
@@ -383,7 +386,14 @@ function insert_yBox_html(obj) {
 					obj.self.classList.add('yBoxFocus');
 				}
 			} else {
-				let targetEl = document.querySelector(obj.url);
+				let targetEl = null;
+				try { targetEl = document.querySelector(obj.url); } catch(e) {}
+				
+				// אם לא נמצא אלמנט לפי מזהה, והכתובת מתחילה ב-#, נחפש לפי קלאס
+				if (!targetEl && obj.url && obj.url.startsWith('#')) {
+					try { targetEl = document.querySelector('.' + obj.url.substring(1)); } catch(e) {}
+				}
+
 				if(targetEl) {
 					targetEl.insertAdjacentHTML('afterend', '<div class="yBoxFramePlaceHolder"></div>');
 					insertArea.classList.remove('isAjax');
@@ -439,8 +449,8 @@ function setYboxFocus(obj) {
 
 function getYboxSlideContent(el, url) {
     let code = '';
-    let isIframe = el.classList.contains('yBox_iframe');
-    let isVideo = el.classList.contains('yBox_video');
+    let isIframe = el.classList.contains('yBox_iframe') || (url && (url.toLowerCase().includes('youtube') || url.toLowerCase().includes('youtu.be') || url.toLowerCase().includes('vimeo')));
+    let isVideo = el.classList.contains('yBox_video') || (url && url.toLowerCase().match(/\.(mp4|webm)$/i));
     let alt = el.dataset.yboxAlt || '';
     let title = el.dataset.yboxTitle ? 'title="' + el.dataset.yboxTitle + '"' : '';
     let headline = '';
