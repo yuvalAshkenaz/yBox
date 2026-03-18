@@ -318,7 +318,8 @@ function insert_yBox_html(obj) {
 			attachSwipeToSlides();
 		} else if (isVideo) {
 			frame.classList.add('yBoxIframeWrap', 'yBoxVideoWrap');
-			let code = '<video class="yBoxVideo" autoplay controls preload plays-inline playsinline><source src="' + obj.url + '" type="video/mp4" /></video>';
+			let poster = (obj.self && obj.self.dataset.yboxImg) ? 'poster="' + obj.self.dataset.yboxImg + '"' : '';
+			let code = '<video class="yBoxVideo" ' + poster + ' autoplay controls preload plays-inline playsinline><source src="' + obj.url + '" type="video/mp4" /></video>';
 			code = yBox_Group(obj.self, code);
 			insertArea.innerHTML = code;
             attachDragToThumbs();
@@ -469,7 +470,8 @@ function getYboxSlideContent(el, url) {
         }
         code = '<iframe src="' + src + '" frameborder="0" wmode="Opaque" allowfullscreen class="yBoxIframe"></iframe>';
     } else if (isVideo) {
-        code = '<video class="yBoxVideo" controls preload playsinline><source src="' + url + '" type="video/mp4" /></video>';
+        let poster = el.dataset.yboxImg ? 'poster="' + el.dataset.yboxImg + '"' : '';
+        code = '<video class="yBoxVideo" ' + poster + ' controls preload playsinline><source src="' + url + '" type="video/mp4" /></video>';
     } else {
         code = '<div class="yBoxImgWrap2"><img src="' + url + '" alt="' + alt + '" ' + title + ' class="yBoxImg" />' + headline + '</div>';
     }
@@ -497,15 +499,18 @@ function yBox_Group(yBoxLink, currentCode) {
         let content = getYboxSlideContent(el, url);
         slidesHTML += '<div class="yBoxSlide' + isActive + '" data-id="' + index + '">' + content + '</div>';
 
-        let thumbSrc = '';
-        if (url.toLowerCase().indexOf('youtube') > -1 || url.toLowerCase().indexOf('youtu.be') > -1) {
-            let youtube_id = url.replace(/^[^v]+v.(.{11}).*/, "$1").replace('https://youtu.be/', '').replace(/.*youtube.com\/embed\//, '');
-            thumbSrc = 'https://img.youtube.com/vi/' + youtube_id + '/0.jpg';
-        } else if (el.classList.contains('yBox_iframe') || el.classList.contains('yBox_video')) {
-            let imgInside = el.querySelector('img');
-            thumbSrc = imgInside ? imgInside.getAttribute('src') : '';
-        } else {
-            thumbSrc = url;
+        let thumbSrc = el.dataset.yboxImg || ''; 
+        
+        if (!thumbSrc) {
+            if (url.toLowerCase().indexOf('youtube') > -1 || url.toLowerCase().indexOf('youtu.be') > -1) {
+                let youtube_id = url.replace(/^[^v]+v.(.{11}).*/, "$1").replace('https://youtu.be/', '').replace(/.*youtube.com\/embed\//, '');
+                thumbSrc = 'https://img.youtube.com/vi/' + youtube_id + '/0.jpg';
+            } else if (el.classList.contains('yBox_iframe') || el.classList.contains('yBox_video') || url.toLowerCase().match(/\.(mp4|webm)$/i)) {
+                let imgInside = el.querySelector('img');
+                thumbSrc = imgInside ? imgInside.getAttribute('src') : '';
+            } else {
+                thumbSrc = url;
+            }
         }
 
         if(thumbSrc) {
