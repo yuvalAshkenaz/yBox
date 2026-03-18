@@ -151,6 +151,7 @@ Configure individual links using `data-` attributes:
 | --- | --- |
 | `data-ybox-class` | Adds a custom class to the modal (e.g., `no-bg`). |
 | `data-ybox-group` | Creates a gallery group for navigation. |
+| `data-ybox-img` | Sets a custom thumbnail for galleries or a poster image for videos. |
 | `data-ybox-alt` | Sets the `alt` attribute for the opened image. |
 | `data-ybox-title` | Sets the `title` attribute for the image/iframe. |
 | `data-ybox-headline` | Adds an `<h2>` headline inside the modal. |
