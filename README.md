@@ -1,4 +1,4 @@
-# yBox.js 12.4
+# yBox.js 12.5
 
 **yBox** is a lightweight, high-performance, and dependency-free Lightbox library built with modern **Vanilla JavaScript**.
 It supports images, videos, iframes, AJAX content, and complex HTML layouts with smooth transitions and full accessibility support.
@@ -58,19 +58,28 @@ Add `data-ybox-group="groupName"` to multiple items to create a gallery with nav
 
 ### 3. Video & Iframes
 
-Use helper classes to define the media type.
+The yBox automatically detects the content type based on the URL provided in the href attribute. You only need the yBox class.
 
-* **Iframe / YouTube / Vimeo:** Add class `yBox_iframe`
-* **HTML5 Video (MP4):** Add class `yBox_video`
+* **YouTube / Vimeo:** YouTube / Vimeo: Paste the video link, and yBox will handle the embed
+* **HTML5 Video (mp4 or .webm):** will open in a video player
+* **External Sites:** If you want to open any website in an iframe, use the **yBox_iframe** class
 
 ```html
-<a href="https://www.youtube.com/watch?v=VIDEO_ID" class="yBox yBox_iframe">Open Video</a>
+<a href="https://www.youtube.com/watch?v=VIDEO_ID" class="yBox">Open YouTube</a>
 
-<a href="video.mp4" class="yBox yBox_video">Open MP4</a>
+<a href="video.mp4" class="yBox">Open MP4</a>
+
+<a href="https://example.com" class="yBox yBox_iframe">Open External Site</a>
 
 ```
 
-### 4. AJAX Content
+### 4. Elements by ID or Class
+
+If the href starts with #, yBox will first look for an element with that ID. If not found, it will look for an element with that Class.
+
+<a href="#my-form" class="yBox">Open Form</a>
+
+### 5. AJAX Content
 
 Add class `yBox_ajax` to fetch and display external HTML content.
 
@@ -79,7 +88,7 @@ Add class `yBox_ajax` to fetch and display external HTML content.
 
 ```
 
-### 5. Social Sharing
+### 6. Social Sharing
 
 Add class `yBox_share` to open the built-in sharing window.
 
