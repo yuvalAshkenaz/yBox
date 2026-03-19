@@ -1,4 +1,4 @@
-# yBox.js 12.5
+# yBox.js 12.6
 
 **yBox** is a lightweight, high-performance, and dependency-free Lightbox library built with modern **Vanilla JavaScript**.
 It supports images, videos, iframes, AJAX content, and complex HTML layouts with smooth transitions and full accessibility support.
@@ -73,11 +73,12 @@ The yBox automatically detects the content type based on the URL provided in the
 
 ```
 
-### 4. Elements by ID or Class
-
-If the href starts with #, yBox will first look for an element with that ID. If not found, it will look for an element with that Class.
-
-<a href="#my-form" class="yBox">Open Form</a>
+### 4. Targeting Elements (href)
+yBox is smart enough to find your content even without specific IDs. Use the href attribute to point to your hidden content:
+<table data-path-to-node="5"><thead><tr><td><span data-path-to-node="5,0,0,0">Target Type</span></td><td><span data-path-to-node="5,0,1,0">Example</span></td><td><span data-path-to-node="5,0,2,0">How it works</span></td></tr></thead><tbody><tr><td><span data-path-to-node="5,1,0,0"><b data-path-to-node="5,1,0,0" data-index-in-node="0">ID</b></span></td><td><span data-path-to-node="5,1,1,0"><code data-path-to-node="5,1,1,0" data-index-in-node="0">href="#my-id"</code></span></td><td><span data-path-to-node="5,1,2,0">Looks for an element with <code data-path-to-node="5,1,2,0" data-index-in-node="26">id="my-id"</code>.</span></td></tr><tr><td><span data-path-to-node="5,2,0,0"><b data-path-to-node="5,2,0,0" data-index-in-node="0">Fallback</b></span></td><td><span data-path-to-node="5,2,1,0"><code data-path-to-node="5,2,1,0" data-index-in-node="0">href="#my-id"</code></span></td><td><span data-path-to-node="5,2,2,0">If the ID doesn't exist, yBox will automatically look for <code data-path-to-node="5,2,2,0" data-index-in-node="58">class="my-id"</code>.</span></td></tr><tr><td><span data-path-to-node="5,3,0,0"><b data-path-to-node="5,3,0,0" data-index-in-node="0">Class</b></span></td><td><span data-path-to-node="5,3,1,0"><code data-path-to-node="5,3,1,0" data-index-in-node="0">href=".my-class"</code></span></td><td><span data-path-to-node="5,3,2,0">Looks for an element with <code data-path-to-node="5,3,2,0" data-index-in-node="26">class="my-class"</code>.</span></td></tr></tbody></table>
+✨ Smart Class Targeting
+When using a class selector (e.g., href=".description"), yBox uses a priority system:
+<ol start="1" data-path-to-node="8"><li><p data-path-to-node="8,0,0"><b data-path-to-node="8,0,0" data-index-in-node="0">Internal Search:</b> It first checks if the element exists <b data-path-to-node="8,0,0" data-index-in-node="55">inside</b> the clicked button.</p></li><li><p data-path-to-node="8,1,0"><b data-path-to-node="8,1,0" data-index-in-node="0">Index Match:</b> If not found inside, it counts which button you clicked (e.g., the 3rd button with that href) and opens the corresponding element (the 3rd one with that class) on the page. This is perfect for loops!</p></li></ol>
 
 ### 5. AJAX Content
 
