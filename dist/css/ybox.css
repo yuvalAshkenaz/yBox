@@ -200,7 +200,7 @@
     max-height: -webkit-calc(100vh - 100px);
     max-height: calc(100vh - 100px);
     overflow: auto;
-    padding: 50px 20px 20px;
+    padding: 60px 20px 20px;
 }
 .yBoxFrame.yBoxIframeWrap .insertYboxAjaxHere {
     position: absolute;
