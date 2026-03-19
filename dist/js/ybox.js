@@ -1,4 +1,4 @@
-﻿/*! yBox - v12.5 - 18/03/2026
+﻿/*! yBox - v12.6 - 19/03/2026
 * By Yuval Ashkenazi
 * https://github.com/yuvalAshkenaz/yBox */
 
@@ -350,7 +350,7 @@ function insert_yBox_html(obj) {
 						'<li><button type="button" class="ybox-share-btn ybox-copy-text-btn" aria-label="' + strings.copy_link + '" title="' + strings.copy_link + '"><svg class="ybox-copy-hide-on-check" viewBox="0 0 24 24"><path d="m6 18h-3c-.48 0-1-.379-1-1v-14c0-.481.38-1 1-1h14c.621 0 1 .522 1 1v3h3c.621 0 1 .522 1 1v14c0 .621-.522 1-1 1h-14c-.48 0-1-.379-1-1zm1.5-10.5v13h13v-13zm9-1.5v-2.5h-13v13h2.5v-9.5c0-.481.38-1 1-1z"/></svg><svg class="ybox-copy-show-on-check" viewBox="0 0 24 24"><path d="M0 12.116l2.053-1.897c2.401 1.162 3.924 2.045 6.622 3.969 5.073-5.757 8.426-8.678 14.657-12.555l.668 1.536c-5.139 4.484-8.902 9.479-14.321 19.198-3.343-3.936-5.574-6.446-9.679-10.251z"/></svg><div class="ybox-copy-show-text-on-check">' + strings.link_copied + '</div></button></li>' +
 					'</ul>';
 			insertArea.innerHTML = code;
-		} else if (typeof obj.url !== 'undefined' && obj.url.indexOf('#') === -1) {
+		} else if (typeof obj.url !== 'undefined' && obj.url.indexOf('#') === -1 && !obj.url.startsWith('.')) {
 			frame.classList.add('yBoxImgWrap');
 			let loaderTimeout = setTimeout(function() {
 				insertArea.insertAdjacentHTML('beforeend', '<div style="text-align:center;position:absolute;right:0;left:0;top:0;bottom:0;"><div class="yBoxLoader"></div></div>');
@@ -388,14 +388,50 @@ function insert_yBox_html(obj) {
 				}
 			} else {
 				let targetEl = null;
-				try { targetEl = document.querySelector(obj.url); } catch(e) {}
-				
-				// אם לא נמצא אלמנט לפי מזהה, והכתובת מתחילה ב-#, נחפש לפי קלאס
-				if (!targetEl && obj.url && obj.url.startsWith('#')) {
-					try { targetEl = document.querySelector('.' + obj.url.substring(1)); } catch(e) {}
+				let selector = obj.url;
+				let isClass = false;
+
+				// בדיקה האם מדובר בקלאס (מתחיל בנקודה) או ב-ID (מתחיל בסולמית)
+				if (selector && selector.startsWith('.')) {
+					isClass = true;
+				} else if (selector && selector.startsWith('#')) {
+					try { targetEl = document.querySelector(selector); } catch(e) {}
+					// אם זה סולמית אבל ה-ID לא קיים בעמוד, נתייחס לזה כקלאס
+					if (!targetEl) {
+						selector = '.' + selector.substring(1);
+						isClass = true;
+					}
+				} else {
+					try { targetEl = document.querySelector(selector); } catch(e) {}
 				}
 
-				if(targetEl) {
+				// אם אנחנו מחפשים קלאס (כי הוכנסה נקודה, או כי ה-ID לא נמצא)
+				if (isClass && !targetEl) {
+					// עדיפות 1: נחפש את האלמנט בתוך הכפתור שלחצנו עליו
+					if (obj.self) {
+						try { targetEl = obj.self.querySelector(selector); } catch(e) {}
+					}
+
+					// עדיפות 2: לא נמצא בכפתור? נבדוק מה האינדקס של הכפתור שלחצנו עליו ביחס לכפתורים האחרים שמפעילים את אותו קישור, ונשלוף את הקלאס באותו אינדקס
+					if (!targetEl && obj.self) {
+						try {
+							let sameButtons = document.querySelectorAll('.yBox[href="' + obj.url + '"]');
+							let btnIndex = Array.from(sameButtons).indexOf(obj.self);
+							let targetElements = document.querySelectorAll(selector);
+							
+							if (btnIndex > -1 && targetElements[btnIndex]) {
+								targetEl = targetElements[btnIndex];
+							}
+						} catch(e) {}
+					}
+
+					// עדיפות 3: פולבק סופי - פשוט ניקח את האלמנט הראשון בעמוד שעונה לקלאס הזה
+					if (!targetEl) {
+						try { targetEl = document.querySelector(selector); } catch(e) {}
+					}
+				}
+
+				if (targetEl) {
 					targetEl.insertAdjacentHTML('afterend', '<div class="yBoxFramePlaceHolder"></div>');
 					insertArea.classList.remove('isAjax');
 					insertArea.appendChild(targetEl);
