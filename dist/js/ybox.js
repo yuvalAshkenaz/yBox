@@ -1,4 +1,4 @@
-﻿/*! yBox - v12.6.2 - 06/04/2026
+﻿/*! yBox - v12.6.3 - 12/04/2026
 * By Yuval Ashkenazi
 * https://github.com/yuvalAshkenaz/yBox */
 
@@ -290,9 +290,12 @@ function ybox_iframe(obj) {
 		obj.url = 'https://www.youtube.com/embed/' + youtube_id + '?wmode=transparent&rel=0&autoplay=1&hl=' + yBox_lang;
 		frame.classList.add('yBoxVideoWrap');
 	} else if (obj.url.toLowerCase().indexOf('vimeo') > -1) {
-		let vimeoID = obj.url.match(/video\/(\d+)/)[1];
-		obj.url = 'https://player.vimeo.com/video/' + vimeoID + '?autoplay=1&background=1';
-		frame.classList.add('yBoxVideoWrap');
+		let vimeoMatch = obj.url.match(/(?:vimeo\.com|player\.vimeo\.com|vimeopro\.com)\/(?:.*\/)?(\d+)/i);
+		
+		if (vimeoMatch && vimeoMatch[1]) {
+			obj.url = 'https://player.vimeo.com/video/' + vimeoMatch[1] + '?autoplay=1&background=1';
+			frame.classList.add('yBoxVideoWrap');
+		}
 	}
 	
 	let code = iframe_headline +
@@ -501,8 +504,11 @@ function getYboxSlideContent(el, url) {
             let youtube_id = src.replace(/^[^v]+v.(.{11}).*/, "$1").replace('https://youtu.be/', '').replace(/.*youtube.com\/embed\//, '');
             src = 'https://www.youtube.com/embed/' + youtube_id + '?wmode=transparent&rel=0&autoplay=0&hl=' + (typeof yBox_lang !== 'undefined' ? yBox_lang : 'en');
         } else if (src.toLowerCase().indexOf('vimeo') > -1) {
-            let vimeoID = src.match(/video\/(\d+)/)[1];
-            src = 'https://player.vimeo.com/video/' + vimeoID + '?autoplay=0';
+            let vimeoMatch = src.match(/(?:vimeo\.com|player\.vimeo\.com|vimeopro\.com)\/(?:.*\/)?(\d+)/i);
+            
+            if (vimeoMatch && vimeoMatch[1]) {
+                src = 'https://player.vimeo.com/video/' + vimeoMatch[1] + '?autoplay=0';
+            }
         }
         code = '<iframe src="' + src + '" frameborder="0" wmode="Opaque" allowfullscreen class="yBoxIframe"></iframe>';
     } else if (isVideo) {
