@@ -56,16 +56,19 @@
     box-shadow: var(--ybox-frame-shadow, 0 25px 50px -12px rgba(0, 0, 0, 0.35));
     max-width: -webkit-calc(100% - 20px);
     max-width: calc(100% - 20px);
-    max-height: -webkit-calc(100vh - 20px);
-    max-height: calc(100vh - 20px);
-    margin: 10px 0 0 0;
+    max-height: -webkit-calc(100dvh - 20px);
+    max-height: calc(100dvh - 20px);
     -webkit-transition: 0.4s cubic-bezier(0.16, 1, 0.3, 1);
     transition: 0.4s cubic-bezier(0.16, 1, 0.3, 1);
     -webkit-transform: translate(0, 40px) scale(0.95);
     transform: translate(0, 40px) scale(0.95);
     overflow: hidden;
 }
-.yBoxGroupOverlay .yBoxFrame, .yBoxGroupOverlay .yBoxFrame.yBoxIframeWrap {
+.yBoxGroupOverlay .yBoxFrame {
+	margin: 10px 0 0 0;
+}
+.yBoxGroupOverlay .yBoxFrame,
+.yBoxGroupOverlay .yBoxFrame.yBoxIframeWrap {
 	background: none;
 	width: 100%;
 	height: 100%;
@@ -86,16 +89,16 @@
     transform: translate(0, 0) scale(1);
 }
 .admin-bar .yBoxFrame {
-	max-height: -webkit-calc(100vh - 42px);
-	max-height: calc(100vh - 42px);
+	max-height: -webkit-calc(100dvh - 42px);
+	max-height: calc(100dvh - 42px);
 }
 .admin-bar .yBoxFrame.yBoxImgWrap .insertYboxAjaxHere {
-	max-height: -webkit-calc(100vh - 42px);
-	max-height: calc(100vh - 42px);
+	max-height: -webkit-calc(100dvh - 42px);
+	max-height: calc(100dvh - 42px);
 }
 .admin-bar .yBoxFrame.yBoxImgWrap img.yBoxImg {
-	max-height: -webkit-calc(100vh - 62px);
-	max-height: calc(100vh - 62px);
+	max-height: -webkit-calc(100dvh - 62px);
+	max-height: calc(100dvh - 62px);
 }
 .admin-bar .yBoxOverlay.active .yBoxFrame {
 	-webkit-transform: translate(0, 16px) scale(1);
@@ -201,8 +204,8 @@
 .insertYboxAjaxHere {
     min-width: 150px;
     min-height: 100px;
-    max-height: -webkit-calc(100vh - 100px);
-    max-height: calc(100vh - 100px);
+    max-height: -webkit-calc(100dvh - 20px);
+    max-height: calc(100dvh - 20px);
     overflow: auto;
     padding: 60px 20px 20px;
 }
@@ -219,8 +222,6 @@
 }
 .yBoxFrame.yBoxImgWrap .insertYboxAjaxHere {
     padding: 0;
-    max-height: -webkit-calc(100vh - 40px);
-    max-height: calc(100vh - 40px);
 }
 .yBoxFrame.yBoxImgWrap .yBoxImgWrap2 {
 	display: flex;
@@ -235,8 +236,8 @@
 .yBoxFrame.yBoxImgWrap img.yBoxImg {
     max-width: -webkit-calc(100vw - 40px);
     max-width: calc(100vw - 40px);
-    max-height: -webkit-calc(100vh - 40px);
-    max-height: calc(100vh - 40px);
+    max-height: -webkit-calc(100dvh - 40px);
+    max-height: calc(100dvh - 40px);
     margin: auto;
     border-radius: var(--ybox-img-radius, 8px);
     box-shadow: var(--ybox-img-shadow, 0 5px 20px rgba(0,0,0,0.2));
@@ -621,7 +622,7 @@
 .yBoxSlide video {
     display: block;
     max-width: 100%;
-    max-height: calc(100vh - 110px);
+    max-height: calc(100dvh - 110px);
     border-radius: var(--ybox-slide-radius, 12px);
 }
 .yBoxThumbsWrapper {
@@ -714,8 +715,8 @@
     .yBoxFrame.yBoxImgWrap img.yBoxImg {
         max-width: -webkit-calc(100vw - 20px);
         max-width: calc(100vw - 20px);
-        max-height: -webkit-calc(100vh - 20px);
-        max-height: calc(100vh - 20px);
+        max-height: -webkit-calc(100dvh - 20px);
+        max-height: calc(100dvh - 20px);
     }
     .yBoxFrame.yBoxIframeWrap .insertYboxAjaxHere {
         left: 0; right: 0; top: 0; bottom: 0;
@@ -759,7 +760,7 @@
     .yBoxSlide img.yBoxImg,
     .yBoxSlide iframe,
     .yBoxSlide video {
-        max-height: calc(100vh - 120px);
+        max-height: calc(100dvh - 120px);
     }
 	.yBoxSlidesWrap {
 		width: calc(100% - 20px);
@@ -774,12 +775,7 @@
     .yBoxFrame.yBoxIframeWrap .insertYboxAjaxHere,
     .yBoxFrame.yBoxImgWrap,
     .yBoxFrame.yBoxImgWrap .insertYboxAjaxHere {
-        max-height: -webkit-calc(100vh - 40px);
-        max-height: calc(100vh - 40px);
-    }
-    .yBoxFrame.yBoxImgWrap img.yBoxImg,
-    .yBoxIframe {
-        max-height: -webkit-calc(100vh - 60px);
-        max-height: calc(100vh - 60px);
+        max-height: -webkit-calc(100dvh - 20px);
+        max-height: calc(100dvh - 20px);
     }
 }
