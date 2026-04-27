@@ -1,13 +1,14 @@
-﻿/*! yBox - v12.6.3 - 12/04/2026
+﻿/*! yBox - v12.6.5 - 27/04/2026
 * By Yuval Ashkenazi
 * https://github.com/yuvalAshkenaz/yBox */
+
 .yBoxOverlay * {
     -webkit-box-sizing: border-box;
     box-sizing: border-box;
 	word-wrap: break-word;
 }
 .yBoxOverlay {
-	background-color: rgba(0, 0, 0, 0.5);
+	background-color: var(--ybox-overlay-bg, rgba(0, 0, 0, 0.5));
 	backdrop-filter: blur(6px); 
     -webkit-backdrop-filter: blur(8px);
     display: flex;
@@ -34,7 +35,7 @@
 	align-items: stretch;
 }
 .yBoxGroupOverlay {
-	background-color: rgba(0, 0, 0, 0.9);
+	background-color: var(--ybox-overlay-bg-group, rgba(0, 0, 0, 0.9));
 }
 .yBoxOverlay.active {
     visibility: visible;
@@ -49,35 +50,36 @@
 		visibility 0s ease 0s;
 }
 .yBoxFrame {
-    background-color: #fff;
-    border-radius: 12px; 
-    -webkit-box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.35);
-    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.35);
+    background-color: var(--ybox-frame-bg, #fff);
+    border-radius: var(--ybox-frame-radius, 12px);
+    -webkit-box-shadow: var(--ybox-frame-shadow, 0 25px 50px -12px rgba(0, 0, 0, 0.35));
+    box-shadow: var(--ybox-frame-shadow, 0 25px 50px -12px rgba(0, 0, 0, 0.35));
     max-width: -webkit-calc(100% - 20px);
     max-width: calc(100% - 20px);
     max-height: -webkit-calc(100vh - 20px);
     max-height: calc(100vh - 20px);
+    margin: 10px 0 0 0;
     -webkit-transition: 0.4s cubic-bezier(0.16, 1, 0.3, 1);
     transition: 0.4s cubic-bezier(0.16, 1, 0.3, 1);
     -webkit-transform: translate(0, 40px) scale(0.95);
     transform: translate(0, 40px) scale(0.95);
     overflow: hidden;
 }
-.yBoxGroupOverlay .yBoxFrame {
+.yBoxGroupOverlay .yBoxFrame, .yBoxGroupOverlay .yBoxFrame.yBoxIframeWrap {
 	background: none;
-	box-shadow: none;
-	border-radius: 0;
 	width: 100%;
 	height: 100%;
 	max-width: 100%;
+	box-shadow: none;
+	border-radius: 0;
 }
 .yBoxOverlay.no-bg .yBoxFrame {
 	background: none;
 	box-shadow: none;
 }
 .yBoxFrame.yBoxContentFrame {
-    background-color: #fff;
-    color: #171b1e;
+    background-color: var(--ybox-frame-content-bg, #fff);
+    color: var(--ybox-frame-content-color, #171b1e);
 }
 .yBoxOverlay.active .yBoxFrame {
     -webkit-transform: translate(0, 0) scale(1);
@@ -103,8 +105,10 @@
 .yBoxPrev,
 .closeYbox,
 .closeYbox[type="button"] {
+	background: none;
     width: 40px;
     height: 40px;
+	border: none;
     position: absolute;
     top: 10px;
     right: 10px;
@@ -129,7 +133,7 @@
 .closeYbox::after,
 .closeYbox::before {
     content: "";
-    background: #fff;
+    background: var(--ybox-close-line-color-group, #fff);
     width: 20px;
     height: 2px;
     position: absolute;
@@ -143,23 +147,23 @@
 }
 .closeYbox:not(.closeYbox-group),
 .closeYbox[type="button"]:not(.closeYbox-group) {
-	background: #f3f4f6;
+	background: var(--ybox-close-bg, #f3f4f6);
 }
 .closeYbox:not(.closeYbox-group)::after,
 .closeYbox:not(.closeYbox-group)::before {
-	background: #000;
+	background: var(--ybox-close-line-color, #000);
 }
 .yBoxOverlay.no-bg .closeYbox,
 .yBoxOverlay.no-bg .closeYbox[type="button"] {
-	background-color: rgba(255,255,255,0.2);
+	background-color: var(--ybox-close-bg-no-bg, rgba(255,255,255,0.2));
 }
 .yBoxOverlay.no-bg .closeYbox:hover,
 .yBoxOverlay.no-bg .closeYbox[type="button"]:hover {
-    background-color: rgba(255,255,255,0.4);
+    background-color: var(--ybox-close-bg-no-bg-hover, rgba(255,255,255,0.4));
 }
 .yBoxOverlay.no-bg .closeYbox::after,
 .yBoxOverlay.no-bg .closeYbox::before {
-	background-color: #fff;
+	background-color: var(--ybox-close-line-color-no-bg, #fff);
 }
 .closeYbox::after {
     -webkit-transform: rotate(-45deg);
@@ -174,11 +178,11 @@
     transform: rotate(45deg);
 }
 .yBoxFrame.yBoxContentFrame .closeYbox {
-    background: #f3f4f6;
+    background: var(--ybox-close-bg, #f3f4f6);
 }
 .yBoxFrame.yBoxContentFrame .closeYbox::after,
 .yBoxFrame.yBoxContentFrame .closeYbox::before {
-    background-color: #171b1e;
+    background-color: var(--ybox-close-line-color, #000);
 }
 #ybox-iframe-headline {
 	margin: 10px 0 15px 0;
@@ -215,14 +219,14 @@
 }
 .yBoxFrame.yBoxImgWrap .insertYboxAjaxHere {
     padding: 0;
-    max-height: -webkit-calc(100vh - 10px);
-    max-height: calc(100vh - 10px);
+    max-height: -webkit-calc(100vh - 40px);
+    max-height: calc(100vh - 40px);
 }
 .yBoxFrame.yBoxImgWrap .yBoxImgWrap2 {
 	display: flex;
 	min-height: 80px;
-	max-height: 100%;
-	border-radius: 12px;
+	height: 100%;
+	border-radius: var(--ybox-frame-radius, 12px);
 	position: relative;
 	overflow: hidden;
 	justify-content: center;
@@ -234,15 +238,14 @@
     max-height: -webkit-calc(100vh - 40px);
     max-height: calc(100vh - 40px);
     margin: auto;
-    border-radius: 8px;
-    box-shadow: 0 5px 20px rgba(0,0,0,0.2);
+    border-radius: var(--ybox-img-radius, 8px);
+    box-shadow: var(--ybox-img-shadow, 0 5px 20px rgba(0,0,0,0.2));
     display: block;
 }
 .yBoxGroupOverlay .yBoxFrame.yBoxImgWrap img.yBoxImg {
     max-width: -webkit-calc(100vw - 120px);
     max-width: calc(100vw - 120px);
-    max-height: -webkit-calc(100vh - 110px);
-    max-height: calc(100vh - 110px);
+    max-height: 100%;
 }
 .yBoxNext,
 .yBoxPrev {
@@ -279,9 +282,9 @@
     content: "";
     width: 14px;
     height: 14px;
-	box-shadow: -1px 1px 2px rgba(0,0,0,0.2);
-    border-bottom: 3px solid #fff;
-    border-left: 3px solid #fff;
+	box-shadow: -1px 1px 2px var(--ybox-arrow-shadow, rgba(0,0,0,0.2));
+    border-bottom: 3px solid var(--ybox-arrow-color, #fff);
+    border-left: 3px solid var(--ybox-arrow-color, #fff);
 }
 .yBoxNext::after {
     -webkit-transform: rotate(-135deg);
@@ -303,15 +306,15 @@
 }
 .yBoxNext:hover::after,
 .yBoxPrev:hover::after {
-    border-bottom-color: #fff;
-    border-left-color: #fff;
+    border-bottom-color: var(--ybox-arrow-color, #fff);
+    border-left-color: var(--ybox-arrow-color, #fff);
 }
 .yBoxLoader {
     width: 30px;
     height: 30px;
     border-radius: 50%;
-    border: 3px solid rgba(255,255,255,0.2);
-    border-top-color: #fff;
+    border: 3px solid var(--ybox-loader-track, rgba(255,255,255,0.2));
+    border-top-color: var(--ybox-loader-color, #fff);
     position: relative;
     animation: yBox-spin 1s infinite linear;
     top: 50%;
@@ -332,9 +335,9 @@
     border: none;
 }
 .ybox-img-title {
-	background: linear-gradient(to top, rgba(0,0,0,0.8), transparent);
+	background: var(--ybox-img-title-bg, linear-gradient(to top, rgba(0,0,0,0.8), transparent));
 	padding: 20px 15px 15px;
-    color: #fff;
+    color: var(--ybox-img-title-color, #fff);
 	position: absolute;
 	left: 0;
 	right: 0;
@@ -345,7 +348,7 @@
     border-radius: 0 0 8px 8px;
 }
 .yBoxVideo {
-    background-color: #000;
+    background-color: var(--ybox-video-bg, #000);
     width: 100%;
     height: 100%;
     vertical-align: top;
@@ -359,12 +362,12 @@
 	top: 0;
 }
 .yBoxOverlay.ybox-share-btns {
-	background-color: rgba(0, 0, 0, 0.9);
+	background-color: var(--ybox-overlay-bg-share, rgba(0, 0, 0, 0.9));
 }
 .yBoxOverlay.ybox-share-btns .yBoxFrame {
 	background: none;
     box-shadow: none;
-	color: #fff;
+	color: var(--ybox-share-title-color, #fff);
 }
 .yBoxOverlay.ybox-share-btns .closeYbox,
 .yBoxOverlay.ybox-share-btns .closeYbox[type="button"] {
@@ -373,14 +376,14 @@
 }
 .yBoxOverlay.ybox-share-btns .closeYbox::after,
 .yBoxOverlay.ybox-share-btns .closeYbox::before {
-	background: #fff;
+	background: var(--ybox-close-line-color-group, #fff);
 }
 .yBoxOverlay.ybox-share-btns .insertYboxAjaxHere {
 	padding-top: 110px;
 }
 .ybox-share-title {
 	width: auto;
-	color: #fff;
+	color: var(--ybox-share-title-color, #fff);
 	margin: 0;
 	font-size: 26px;
 	z-index: 3;
@@ -393,7 +396,7 @@
 }
 .ybox-share-title::after {
 	content: "";
-	background: #fff;
+	background: var(--ybox-share-title-line, #fff);
 	width: 35px;
 	height: 3px;
 	position: absolute;
@@ -454,7 +457,7 @@
     position: absolute;
     left: 50%;
     top: 50%;
-    box-shadow: #fff 0 0 30px 10px;
+    box-shadow: var(--ybox-glow-color, #fff) 0 0 30px 10px;
 	-webkit-transition: all 0.3s ease;
 	transition: all 0.3s ease;
 	filter: alpha(opacity=0);
@@ -507,7 +510,7 @@
 	width: 100%;
     font-size: 12px;
     line-height: 13px;
-	color: #fff;
+	color: var(--ybox-copy-text-color, #fff);
     margin: 7px 0 0 0;
 	-webkit-transform: translate(0,-10px);
 	transform: translate(0,-10px);
@@ -546,7 +549,7 @@
 .ybox-socials-list svg {
 	width: 40px;
 	height: 40px;
-    fill: #fff;
+    fill: var(--ybox-socials-icon-fill, #fff);
 }
 .ybox-telegram-share-btn path {
 	-webkit-transform: scale(1.5);
@@ -573,7 +576,7 @@
     position: relative;
     width: calc(100% - 100px);
     margin: auto;
-    border-radius: 12px;
+    border-radius: var(--ybox-slide-radius, 12px);
     overflow: hidden;
     flex-grow: 1;
     display: flex;
@@ -582,6 +585,7 @@
 }
 .yBoxSlide {
     position: absolute;
+    height: 100%;
     top: 0;
     left: 0;
     bottom: 0;
@@ -617,8 +621,8 @@
 .yBoxSlide video {
     display: block;
     max-width: 100%;
-    max-height: calc(100vh - 140px);
-    border-radius: 12px;
+    max-height: calc(100vh - 110px);
+    border-radius: var(--ybox-slide-radius, 12px);
 }
 .yBoxThumbsWrapper {
     width: 100%;
@@ -655,14 +659,14 @@
 }
 .yboxThumbBTN {
     background: none;
-    border: 2px solid transparent;
+    border: 2px solid var(--ybox-thumb-border, transparent);
     padding: 0;
     width: 50px;
     height: 100%;
     opacity: 0.5;
     transition: all 0.3s;
     flex-shrink: 0;
-    border-radius: 8px;
+    border-radius: var(--ybox-thumb-radius, 8px);
     overflow: hidden;
     cursor: pointer;
 }
@@ -693,7 +697,7 @@
 	height: auto;
 	aspect-ratio: 16 / 9;
 	flex-grow: unset;
-	border-radius: 12px;
+	border-radius: var(--ybox-slide-radius, 12px);
 }
 @media screen and (min-width: 768px) {
 	.show-on-mobile {
@@ -722,8 +726,8 @@
     .yBoxNext, 
 	.yBoxPrev, 
 	.closeYbox-group {
-		background-color: rgba(0, 0, 0, 0.5);
-		border: 1px solid rgba(255, 255, 255, 0.4);
+		background-color: var(--ybox-mobile-btn-bg, rgba(0, 0, 0, 0.5));
+		border: 1px solid var(--ybox-mobile-btn-border, rgba(255, 255, 255, 0.4));
         width: 40px;
         height: 40px;
 		margin-top: -85px;

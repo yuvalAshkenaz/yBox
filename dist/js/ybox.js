@@ -1,10 +1,11 @@
-﻿/*! yBox - v12.6.3 - 12/04/2026
+﻿/*! yBox - v12.6.5 - 27/04/2026
 * By Yuval Ashkenazi
 * https://github.com/yuvalAshkenaz/yBox */
 
 const yBoxUrl = new URL(document.currentScript.src);
 let yBox_lang = yBoxUrl.searchParams.get("lang") || '';
 let yBoxIsDragging = false; 
+let isRTL = false; 
 
 let strings = {
 	close: 'Close',
@@ -26,6 +27,7 @@ let strings = {
 };
 
 if (yBox_lang === 'he' || yBox_lang === 'he-IL' || yBox_lang === 'he_IL') {
+	isRTL = true;
 	yBox_lang = 'he';
 	strings = {
 		close: 'סגירה',
@@ -47,6 +49,7 @@ if (yBox_lang === 'he' || yBox_lang === 'he-IL' || yBox_lang === 'he_IL') {
 	};
 }
 if (yBox_lang === 'ar' || yBox_lang === 'ar-ar') {
+	isRTL = true;
 	yBox_lang = 'ar';
 	strings = {
 		close: 'لإغلاق',
@@ -774,7 +777,7 @@ document.body.addEventListener('click', function(e) {
 	let isOverlay = false;
 	let isCloseBtn = false;
 	
-	if(e.target.classList.contains('yBoxOverlay')) {
+	if(e.target.classList.contains('yBoxOverlay') || e.target.classList.contains('yBoxSlidesWrap')) {
 		isOverlay = true;
 	}
 
