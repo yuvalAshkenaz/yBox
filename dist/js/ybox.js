@@ -194,6 +194,9 @@ document.body.addEventListener('click', function(e) {
 });
 
 function yBox( obj = {} ) {
+	if (typeof obj.self === 'string') {
+		obj.self = document.querySelector(obj.self);
+	}
 	if (!document.querySelector('.yBoxOverlay:not(.active)')) {
 		let a_or_div;
 		if (obj.self) a_or_div = obj.self;
