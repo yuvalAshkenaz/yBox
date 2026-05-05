@@ -9,362 +9,370 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 </head>
 <body>
-	<main>
-		<section style="text-align: center; background: transparent; box-shadow: none; padding-top:0;">
-			<h1>yBox 12.6.6</h1>
-            <p style="color: var(--text-secondary);">A lightweight, flexible, and modern lightbox library.</p>
+	<main class="layout-wrapper">
+		<section id="overview" style="text-align: center; background: transparent; box-shadow: none; border: none; backdrop-filter: none; padding-top:0;">
+			<h1>yBox 12.6.7</h1>
+			<p style="color: var(--text-secondary); font-size: 1.1rem;">A lightweight, flexible, and modern lightbox library.</p>
 		</section>
 		
-		<section>
-			<h3>Installation & Files</h3>
-            <p>Include the CSS and JS files in your project:</p>
-				<pre><code><span class="blue">&lt;link</span> <span class="red">rel</span><span class="purple">="stylesheet"</span> <span class="red">href</span><span class="purple">="https://cdn.jsdelivr.net/gh/yuvalAshkenaz/yBox/dist/css/ybox.min.css"</span> <span class="blue">/&gt;</span>
+		<div class="content-area">
+			<aside class="sidebar">
+				<nav>
+					<a href="#overview">Overview</a>
+					<a href="#installation">Installation & Files</a>
+					<a href="#helper-classes">Helper Classes</a>
+					<a href="#js-api">JavaScript API Parameters</a>
+					<a href="#html-attributes">HTML Attributes</a>
+					<a href="#targeting">Targeting Elements</a>
+					<a href="#url-parameters">URL Parameters</a>
+					<a href="#js-examples">JS Execution Examples</a>
+					<a href="#event-callbacks">Event Callbacks</a>
+					<a href="#nested-ybox">Nested yBox</a>
+					<a href="#media-embeds">Media Embeds</a>
+					<a href="#custom-styling">Custom Styling & AJAX</a>
+					<a href="#image-demo">Image</a>
+					<a href="#gallery-groups">Gallery Groups</a>
+					<a href="#social-sharing">Social Sharing</a>
+				</nav>
+			</aside>
+			<div class="sections-wrap">
+				<section id="installation">
+					<h3>Installation & Files</h3>
+					<p>Include the CSS and JS files in your project:</p>
+						<pre><code><span class="blue">&lt;link</span> <span class="red">rel</span><span class="purple">="stylesheet"</span> <span class="red">href</span><span class="purple">="https://cdn.jsdelivr.net/gh/yuvalAshkenaz/yBox/dist/css/ybox.min.css"</span> <span class="blue">/&gt;</span>
 <span class="blue">&lt;script</span> <span class="red">type</span><span class="purple">="text/javascript"</span> <span class="red">src</span><span class="purple">="https://cdn.jsdelivr.net/gh/yuvalAshkenaz/yBox/dist/js/ybox.min.js?lang=he"</span><span class="blue">&gt;&lt;/script&gt;</span></code></pre>
-		</section>
+				</section>
 
-		<section>
-			<h3>Helper Classes</h3>
-            <div class="param-list">
-                <div class="param-item">
-                    <div class="param-name">.yBox_ifarme</div>
-                    <div class="param-desc">Opens the <code>href</code> link inside an iframe container.</div>
-                </div>
-                <div class="param-item">
-                    <div class="param-name">.yBox_ajax</div>
-                    <div class="param-desc">Fetches content via AJAX from the <code>href</code> attribute.</div>
-                </div>
-                <div class="param-item">
-                    <div class="param-name">.yBox_share</div>
-                    <div class="param-desc">Opens a built-in social media sharing modal.</div>
-                </div>
-            </div>
-		</section>
+				<section id="helper-classes">
+					<h3>Helper Classes</h3>
+					<div class="param-list">
+						<div class="param-item">
+							<div class="param-name">.yBox_ifarme</div>
+							<div class="param-desc">Opens the <code>href</code> link inside an iframe container.</div>
+						</div>
+						<div class="param-item">
+							<div class="param-name">.yBox_ajax</div>
+							<div class="param-desc">Fetches content via AJAX from the <code>href</code> attribute.</div>
+						</div>
+						<div class="param-item">
+							<div class="param-name">.yBox_share</div>
+							<div class="param-desc">Opens a built-in social media sharing modal.</div>
+						</div>
+					</div>
+				</section>
 
-		<section>
-			<h3>JavaScript API Parameters</h3>
-            <div class="param-list">
-                <div class="param-item">
-                    <div class="param-name">code</div>
-                    <div class="param-desc">
-                        Inject raw HTML directly.<br>
-                        <code>yBox({ code: '&lt;div&gt;Hello&lt;/div&gt;' });</code>
-                    </div>
-                </div>
-                <div class="param-item">
-                    <div class="param-name">url</div>
-                    <div class="param-desc">
-                        Open a specific URL in an iframe.<br>
-                        <code>yBox({ url: 'https://example.com' });</code>
-                    </div>
-                </div>
-                <div class="param-item">
-					<div class="param-name">self</div>
-					<div class="param-desc">
-						Pass a DOM element (usually the clicked element) to inherit its attributes.<br>
-						<code>
-							<span class="blue">&lt;a</span> <span class="red">href</span>=<span class="purple">"#popup"</span> <span class="red">class</span>=<span class="purple">"yBox <b>my-link</b>"</span><span class="blue">&gt;</span>The link<span class="blue">&lt;/a&gt;</span><br />
-							<span class="blue">&lt;script&gt;</span> yBox({ self: '.my-link' }); <span class="blue">&lt;/script&gt;</span>
-						</code>
+				<section id="js-api">
+					<h3>JavaScript API Parameters</h3>
+					<div class="param-list">
+						<div class="param-item">
+							<div class="param-name">code</div>
+							<div class="param-desc">
+								Inject raw HTML directly.<br>
+								<code>yBox({ code: '&lt;div&gt;Hello&lt;/div&gt;' });</code>
+							</div>
+						</div>
+						<div class="param-item">
+							<div class="param-name">url</div>
+							<div class="param-desc">
+								Open a specific URL in an iframe.<br>
+								<code>yBox({ url: 'https://example.com' });</code>
+							</div>
+						</div>
+						<div class="param-item">
+							<div class="param-name">self</div>
+							<div class="param-desc">
+								Pass a DOM element (usually the clicked element) to inherit its attributes.<br>
+								<code>
+									<span class="blue">&lt;a</span> <span class="red">href</span>=<span class="purple">"#popup"</span> <span class="red">class</span>=<span class="purple">"yBox <b>my-link</b>"</span><span class="blue">&gt;</span>The link<span class="blue">&lt;/a&gt;</span><br />
+									<span class="blue">&lt;script&gt;</span> yBox({ self: '.my-link' }); <span class="blue">&lt;/script&gt;</span>
+								</code>
+							</div>
+						</div>
+						<div class="param-item">
+							<div class="param-name">yBoxClass</div>
+							<div class="param-desc">
+								Add a custom class to the main wrapper <code>.yBoxOverlay</code>.<br>
+								<code>yBox({ yBoxClass: 'custom-theme' });</code>
+							</div>
+						</div>
+						<div class="param-item">
+							<div class="param-name">focus</div>
+							<div class="param-desc">
+								CSS selector of an element to focus on after opening.<br>
+								<code>yBox({ focus: '.input-field' });</code>
+							</div>
+						</div>
+						<div class="param-item">
+							<div class="param-name">id</div>
+							<div class="param-desc">
+								Select an element from the DOM (even if hidden) and show it.<br>
+								<code>yBox({ id: '#my-hidden-div' });</code>
+							</div>
+						</div>
 					</div>
-				</div>
-                <div class="param-item">
-                    <div class="param-name">yBoxClass</div>
-                    <div class="param-desc">
-                        Add a custom class to the main wrapper <code>.yBoxOverlay</code>.<br>
-                        <code>yBox({ yBoxClass: 'custom-theme' });</code>
-                    </div>
-                </div>
-                <div class="param-item">
-                    <div class="param-name">focus</div>
-                    <div class="param-desc">
-                        CSS selector of an element to focus on after opening.<br>
-                        <code>yBox({ focus: '.input-field' });</code>
-                    </div>
-                </div>
-                <div class="param-item">
-                    <div class="param-name">id</div>
-                    <div class="param-desc">
-                        Select an element from the DOM (even if hidden) and show it.<br>
-                        <code>yBox({ id: '#my-hidden-div' });</code>
-                    </div>
-                </div>
-            </div>
-		</section>
+				</section>
 
-		<section>
-			<h3>HTML Attributes</h3>
-            <div class="param-list">
-                <div class="param-item">
-                    <div class="param-name">data-ybox-class</div>
-                    <div class="param-desc">
-                        Adds a custom class to the popup window.<br>
-                        Use <code>"no-bg"</code> to remove the default white background.
-                    </div>
-                </div>
-                <div class="param-item">
-                    <div class="param-name">data-ybox-alt</div>
-                    <div class="param-desc">Sets the <code>alt</code> attribute for the opened image.</div>
-                </div>
-                <div class="param-item">
-                    <div class="param-name">data-ybox-title</div>
-                    <div class="param-desc">Sets the <code>title</code> attribute for iframe or image.</div>
-                </div>
-                <div class="param-item">
-                    <div class="param-name">data-ybox-headline</div>
-                    <div class="param-desc">Adds an <code>&lt;h2&gt;</code> headline above the content.</div>
-                </div>
-                <div class="param-item">
-                    <div class="param-name">data-ybox-group</div>
-                    <div class="param-desc">Groups multiple links into a gallery (next/prev buttons).</div>
-                </div>
-                <div class="param-item">
-                    <div class="param-name">data-ybox-img</div>
-                    <div class="param-desc">Sets a custom thumbnail for galleries or a poster image for videos.</div>
-                </div>
-            </div>
-		</section>
-		
-		<section>
-			<h3>Targeting Elements (href)</h3>
-			<p>Use the <code>href</code> attribute on your button to target specific hidden elements on the page.</p>
-			
-			<div class="param-list">
-				<div class="param-item">
-					<div class="param-name">ID Target</div>
-					<div class="param-desc">
-						<code>href="#my-popup"</code><br>
-						Opens the element with the exact ID. If the ID is not found, yBox automatically falls back to searching for a class named <code>.my-popup</code>.
+				<section id="html-attributes">
+					<h3>HTML Attributes</h3>
+					<div class="param-list">
+						<div class="param-item">
+							<div class="param-name">data-ybox-class</div>
+							<div class="param-desc">
+								Adds a custom class to the popup window.<br>
+								Use <code>"no-bg"</code> to remove the default white background.
+							</div>
+						</div>
+						<div class="param-item">
+							<div class="param-name">data-ybox-alt</div>
+							<div class="param-desc">Sets the <code>alt</code> attribute for the opened image.</div>
+						</div>
+						<div class="param-item">
+							<div class="param-name">data-ybox-title</div>
+							<div class="param-desc">Sets the <code>title</code> attribute for iframe or image.</div>
+						</div>
+						<div class="param-item">
+							<div class="param-name">data-ybox-headline</div>
+							<div class="param-desc">Adds an <code>&lt;h2&gt;</code> headline above the content.</div>
+						</div>
+						<div class="param-item">
+							<div class="param-name">data-ybox-group</div>
+							<div class="param-desc">Groups multiple links into a gallery (next/prev buttons).</div>
+						</div>
+						<div class="param-item">
+							<div class="param-name">data-ybox-img</div>
+							<div class="param-desc">Sets a custom thumbnail for galleries or a poster image for videos.</div>
+						</div>
 					</div>
-				</div>
-				<div class="param-item">
-					<div class="param-name">Class Target</div>
-					<div class="param-desc">
-						<code>href=".my-popup"</code><br>
-						Opens an element by its class. Perfect for dynamic content loops (like product cards or blog posts).<br>
-						<ol style="margin-top: 5px; padding-left: 20px;">
-							<li>First, yBox looks for the class <strong>inside</strong> the clicked button.</li>
-							<li>If not found, it opens the element that matches the <strong>index</strong> of the clicked button.</li>
-						</ol>
+				</section>
+				
+				<section id="targeting">
+					<h3>Targeting Elements (href)</h3>
+					<p>Use the <code>href</code> attribute on your button to target specific hidden elements on the page.</p>
+					
+					<div class="param-list">
+						<div class="param-item">
+							<div class="param-name">ID Target</div>
+							<div class="param-desc">
+								<code>href="#my-popup"</code><br>
+								Opens the element with the exact ID. If the ID is not found, yBox automatically falls back to searching for a class named <code>.my-popup</code>.
+							</div>
+						</div>
+						<div class="param-item">
+							<div class="param-name">Class Target</div>
+							<div class="param-desc">
+								<code>href=".my-popup"</code><br>
+								Opens an element by its class. Perfect for dynamic content loops (like product cards or blog posts).<br>
+								<ol style="margin-top: 5px; padding-left: 20px;">
+									<li>First, yBox looks for the class <strong>inside</strong> the clicked button.</li>
+									<li>If not found, it opens the element that matches the <strong>index</strong> of the clicked button.</li>
+								</ol>
+							</div>
+						</div>
 					</div>
-				</div>
-			</div>
-		</section>
-		
-		<section>
-			<h3>URL Parameters</h3>
-			<p>You can trigger yBox automatically on page load by adding parameters to the URL query string.</p>
-			
-			<div class="param-list">
-				<div class="param-item">
-					<div class="param-name">?ybox-id=element-id</div>
-					<div class="param-desc">
-						Automatically opens a specific element when the page loads.<br><br>
-						
-						<strong>URL Example:</strong><br>
-						<code>https://yourdomain.com/page<span class="purple">?ybox-id=my-popup</span></code>
-						<br><br>
-						
-						<strong>Required HTML structure:</strong>
-						<pre style="margin-top: 10px;"><code><span class="blue">&lt;div</span> <span class="red">style</span>=<span class="purple">"display:none;"</span><span class="blue">&gt;</span>
+				</section>
+				
+				<section id="url-parameters">
+					<h3>URL Parameters</h3>
+					<p>You can trigger yBox automatically on page load by adding parameters to the URL query string.</p>
+					
+					<div class="param-list">
+						<div class="param-item">
+							<div class="param-name">?ybox-id=element-id</div>
+							<div class="param-desc">
+								Automatically opens a specific element when the page loads.<br><br>
+								
+								<strong>URL Example:</strong><br>
+								<code>https://yourdomain.com/page<span class="purple">?ybox-id=my-popup</span></code>
+								<br><br>
+								
+								<strong>Required HTML structure:</strong>
+								<pre style="margin-top: 10px;"><code><span class="blue">&lt;div</span> <span class="red">style</span>=<span class="purple">"display:none;"</span><span class="blue">&gt;</span>
 	<span class="blue">&lt;div</span> <span class="red">id</span>=<span class="purple">"my-popup"</span><span class="blue">&gt;</span>
 		Content opens automatically!
 	<span class="blue">&lt;/div&gt;</span>
 <span class="blue">&lt;/div&gt;</span></code></pre>
+							</div>
+						</div>
 					</div>
-				</div>
-			</div>
-		</section>
+				</section>
 
-        <section>
-			<h3>JavaScript Execution Examples</h3>
-            
-            <h4>Open on page load</h4>
-			<pre><code><span class="blue">&lt;script&gt;</span>
+				<section id="js-examples">
+					<h3>JavaScript Execution Examples</h3>
+					
+					<h4>Open on page load</h4>
+					<pre><code><span class="blue">&lt;script&gt;</span>
 yBox({
-    code: <span class="grey">'&lt;div class="p-5"&gt;Welcome to yBox!&lt;/div&gt;'</span>
+	code: <span class="grey">'&lt;div class="p-5"&gt;Welcome to yBox!&lt;/div&gt;'</span>
 });
 <span class="blue">&lt;/script&gt;</span></code></pre>
 
-            <h4 style="margin-top: 2rem;">Call specific hidden element</h4>
-			<div style="display:none;">
-				<div id="popup">Hello from the hidden div! :-)</div>
-			</div>
-			<pre><code><span class="blue">yBox</span>({ id: <span class="grey">'#popup'</span> });</code></pre>
-		</section>
-		
-		<section>
-			<h3>Event Callbacks</h3>
-            <p>Hook into the lifecycle of the modal.</p>
-            
-            <div class="param-list">
-                <div class="param-item">
-                    <div class="param-name">beforeYboxOpen</div>
-                    <div class="param-desc">
-                        <pre style="margin:0; padding:10px;"><code><span class="blue">function</span> beforeYboxOpen(self){ ... }</code></pre>
-                        <br>
-                        <button type="button" href="#link1" class="yBox alertBeforeYbox">Try Example</button>
-                    </div>
-                </div>
+					<h4 style="margin-top: 2rem;">Call specific hidden element</h4>
+					<div style="display:none;">
+						<div id="popup">Hello from the hidden div! :-)</div>
+					</div>
+					<pre><code><span class="blue">yBox</span>({ id: <span class="grey">'#popup'</span> });</code></pre>
+				</section>
+				
+				<section id="event-callbacks">
+					<h3>Event Callbacks</h3>
+					<p>Hook into the lifecycle of the modal.</p>
+					
+					<div class="param-list">
+						<div class="param-item">
+							<div class="param-name">beforeYboxOpen</div>
+							<div class="param-desc">
+								<pre style="margin:0; padding:10px;"><code><span class="blue">function</span> beforeYboxOpen(self){ ... }</code></pre>
+								<br>
+								<button type="button" href="#link1" class="yBox alertBeforeYbox">Try Example</button>
+							</div>
+						</div>
 
-                <div class="param-item">
-                    <div class="param-name">afterYboxOpen</div>
-                    <div class="param-desc">
-                         <pre style="margin:0; padding:10px;"><code><span class="blue">function</span> afterYboxOpen(self){ ... }</code></pre>
-                        <br>
-                        <button type="button" href="#link1" class="yBox alertAfterYbox">Try Example</button>
-                    </div>
-                </div>
+						<div class="param-item">
+							<div class="param-name">afterYboxOpen</div>
+							<div class="param-desc">
+								 <pre style="margin:0; padding:10px;"><code><span class="blue">function</span> afterYboxOpen(self){ ... }</code></pre>
+								<br>
+								<button type="button" href="#link1" class="yBox alertAfterYbox">Try Example</button>
+							</div>
+						</div>
 
-                <div class="param-item">
-                    <div class="param-name">beforeYboxClose</div>
-                    <div class="param-desc">
-                         <pre style="margin:0; padding:10px;"><code><span class="blue">function</span> beforeYboxClose(self){ ... }</code></pre>
-                         <br>
-                        <button type="button" href="#link1" class="yBox alertBeforeClose">Try Example (Confirm)</button>
-                    </div>
-                </div>
+						<div class="param-item">
+							<div class="param-name">beforeYboxClose</div>
+							<div class="param-desc">
+								 <pre style="margin:0; padding:10px;"><code><span class="blue">function</span> beforeYboxClose(self){ ... }</code></pre>
+								 <br>
+								<button type="button" href="#link1" class="yBox alertBeforeClose">Try Example (Confirm)</button>
+							</div>
+						</div>
 
-                <div class="param-item">
-                    <div class="param-name">afterYboxClose</div>
-                    <div class="param-desc">
-                         <pre style="margin:0; padding:10px;"><code><span class="blue">function</span> afterYboxClose(self){ ... }</code></pre>
-                         <br>
-                        <button type="button" href="#link1" class="yBox alertAfterClose">Try Example</button>
-                    </div>
-                </div>
-            </div>
-		</section>
-		
-		<section>
-            <h3>Nested yBox (Modal inside Modal)</h3>
-			<button type="button" href="#link1" class="yBox">Open Modal</button>
-			
-			<div style="display:none;">
-				<div id="link1">
-					<div class="inner" style="padding:20px; text-align:center;">
-						<h3>Step 1</h3>
-						<p>This is the first window.</p>
-						<div style="padding-top:10px;">
-							<button type="button" href="#link2" class="yBox">Go to Step 2 &rarr;</button>
+						<div class="param-item">
+							<div class="param-name">afterYboxClose</div>
+							<div class="param-desc">
+								 <pre style="margin:0; padding:10px;"><code><span class="blue">function</span> afterYboxClose(self){ ... }</code></pre>
+								 <br>
+								<button type="button" href="#link1" class="yBox alertAfterClose">Try Example</button>
+							</div>
 						</div>
 					</div>
-				</div>
-			</div>
-			<div style="display:none;">
-				<div id="link2" style="padding:20px; text-align:center;">
-                    <h3>Step 2</h3>
-                    <p>Hello again! This is the second window.</p>
-                </div>
-			</div>
-		</section>
-		
-		<section class="iframeSection">
-			<h3>Media Embeds</h3>
-            
-            <div style="display: flex;width:100%; gap: 20px; flex-wrap: wrap;">
-                <div style="flex:1; min-width: 300px;">
-                    <h4>YouTube / Vimeo (Iframe)</h4>
-                    <button type="button" href="https://www.youtube.com/watch?v=eEMpCcLm6NI" class="yBox" title="Click Here" data-ybox-headline="Cool Video" data-ybox-title="YouTube Video">
-                        <div style="position:absolute;top:0;left:0;width:100%;height:100%;">
-                            <img src="https://img.youtube.com/vi/eEMpCcLm6NI/0.jpg" alt="" style="width:100%; display:block;" />
-                            <div class="play"></div>
-                        </div>
-                    </button>
-                </div>
-
-                <div style="flex:1; min-width: 300px;">
-                    <h4>Self-Hosted Video (MP4)</h4>
-                    <button type="button" href="demo_files/mov_bbb.mp4" class="yBox" title="Click Here">
-                        <div style="position:absolute;top:0;left:0;width:100%;height:100%;">
-                            <img src="demo_files/movie_img.jpg" alt="" style="width:100%; display:block;" />
-                            <div class="play"></div>
-                        </div>
-                    </button>
-                </div>
-            </div>
-		</section>
-		
-		<section>
-			<h3>Custom Styling & AJAX</h3>
-            <div style="display: flex; gap: 15px; flex-wrap: wrap;">
-                <button type="button" href="#myLink" data-ybox-class="myYboxClass" class="yBox">Custom Class Demo</button>
-                <button type="button" href="https://www.google.com" class="yBox yBox_ajax">AJAX Demo</button>
-            </div>
-
-			<div style="display:none;">
-				<div id="myLink" style="padding:20px;">
-					<h3>Custom Style!</h3>
-					<p>This modal has a custom class <code>.myYboxClass</code> attached to it.</p>
-				</div> 
-			</div> 
-		</section>
-		
-		<section>
-			<h3>Image</h3>
-			<div class="group-wrap">
-				<button type="button" href="demo_files/1.jpg" class="yBox" data-ybox-alt="Image Alt 1" style="max-width:300px;">
-					<img src="demo_files/1.jpg" alt="Nature 1" style="max-width:100%;" />
-				</button>
-			</div>
-		</section>
-		
-		<section>
-			<h3>Gallery Groups</h3>
-            <p>Add <code><b>data-ybox-group="groupname"</b></code> to create a gallery.</p>
-            
-			<h4>Nature Collection (Group 1)</h4>
-			<div class="group-wrap">
-				<button type="button" href="demo_files/1.jpg" class="yBox" data-ybox-headline="Image Title 1" data-ybox-alt="Image Alt 1" data-ybox-group="group1">
-					<img src="demo_files/1.jpg" alt="Nature 1" />
-				</button>
-				<button type="button" href="demo_files/2.jpg" class="yBox" data-ybox-headline="Image Title 2" data-ybox-alt="Image Alt 2" data-ybox-group="group1">
-					<img src="demo_files/2.jpg" alt="Nature 2" />
-				</button>
-				<button type="button" href="demo_files/3.jpg" class="yBox" data-ybox-headline="Image Title 3" data-ybox-alt="Image Alt 3" data-ybox-group="group1">
-					<img src="demo_files/3.jpg" alt="Nature 3" />
-				</button>
-			</div>
-			
-			<h4 style="margin-top:30px;">Mixed Media (Group 2)</h4>
-			<div class="group-wrap">
-				<button type="button" href="demo_files/4.jpg" class="yBox" data-ybox-group="group2">
-					<img src="demo_files/4.jpg" alt="Urban" />
-				</button>
-				<button type="button" href="demo_files/5.jpg" class="yBox" data-ybox-group="group2">
-					<img src="demo_files/5.jpg" alt="Urban" />
-				</button>
-				<button type="button" href="https://www.youtube.com/watch?v=eEMpCcLm6NI" class="yBox" data-ybox-alt="Video" data-ybox-group="group2">
-					<img src="https://img.youtube.com/vi/eEMpCcLm6NI/0.jpg" alt="Video" />
-					<div class="play"></div>
-				</button>
-				<button type="button" href="demo_files/mov_bbb.mp4" class="yBox" data-ybox-img="demo_files/movie_img.jpg" data-ybox-group="group2">
-					<div style="position:absolute;top:0;left:0;width:100%;height:100%;">
-						<img src="demo_files/movie_img.jpg" alt="" style="width:100%; display:block;">
-						<div class="play"></div>
+				</section>
+				
+				<section id="nested-ybox">
+					<h3>Nested yBox (Modal inside Modal)</h3>
+					<button type="button" href="#link1" class="yBox">Open Modal</button>
+					
+					<div style="display:none;">
+						<div id="link1">
+							<div class="inner" style="padding:20px; text-align:center;">
+								<h3>Step 1</h3>
+								<p>This is the first window.</p>
+								<div style="padding-top:10px;">
+									<button type="button" href="#link2" class="yBox">Go to Step 2 &rarr;</button>
+								</div>
+							</div>
+						</div>
 					</div>
-				</button>
-				<span href="demo_files/1.jpg" class="yBox" data-ybox-group="group2"></span>
-				<span href="demo_files/2.jpg" class="yBox" data-ybox-group="group2"></span>
-				<span href="demo_files/3.jpg" class="yBox" data-ybox-group="group2"></span>
-				<span href="demo_files/4.jpg" class="yBox" data-ybox-group="group2"></span>
-				<span href="demo_files/5.jpg" class="yBox" data-ybox-group="group2"></span>
-				<span href="demo_files/1.jpg" class="yBox" data-ybox-group="group2"></span>
-				<span href="demo_files/2.jpg" class="yBox" data-ybox-group="group2"></span>
-				<span href="demo_files/3.jpg" class="yBox" data-ybox-group="group2"></span>
-				<span href="demo_files/4.jpg" class="yBox" data-ybox-group="group2"></span>
-				<span href="demo_files/5.jpg" class="yBox" data-ybox-group="group2"></span>
-				<span href="demo_files/1.jpg" class="yBox" data-ybox-group="group2"></span>
-				<span href="demo_files/2.jpg" class="yBox" data-ybox-group="group2"></span>
-				<span href="demo_files/3.jpg" class="yBox" data-ybox-group="group2"></span>
-				<span href="demo_files/4.jpg" class="yBox" data-ybox-group="group2"></span>
-				<span href="demo_files/5.jpg" class="yBox" data-ybox-group="group2"></span>
+					<div style="display:none;">
+						<div id="link2" style="padding:20px; text-align:center;">
+							<h3>Step 2</h3>
+							<p>Hello again! This is the second window.</p>
+						</div>
+					</div>
+				</section>
+				
+				<section id="media-embeds" class="iframeSection">
+					<h3>Media Embeds</h3>
+					
+					<div style="display: flex;width:100%; gap: 20px; flex-wrap: wrap;">
+						<div style="flex:1; min-width: 300px;">
+							<h4>YouTube / Vimeo (Iframe)</h4>
+							<button type="button" href="https://www.youtube.com/watch?v=eEMpCcLm6NI" class="yBox" title="Click Here" data-ybox-headline="Cool Video" data-ybox-title="YouTube Video">
+								<div style="position:absolute;top:0;left:0;width:100%;height:100%;">
+									<img src="https://img.youtube.com/vi/eEMpCcLm6NI/0.jpg" alt="" style="width:100%; display:block;" />
+									<div class="play"></div>
+								</div>
+							</button>
+						</div>
+
+						<div style="flex:1; min-width: 300px;">
+							<h4>Self-Hosted Video (MP4)</h4>
+							<button type="button" href="demo_files/mov_bbb.mp4" class="yBox" title="Click Here">
+								<div style="position:absolute;top:0;left:0;width:100%;height:100%;">
+									<img src="demo_files/movie_img.jpg" alt="" style="width:100%; display:block;" />
+									<div class="play"></div>
+								</div>
+							</button>
+						</div>
+					</div>
+				</section>
+				
+				<section id="custom-styling">
+					<h3>Custom Styling & AJAX</h3>
+					<div style="display: flex; gap: 15px; flex-wrap: wrap;">
+						<button type="button" href="#myLink" data-ybox-class="myYboxClass" class="yBox">Custom Class Demo</button>
+						<button type="button" href="https://www.google.com" class="yBox yBox_ajax">AJAX Demo</button>
+					</div>
+
+					<div style="display:none;">
+						<div id="myLink" style="padding:20px;">
+							<h3>Custom Style!</h3>
+							<p>This modal has a custom class <code>.myYboxClass</code> attached to it.</p>
+						</div> 
+					</div> 
+				</section>
+				
+				<section id="image-demo">
+					<h3>Image</h3>
+					<div class="group-wrap">
+						<button type="button" href="demo_files/1.jpg" class="yBox" data-ybox-alt="Image Alt 1" style="max-width:300px;">
+							<img src="demo_files/1.jpg" alt="Nature 1" style="max-width:100%;" />
+						</button>
+					</div>
+				</section>
+				
+				<section id="gallery-groups">
+					<h3>Gallery Groups</h3>
+					<p>Add <code><b>data-ybox-group="groupname"</b></code> to create a gallery.</p>
+					
+					<h4>Nature Collection (Group 1)</h4>
+					<div class="group-wrap">
+						<button type="button" href="demo_files/1.jpg" class="yBox" data-ybox-headline="Image Title 1" data-ybox-alt="Image Alt 1" data-ybox-group="group1">
+							<img src="demo_files/1.jpg" alt="Nature 1" />
+						</button>
+						<button type="button" href="demo_files/2.jpg" class="yBox" data-ybox-headline="Image Title 2" data-ybox-alt="Image Alt 2" data-ybox-group="group1">
+							<img src="demo_files/2.jpg" alt="Nature 2" />
+						</button>
+						<button type="button" href="demo_files/3.jpg" class="yBox" data-ybox-headline="Image Title 3" data-ybox-alt="Image Alt 3" data-ybox-group="group1">
+							<img src="demo_files/3.jpg" alt="Nature 3" />
+						</button>
+					</div>
+					
+					<h4 style="margin-top:30px;">Mixed Media (Group 2)</h4>
+					<div class="group-wrap">
+						<button type="button" href="demo_files/4.jpg" class="yBox" data-ybox-group="group2">
+							<img src="demo_files/4.jpg" alt="Urban" />
+						</button>
+						<button type="button" href="demo_files/5.jpg" class="yBox" data-ybox-group="group2">
+							<img src="demo_files/5.jpg" alt="Urban" />
+						</button>
+						<button type="button" href="https://www.youtube.com/watch?v=eEMpCcLm6NI" class="yBox" data-ybox-alt="Video" data-ybox-group="group2">
+							<img src="https://img.youtube.com/vi/eEMpCcLm6NI/0.jpg" alt="Video" />
+							<div class="play"></div>
+						</button>
+						<button type="button" href="demo_files/mov_bbb.mp4" class="yBox" data-ybox-img="demo_files/movie_img.jpg" data-ybox-group="group2">
+							<div style="position:absolute;top:0;left:0;width:100%;height:100%;">
+								<img src="demo_files/movie_img.jpg" alt="" style="width:100%; display:block;">
+								<div class="play"></div>
+							</div>
+						</button>
+					</div>
+				</section>
+				
+				<section id="social-sharing">
+					<h3>Social Sharing</h3>
+					<button type="button" class="yBox yBox_share">Open Share Modal</button>
+				</section>
 			</div>
-		</section>
-		
-		<section>
-			<h3>Social Sharing</h3>
-			<button type="button" class="yBox yBox_share">Open Share Modal</button>
-		</section>
+		</div>
 	</main>
 
 <link rel="stylesheet" href="dist/css/ybox.css" />
@@ -396,5 +404,26 @@ function afterYboxClose(self){
 };
 </script>
 
+
+<script>
+// DEMO
+window.addEventListener('DOMContentLoaded', () => {
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            const id = entry.target.getAttribute('id');
+            if (entry.isIntersecting) {
+                document.querySelectorAll('.sidebar a').forEach((link) => {
+                    link.classList.toggle('active', link.getAttribute('href') === `#${id}`);
+                });
+            }
+        });
+    }, { rootMargin: '-20% 0px -70% 0px' }); // קובע מתי הסקשן נחשב "פעיל"
+
+    // עוקב אחרי כל הסקשנים שיש להם ID
+    document.querySelectorAll('section[id]').forEach((section) => {
+        observer.observe(section);
+    });
+});
+</script>
 </body>
 </html>

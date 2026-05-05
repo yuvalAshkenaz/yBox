@@ -1,4 +1,4 @@
-﻿/*! yBox - v12.6.6 - 30/04/2026
+﻿/*! yBox - v12.6.7 - 05/05/2026
 * By Yuval Ashkenazi
 * https://github.com/yuvalAshkenaz/yBox */
 
@@ -731,7 +731,7 @@
 		border: 1px solid var(--ybox-mobile-btn-border, rgba(255, 255, 255, 0.4));
         width: 40px;
         height: 40px;
-		margin-top: -85px;
+		margin-top: -75px;
     }
 	.yBoxGroupOverlay .closeYbox::after,
 	.yBoxGroupOverlay .closeYbox::before {
