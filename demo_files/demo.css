@@ -1,5 +1,4 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Fira+Code:wght@400;500&display=swap');
-
 :root {
     --primary-color: #00f0ff;
     --primary-hover: #00c3cf;
@@ -12,16 +11,23 @@
     --code-bg: rgba(0, 0, 0, 0.4);
     --success: #10b981;
 }
-
+::-moz-selection {
+	background: #8b0080;
+	color: #fff;
+	-webkit-text-fill-color: #fff;
+}
+::selection {
+	background: #8b0080;
+	color: #fff;
+	-webkit-text-fill-color: #fff;
+}
 * {
     box-sizing: border-box;
 	word-break: break-word;
 }
-
 p {
 	width: 100%;
 }
-
 button {
     padding: 0;
     margin: 0;
@@ -29,7 +35,6 @@ button {
     border: none;
     cursor: pointer;
 }
-
 body {
     background: radial-gradient(circle at 15% 50%, #1e1b4b, #0f172a 60%);
     background-attachment: fixed;
@@ -43,16 +48,12 @@ body {
     flex-direction: column;
     min-height: 100vh;
 }
-
-/* Layout Wrapper for Sidebar & Content */
 .layout-wrapper {
     width: 100%;
     max-width: 1400px;
     margin: 40px auto;
     padding: 0 20px;
 }
-
-/* Sidebar Styles */
 .sidebar {
     position: sticky;
     top: 40px;
@@ -66,32 +67,27 @@ body {
     padding: 20px 15px;
     max-height: calc(100vh - 80px);
     overflow-y: auto;
+    z-index: 2;
 }
-
 .sidebar nav {
     display: flex;
     flex-direction: column;
     gap: 8px;
 }
-
 .sidebar a {
     color: var(--text-secondary);
     text-decoration: none;
     font-size: 0.95rem;
     padding: 8px 12px;
     border-radius: 8px;
-    border-left: 3px solid transparent; /* הכנה למסגרת צד ב-hover במקום תזוזה */
+    border-left: 3px solid transparent;
     transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease;
 }
-
 .sidebar a.active,
 .sidebar a:hover {
     background: rgba(255, 255, 255, 0.05);
     color: var(--primary-color);
-    border-left-color: var(--primary-color);
 }
-
-/* Sidebar Scrollbar */
 .sidebar::-webkit-scrollbar {
     width: 6px;
 }
@@ -102,8 +98,6 @@ body {
     background: rgba(255, 255, 255, 0.1);
     border-radius: 10px;
 }
-
-/* Main Content Area */
 .content-area {
     display: flex;
 	gap: 30px;
@@ -115,7 +109,6 @@ body {
     flex-direction: column;
     gap: 30px;
 }
-
 h1 {
 	width: 100%;
     font-size: 3.5rem;
@@ -126,13 +119,11 @@ h1 {
     margin-bottom: 10px;
     text-align: center;
 }
-
 h2, h3 {
 	width: 100%;
     color: var(--text-main);
     margin-top: 0;
 }
-
 h3 {
     font-size: 1.6rem;
     font-weight: 600;
@@ -140,14 +131,11 @@ h3 {
     padding-bottom: 0.5rem;
     border-bottom: 1px solid var(--border-color);
 }
-
 h4 {
 	width: 100%;
     margin: 1.5rem 0 0.5rem;
     color: var(--primary-color);
 }
-
-/* Glassmorphism Sections */
 section {
     background: var(--bg-card);
     backdrop-filter: blur(12px);
@@ -160,7 +148,6 @@ section {
 	align-items: flex-start;
     scroll-margin-top: 40px; 
 }
-
 pre {
 	width: 100%;
     background: var(--code-bg);
@@ -173,24 +160,20 @@ pre {
     border: 1px solid rgba(255,255,255,0.05);
     position: relative;
 }
-
 code {
     font-family: 'Fira Code', monospace;
 }
-
 pre .blue { color: #38bdf8 !important; } 
 pre .red { color: #f472b6 !important; }  
 pre .purple { color: #c084fc !important; } 
 pre .grey { color: #94a3b8 !important; } 
 pre .green { color: #34d399 !important; } 
-
 .param-list {
 	width: 100%;
     display: flex;
     flex-direction: column;
     gap: 1rem;
 }
-
 .param-item {
 	width: 100%;
     display: flex;
@@ -203,33 +186,28 @@ pre .green { color: #34d399 !important; }
     border: 1px solid rgba(255, 255, 255, 0.05);
     transition: background-color 0.2s ease, border-color 0.2s ease;
 }
-
 .param-item:hover {
     background: rgba(0, 0, 0, 0.4);
     border-color: var(--primary-color);
 }
-
 .param-name {
     font-family: 'Fira Code', monospace;
     color: #fff;
     word-break: break-word;
     flex: 0 0 200px; 
 }
-
 .param-desc {
 	width: 100%;
     font-size: 0.95rem;
     color: var(--text-secondary);
     flex: 1; 
 }
-
 .param-desc code {
     background: rgba(255,255,255,0.05);
     padding: 2px 6px;
     border-radius: 4px;
     color: var(--accent-color);
 }
-
 a.yBox, button.yBox {
     display: inline-flex;
     align-items: center;
@@ -245,11 +223,9 @@ a.yBox, button.yBox {
     cursor: pointer;
     font-size: 15px;
 }
-
 a.yBox:hover, button.yBox:hover {
-    filter: brightness(1.1); /* הבהרה אלגנטית במקום זום ותזוזה */
+    filter: brightness(1.1);
 }
-
 .group-wrap {
     width: calc(100% + 4rem);
     display: flex;
@@ -258,7 +234,6 @@ a.yBox:hover, button.yBox:hover {
     padding: 20px;
     margin: 0 -2rem;
 }
-
 .group-wrap a,
 .iframeSection a,
 .group-wrap button,
@@ -273,7 +248,6 @@ a.yBox:hover, button.yBox:hover {
 	border: 2px solid rgba(255,255,255,0.1);
 	transition: border-color 0.2s ease;
 }
-
 .group-wrap a:hover,
 .iframeSection a:hover,
 .group-wrap button:hover,
@@ -281,7 +255,6 @@ a.yBox:hover, button.yBox:hover {
     border-color: var(--primary-color);
     z-index: 2;
 }
-
 .group-wrap img,
 .iframeSection img {
     position: absolute;
@@ -292,12 +265,10 @@ a.yBox:hover, button.yBox:hover {
     object-fit: cover;
     transition: opacity 0.2s ease;
 }
-
 .group-wrap button:hover img,
 .iframeSection button:hover img {
-    opacity: 0.7; /* במקום זום (Scale), התמונה נהיית מעט שקופה */
+    opacity: 0.7;
 }
-
 .play {
     position: absolute;
     top: 50%;
@@ -314,12 +285,10 @@ a.yBox:hover, button.yBox:hover {
     border: 2px solid var(--primary-color);
     transition: background-color 0.2s ease, border-color 0.2s ease;
 }
-
 button:hover .play {
     background: var(--primary-color);
     border-color: #fff;
 }
-
 .play::after {
     content: "";
     display: block;
@@ -328,27 +297,31 @@ button:hover .play {
     border-bottom: 10px solid transparent;
     border-left: 16px solid white; 
 }
-
 .myYboxClass .yBoxFrame {
     background: #1e293b !important;
     color: #fff !important;
     border: 1px solid rgba(255,255,255,0.1);
     border-radius: 16px !important;
 }
-
 .myYboxClass .closeYbox {
     filter: invert(1); 
 }
 
-/* Responsive Styles */
-@media screen and (max-width: 900px) {
-    .sidebar {
-        position: static;
-        width: 100%;
-        max-height: 250px;
-    }
+@media screen and (max-width: 1200px) {
+	.content-area {
+		flex-direction: column;
+	}
+	.sidebar {
+		width: 100%;
+		top: 10px;
+	}
+	.sidebar nav {
+		flex-direction: row;
+	}
+	.sidebar a {
+		white-space: nowrap;
+	}
 }
-
 @media screen and (max-width: 767px) {
     .param-item {
         flex-direction: column;
