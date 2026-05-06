@@ -206,7 +206,7 @@ pre .green { color: #34d399 !important; }
     background: rgba(255,255,255,0.05);
     padding: 2px 6px;
     border-radius: 4px;
-    color: var(--accent-color);
+    color: var(--primary-color);
 }
 a.yBox, button.yBox {
     display: inline-flex;
@@ -312,8 +312,12 @@ button:hover .play {
 		flex-direction: column;
 	}
 	.sidebar {
-		width: 100%;
-		top: 10px;
+		background: #1e293b;
+		width: auto;
+		top: 0;
+		margin: 0 -10px;
+		padding: 10px 10px;
+		border-radius: 0;
 	}
 	.sidebar nav {
 		flex-direction: row;
@@ -323,10 +327,17 @@ button:hover .play {
 	}
 }
 @media screen and (max-width: 767px) {
+	h3 {
+		font-size: 18px;
+	}
+	h4 {
+		font-weight: 400;
+	}
     .param-item {
         flex-direction: column;
         align-items: flex-start;
         gap: 0.8rem;
+        padding: 10px;
     }
     .param-name {
         flex: 0 0 auto;
@@ -335,9 +346,14 @@ button:hover .play {
         padding-bottom: 5px;
     }
     h1 { font-size: 2.2rem; }
-    .layout-wrapper { margin-top: 20px; }
-    section {
-        padding: 1.5rem;
+    .layout-wrapper {
+		margin-top: 20px;
+		padding: 0 10px;
+	}
+    pre,
+	section {
+        padding: 10px;
+        border-radius: 8px;
     }
 	.group-wrap a, .iframeSection a, .group-wrap button, .iframeSection button {
 		min-width: 170px;
