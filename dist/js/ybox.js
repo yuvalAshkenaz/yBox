@@ -1,4 +1,4 @@
-﻿/*! yBox - v12.6.7 - 05/05/2026
+﻿/*! yBox - v12.7 - 07/05/2026
 * By Yuval Ashkenazi
 * https://github.com/yuvalAshkenaz/yBox */
 
@@ -156,12 +156,12 @@ document.addEventListener('DOMContentLoaded', function() {
 			window.history.pushState("", "", newURL);
 		}, 500);
 	}
-	document.querySelectorAll('.yBox').forEach(function(el) { el.setAttribute('aria-haspopup', 'dialog'); });
+	document.querySelectorAll('.yBox, .ybox').forEach(function(el) { el.setAttribute('aria-haspopup', 'dialog'); });
 
     // Preload Images
     setTimeout(function() {
         let preloadedUrls = {};
-        document.querySelectorAll('.yBox[data-ybox-group]').forEach(function(el) {
+        document.querySelectorAll('.yBox[data-ybox-group], .ybox[data-ybox-group]').forEach(function(el) {
             let href = el.getAttribute('href');
             if (href && !preloadedUrls[href] && href.match(/\.(jpeg|jpg|gif|png|webp|svg)$/i)) {
                 preloadedUrls[href] = true;
@@ -173,7 +173,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
 // 4. Main yBox Click Listener
 document.body.addEventListener('click', function(e) {
-	let self = e.target.closest('.yBox');
+	let self = e.target.closest('.yBox, .ybox');
 	if (!self) return;
 	e.preventDefault();
 	e.stopPropagation();
@@ -421,7 +421,7 @@ function insert_yBox_html(obj) {
 					// עדיפות 2: לא נמצא בכפתור? נבדוק מה האינדקס של הכפתור שלחצנו עליו ביחס לכפתורים האחרים שמפעילים את אותו קישור, ונשלוף את הקלאס באותו אינדקס
 					if (!targetEl && obj.self) {
 						try {
-							let sameButtons = document.querySelectorAll('.yBox[href="' + obj.url + '"]');
+							let sameButtons = document.querySelectorAll('.yBox[href="' + obj.url + '"], .ybox[href="' + obj.url + '"]');
 							let btnIndex = Array.from(sameButtons).indexOf(obj.self);
 							let targetElements = document.querySelectorAll(selector);
 							
@@ -531,14 +531,14 @@ function getYboxSlideContent(el, url) {
 
 function yBox_Group(yBoxLink, currentCode) {
     let group = yBoxLink.dataset.yboxGroup;
-    if (!group || document.querySelectorAll('.yBox[data-ybox-group="' + group + '"]').length < 2) {
+    if (!group || document.querySelectorAll('.yBox[data-ybox-group="' + group + '"], .ybox[data-ybox-group="' + group + '"]').length < 2) {
         let insertArea = document.querySelector('.insertYboxAjaxHere');
         if(insertArea) insertArea.innerHTML = currentCode;
         return currentCode;
     }
 
     document.querySelector('.yBoxOverlay').classList.add('yBoxGroupOverlay');
-    let groupItems = document.querySelectorAll('.yBox[data-ybox-group="' + group + '"]:not(.swiper-slide-duplicate)');
+    let groupItems = document.querySelectorAll('.yBox[data-ybox-group="' + group + '"]:not(.swiper-slide-duplicate), .ybox[data-ybox-group="' + group + '"]:not(.swiper-slide-duplicate)');
     let slidesHTML = '<div class="yBoxSlidesWrap">';
     
     let thumbsHTML = '<div class="yBoxThumbsWrapper"><div class="yBoxThumbs">';
@@ -584,115 +584,188 @@ function yBox_Group(yBoxLink, currentCode) {
 function attachDragToThumbs() {
     const thumbs = document.querySelector('.yBoxThumbs');
     const wrapper = document.querySelector('.yBoxThumbsWrapper');
-    
     if (!thumbs || !wrapper) return;
 
-    if (thumbs.scrollWidth <= wrapper.clientWidth) {
-        thumbs.classList.add('justify-center');
-        return; 
-    } else {
-        thumbs.classList.add('is-overflowing');
-    }
-
+    const isRTLThumbs = !!document.querySelector('.yBoxRTL');
     let isDown = false;
+    let hasDragged = false;
     let startX;
     let currentTranslate = 0;
     let prevTranslate = 0;
+    let velocity = 0;
+    let lastMoveTranslate = 0;
+    let lastTime = Date.now();
+    let rafId = null;
+    let lastTouchEnd = 0;
+
+    function getBounds() {
+        const overflow = thumbs.scrollWidth - wrapper.clientWidth;
+        return isRTLThumbs
+            ? { min: 0, max: Math.max(0, overflow) }
+            : { min: Math.min(0, -overflow), max: 0 };
+    }
+
+    function updateOverflow() {
+        const overflowing = thumbs.scrollWidth > wrapper.clientWidth;
+        if (overflowing) {
+            thumbs.classList.remove('justify-center');
+            thumbs.classList.add('is-overflowing');
+        } else {
+            thumbs.classList.remove('is-overflowing');
+            thumbs.classList.add('justify-center');
+            thumbs.style.transition = 'transform 0.3s ease-out';
+            thumbs.style.transform = 'translateX(0)';
+            currentTranslate = 0;
+            prevTranslate = 0;
+        }
+    }
+
+    updateOverflow();
+
+    if (typeof ResizeObserver !== 'undefined') {
+        const ro = new ResizeObserver(updateOverflow);
+        ro.observe(wrapper);
+    }
+
+    function cancelMomentum() {
+        if (rafId !== null) { cancelAnimationFrame(rafId); rafId = null; }
+    }
 
     thumbs.addEventListener('mousedown', (e) => {
+        if (!thumbs.classList.contains('is-overflowing')) return;
+        if (Date.now() - lastTouchEnd < 500) return; // ignore synthetic mouse events after touch
+        cancelMomentum();
         isDown = true;
-        thumbs.classList.add('is-dragging');
+        hasDragged = false;
         startX = e.pageX;
-        
-        const style = window.getComputedStyle(thumbs);
-        const matrix = new WebKitCSSMatrix(style.transform);
+        const matrix = new WebKitCSSMatrix(window.getComputedStyle(thumbs).transform);
         prevTranslate = matrix.m41;
-        
-        thumbs.style.transition = 'none'; 
+        lastMoveTranslate = prevTranslate;
+        lastTime = Date.now();
+        // transition = none is deferred until actual drag movement detected
     });
 
-    thumbs.addEventListener('mouseleave', () => {
-        if(isDown) stopDragging();
-    });
-
-    thumbs.addEventListener('mouseup', () => {
-        stopDragging();
-    });
+    thumbs.addEventListener('mouseleave', () => { if (isDown) stopDragging(); });
+    thumbs.addEventListener('mouseup', () => stopDragging());
 
     thumbs.addEventListener('mousemove', (e) => {
         if (!isDown) return;
         e.preventDefault();
-        
         const x = e.pageX;
-        const walk = (x - startX);
-        
-        if(Math.abs(walk) > 5) {
-            yBoxIsDragging = true;
+        if (Math.abs(x - startX) <= 5) return; // ignore micro-movements, don't start drag
+
+        yBoxIsDragging = true;
+        if (!hasDragged) {
+            hasDragged = true;
+            thumbs.classList.add('is-dragging');
+            thumbs.style.transition = 'none';
         }
 
-        currentTranslate = prevTranslate + walk;
-        
-        const maxTranslate = 0;
-        const minTranslate = wrapper.clientWidth - thumbs.scrollWidth;
-        
-        if (currentTranslate > maxTranslate) {
-             currentTranslate = maxTranslate + (currentTranslate - maxTranslate) * 0.3;
-        } else if (currentTranslate < minTranslate) {
-             currentTranslate = minTranslate + (currentTranslate - minTranslate) * 0.3;
-        }
+        const rawTranslate = prevTranslate + (x - startX);
+        const { min, max } = getBounds();
+        let target;
+        if (rawTranslate > max) target = max + (rawTranslate - max) * 0.3;
+        else if (rawTranslate < min) target = min + (rawTranslate - min) * 0.3;
+        else target = rawTranslate;
 
+        const now = Date.now();
+        const dt = Math.max(1, now - lastTime);
+        velocity = (target - lastMoveTranslate) / dt * 16;
+        lastMoveTranslate = target;
+        lastTime = now;
+        currentTranslate = target;
         thumbs.style.transform = `translateX(${currentTranslate}px)`;
     });
 
     function stopDragging() {
+        if (!isDown) return;
         isDown = false;
         thumbs.classList.remove('is-dragging');
-        thumbs.style.transition = 'transform 0.3s ease-out';
 
-        const maxTranslate = 0;
-        const minTranslate = wrapper.clientWidth - thumbs.scrollWidth;
-
-        if (currentTranslate > maxTranslate) {
-            currentTranslate = maxTranslate;
-        } else if (currentTranslate < minTranslate) {
-            currentTranslate = minTranslate;
+        if (!hasDragged) {
+            // pure tap — don't touch transform or transition
+            setTimeout(() => { yBoxIsDragging = false; }, 50);
+            return;
         }
 
-        thumbs.style.transform = `translateX(${currentTranslate}px)`;
-        prevTranslate = currentTranslate;
-        
+        const { min, max } = getBounds();
+
+        if (currentTranslate > max || currentTranslate < min) {
+            thumbs.style.transition = 'transform 0.3s ease-out';
+            currentTranslate = Math.min(max, Math.max(min, currentTranslate));
+            thumbs.style.transform = `translateX(${currentTranslate}px)`;
+            prevTranslate = currentTranslate;
+            velocity = 0;
+        } else if (Math.abs(velocity) > 0.3) {
+            thumbs.style.transition = 'none';
+            const scroll = () => {
+                velocity *= 0.93;
+                currentTranslate += velocity;
+                if (currentTranslate >= max) {
+                    currentTranslate = max; velocity = 0;
+                    thumbs.style.transition = 'transform 0.3s ease-out';
+                } else if (currentTranslate <= min) {
+                    currentTranslate = min; velocity = 0;
+                    thumbs.style.transition = 'transform 0.3s ease-out';
+                }
+                thumbs.style.transform = `translateX(${currentTranslate}px)`;
+                prevTranslate = currentTranslate;
+                rafId = Math.abs(velocity) > 0.3 ? requestAnimationFrame(scroll) : null;
+            };
+            rafId = requestAnimationFrame(scroll);
+        } else {
+            thumbs.style.transition = 'transform 0.3s ease-out';
+            thumbs.style.transform = `translateX(${currentTranslate}px)`;
+            prevTranslate = currentTranslate;
+        }
         setTimeout(() => { yBoxIsDragging = false; }, 50);
     }
-    
+
     thumbs.addEventListener('touchstart', (e) => {
+        if (!thumbs.classList.contains('is-overflowing')) return;
+        cancelMomentum();
         isDown = true;
+        hasDragged = false;
         startX = e.touches[0].pageX;
-        
-        const style = window.getComputedStyle(thumbs);
-        const matrix = new WebKitCSSMatrix(style.transform);
+        const matrix = new WebKitCSSMatrix(window.getComputedStyle(thumbs).transform);
         prevTranslate = matrix.m41;
-        
-        thumbs.style.transition = 'none';
-    }, {passive: true});
-    
+        lastMoveTranslate = prevTranslate;
+        lastTime = Date.now();
+        // transition = none is deferred until actual drag movement detected
+    }, { passive: true });
+
     thumbs.addEventListener('touchend', () => {
+        lastTouchEnd = Date.now();
         stopDragging();
     });
 
     thumbs.addEventListener('touchmove', (e) => {
         if (!isDown) return;
         const x = e.touches[0].pageX;
-        const walk = (x - startX);
-        if(Math.abs(walk) > 5) yBoxIsDragging = true;
-        
-        currentTranslate = prevTranslate + walk;
-        
-        const minTranslate = wrapper.clientWidth - thumbs.scrollWidth;
-        if(currentTranslate > 0) currentTranslate = 0; 
-        if(currentTranslate < minTranslate) currentTranslate = minTranslate;
+        if (Math.abs(x - startX) <= 5) return; // ignore micro-movements, don't start drag
 
+        yBoxIsDragging = true;
+        if (!hasDragged) {
+            hasDragged = true;
+            thumbs.classList.add('is-dragging');
+            thumbs.style.transition = 'none';
+        }
+
+        const rawTranslate = prevTranslate + (x - startX);
+        const { min, max } = getBounds();
+        let target;
+        if (rawTranslate > max) target = max + (rawTranslate - max) * 0.3;
+        else if (rawTranslate < min) target = min + (rawTranslate - min) * 0.3;
+        else target = rawTranslate;
+
+        const now = Date.now();
+        const dt = Math.max(1, now - lastTime);
+        velocity = (target - lastMoveTranslate) / dt * 16;
+        lastMoveTranslate = target;
+        lastTime = now;
+        currentTranslate = target;
         thumbs.style.transform = `translateX(${currentTranslate}px)`;
-    }, {passive: true});
+    }, { passive: true });
 }
 
 function scrollThumbIntoView(index) {
@@ -702,17 +775,20 @@ function scrollThumbIntoView(index) {
 
     if (!thumbs || !wrapper || !activeThumb) return;
 
-    const thumbLeft = activeThumb.offsetLeft;
-    const thumbWidth = activeThumb.offsetWidth;
-    const wrapperWidth = wrapper.clientWidth;
+    const wrapperRect = wrapper.getBoundingClientRect();
+    const thumbRect  = activeThumb.getBoundingClientRect();
+    const containerRect = thumbs.getBoundingClientRect();
 
-    let newTranslate = -(thumbLeft - (wrapperWidth / 2) + (thumbWidth / 2));
+    const currentT = new WebKitCSSMatrix(window.getComputedStyle(thumbs).transform).m41;
 
-    const maxTranslate = 0;
-    const minTranslate = wrapper.clientWidth - thumbs.scrollWidth;
+    const currentThumbCenter = thumbRect.left - wrapperRect.left + thumbRect.width / 2;
+    const delta = wrapperRect.width / 2 - currentThumbCenter;
+    let newTranslate = currentT + delta;
 
-    if (newTranslate > maxTranslate) newTranslate = maxTranslate;
-    if (newTranslate < minTranslate) newTranslate = minTranslate;
+    const maxTranslate = currentT - (containerRect.left - wrapperRect.left);
+    const minTranslate = currentT + (wrapperRect.width - (containerRect.right - wrapperRect.left));
+
+    newTranslate = Math.min(maxTranslate, Math.max(minTranslate, newTranslate));
 
     thumbs.style.transition = 'transform 0.3s ease-out';
     thumbs.style.transform = `translateX(${newTranslate}px)`;
@@ -783,7 +859,8 @@ document.body.addEventListener('click', function(e) {
 	let isOverlay = false;
 	let isCloseBtn = false;
 	
-	if(e.target.classList.contains('yBoxOverlay') || e.target.classList.contains('yBoxSlidesWrap')) {
+	if(e.target.classList.contains('yBoxOverlay') || e.target.classList.contains('yBoxSlidesWrap') ||
+	   e.target.classList.contains('yBoxSlide') || e.target.classList.contains('yBoxImgWrap2')) {
 		isOverlay = true;
 	}
 
@@ -842,7 +919,7 @@ function remove_yBox_placeholder() {
 document.addEventListener('keyup', function(e) {
 	if (document.querySelector('.yBoxImg')) {
 		let currentImg = document.querySelector('.yBoxImg');
-		let src = document.querySelector('.yBox[href="' + currentImg.getAttribute('src') + '"]');
+		let src = document.querySelector('.yBox[href="' + currentImg.getAttribute('src') + '"], .ybox[href="' + currentImg.getAttribute('src') + '"]');
 		
 		if (e.keyCode === 39) { 
 			if (yBox_lang === 'he') {

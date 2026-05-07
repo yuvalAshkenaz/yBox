@@ -1,4 +1,4 @@
-﻿/*! yBox - v12.6.7 - 05/05/2026
+﻿/*! yBox - v12.7 - 07/05/2026
 * By Yuval Ashkenazi
 * https://github.com/yuvalAshkenaz/yBox */
 
@@ -226,7 +226,7 @@
 .yBoxFrame.yBoxImgWrap .yBoxImgWrap2 {
 	display: flex;
 	min-height: 80px;
-	height: 100%;
+	max-height: 100%;
 	border-radius: var(--ybox-frame-radius, 12px);
 	position: relative;
 	overflow: hidden;
@@ -646,7 +646,7 @@
     user-select: none;
     touch-action: pan-y;
     transform: translateX(0px);
-    transition: transform 0.1s ease-out;
+    transition: transform 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
     width: max-content;
     min-width: 100%;
     justify-content: center;
@@ -678,8 +678,10 @@
 	pointer-events: none;
     display: block;
 }
-.yboxThumbBTN:hover {
-	 opacity: 1;
+@media (min-width: 992px) {
+    .yboxThumbBTN:hover {
+        opacity: 1;
+    }
 }
 .yboxThumbBTN.active {
     opacity: 1;
