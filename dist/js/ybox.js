@@ -1,4 +1,4 @@
-﻿/*! yBox - v12.7 - 07/05/2026
+﻿/*! yBox - v12.71 - 17/05/2026
 * By Yuval Ashkenazi
 * https://github.com/yuvalAshkenaz/yBox */
 

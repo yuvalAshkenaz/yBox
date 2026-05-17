@@ -1,4 +1,4 @@
-﻿/*! yBox - v12.7 - 07/05/2026
+﻿/*! yBox - v12.71 - 17/05/2026
 * By Yuval Ashkenazi
 * https://github.com/yuvalAshkenaz/yBox */
 
@@ -246,7 +246,8 @@
 .yBoxGroupOverlay .yBoxFrame.yBoxImgWrap img.yBoxImg {
     max-width: -webkit-calc(100vw - 120px);
     max-width: calc(100vw - 120px);
-    max-height: 100%;
+	max-height:-webkit-calc(100dvh - 30px);
+	max-height:calc(100dvh - 30px);
 }
 .yBoxNext,
 .yBoxPrev {
