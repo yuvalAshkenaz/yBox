@@ -1,218 +1,245 @@
-# yBox.js 12.7.1
+# yBox.js 13.0
 
-**yBox** is a lightweight, high-performance, and dependency-free Lightbox library built with modern **Vanilla JavaScript**.
+**yBox** is a lightweight, high-performance, and dependency-free Lightbox library built with modern **Vanilla JavaScript**.  
 It supports images, videos, iframes, AJAX content, and complex HTML layouts with smooth transitions and full accessibility support.
 
 > 🚀 **Live Demo:** [Check out the demo here](https://y-tools.dooble.us/ybox/demo.html)
 
+---
+
 ## ✨ Key Features
 
-* **Zero Dependencies:** Pure JavaScript (ES6+). No external libraries required.
-* **Lightweight:** Optimized for speed and performance.
-* **Media Support:** Built-in support for Images, YouTube/Vimeo, HTML5 Video, Iframes, and AJAX.
-* **Gallery Mode:** Group content effortlessly with Next/Prev navigation.
-* **Smooth Animations:** Modern cross-fade transitions and visual effects.
-* **Social Sharing:** Integrated social media sharing modal.
-* **Accessibility:** Keyboard navigation (Arrows, ESC, Tab trap) and ARIA support.
-* **Customizable:** Easy to style via CSS variables and helper classes.
+- **Zero Dependencies** — Pure JavaScript (ES6+). No external libraries required.
+- **Lightweight** — Optimized for speed and performance.
+- **Media Support** — Images, YouTube/Vimeo, HTML5 Video, Iframes, and AJAX.
+- **Gallery Mode** — Group content with Next/Prev navigation.
+- **Social Sharing** — Built-in sharing modal with optional custom URL.
+- **`href` or `data-href`** — Both attributes work identically on all trigger elements.
+- **Accessibility** — Keyboard navigation (Arrows, ESC, Tab trap) and full ARIA support.
+- **Customizable** — Easy to style via CSS variables and helper classes.
 
 ---
 
 ## 📦 Installation
 
-Simply include the stylesheet and the JavaScript file in your HTML document:
+Include the stylesheet and script in your HTML:
 
 ```html
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/yuvalAshkenaz/yBox/dist/css/ybox.min.css" />
 <script src="https://cdn.jsdelivr.net/gh/yuvalAshkenaz/yBox/dist/js/ybox.min.js?lang=he"></script>
-
 ```
+
+Or download the files from [GitHub](https://github.com/yuvalAshkenaz/yBox).
 
 ---
 
 ## 🚀 Usage
 
-### 1. Single Image
+### `href` vs `data-href`
 
-Add the class `yBox` to any anchor link. The `href` attribute defines the source.
+Both work identically on every trigger element.  
+Use `data-href` when `href` is semantically incorrect (e.g. on a `<div>` or `<button>`).
+
+```html
+<a href="image.jpg" class="yBox">Open</a>
+
+<!-- same result, semantically correct on a <button> -->
+<button type="button" class="yBox" data-href="image.jpg">Open</button>
+```
+
+---
+
+### 1. Single Image
 
 ```html
 <a href="image.jpg" class="yBox" data-ybox-alt="Image Description">
     <img src="thumbnail.jpg" alt="Thumb" />
 </a>
-
 ```
+
+---
 
 ### 2. Gallery (Grouping)
 
 Add `data-ybox-group="groupName"` to multiple items to create a gallery with navigation.
 
 ```html
-<div class="gallery">
-    <a href="img1.jpg" class="yBox" data-ybox-group="myGallery">Item 1</a>
-    <a href="img2.jpg" class="yBox" data-ybox-group="myGallery">Item 2</a>
-    <a href="img3.jpg" class="yBox" data-ybox-group="myGallery">Item 3</a>
-</div>
-
+<a href="img1.jpg" class="yBox" data-ybox-group="myGallery">Item 1</a>
+<a href="img2.jpg" class="yBox" data-ybox-group="myGallery">Item 2</a>
+<a href="img3.jpg" class="yBox" data-ybox-group="myGallery">Item 3</a>
 ```
+
+---
 
 ### 3. Video & Iframes
 
-The yBox automatically detects the content type based on the URL provided in the href attribute. You only need the yBox class.
+yBox automatically detects the content type from the URL.
 
-* **YouTube / Vimeo:** YouTube / Vimeo: Paste the video link, and yBox will handle the embed
-* **HTML5 Video (mp4 or .webm):** will open in a video player
-* **External Sites:** If you want to open any website in an iframe, use the **yBox_iframe** class
+- **YouTube / Vimeo** — Paste the video link, yBox handles the embed.
+- **HTML5 Video (`.mp4` / `.webm`)** — Opens in a native video player.
+- **External Sites** — Use the `yBox_iframe` class to open any URL in an iframe.
 
 ```html
-<a href="https://www.youtube.com/watch?v=VIDEO_ID" class="yBox">Open YouTube</a>
-
-<a href="video.mp4" class="yBox">Open MP4</a>
-
-<a href="https://example.com" class="yBox yBox_iframe">Open External Site</a>
-
+<a href="https://www.youtube.com/watch?v=VIDEO_ID" class="yBox">YouTube</a>
+<a href="video.mp4" class="yBox">MP4</a>
+<a href="https://example.com" class="yBox yBox_iframe">External Site</a>
 ```
 
-### 4. Targeting Elements (href)
-yBox is smart enough to find your content even without specific IDs. Use the href attribute to point to your hidden content:
-<table data-path-to-node="5"><thead><tr><td><span data-path-to-node="5,0,0,0">Target Type</span></td><td><span data-path-to-node="5,0,1,0">Example</span></td><td><span data-path-to-node="5,0,2,0">How it works</span></td></tr></thead><tbody><tr><td><span data-path-to-node="5,1,0,0"><b data-path-to-node="5,1,0,0" data-index-in-node="0">ID</b></span></td><td><span data-path-to-node="5,1,1,0"><code data-path-to-node="5,1,1,0" data-index-in-node="0">href="#my-id"</code></span></td><td><span data-path-to-node="5,1,2,0">Looks for an element with <code data-path-to-node="5,1,2,0" data-index-in-node="26">id="my-id"</code>.</span></td></tr><tr><td><span data-path-to-node="5,2,0,0"><b data-path-to-node="5,2,0,0" data-index-in-node="0">Fallback</b></span></td><td><span data-path-to-node="5,2,1,0"><code data-path-to-node="5,2,1,0" data-index-in-node="0">href="#my-id"</code></span></td><td><span data-path-to-node="5,2,2,0">If the ID doesn't exist, yBox will automatically look for <code data-path-to-node="5,2,2,0" data-index-in-node="58">class="my-id"</code>.</span></td></tr><tr><td><span data-path-to-node="5,3,0,0"><b data-path-to-node="5,3,0,0" data-index-in-node="0">Class</b></span></td><td><span data-path-to-node="5,3,1,0"><code data-path-to-node="5,3,1,0" data-index-in-node="0">href=".my-class"</code></span></td><td><span data-path-to-node="5,3,2,0">Looks for an element with <code data-path-to-node="5,3,2,0" data-index-in-node="26">class="my-class"</code>.</span></td></tr></tbody></table>
-✨ Smart Class Targeting
-When using a class selector (e.g., href=".description"), yBox uses a priority system:
-<ol start="1" data-path-to-node="8"><li><p data-path-to-node="8,0,0"><b data-path-to-node="8,0,0" data-index-in-node="0">Internal Search:</b> It first checks if the element exists <b data-path-to-node="8,0,0" data-index-in-node="55">inside</b> the clicked button.</p></li><li><p data-path-to-node="8,1,0"><b data-path-to-node="8,1,0" data-index-in-node="0">Index Match:</b> If not found inside, it counts which button you clicked (e.g., the 3rd button with that href) and opens the corresponding element (the 3rd one with that class) on the page. This is perfect for loops!</p></li></ol>
+---
+
+### 4. Targeting Hidden Elements
+
+Use `href` or `data-href` to point to hidden content on the page:
+
+| Target Type | Example | How it works |
+|-------------|---------|--------------|
+| **ID** | `href="#my-id"` | Opens the element with `id="my-id"` |
+| **ID Fallback** | `href="#my-id"` | If ID not found, looks for `class="my-id"` |
+| **Class** | `href=".my-class"` | Opens element by class |
+
+**Smart Class Targeting** — when using `href=".my-class"`:
+
+1. **Internal Search** — first checks if the element exists *inside* the clicked button.
+2. **Index Match** — if not found inside, counts which button was clicked (e.g. the 3rd) and opens the matching element (the 3rd with that class). Perfect for loops.
+
+---
 
 ### 5. AJAX Content
 
-Add class `yBox_ajax` to fetch and display external HTML content.
-
 ```html
-<a href="content.html" class="yBox yBox_ajax">Load Content via AJAX</a>
-
+<a href="content.html" class="yBox yBox_ajax">Load via AJAX</a>
 ```
+
+---
 
 ### 6. Social Sharing
 
-Add class `yBox_share` to open the built-in sharing window.
+Add `.yBox_share` to open the built-in sharing modal.
+
+**Default** — shares the current page URL:
 
 ```html
 <button type="button" class="yBox yBox_share">Share this page</button>
-
 ```
+
+**Custom URL** — use `href` or `data-href` to share a specific URL:
+
+```html
+<button type="button" class="yBox yBox_share" href="https://example.com/product/123">Share</button>
+<!-- or -->
+<button type="button" class="yBox yBox_share" data-href="https://example.com/product/123">Share</button>
+```
+
+**Inline share buttons** — place individual share buttons directly in the page (no popup).  
+Each button needs only the platform class. Set the URL per-button or once on the wrapping `<ul>`:
+
+```html
+<!-- URL per button -->
+<button class="ybox-facebook-share-btn" data-href="https://example.com/product/123" type="button">...</button>
+<button class="ybox-whatsapp-share-btn" data-href="https://example.com/product/123" type="button">...</button>
+
+<!-- or once on the wrapper -->
+<ul class="ybox-socials-list" data-href="https://example.com/product/123">
+  <li><button class="ybox-facebook-share-btn" type="button">...</button></li>
+  <li><button class="ybox-whatsapp-share-btn" type="button">...</button></li>
+</ul>
+```
+
+Available platform classes: `ybox-facebook-share-btn`, `ybox-whatsapp-share-btn`, `ybox-twitter-share-btn`, `ybox-linkedin-share-btn`, `ybox-pinterest-share-btn`, `ybox-telegram-share-btn`, `ybox-copy-text-btn`, `ybox-print`.
 
 ---
 
 ## ⚙️ JavaScript API
 
-You can trigger yBox programmatically using the `yBox()` function.
-
-### Open HTML String
+Trigger yBox programmatically using the `yBox()` function.
 
 ```javascript
+// Open HTML string
 yBox({
-    code: '<div class="custom-modal"><h1>Hello World</h1><p>Dynamic content</p></div>'
+    code: '<div class="custom-modal"><h1>Hello</h1></div>'
 });
 
+// Open a hidden DOM element
+yBox({ id: '#my-hidden-div' });
+
+// Open a URL in an iframe
+yBox({ url: 'https://example.com' });
 ```
 
-### Open by Element ID
-
-Opens a hidden element from the DOM.
-
-```javascript
-yBox({ url: '#my-hidden-div' });
-
-```
-
-### Open URL in Iframe
-
-```javascript
-yBox({ 
-    url: 'https://example.com'
-});
-
-```
-
-### API Parameters
+### Parameters
 
 | Parameter | Type | Description |
-| --- | --- | --- |
+|-----------|------|-------------|
 | `code` | `String` | Raw HTML content to display. |
 | `url` | `String` | URL to image, iframe, or CSS selector (`#myDiv`). |
-| `self` | `Element` | The DOM element triggering the yBox (passes data attributes). |
-| `yBoxClass` | `String` | Custom class added to the main wrapper `.yBoxFrame`. |
-| `focus` | `String` | Selector of the element to focus on after opening. |
-| `id` | `String` | Alias for `url` when targeting a DOM element ID. |
+| `id` | `String` | CSS selector of a hidden DOM element to open. |
+| `self` | `Element/String` | DOM element or selector to inherit `data-` attributes from. |
+| `yBoxClass` | `String` | Custom class added to the main wrapper `.yBoxOverlay`. |
+| `focus` | `String` | Selector of the element to focus after opening. |
 
 ---
 
 ## 🎨 HTML Attributes
 
-Configure individual links using `data-` attributes:
-
 | Attribute | Description |
-| --- | --- |
-| `data-ybox-class` | Adds a custom class to the modal (e.g., `no-bg`). |
+|-----------|-------------|
+| `href` / `data-href` | Target URL or selector. Both work identically. |
+| `data-ybox-class` | Custom class on the modal (e.g. `no-bg` removes the white background). |
 | `data-ybox-group` | Creates a gallery group for navigation. |
-| `data-ybox-img` | Sets a custom thumbnail for galleries or a poster image for videos. |
-| `data-ybox-alt` | Sets the `alt` attribute for the opened image. |
-| `data-ybox-title` | Sets the `title` attribute for the image/iframe. |
+| `data-ybox-img` | Custom thumbnail for galleries or poster image for videos. |
+| `data-ybox-alt` | `alt` attribute for the opened image. |
+| `data-ybox-title` | `title` attribute for the image or iframe. |
 | `data-ybox-headline` | Adds an `<h2>` headline inside the modal. |
-| `data-ybox-headline-class` | Adds a class to the headline element. |
+| `data-ybox-headline-class` | Custom class on the headline element. |
 
 ---
 
-## 🪝 Event Hooks (Callbacks)
-
-Define global functions to handle yBox lifecycle events.
+## 🪝 Event Callbacks
 
 ```javascript
-// Triggered before yBox opens
 function beforeYboxOpen(element) {
-    console.log('Opening...', element);
+    // Fires before yBox opens. Return false to cancel.
 }
 
-// Triggered after yBox is fully open
 function afterYboxOpen(element) {
-    console.log('Opened!');
+    // Fires after yBox is fully open.
 }
 
-// Triggered before closing. Return false to prevent closing.
 function beforeYboxClose(element) {
-    // Example: Confirm before closing
-    // if(!confirm('Are you sure?')) return false;
+    // Fires before closing. Return false to prevent close.
+    // if (!confirm('Close?')) return false;
 }
 
-// Triggered after yBox is closed
 function afterYboxClose(element) {
-    console.log('Closed.');
+    // Fires after yBox is closed.
 }
-
 ```
 
 ---
 
 ## 🌍 URL Parameters
 
-Trigger yBox automatically on page load by adding a query parameter:
+Open a specific element automatically on page load:
 
-`https://your-site.com/?ybox-id=myPopup`
+```
+https://your-site.com/?ybox-id=myPopup
+```
 
-This will automatically open the element with `id="myPopup"`.
+This opens the element with `id="myPopup"` when the page loads.
 
 ---
 
-## ⌨️ Accessibility & Shortcuts
+## ⌨️ Keyboard Shortcuts
 
-* **ESC**: Close window.
-* **Right Arrow**: Next item (Gallery).
-* **Left Arrow**: Previous item (Gallery).
-* **Tab**: Focus trap within the modal for accessibility.
+| Key | Action |
+|-----|--------|
+| `ESC` | Close the modal |
+| `→` | Next item (gallery) |
+| `←` | Previous item (gallery) |
+| `Tab` | Focus trap within the modal |
 
 ---
 
 ## 📄 License
 
 MIT License. Free for personal and commercial use.
-
-```
-
-```
