@@ -1,4 +1,4 @@
-﻿/*! yBox - v13.0 - 18/05/2026
+﻿/*! yBox - v13.0.1 - 19/05/2026
 * By Yuval Ashkenazi
 * https://github.com/yuvalAshkenaz/yBox */
 
@@ -188,6 +188,7 @@
     background-color: var(--ybox-close-line-color, #000);
 }
 #ybox-iframe-headline {
+	color: var(--ybox-iframe-headeline-color, #000);
 	margin: 10px 0 15px 0;
 	text-align: center;
 	font-size: 22px;
