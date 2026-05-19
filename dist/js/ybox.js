@@ -172,7 +172,13 @@ document.addEventListener('DOMContentLoaded', function() {
 			window.history.pushState("", "", newURL);
 		}, 500);
 	}
-	document.querySelectorAll('.yBox, .ybox').forEach(function(el) { el.setAttribute('aria-haspopup', 'dialog'); });
+	document.querySelectorAll('.yBox, .ybox').forEach(function(el) {
+		el.setAttribute('aria-haspopup', 'dialog');
+		if (el.tagName === 'A') {
+			el.setAttribute('role', 'button');
+			el.setAttribute('rel', 'nofollow');
+		}
+	});
 
     // Preload Images
     setTimeout(function() {
