@@ -1,11 +1,11 @@
-﻿/*! yBox - v13.0.1 - 19/05/2026
+﻿/*! yBox - v13.0.2 - 15/06/2026
 * By Yuval Ashkenazi
 * https://github.com/yuvalAshkenaz/yBox */
 
 const yBoxUrl = new URL(document.currentScript.src);
 let yBox_lang = yBoxUrl.searchParams.get("lang") || '';
-let yBoxIsDragging = false; 
-let isRTL = false; 
+let yBoxIsDragging = false;
+let isRTL = false;
 
 let strings = {
 	close: 'Close',
@@ -23,7 +23,8 @@ let strings = {
 	print: 'Print the page',
 	copy_link: 'Copy the page link',
 	link_copied: 'Link copied',
-	share_with: 'I want to share a link with you.'
+	share_with: 'I want to share a link with you.',
+	details: 'More details'
 };
 
 if (yBox_lang === 'he' || yBox_lang === 'he-IL' || yBox_lang === 'he_IL') {
@@ -45,7 +46,8 @@ if (yBox_lang === 'he' || yBox_lang === 'he-IL' || yBox_lang === 'he_IL') {
 		print: 'הדפסת הדף',
 		copy_link: 'העתקת הקישור של הדף',
 		link_copied: 'הקישור הועתק',
-		share_with: 'אני רוצה לשתף איתך קישור'
+		share_with: 'אני רוצה לשתף איתך קישור',
+		details: 'פרטים נוספים'
 	};
 }
 if (yBox_lang === 'ar' || yBox_lang === 'ar-ar') {
@@ -67,7 +69,8 @@ if (yBox_lang === 'ar' || yBox_lang === 'ar-ar') {
 		print: 'اطبع الصفحة',
 		copy_link: 'انسخ رابط الصفحة',
 		link_copied: 'تم نسخ الرابط',
-		share_with: 'أريد أن أشارك معك رابطاً.'
+		share_with: 'أريد أن أشارك معك رابطاً.',
+		details: 'مزيد من التفاصيل'
 	};
 }
 
@@ -243,6 +246,8 @@ function yBox( obj = {} ) {
 
 		let html = '<div class="yBoxOverlay no-contrast ' + (yBox_lang == 'he' || yBox_lang == 'ar' ? 'yBoxRTL' : '') + ' ' + obj.yBoxClass + '" tabindex="-1">' +
 						'<button type="button" class="closeYbox closeYbox-group" title="' + strings.close + '" aria-label="' + strings.close + '"></button>' +
+						'<button type="button" class="ybox-details-btn" style="display:none" title="' + strings.details + '" aria-label="' + strings.details + '"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/></svg></button>' +
+						'<div class="ybox-details-panel" aria-hidden="true"><h2 class="ybox-details-title"></h2><div class="ybox-details-body"></div></div>' +
 						'<button type="button" class="yBoxPrev" aria-label="' + strings.prev + '" title="' + strings.prev + '"></button>' +
 						'<div class="yBoxFrame" role="dialog">' +
 							'<button type="button" class="closeYbox" title="' + strings.close + '" aria-label="' + strings.close + '"></button>' +
@@ -466,6 +471,11 @@ function insert_yBox_html(obj) {
 					targetEl.insertAdjacentHTML('afterend', '<div class="yBoxFramePlaceHolder"></div>');
 					insertArea.classList.remove('isAjax');
 					insertArea.appendChild(targetEl);
+					if (obj.hasSelf && obj.self && obj.self.dataset.yboxHeadline) {
+						let headlineClass = 'ybox-inline-headline';
+						if (obj.self.dataset.yboxHeadlineClass) headlineClass += ' ' + obj.self.dataset.yboxHeadlineClass;
+						insertArea.insertAdjacentHTML('afterbegin', '<h2 class="' + headlineClass + '">' + obj.self.dataset.yboxHeadline + '</h2>');
+					}
 				}
 			}
 		}
@@ -598,6 +608,44 @@ function yBox_Group(yBoxLink, currentCode) {
 
     slidesHTML += '</div>';
     thumbsHTML += '</div></div>'; // Close wrapper
+
+    // Group-level details (first element in group that defines them)
+    let groupDetailsTitle = '';
+    let groupDetailsContent = '';
+    let detailsTooltip = '';
+    let hasDetails = false;
+    groupItems.forEach(function(el) {
+        if (!detailsTooltip && el.dataset.yboxDetailsTooltip) detailsTooltip = el.dataset.yboxDetailsTooltip;
+        if (!hasDetails && (el.dataset.yboxDetails || el.dataset.yboxDetailsTitle)) {
+            let dc = el.dataset.yboxDetails || '';
+            if (dc && (dc.startsWith('#') || dc.startsWith('.'))) {
+                let targetEl = document.querySelector(dc);
+                if (targetEl) dc = targetEl.innerHTML;
+            }
+            groupDetailsTitle = el.dataset.yboxDetailsTitle || '';
+            groupDetailsContent = dc;
+            hasDetails = true;
+        }
+    });
+    if (hasDetails) {
+        let detailsBtn = document.querySelector('.ybox-details-btn');
+        if (detailsBtn) {
+            let label = detailsTooltip || strings.details;
+            detailsBtn.title = label;
+            detailsBtn.setAttribute('aria-label', label);
+            detailsBtn.style.display = '';
+        }
+        let panel = document.querySelector('.ybox-details-panel');
+        if (panel) {
+            let titleEl = panel.querySelector('.ybox-details-title');
+            let bodyEl  = panel.querySelector('.ybox-details-body');
+            if (titleEl) {
+                titleEl.innerHTML = groupDetailsTitle;
+                titleEl.style.display = groupDetailsTitle ? '' : 'none';
+            }
+            if (bodyEl) bodyEl.innerHTML = groupDetailsContent;
+        }
+    }
 
     let insertArea = document.querySelector('.insertYboxAjaxHere');
     if(insertArea) {
@@ -842,6 +890,18 @@ function changeSlide(index) {
     }
 }
 
+// Details Button Handler
+document.body.addEventListener('click', function(e) {
+    let detailsBtn = e.target.closest('.ybox-details-btn');
+    if (!detailsBtn) return;
+    let panel = document.querySelector('.ybox-details-panel');
+    if (!panel) return;
+    let isOpen = panel.classList.contains('active');
+    panel.classList.toggle('active', !isOpen);
+    panel.setAttribute('aria-hidden', isOpen ? 'true' : 'false');
+    detailsBtn.classList.toggle('active', !isOpen);
+});
+
 document.body.addEventListener('click', function(e) {
 	if(e.target.classList.contains('yBoxNext')) {
 		yBoxNext(document.querySelector('.yBoxFocus'));
@@ -925,6 +985,8 @@ document.body.addEventListener('click', function(e) {
 });
 
 function remove_yBox_placeholder() {
+	let inlineHeadline = document.querySelector('.insertYboxAjaxHere .ybox-inline-headline');
+	if (inlineHeadline) inlineHeadline.remove();
 	let placeholder = document.querySelector('.yBoxFramePlaceHolder');
 	if (placeholder) {
 		let insertArea = document.querySelector('.insertYboxAjaxHere');

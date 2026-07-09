@@ -14,7 +14,7 @@
 
 <main class="layout-wrapper">
 	<section id="overview" style="text-align: center; background: transparent; box-shadow: none; border: none; backdrop-filter: none; padding-top:0;">
-		<h1>yBox 13.0.1</h1>
+		<h1>yBox <span>v13.0.2</span></h1>
 		<p style="color: var(--text-secondary); font-size: 1.1rem;">
 			<span class="t-en">A lightweight, flexible, and modern lightbox library.</span>
 			<span class="t-he">ספרייה קלה, גמישה ומודרנית ל-lightbox.</span>
@@ -38,6 +38,7 @@
 				<a href="#custom-styling"><span class="t-en">Custom Styling & AJAX</span><span class="t-he">עיצוב מותאם ו-AJAX</span></a>
 				<a href="#image-demo"><span class="t-en">Image</span><span class="t-he">תמונה</span></a>
 				<a href="#gallery-groups"><span class="t-en">Gallery Groups</span><span class="t-he">גלריות</span></a>
+				<a href="#gallery-details"><span class="t-en">Gallery Details Panel</span><span class="t-he">פאנל פרטים לגלריה</span></a>
 				<a href="#social-sharing"><span class="t-en">Social Sharing</span><span class="t-he">שיתוף ברשתות</span></a>
 			</nav>
 		</aside>
@@ -195,6 +196,27 @@
 						<div class="param-desc">
 							<span class="t-en">Sets a custom thumbnail for galleries or a poster image for videos.</span>
 							<span class="t-he">קובע תמונת ממוזערת מותאמת לגלריות או תמונת poster לסרטונים.</span>
+						</div>
+					</div>
+					<div class="param-item">
+						<div class="param-name">data-ybox-details</div>
+						<div class="param-desc">
+							<span class="t-en">Description for the whole gallery group. Set on <strong>one element</strong> in the group — all slides share it. Use <code>"#my-id"</code> or <code>".my-class"</code> to pull content from a hidden element (recommended), or write a plain text string directly.</span>
+							<span class="t-he">תיאור לכל קבוצת הגלריה. מוגדר על <strong>אלמנט אחד</strong> בקבוצה — כל השקופיות חולקות אותו. השתמש ב-<code>"#my-id"</code> או <code>".my-class"</code> למשיכת תוכן מאלמנט מוסתר (מומלץ), או כתוב טקסט ישירות.</span>
+						</div>
+					</div>
+					<div class="param-item">
+						<div class="param-name">data-ybox-details-title</div>
+						<div class="param-desc">
+							<span class="t-en">Title shown at the top of the details panel. Set on the same element as <code>data-ybox-details</code> (optional).</span>
+							<span class="t-he">כותרת שתוצג בראש פאנל הפרטים. מוגדר על אותו אלמנט כמו <code>data-ybox-details</code> (אופציונלי).</span>
+						</div>
+					</div>
+					<div class="param-item">
+						<div class="param-name">data-ybox-details-tooltip</div>
+						<div class="param-desc">
+							<span class="t-en">Custom tooltip for the ℹ button. Defaults to <code>"More details"</code> / <code>"פרטים נוספים"</code>.</span>
+							<span class="t-he">טולטיפ מותאם לכפתור ℹ. ברירת מחדל: <code>"פרטים נוספים"</code>.</span>
 						</div>
 					</div>
 				</div>
@@ -459,6 +481,69 @@ yBox({
 						<button type="button" href="demo_files/5.jpg" class="yBox" data-ybox-group="group2"></button>
 					</div>
 				</div>
+			</section>
+
+			<!-- Gallery Details Panel -->
+			<section id="gallery-details">
+				<h3><span class="t-en">Gallery Details Panel</span><span class="t-he">פאנל פרטים לגלריה</span></h3>
+				<p>
+					<span class="t-en">Add a single description to an entire gallery group using <code>data-ybox-details</code> on <strong>one element</strong> in the group. An ℹ button appears below the close button — clicking it slides in a panel with the gallery's title and content. On mobile the panel slides up from the bottom.</span>
+					<span class="t-he">הוסף תיאור אחד לכל קבוצת גלריה באמצעות <code>data-ybox-details</code> על <strong>אלמנט אחד</strong> בקבוצה. כפתור ℹ מופיע מתחת לכפתור הסגירה — לחיצה עליו פותחת פאנל עם הכותרת והתוכן של הגלריה. במובייל הפאנל נפתח מלמטה.</span>
+				</p>
+
+				<div class="group-wrap">
+					<button type="button" href="demo_files/1.jpg" class="yBox"
+						data-ybox-group="group-details"
+						data-ybox-alt="Sunlit Forest"
+						data-ybox-details-title="Gallery Title"
+						data-ybox-details="#gallery-details-content">
+						<img src="demo_files/1.jpg" alt="Nature 1" />
+					</button>
+					<button type="button" href="demo_files/2.jpg" class="yBox"
+						data-ybox-group="group-details"
+						data-ybox-alt="Mountain Lake">
+						<img src="demo_files/2.jpg" alt="Nature 2" />
+					</button>
+					<button type="button" href="demo_files/3.jpg" class="yBox"
+						data-ybox-group="group-details"
+						data-ybox-alt="Coastal Cliffs">
+						<img src="demo_files/3.jpg" alt="Nature 3" />
+					</button>
+				</div>
+
+				<div style="display:none;">
+					<div id="gallery-details-content">
+						<div class="t-en">
+							<p><strong>Nature Collection</strong></p>
+							<p>A collection of three landscapes — forest, mountain lake, and coastal cliffs — captured across Europe.</p>
+							<p>📸 Shot on Canon EOS R5 &nbsp;|&nbsp; 2024</p>
+						</div>
+						<div class="t-he">
+							<p><strong>אוסף הטבע</strong></p>
+							<p>אוסף של שלושה נופים — יער, אגם הרים וצוקי חוף — שצולמו ברחבי אירופה.</p>
+							<p>📸 צולם עם Canon EOS R5 &nbsp;|&nbsp; 2024</p>
+						</div>
+					</div>
+				</div>
+
+				<pre style="margin-top:1.5rem;"><code><span style="color:#6a9fb5;">/* Set data-ybox-details on ONE element — the whole group shares it */</span>
+<span class="blue">&lt;a</span> <span class="red">href</span>=<span class="purple">"1.jpg"</span> <span class="red">class</span>=<span class="purple">"yBox"</span> <span class="red">data-ybox-group</span>=<span class="purple">"my-gallery"</span>
+   <span class="red">data-ybox-details</span>=<span class="purple">"#gallery-desc"</span>
+   <span class="red">data-ybox-details-title</span>=<span class="purple">"Gallery Title"</span>
+   <span class="red">data-ybox-details-tooltip</span>=<span class="purple">"About this gallery"</span><span class="blue">&gt;&lt;img</span> <span class="red">src</span>=<span class="purple">"1.jpg"</span> <span class="red">alt</span>=<span class="purple">""</span><span class="blue">/&gt;&lt;/a&gt;</span>
+<span class="blue">&lt;a</span> <span class="red">href</span>=<span class="purple">"2.jpg"</span> <span class="red">class</span>=<span class="purple">"yBox"</span> <span class="red">data-ybox-group</span>=<span class="purple">"my-gallery"</span><span class="blue">&gt;&lt;img</span> <span class="red">src</span>=<span class="purple">"2.jpg"</span> <span class="red">alt</span>=<span class="purple">""</span><span class="blue">/&gt;&lt;/a&gt;</span>
+<span class="blue">&lt;a</span> <span class="red">href</span>=<span class="purple">"3.jpg"</span> <span class="red">class</span>=<span class="purple">"yBox"</span> <span class="red">data-ybox-group</span>=<span class="purple">"my-gallery"</span><span class="blue">&gt;&lt;img</span> <span class="red">src</span>=<span class="purple">"3.jpg"</span> <span class="red">alt</span>=<span class="purple">""</span><span class="blue">/&gt;&lt;/a&gt;</span>
+
+<span class="blue">&lt;div</span> <span class="red">style</span>=<span class="purple">"display:none"</span><span class="blue">&gt;</span>
+  <span class="blue">&lt;div</span> <span class="red">id</span>=<span class="purple">"gallery-desc"</span><span class="blue">&gt;</span>
+    <span class="blue">&lt;p&gt;</span>Any <span class="blue">&lt;strong&gt;</span>HTML<span class="blue">&lt;/strong&gt;</span> content — no encoding needed.<span class="blue">&lt;/p&gt;</span>
+  <span class="blue">&lt;/div&gt;</span>
+<span class="blue">&lt;/div&gt;</span></code></pre>
+
+				<p style="margin-top:1rem; color: var(--text-secondary); font-size:0.92em;">
+					<span class="t-en">CSS custom properties for theming: <code>--ybox-details-bg</code>, <code>--ybox-details-color</code>, <code>--ybox-details-title-color</code>, <code>--ybox-details-body-color</code>, <code>--ybox-details-btn-color</code>.</span>
+					<span class="t-he">משתני CSS לעיצוב: <code>--ybox-details-bg</code>, <code>--ybox-details-color</code>, <code>--ybox-details-title-color</code>, <code>--ybox-details-body-color</code>, <code>--ybox-details-btn-color</code>.</span>
+				</p>
 			</section>
 
 			<!-- Social Sharing -->

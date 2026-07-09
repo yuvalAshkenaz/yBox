@@ -121,6 +121,12 @@ h1 {
     -webkit-text-fill-color: transparent;
     margin-bottom: 10px;
     text-align: center;
+	line-height: 1.3;
+}
+h1 span { 
+    font-size: 1.2rem;
+    vertical-align: top;
+    -webkit-text-fill-color: var(--text-secondary);
 }
 h2, h3 {
 	width: 100%;
