@@ -1,9 +1,9 @@
-# yBox.js 13.0.1
+# yBox.js 13.0.3
 
 **yBox** is a lightweight, high-performance, and dependency-free Lightbox library built with modern **Vanilla JavaScript**.  
 It supports images, videos, iframes, AJAX content, and complex HTML layouts with smooth transitions and full accessibility support.
 
-> 🚀 **Live Demo:** [Check out the demo here](https://y-tools.dooble.us/ybox)
+> 🚀 **Live Demo:** [Check out the demo here](https://y-tools.dooble.us/ybox/demo.html)
 
 ---
 
@@ -12,7 +12,7 @@ It supports images, videos, iframes, AJAX content, and complex HTML layouts with
 - **Zero Dependencies** — Pure JavaScript (ES6+). No external libraries required.
 - **Lightweight** — Optimized for speed and performance.
 - **Media Support** — Images, YouTube/Vimeo, HTML5 Video, Iframes, and AJAX.
-- **Gallery Mode** — Group content with Next/Prev navigation.
+- **Gallery Mode** — Group content with Next/Prev navigation and optional details panel.
 - **Social Sharing** — Built-in sharing modal with optional custom URL.
 - **`href` or `data-href`** — Both attributes work identically on all trigger elements.
 - **Accessibility** — Keyboard navigation (Arrows, ESC, Tab trap) and full ARIA support.
@@ -71,7 +71,36 @@ Add `data-ybox-group="groupName"` to multiple items to create a gallery with nav
 
 ---
 
-### 3. Video & Iframes
+### 3. Gallery Details Panel
+
+Add a shared description to an entire gallery group. An ℹ button appears below the close button — clicking it slides in a panel with the title and content. On mobile the panel slides up from the bottom.
+
+Set `data-ybox-details` on **one element** in the group (all slides share it). Use a `#id` or `.class` selector to pull content from a hidden element — no HTML encoding needed.
+
+```html
+<a href="img1.jpg" class="yBox" data-ybox-group="myGallery"
+   data-ybox-details="#gallery-desc"
+   data-ybox-details-title="Gallery Title"
+   data-ybox-details-tooltip="About this gallery">Item 1</a>
+<a href="img2.jpg" class="yBox" data-ybox-group="myGallery">Item 2</a>
+<a href="img3.jpg" class="yBox" data-ybox-group="myGallery">Item 3</a>
+
+<div style="display:none">
+  <div id="gallery-desc">
+    <p>Any <strong>HTML</strong> content — no encoding needed.</p>
+  </div>
+</div>
+```
+
+| Attribute | Description |
+|-----------|-------------|
+| `data-ybox-details` | Selector (`#id` / `.class`) or plain text. Set on one element per group. |
+| `data-ybox-details-title` | Optional title shown at the top of the panel. |
+| `data-ybox-details-tooltip` | Custom tooltip for the ℹ button. Defaults to `"More details"`. |
+
+---
+
+### 4. Video & Iframes
 
 yBox automatically detects the content type from the URL.
 
@@ -87,7 +116,7 @@ yBox automatically detects the content type from the URL.
 
 ---
 
-### 4. Targeting Hidden Elements
+### 5. Targeting Hidden Elements
 
 Use `href` or `data-href` to point to hidden content on the page:
 
@@ -104,7 +133,7 @@ Use `href` or `data-href` to point to hidden content on the page:
 
 ---
 
-### 5. AJAX Content
+### 6. AJAX Content
 
 ```html
 <a href="content.html" class="yBox yBox_ajax">Load via AJAX</a>
@@ -112,7 +141,7 @@ Use `href` or `data-href` to point to hidden content on the page:
 
 ---
 
-### 6. Social Sharing
+### 7. Social Sharing
 
 Add `.yBox_share` to open the built-in sharing modal.
 
@@ -191,6 +220,9 @@ yBox({ url: 'https://example.com' });
 | `data-ybox-title` | `title` attribute for the image or iframe. |
 | `data-ybox-headline` | Adds an `<h2>` headline inside the modal. |
 | `data-ybox-headline-class` | Custom class on the headline element. |
+| `data-ybox-details` | Gallery group description — selector or plain text. Set on one element per group. |
+| `data-ybox-details-title` | Title shown at the top of the details panel (optional). |
+| `data-ybox-details-tooltip` | Custom tooltip for the ℹ button. Defaults to `"More details"`. |
 
 ---
 
