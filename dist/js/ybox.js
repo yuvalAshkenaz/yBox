@@ -1,4 +1,4 @@
-﻿/*! yBox - v13.0.2 - 15/06/2026
+﻿/*! yBox - v13.0.4 - 12/07/2026
 * By Yuval Ashkenazi
 * https://github.com/yuvalAshkenaz/yBox */
 
@@ -644,6 +644,9 @@ function yBox_Group(yBoxLink, currentCode) {
                 titleEl.style.display = groupDetailsTitle ? '' : 'none';
             }
             if (bodyEl) bodyEl.innerHTML = groupDetailsContent;
+            panel.classList.add('active');
+            panel.setAttribute('aria-hidden', 'false');
+            if (detailsBtn) detailsBtn.classList.add('active');
         }
     }
 
