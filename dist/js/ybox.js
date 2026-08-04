@@ -1,4 +1,4 @@
-﻿/*! yBox - v13.0.4 - 12/07/2026
+﻿/*! yBox - v13.0.5 - 04/08/2026
 * By Yuval Ashkenazi
 * https://github.com/yuvalAshkenaz/yBox */
 
@@ -320,7 +320,7 @@ function ybox_iframe(obj) {
 	}
 	
 	if (obj.url.toLowerCase().indexOf('youtube') > -1 || obj.url.toLowerCase().indexOf('youtu.be') > -1) {
-		let youtube_id = obj.url.replace(/^[^v]+v.(.{11}).*/, "$1").replace('https://youtu.be/', '').replace(/.*youtube.com\/embed\//, '');
+		let youtube_id = obj.url.replace(/.*youtube\.com\/shorts\/([A-Za-z0-9_-]{11}).*/, '$1').replace(/^[^v]+v.(.{11}).*/, "$1").replace('https://youtu.be/', '').replace(/.*youtube.com\/embed\//, '');
 		obj.url = 'https://www.youtube.com/embed/' + youtube_id + '?wmode=transparent&rel=0&autoplay=1&hl=' + yBox_lang;
 		frame.classList.add('yBoxVideoWrap');
 	} else if (obj.url.toLowerCase().indexOf('vimeo') > -1) {
@@ -545,7 +545,7 @@ function getYboxSlideContent(el, url) {
     if (isIframe || url.indexOf('youtube') > -1 || url.indexOf('vimeo') > -1) {
         let src = url;
         if (src.toLowerCase().indexOf('youtube') > -1 || src.toLowerCase().indexOf('youtu.be') > -1) {
-            let youtube_id = src.replace(/^[^v]+v.(.{11}).*/, "$1").replace('https://youtu.be/', '').replace(/.*youtube.com\/embed\//, '');
+            let youtube_id = src.replace(/.*youtube\.com\/shorts\/([A-Za-z0-9_-]{11}).*/, '$1').replace(/^[^v]+v.(.{11}).*/, "$1").replace('https://youtu.be/', '').replace(/.*youtube.com\/embed\//, '');
             src = 'https://www.youtube.com/embed/' + youtube_id + '?wmode=transparent&rel=0&autoplay=0&hl=' + (typeof yBox_lang !== 'undefined' ? yBox_lang : 'en');
         } else if (src.toLowerCase().indexOf('vimeo') > -1) {
             let vimeoMatch = src.match(/(?:vimeo\.com|player\.vimeo\.com|vimeopro\.com)\/(?:.*\/)?(\d+)/i);
@@ -589,7 +589,7 @@ function yBox_Group(yBoxLink, currentCode) {
         
         if (!thumbSrc) {
             if (url.toLowerCase().indexOf('youtube') > -1 || url.toLowerCase().indexOf('youtu.be') > -1) {
-                let youtube_id = url.replace(/^[^v]+v.(.{11}).*/, "$1").replace('https://youtu.be/', '').replace(/.*youtube.com\/embed\//, '');
+                let youtube_id = url.replace(/.*youtube\.com\/shorts\/([A-Za-z0-9_-]{11}).*/, '$1').replace(/^[^v]+v.(.{11}).*/, "$1").replace('https://youtu.be/', '').replace(/.*youtube.com\/embed\//, '');
                 thumbSrc = 'https://img.youtube.com/vi/' + youtube_id + '/0.jpg';
             } else if (el.classList.contains('yBox_iframe') || el.classList.contains('yBox_video') || url.toLowerCase().match(/\.(mp4|webm)$/i)) {
                 let imgInside = el.querySelector('img');

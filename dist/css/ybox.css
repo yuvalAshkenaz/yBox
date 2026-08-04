@@ -1,4 +1,4 @@
-﻿/*! yBox - v13.0.4 - 12/07/2026
+﻿/*! yBox - v13.0.5 - 04/08/2026
 * By Yuval Ashkenazi
 * https://github.com/yuvalAshkenaz/yBox */
 
@@ -162,7 +162,7 @@
 }
 .yBoxOverlay.no-bg .closeYbox,
 .yBoxOverlay.no-bg .closeYbox[type="button"] {
-	background-color: var(--ybox-close-bg-no-bg, transparent));
+	background-color: var(--ybox-close-bg-no-bg, transparent);
 }
 .yBoxOverlay.no-bg .closeYbox::after,
 .yBoxOverlay.no-bg .closeYbox::before {
