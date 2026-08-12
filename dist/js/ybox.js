@@ -566,7 +566,9 @@ function getYboxSlideContent(el, url) {
 
 function yBox_Group(yBoxLink, currentCode) {
     let group = yBoxLink.dataset.yboxGroup;
-    if (!group || document.querySelectorAll('.yBox[data-ybox-group="' + group + '"], .ybox[data-ybox-group="' + group + '"]').length < 2) {
+    let groupCount = group ? document.querySelectorAll('.yBox[data-ybox-group="' + group + '"], .ybox[data-ybox-group="' + group + '"]').length : 0;
+    let hasDetailsAttr = yBoxLink.dataset.yboxDetails || yBoxLink.dataset.yboxDetailsTitle;
+    if (!group || (groupCount < 2 && !hasDetailsAttr)) {
         let insertArea = document.querySelector('.insertYboxAjaxHere');
         if(insertArea) insertArea.innerHTML = currentCode;
         return currentCode;
