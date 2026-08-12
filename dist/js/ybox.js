@@ -1,4 +1,4 @@
-﻿/*! yBox - v13.0.5 - 04/08/2026
+﻿/*! yBox - v13.0.6 - 12/08/2026
 * By Yuval Ashkenazi
 * https://github.com/yuvalAshkenaz/yBox */
 
@@ -1109,4 +1109,17 @@ function attachSwipeToSlides() {
             }
         }
     }
+
+    let wheelCooldown = false;
+    wrapper.addEventListener('wheel', function(e) {
+        e.preventDefault();
+        if (wheelCooldown) return;
+        wheelCooldown = true;
+        setTimeout(function() { wheelCooldown = false; }, 400);
+        if (e.deltaY > 0) {
+            yBoxNext();
+        } else {
+            yBoxPrev();
+        }
+    }, { passive: false });
 }
