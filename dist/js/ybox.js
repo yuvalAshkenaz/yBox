@@ -1,4 +1,4 @@
-﻿/*! yBox - v13.1.0 - 24/09/2026
+﻿/*! yBox - v13.1.1 - 24/09/2026
 * By Yuval Ashkenazi
 * https://github.com/yuvalAshkenaz/yBox */
 
@@ -607,7 +607,7 @@ function yBox_Group(yBoxLink, currentCode) {
         if (!thumbSrc) {
             if (url.toLowerCase().indexOf('youtube') > -1 || url.toLowerCase().indexOf('youtu.be') > -1) {
                 let youtube_id = url.replace(/.*youtube\.com\/shorts\/([A-Za-z0-9_-]{11}).*/, '$1').replace(/^[^v]+v.(.{11}).*/, "$1").replace('https://youtu.be/', '').replace(/.*youtube.com\/embed\//, '').replace(/[^A-Za-z0-9_-].*/, '');
-                thumbSrc = 'https://img.youtube.com/vi/' + youtube_id + '/0.jpg';
+                thumbSrc = 'https://img.youtube.com/vi/' + youtube_id + '/maxresdefault.jpg';
             } else if (el.classList.contains('yBox_iframe') || el.classList.contains('ybox_iframe') || el.classList.contains('yBox_video') || el.classList.contains('ybox_video') || url.toLowerCase().match(/\.(mp4|webm)$/i)) {
                 let imgInside = el.querySelector('img');
                 thumbSrc = imgInside ? imgInside.getAttribute('src') : '';
