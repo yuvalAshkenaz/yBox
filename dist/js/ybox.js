@@ -1,4 +1,4 @@
-﻿/*! yBox - v13.2.0 - 13/10/2026
+﻿/*! yBox - v13.2.1 - 13/10/2026
 * By Yuval Ashkenazi
 * https://github.com/yuvalAshkenaz/yBox */
 
@@ -85,6 +85,42 @@ function yBoxSetLang() {
 }
 yBoxSetLang();
 
+// Security helpers
+// Escapes a value before it is concatenated into HTML (attribute values and text)
+function yBoxEsc(str) {
+	return String(str == null ? '' : str)
+		.replace(/&/g, '&amp;')
+		.replace(/"/g, '&quot;')
+		.replace(/'/g, '&#39;')
+		.replace(/</g, '&lt;')
+		.replace(/>/g, '&gt;');
+}
+// Returns the URL if its protocol is allowed (http, https, mailto, tel, or relative/#/. selectors), otherwise ''
+// allowDataImage: allow data:image/... (only for <img> / poster / thumbnails)
+function yBoxSafeUrl(url, allowDataImage) {
+	url = String(url == null ? '' : url).trim();
+	// Browsers ignore control chars and whitespace inside the scheme ("java\tscript:")
+	let scheme = url.replace(/[\u0000-\u0020]/g, '').match(/^([a-z][a-z0-9+.-]*):/i);
+	if (!scheme) return url;
+	scheme = scheme[1].toLowerCase();
+	if (['http', 'https', 'mailto', 'tel'].indexOf(scheme) > -1) return url;
+	if (allowDataImage && scheme === 'data' && /^data:image\//i.test(url)) return url;
+	return '';
+}
+function yBoxHref(el) {
+	return el ? (el.getAttribute('href') || el.dataset.href || '') : '';
+}
+function yBoxCssEsc(str) {
+	return (window.CSS && CSS.escape) ? CSS.escape(String(str)) : String(str).replace(/["\\]/g, '\\$&');
+}
+// window.open without giving the opened page access to window.opener (reverse tabnabbing)
+function yBoxOpenWindow(url, target, specs) {
+	let w = window.open(url, target || '_blank', specs);
+	if (w) w.opener = null;
+	return w;
+}
+let yBoxThumbsRO = null;
+
 // 1. Thumb Click Listener
 document.body.addEventListener('click', function(e) {
     let btn = e.target.closest('.yboxThumbBTN'); 
@@ -101,17 +137,24 @@ document.body.addEventListener('click', function(e) {
     let windowSpecs = 'resizable=yes,status=no,location=no,toolbar=no,menubar=no,fullscreen=no,scrollbars=no,dependent=no,width=750,left=200,height=530,top=100';
 
     const shareBtn = e.target.closest('.ybox-share-btn');
-    const getHref = el => el ? (el.getAttribute('href') || el.dataset.href || null) : null;
+    // On template links (mailto: / ...?url=) href is the share link itself, not the URL to share - only data-href counts there
+    const isShareTemplate = el => el.tagName === 'A' && /^mailto:|[?&](url|body)=/i.test(el.getAttribute('href') || '');
+    const getHref = el => el ? ((!isShareTemplate(el) && el.getAttribute('href')) || el.dataset.href || null) : null;
     const shareHref = getHref(shareBtn)
         || getHref(shareBtn?.closest('.ybox-socials-list'))
         || location.href;
 
+    if(e.target.closest('.ybox-print')) {
+        e.preventDefault();
+        window.print();
+        return;
+    }
     if(e.target.closest('.ybox-facebook-share-btn')) {
         shareUrl = 'https://www.facebook.com/sharer/sharer.php?u=' + encodeURIComponent(shareHref);
     }
 	else if(e.target.closest('.ybox-whatsapp-share-btn')) {
 		const whatsappUrl = `https://api.whatsapp.com/send?text=${encodeURIComponent(shareHref)}`;
-		window.open(whatsappUrl, '_blank');
+		yBoxOpenWindow(whatsappUrl, '_blank');
 	}
     else if(e.target.closest('.ybox-twitter-share-btn')) {
         shareUrl = `https://x.com/share?url=${encodeURIComponent(shareHref)}&text=${encodeURIComponent(document.title)}`;
@@ -127,16 +170,17 @@ document.body.addEventListener('click', function(e) {
     else if(shareHref !== location.href && e.target.closest('a.ybox-share-btn')) {
         e.preventDefault();
         const link = e.target.closest('a.ybox-share-btn');
-        const origHref = link.getAttribute('href');
+        const origHref = yBoxSafeUrl(link.getAttribute('href'));
+        if (!origHref) return;
         if (origHref.startsWith('mailto:')) {
             window.location.href = origHref.replace(/body=[^&]*/i, 'body=' + encodeURIComponent(shareHref));
         } else {
-            window.open(origHref.replace(/url=[^&]*/i, 'url=' + encodeURIComponent(shareHref)), '_blank');
+            yBoxOpenWindow(origHref.replace(/url=[^&]*/i, 'url=' + encodeURIComponent(shareHref)), '_blank');
         }
     }
 
     if (shareUrl) {
-        window.open(shareUrl, '', windowSpecs);
+        yBoxOpenWindow(shareUrl, '', windowSpecs);
     }
     else if(e.target.closest('.ybox-copy-text-btn')) {
         let temp = document.createElement("input");
@@ -157,32 +201,19 @@ document.body.addEventListener('click', function(e) {
 // 3. Init on Load + Preloader
 document.addEventListener('DOMContentLoaded', function() {
 	let url = new URL(window.location.href);
-	let msg = ''; 
+	// ybox-id is treated strictly as an element ID (never as a selector, URL or HTML)
 	let yBoxID = url.searchParams.get("ybox-id");
-	let yBoxURL = '';
-	let yBoxHeadline = ''; 
-	let yBoxClassPrm = ''; 
 
-	if (msg || yBoxID || yBoxURL) {
-		if (yBoxID && (yBoxID.indexOf('http:') === -1 && yBoxID.indexOf('https:') === -1)) {
-			yBoxID = '#' + yBoxID;
-		}
-		if (yBoxID && !document.querySelector(yBoxID)) {
-			return;
-		}
+	if (yBoxID && document.getElementById(yBoxID)) {
 		yBox({
-			code: yBoxID ? false : msg,
-			yBoxClass: yBoxClassPrm ? yBoxClassPrm : 'ybox-content-frame',
-			id: yBoxID ? yBoxID : false,
-			url: yBoxURL ? yBoxURL : false,
-			headline: yBoxHeadline ? yBoxHeadline : false
+			yBoxClass: 'ybox-content-frame',
+			id: '#' + yBoxCssEsc(yBoxID)
 		});
 		setTimeout(function() {
 			let params = new URLSearchParams(window.location.search);
-			['msg', 'ybox-id', 'ybox-url', 'ybox-class', 'ybox-headline'].forEach(function(p) { params.delete(p); });
-			if (yBoxURL && yBoxURL.indexOf('youtube') > -1) params.delete('list');
+			params.delete('ybox-id');
 			let newSearch = params.toString() ? '?' + params.toString() : '';
-			let newURL = window.location.pathname + newSearch;
+			let newURL = window.location.pathname + newSearch + window.location.hash;
 			window.history.pushState("", "", newURL);
 		}, 500);
 	}
@@ -220,10 +251,10 @@ document.body.addEventListener('click', function(e) {
 		let group = self.dataset.yboxGroup;
 		let swiperContainer = duplicateSlide.closest('.swiper-wrapper') || duplicateSlide.parentElement;
 		if (slideIndex !== undefined && group && swiperContainer) {
-			let realSlide = Array.from(swiperContainer.querySelectorAll('.swiper-slide[data-swiper-slide-index="' + slideIndex + '"]'))
+			let realSlide = Array.from(swiperContainer.querySelectorAll('.swiper-slide[data-swiper-slide-index="' + yBoxCssEsc(slideIndex) + '"]'))
 				.find(function(el) { return !el.classList.contains('swiper-slide-duplicate'); });
 			if (realSlide) {
-				let realSelf = realSlide.querySelector('.yBox[data-ybox-group="' + group + '"], .ybox[data-ybox-group="' + group + '"]');
+				let realSelf = realSlide.querySelector('.yBox[data-ybox-group="' + yBoxCssEsc(group) + '"], .ybox[data-ybox-group="' + yBoxCssEsc(group) + '"]');
 				if (realSelf) self = realSelf;
 			}
 		}
@@ -255,23 +286,48 @@ function yBox( obj = {} ) {
 		else if (obj.id) a_or_div = document.querySelector(obj.id);
 		else if (obj.url) a_or_div = document.body;
 
-		if (typeof beforeYboxOpen !== 'undefined' && a_or_div) {
-			beforeYboxOpen(a_or_div);
-		}
-
 		obj.hasSelf = true;
 		if (typeof obj.yBoxClass === 'undefined') obj.yBoxClass = '';
 		if (typeof obj.self === 'undefined' || !obj.self) obj.hasSelf = false;
 		if (obj.hasSelf) {
 			obj.yBoxClass = obj.self.dataset.yboxClass || '';
-			obj.url = obj.self.getAttribute('href') || obj.self.dataset.href || obj.url || '';
-			
+			obj.url = yBoxHref(obj.self) || obj.url || '';
+
 			if (obj.self.classList.contains('yBox_share') || obj.self.classList.contains('ybox_share')) {
 				obj.yBoxClass += ' ybox-share-btns';
 			}
 		}
 
-		let html = '<div class="yBoxOverlay no-contrast ' + (yBox_lang == 'he' || yBox_lang == 'ar' ? 'yBoxRTL' : '') + ' ' + obj.yBoxClass + '" tabindex="-1">' +
+		// Block javascript:, vbscript:, data: and other dangerous protocols
+		if (obj.url) {
+			let safeUrl = yBoxSafeUrl(obj.url);
+			if (!safeUrl) {
+				console.warn('yBox: blocked unsafe URL "' + obj.url + '"');
+				if (obj.self) obj.self.classList.remove('yBoxFocus');
+				return;
+			}
+			obj.url = safeUrl;
+		}
+
+		// AJAX is same-origin only, unless the trigger has data-ybox-allow-cross-origin
+		if (obj.hasSelf && obj.url && (obj.self.classList.contains('yBox_ajax') || obj.self.classList.contains('ybox_ajax')) && !obj.self.hasAttribute('data-ybox-allow-cross-origin')) {
+			let ajaxUrl = null;
+			try { ajaxUrl = new URL(obj.url, location.href); } catch(err) {}
+			if (!ajaxUrl || ajaxUrl.origin !== location.origin) {
+				console.warn('yBox: blocked cross-origin AJAX request to "' + obj.url + '". Add data-ybox-allow-cross-origin to allow it.');
+				obj.self.classList.remove('yBoxFocus');
+				return;
+			}
+		}
+
+		if (typeof beforeYboxOpen !== 'undefined' && a_or_div) {
+			if (beforeYboxOpen(a_or_div) === false) {
+				if (obj.self) obj.self.classList.remove('yBoxFocus');
+				return;
+			}
+		}
+
+		let html = '<div class="yBoxOverlay no-contrast ' + (yBox_lang == 'he' || yBox_lang == 'ar' ? 'yBoxRTL' : '') + ' ' + yBoxEsc(obj.yBoxClass) + '" tabindex="-1">' +
 						'<button type="button" class="closeYbox closeYbox-group" title="' + strings.close + '" aria-label="' + strings.close + '"></button>' +
 						'<button type="button" class="ybox-details-btn" style="display:none" title="' + strings.details + '" aria-label="' + strings.details + '"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/></svg></button>' +
 						'<div class="ybox-details-panel" aria-hidden="true"><h2 class="ybox-details-title"></h2><div class="ybox-details-body"></div></div>' +
@@ -326,6 +382,30 @@ function yBoxYoutubeID(url) {
 	return match ? match[1] : '';
 }
 
+// YouTube thumbnail fallback: not every video has maxresdefault.jpg, and YouTube then returns a 120x90 placeholder
+// instead of an error, so step down to the next largest size until a real thumbnail loads
+const yBoxYoutubeThumbSizes = ['maxresdefault', 'sddefault', 'hqdefault', 'mqdefault', 'default'];
+function yBoxYoutubeThumbNext(img) {
+	let match = (img.getAttribute('src') || '').match(/\/vi\/([A-Za-z0-9_-]{11})\/([a-z]+)\.jpg/);
+	if (!match) return;
+	let index = yBoxYoutubeThumbSizes.indexOf(match[2]);
+	if (index === -1 || index === yBoxYoutubeThumbSizes.length - 1) return;
+	img.src = 'https://img.youtube.com/vi/' + match[1] + '/' + yBoxYoutubeThumbSizes[index + 1] + '.jpg';
+}
+// load / error don't bubble, so listen in the capture phase
+document.addEventListener('load', function(e) {
+	let img = e.target;
+	if (img.tagName === 'IMG' && img.hasAttribute('data-ybox-youtube-thumb') && img.naturalWidth === 120 && img.naturalHeight === 90) {
+		yBoxYoutubeThumbNext(img);
+	}
+}, true);
+document.addEventListener('error', function(e) {
+	let img = e.target;
+	if (img.tagName === 'IMG' && img.hasAttribute('data-ybox-youtube-thumb')) {
+		yBoxYoutubeThumbNext(img);
+	}
+}, true);
+
 function yBoxVimeoSrc(url) {
 	let match = url.match(/(?:vimeo\.com|vimeopro\.com)\/(?:.*?\/)??(\d+)(?:\/([0-9a-f]+))?/i);
 	if (!match) return '';
@@ -340,19 +420,24 @@ function yBoxIsVideoFile(url) {
 function ybox_iframe(obj) {
 	let attrs = '';
 	let iframe_headline = '';
+	let sandbox = null;
 	if (obj.hasSelf) {
-		if (obj.self.dataset.yboxTitle) attrs += ' title="' + obj.self.dataset.yboxTitle + '"';
-		if (obj.self.dataset.yboxHeadlineClass) attrs += ' class="' + obj.self.dataset.yboxHeadlineClass + '"';
+		if (obj.self.dataset.yboxTitle) attrs += ' title="' + yBoxEsc(obj.self.dataset.yboxTitle) + '"';
 		if (obj.self.dataset.yboxHeadline) {
-			iframe_headline = '<h2 id="ybox-iframe-headline">' + obj.self.dataset.yboxHeadline + '</h2>';
+			let headlineClass = obj.self.dataset.yboxHeadlineClass ? ' class="' + yBoxEsc(obj.self.dataset.yboxHeadlineClass) + '"' : '';
+			iframe_headline = '<h2 id="ybox-iframe-headline"' + headlineClass + '>' + yBoxEsc(obj.self.dataset.yboxHeadline) + '</h2>';
 			attrs += ' aria-labelledby="ybox-iframe-headline"';
 		}
+		if (obj.self.hasAttribute('data-ybox-sandbox')) sandbox = obj.self.getAttribute('data-ybox-sandbox');
 	} else {
 		if (obj.headline) {
-			iframe_headline = '<h2 id="ybox-iframe-headline">' + obj.headline + '</h2>';
+			iframe_headline = '<h2 id="ybox-iframe-headline">' + yBoxEsc(obj.headline) + '</h2>';
 			attrs += ' aria-labelledby="ybox-iframe-headline"';
 		}
+		if (typeof obj.sandbox === 'string') sandbox = obj.sandbox;
 	}
+	// Opt-in iframe sandbox: data-ybox-sandbox="allow-scripts allow-forms" (empty value = full sandbox)
+	if (sandbox !== null) attrs += ' sandbox="' + yBoxEsc(sandbox) + '"';
 	let frame = document.querySelector('.yBoxFrame');
 	const yBoxOverlay = document.querySelector('.yBoxOverlay');
 	if(frame){
@@ -376,7 +461,7 @@ function ybox_iframe(obj) {
 	}
 	
 	let code = iframe_headline +
-		'<iframe src="' + obj.url + '" frameborder="0" wmode="Opaque" allow="autoplay" allowfullscreen id="yBoxIframe" class="yBoxIframe" ' + attrs + '></iframe>' +
+		'<iframe src="' + yBoxEsc(obj.url) + '" frameborder="0" wmode="Opaque" allow="autoplay" allowfullscreen id="yBoxIframe" class="yBoxIframe" ' + attrs + '></iframe>' +
 		'<button type="button" class="btn-for-focus-only" aria-label="' + strings.press_tab_again_to_return_to_the_first_button + '"></button>';
 	if (obj.hasSelf) code = yBox_Group(obj.self, code);
 	return code;
@@ -402,15 +487,19 @@ function insert_yBox_html(obj) {
 				attachSwipeToSlides();
 			} else if (isVideo) {
 				frame.classList.add('yBoxIframeWrap', 'yBoxVideoWrap');
-				let poster = (obj.self && obj.self.dataset.yboxImg) ? 'poster="' + obj.self.dataset.yboxImg + '"' : '';
-				let code = '<video class="yBoxVideo" ' + poster + ' autoplay controls preload plays-inline playsinline><source src="' + obj.url + '" /></video>';
+				let posterSrc = (obj.self && obj.self.dataset.yboxImg) ? yBoxSafeUrl(obj.self.dataset.yboxImg, true) : '';
+				let poster = posterSrc ? 'poster="' + yBoxEsc(posterSrc) + '"' : '';
+				let code = '<video class="yBoxVideo" ' + poster + ' autoplay controls preload plays-inline playsinline><source src="' + yBoxEsc(obj.url) + '" /></video>';
 				code = yBox_Group(obj.self, code);
 				insertArea.innerHTML = code;
 				attachDragToThumbs();
 				attachSwipeToSlides();
 			} else if (obj.self.classList.contains('yBox_ajax') || obj.self.classList.contains('ybox_ajax')) {
 				fetch(obj.url)
-					.then(function(response) { return response.text(); })
+					.then(function(response) {
+						if (!response.ok) throw new Error('HTTP ' + response.status);
+						return response.text();
+					})
 					.then(function(data) {
 						insertArea.classList.add('isAjax');
 						insertArea.innerHTML = data;
@@ -420,20 +509,20 @@ function insert_yBox_html(obj) {
 				let titleText = strings.share_page;
 				let titleClass = 'ybox-share-title';
 				if (obj.self.dataset.yboxHeadline) titleText += obj.self.dataset.yboxHeadline;
-				if (obj.self.dataset.yboxHeadlineClass) titleClass += obj.self.dataset.yboxHeadlineClass;
-				const triggerHref = obj.self.getAttribute('href') || obj.self.dataset.href || '';
+				if (obj.self.dataset.yboxHeadlineClass) titleClass += ' ' + obj.self.dataset.yboxHeadlineClass;
+				const triggerHref = obj.url || '';
 				const resolvedHref = triggerHref || location.href;
-				const socialsDataHref = triggerHref ? ' data-href="' + triggerHref + '"' : '';
-				let code = '<h2 id="ybox-img-title" class="' + titleClass + '">' + titleText + '</h2>' +
+				const socialsDataHref = triggerHref ? ' data-href="' + yBoxEsc(triggerHref) + '"' : '';
+				let code = '<h2 id="ybox-img-title" class="' + yBoxEsc(titleClass) + '">' + yBoxEsc(titleText) + '</h2>' +
 						'<ul class="ybox-socials-list"' + socialsDataHref + '>' +
 							'<li><button type="button" class="ybox-share-btn ybox-facebook-share-btn" aria-label="' + strings.share_facebook + '" title="' + strings.share_facebook + '"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9 8h-3v4h3v12h5v-12h3.642l.358-4h-4v-1.667c0-.955.192-1.333 1.115-1.333h2.885v-5h-3.808c-3.596 0-5.192 1.583-5.192 4.615v3.385z"/></svg></button></li>' +
 							'<li><button type="button" class="ybox-share-btn ybox-whatsapp-share-btn" aria-label="' + strings.share_whatsapp + '" title="' + strings.share_whatsapp + '"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/></svg></button></li>' +
 							'<li><button type="button" class="ybox-share-btn ybox-twitter-share-btn" aria-label="' + strings.share_x + '" title="' + strings.share_x + '"><svg viewBox="0 0 24 24"><g><path d="M21.742 21.75l-7.563-11.179 7.056-8.321h-2.456l-5.691 6.714-4.54-6.714H2.359l7.29 10.776L2.25 21.75h2.456l6.035-7.118 4.818 7.118h6.191-.008zM7.739 3.818L18.81 20.182h-2.447L5.29 3.818h2.447z"></path></g></svg></button></li>' +
 							'<li><button type="button" class="ybox-share-btn ybox-linkedin-share-btn" aria-label="' + strings.share_linkedin + '" title="' + strings.share_linkedin + '"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M4.98 3.5c0 1.381-1.11 2.5-2.48 2.5s-2.48-1.119-2.48-2.5c0-1.38 1.11-2.5 2.48-2.5s2.48 1.12 2.48 2.5zm.02 4.5h-5v16h5v-16zm7.982 0h-4.968v16h4.969v-8.399c0-4.67 6.029-5.052 6.029 0v8.399h4.988v-10.131c0-7.88-8.922-7.593-11.018-3.714v-2.155z"/></svg></button></li>' +
 							'<li><button type="button" class="ybox-share-btn ybox-pinterest-share-btn" aria-label="' + strings.share_pinterest + '" title="' + strings.share_pinterest + '"><svg viewBox="0 0 512 512"><path d="M255.998,0.001c-141.384,0 -255.998,114.617 -255.998,255.998c0,108.456 67.475,201.171 162.707,238.471c-2.24,-20.255 -4.261,-51.405 0.889,-73.518c4.65,-19.978 30.018,-127.248 30.018,-127.248c0,0 -7.659,-15.334 -7.659,-38.008c0,-35.596 20.632,-62.171 46.323,-62.171c21.839,0 32.391,16.399 32.391,36.061c0,21.966 -13.984,54.803 -21.203,85.235c-6.03,25.482 12.779,46.261 37.909,46.261c45.503,0 80.477,-47.976 80.477,-117.229c0,-61.293 -44.045,-104.149 -106.932,-104.149c-72.841,0 -115.597,54.634 -115.597,111.095c0,22.004 8.475,45.596 19.052,58.421c2.09,2.535 2.398,4.758 1.776,7.343c-1.945,8.087 -6.262,25.474 -7.111,29.032c-1.117,4.686 -3.711,5.681 -8.561,3.424c-31.974,-14.884 -51.963,-61.627 -51.963,-99.174c0,-80.755 58.672,-154.915 169.148,-154.915c88.806,0 157.821,63.279 157.821,147.85c0,88.229 -55.629,159.232 -132.842,159.232c-25.94,0 -50.328,-13.476 -58.674,-29.394c0,0 -12.838,48.878 -15.95,60.856c-5.782,22.237 -21.382,50.109 -31.818,67.11c23.955,7.417 49.409,11.416 75.797,11.416c141.389,0 256.003,-114.612 256.003,-256.001c0,-141.381 -114.614,-255.998 -256.003,-255.998Z"/></g></svg></button></li>' +
-							'<li><a href="mailto:?subject=' + strings.share_with + '&body=' + resolvedHref + '" class="ybox-share-btn" target="_blank" aria-label="' + strings.share_email + '" title="' + strings.share_email + '"><svg viewBox="0 0 24 24"><path d="M0 3v18h24v-18h-24zm6.623 7.929l-4.623 5.712v-9.458l4.623 3.746zm-4.141-5.929h19.035l-9.517 7.713-9.518-7.713zm5.694 7.188l3.824 3.099 3.83-3.104 5.612 6.817h-18.779l5.513-6.812zm9.208-1.264l4.616-3.741v9.348l-4.616-5.607z"/></svg></a></li>' +
-							'<li><a href="https://t.me/share/url?url=' + resolvedHref + '&text=' + strings.share_with + '" class="ybox-share-btn ybox-telegram-share-btn" target="_blank" aria-label="' + strings.share_telegram + '" title="' + strings.share_telegram + '"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" xmlns:serif="http://www.serif.com/" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:1.41421;"><path id="telegram-1" d="M18.384,22.779c0.322,0.228 0.737,0.285 1.107,0.145c0.37,-0.141 0.642,-0.457 0.724,-0.84c0.869,-4.084 2.977,-14.421 3.768,-18.136c0.06,-0.28 -0.04,-0.571 -0.26,-0.758c-0.22,-0.187 -0.525,-0.241 -0.797,-0.14c-4.193,1.552 -17.106,6.397 -22.384,8.35c-0.335,0.124 -0.553,0.446 -0.542,0.799c0.012,0.354 0.25,0.661 0.593,0.764c2.367,0.708 5.474,1.693 5.474,1.693c0,0 1.452,4.385 2.209,6.615c0.095,0.28 0.314,0.5 0.603,0.576c0.288,0.075 0.596,-0.004 0.811,-0.207c1.216,-1.148 3.096,-2.923 3.096,-2.923c0,0 3.572,2.619 5.598,4.062Zm-11.01,-8.677l1.679,5.538l0.373,-3.507c0,0 6.487,-5.851 10.185,-9.186c0.108,-0.098 0.123,-0.262 0.033,-0.377c-0.089,-0.115 -0.253,-0.142 -0.376,-0.064c-4.286,2.737 -11.894,7.596 -11.894,7.596Z"/></svg></a></li>' +
-							'<li><a href="javascript:window.print();" class="ybox-share-btn ybox-print" aria-label="' + strings.print + '" title="' + strings.print + '"><svg viewBox="0 0 24 24"><path d="M16 17h-8v-1h8v1zm8-12v13h-4.048c-.404 2.423-3.486 6-6.434 6h-9.518v-6h-4v-13h4v-5h16v5h4zm-18 0h12v-3h-12v3zm12 9h-12v8h6.691c3.469 0 2-3.352 2-3.352s3.309 1.594 3.309-2v-2.648zm4-7h-20v9h2v-4h16v4h2v-9zm-9 11h-5v1h5v-1zm7.5-10c-.276 0-.5.224-.5.5s.224.5.5.5.5-.224.5-.5-.224-.5-.5-.5z"/></svg></a></li>' +
+							'<li><a href="mailto:?subject=' + encodeURIComponent(strings.share_with) + '&amp;body=' + encodeURIComponent(resolvedHref) + '" class="ybox-share-btn" target="_blank" aria-label="' + strings.share_email + '" title="' + strings.share_email + '"><svg viewBox="0 0 24 24"><path d="M0 3v18h24v-18h-24zm6.623 7.929l-4.623 5.712v-9.458l4.623 3.746zm-4.141-5.929h19.035l-9.517 7.713-9.518-7.713zm5.694 7.188l3.824 3.099 3.83-3.104 5.612 6.817h-18.779l5.513-6.812zm9.208-1.264l4.616-3.741v9.348l-4.616-5.607z"/></svg></a></li>' +
+							'<li><a href="https://t.me/share/url?url=' + encodeURIComponent(resolvedHref) + '&amp;text=' + encodeURIComponent(strings.share_with) + '" class="ybox-share-btn ybox-telegram-share-btn" target="_blank" rel="noopener noreferrer" aria-label="' + strings.share_telegram + '" title="' + strings.share_telegram + '"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" xmlns:serif="http://www.serif.com/" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:1.41421;"><path id="telegram-1" d="M18.384,22.779c0.322,0.228 0.737,0.285 1.107,0.145c0.37,-0.141 0.642,-0.457 0.724,-0.84c0.869,-4.084 2.977,-14.421 3.768,-18.136c0.06,-0.28 -0.04,-0.571 -0.26,-0.758c-0.22,-0.187 -0.525,-0.241 -0.797,-0.14c-4.193,1.552 -17.106,6.397 -22.384,8.35c-0.335,0.124 -0.553,0.446 -0.542,0.799c0.012,0.354 0.25,0.661 0.593,0.764c2.367,0.708 5.474,1.693 5.474,1.693c0,0 1.452,4.385 2.209,6.615c0.095,0.28 0.314,0.5 0.603,0.576c0.288,0.075 0.596,-0.004 0.811,-0.207c1.216,-1.148 3.096,-2.923 3.096,-2.923c0,0 3.572,2.619 5.598,4.062Zm-11.01,-8.677l1.679,5.538l0.373,-3.507c0,0 6.487,-5.851 10.185,-9.186c0.108,-0.098 0.123,-0.262 0.033,-0.377c-0.089,-0.115 -0.253,-0.142 -0.376,-0.064c-4.286,2.737 -11.894,7.596 -11.894,7.596Z"/></svg></a></li>' +
+							'<li><button type="button" class="ybox-share-btn ybox-print" aria-label="' + strings.print + '" title="' + strings.print + '"><svg viewBox="0 0 24 24"><path d="M16 17h-8v-1h8v1zm8-12v13h-4.048c-.404 2.423-3.486 6-6.434 6h-9.518v-6h-4v-13h4v-5h16v5h4zm-18 0h12v-3h-12v3zm12 9h-12v8h6.691c3.469 0 2-3.352 2-3.352s3.309 1.594 3.309-2v-2.648zm4-7h-20v9h2v-4h16v4h2v-9zm-9 11h-5v1h5v-1zm7.5-10c-.276 0-.5.224-.5.5s.224.5.5.5.5-.224.5-.5-.224-.5-.5-.5z"/></svg></button></li>' +
 							'<li><button type="button" class="ybox-share-btn ybox-copy-text-btn" aria-label="' + strings.copy_link + '" title="' + strings.copy_link + '"><svg class="ybox-copy-hide-on-check" viewBox="0 0 24 24"><path d="m6 18h-3c-.48 0-1-.379-1-1v-14c0-.481.38-1 1-1h14c.621 0 1 .522 1 1v3h3c.621 0 1 .522 1 1v14c0 .621-.522 1-1 1h-14c-.48 0-1-.379-1-1zm1.5-10.5v13h13v-13zm9-1.5v-2.5h-13v13h2.5v-9.5c0-.481.38-1 1-1z"/></svg><svg class="ybox-copy-show-on-check" viewBox="0 0 24 24"><path d="M0 12.116l2.053-1.897c2.401 1.162 3.924 2.045 6.622 3.969 5.073-5.757 8.426-8.678 14.657-12.555l.668 1.536c-5.139 4.484-8.902 9.479-14.321 19.198-3.343-3.936-5.574-6.446-9.679-10.251z"/></svg><div class="ybox-copy-show-text-on-check">' + strings.link_copied + '</div></button></li>' +
 						'</ul>';
 				insertArea.innerHTML = code;
@@ -447,15 +536,17 @@ function insert_yBox_html(obj) {
 				img.className = 'yBoxImg';
 				img.onload = function() {
 					let alt = obj.self.dataset.yboxAlt || '';
-					let title = obj.self.dataset.yboxTitle ? 'title="' + obj.self.dataset.yboxTitle + '"' : '';
+					let title = obj.self.dataset.yboxTitle ? 'title="' + yBoxEsc(obj.self.dataset.yboxTitle) + '"' : '';
 					let img_headline = '';
 					let aria_labelledby = '';
 					if (obj.self.dataset.yboxHeadline) {
-						img_headline = '<h2 id="ybox-img-title" class="ybox-img-title">' + obj.self.dataset.yboxHeadline + '</h2>';
+						let headlineClass = 'ybox-img-title';
+						if (obj.self.dataset.yboxHeadlineClass) headlineClass += ' ' + obj.self.dataset.yboxHeadlineClass;
+						img_headline = '<h2 id="ybox-img-title" class="' + yBoxEsc(headlineClass) + '">' + yBoxEsc(obj.self.dataset.yboxHeadline) + '</h2>';
 						aria_labelledby = 'aria-labelledby="ybox-img-title"';
 					}
 					let code = '<div class="yBoxImgWrap2">' +
-									'<img src="' + obj.url + '" alt="' + alt + '" ' + title + ' id="yBoxImg" class="yBoxImg" ' + aria_labelledby + ' />' +
+									'<img src="' + yBoxEsc(obj.url) + '" alt="' + yBoxEsc(alt) + '" ' + title + ' id="yBoxImg" class="yBoxImg" ' + aria_labelledby + ' />' +
 									img_headline +
 								'</div>';
 					code = yBox_Group(obj.self, code);
@@ -494,7 +585,7 @@ function insert_yBox_html(obj) {
 					// עדיפות 2: לא נמצא בכפתור? נבדוק מה האינדקס של הכפתור שלחצנו עליו ביחס לכפתורים האחרים שמפעילים את אותו קישור, ונשלוף את הקלאס באותו אינדקס
 					if (!targetEl && obj.self) {
 						try {
-							let sameButtons = document.querySelectorAll('.yBox[href="' + obj.url + '"], .ybox[href="' + obj.url + '"]');
+							let sameButtons = document.querySelectorAll('.yBox[href="' + yBoxCssEsc(obj.url) + '"], .ybox[href="' + yBoxCssEsc(obj.url) + '"]');
 							let btnIndex = Array.from(sameButtons).indexOf(obj.self);
 							let targetElements = document.querySelectorAll(selector);
 							
@@ -517,7 +608,7 @@ function insert_yBox_html(obj) {
 					if (obj.hasSelf && obj.self && obj.self.dataset.yboxHeadline) {
 						let headlineClass = 'ybox-inline-headline';
 						if (obj.self.dataset.yboxHeadlineClass) headlineClass += ' ' + obj.self.dataset.yboxHeadlineClass;
-						insertArea.insertAdjacentHTML('afterbegin', '<h2 class="' + headlineClass + '">' + obj.self.dataset.yboxHeadline + '</h2>');
+						insertArea.insertAdjacentHTML('afterbegin', '<h2 class="' + yBoxEsc(headlineClass) + '">' + yBoxEsc(obj.self.dataset.yboxHeadline) + '</h2>');
 					}
 				}
 			}
@@ -526,7 +617,7 @@ function insert_yBox_html(obj) {
         // הפעלת פוקוס אוטומטי (ללא הגבלת רזולוציה)
 		setTimeout(function() {
 			if (obj.self.dataset && obj.self.dataset.focus) {
-				let focusEl = insertArea.querySelector('.' + obj.self.dataset.focus);
+				let focusEl = insertArea.querySelector('.' + yBoxCssEsc(obj.self.dataset.focus));
 				if(focusEl) focusEl.focus();
 			} else {
 				setYboxFocus();
@@ -553,7 +644,8 @@ function insert_yBox_html(obj) {
 					insertArea.appendChild(targetEl);
 				}
 			} else {
-				insertArea.innerHTML = obj.code;
+				// obj.code is inserted as raw HTML by design - never pass unsanitized user input
+				insertArea.innerHTML = obj.code || '';
 			}
 		}
 		setTimeout(function() { setYboxFocus({ focus: obj.focus }); }, 500);
@@ -579,10 +671,12 @@ function getYboxSlideContent(el, url) {
     let isIframe = el.classList.contains('yBox_iframe') || el.classList.contains('ybox_iframe') || (url && (url.toLowerCase().includes('youtube') || url.toLowerCase().includes('youtu.be') || url.toLowerCase().includes('vimeo')));
     let isVideo = el.classList.contains('yBox_video') || el.classList.contains('ybox_video') || (url && yBoxIsVideoFile(url));
     let alt = el.dataset.yboxAlt || '';
-    let title = el.dataset.yboxTitle ? 'title="' + el.dataset.yboxTitle + '"' : '';
+    let title = el.dataset.yboxTitle ? 'title="' + yBoxEsc(el.dataset.yboxTitle) + '"' : '';
     let headline = '';
     if (el.dataset.yboxHeadline) {
-        headline = '<h2 class="ybox-img-title">' + el.dataset.yboxHeadline + '</h2>';
+        let headlineClass = 'ybox-img-title';
+        if (el.dataset.yboxHeadlineClass) headlineClass += ' ' + el.dataset.yboxHeadlineClass;
+        headline = '<h2 class="' + yBoxEsc(headlineClass) + '">' + yBoxEsc(el.dataset.yboxHeadline) + '</h2>';
     }
 
     if (isIframe || url.indexOf('youtube') > -1 || url.indexOf('vimeo') > -1) {
@@ -597,12 +691,14 @@ function getYboxSlideContent(el, url) {
                 src = vimeoSrc + 'autoplay=0';
             }
         }
-        code = '<iframe src="' + src + '" frameborder="0" wmode="Opaque" allowfullscreen class="yBoxIframe"></iframe>';
+        let sandbox = el.hasAttribute('data-ybox-sandbox') ? ' sandbox="' + yBoxEsc(el.getAttribute('data-ybox-sandbox')) + '"' : '';
+        code = '<iframe src="' + yBoxEsc(src) + '" frameborder="0" wmode="Opaque" allowfullscreen class="yBoxIframe"' + sandbox + '></iframe>';
     } else if (isVideo) {
-        let poster = el.dataset.yboxImg ? 'poster="' + el.dataset.yboxImg + '"' : '';
-        code = '<video class="yBoxVideo" ' + poster + ' controls preload playsinline><source src="' + url + '" /></video>';
+        let posterSrc = el.dataset.yboxImg ? yBoxSafeUrl(el.dataset.yboxImg, true) : '';
+        let poster = posterSrc ? 'poster="' + yBoxEsc(posterSrc) + '"' : '';
+        code = '<video class="yBoxVideo" ' + poster + ' controls preload playsinline><source src="' + yBoxEsc(url) + '" /></video>';
     } else {
-        code = '<div class="yBoxImgWrap2"><img src="' + url + '" alt="' + alt + '" ' + title + ' class="yBoxImg" />' + headline + '</div>';
+        code = '<div class="yBoxImgWrap2"><img src="' + yBoxEsc(url) + '" alt="' + yBoxEsc(alt) + '" ' + title + ' class="yBoxImg" />' + headline + '</div>';
     }
     return code;
 }
@@ -610,7 +706,8 @@ function getYboxSlideContent(el, url) {
 function yBox_Group(yBoxLink, currentCode) {
     let group = yBoxLink.dataset.yboxGroup;
     let hasDetailsAttr = yBoxLink.dataset.yboxDetails || yBoxLink.dataset.yboxDetailsTitle;
-    let groupItems = group ? Array.from(document.querySelectorAll('.yBox[data-ybox-group="' + group + '"], .ybox[data-ybox-group="' + group + '"]')).filter(function(el) { return !el.closest('.swiper-slide-duplicate'); }) : [];
+    // Items with an unsafe URL (javascript: etc.) are excluded from the gallery
+    let groupItems = group ? Array.from(document.querySelectorAll('.yBox[data-ybox-group="' + yBoxCssEsc(group) + '"], .ybox[data-ybox-group="' + yBoxCssEsc(group) + '"]')).filter(function(el) { return !el.closest('.swiper-slide-duplicate') && yBoxSafeUrl(yBoxHref(el)); }) : [];
     if (!group || (groupItems.length < 2 && !hasDetailsAttr)) {
         let insertArea = document.querySelector('.insertYboxAjaxHere');
         if(insertArea) insertArea.innerHTML = currentCode;
@@ -623,18 +720,20 @@ function yBox_Group(yBoxLink, currentCode) {
     let thumbsHTML = '<div class="yBoxThumbsWrapper"><div class="yBoxThumbs">';
     
     groupItems.forEach(function(el, index) {
-        let url = el.getAttribute('href');
+        let url = yBoxSafeUrl(yBoxHref(el));
         let isActive = (el === yBoxLink) ? ' active' : '';
-        
+
         let content = getYboxSlideContent(el, url);
         slidesHTML += '<div class="yBoxSlide' + isActive + '" data-id="' + index + '">' + content + '</div>';
 
-        let thumbSrc = el.dataset.yboxImg || ''; 
-        
+        let thumbSrc = el.dataset.yboxImg || '';
+        let thumbAttrs = '';
+
         if (!thumbSrc) {
             if (url.toLowerCase().indexOf('youtube') > -1 || url.toLowerCase().indexOf('youtu.be') > -1) {
                 let youtube_id = yBoxYoutubeID(url);
                 thumbSrc = 'https://img.youtube.com/vi/' + youtube_id + '/maxresdefault.jpg';
+                thumbAttrs = ' data-ybox-youtube-thumb';
             } else if (el.classList.contains('yBox_iframe') || el.classList.contains('ybox_iframe') || el.classList.contains('yBox_video') || el.classList.contains('ybox_video') || yBoxIsVideoFile(url)) {
                 let imgInside = el.querySelector('img');
                 thumbSrc = imgInside ? imgInside.getAttribute('src') : '';
@@ -643,9 +742,10 @@ function yBox_Group(yBoxLink, currentCode) {
             }
         }
 
+        thumbSrc = yBoxSafeUrl(thumbSrc, true);
         if(thumbSrc) {
             thumbsHTML += '<button type="button" class="yboxThumbBTN' + isActive + '" data-id="' + index + '" aria-label="Slide ' + (index+1) + '">' +
-                            '<img src="' + thumbSrc + '" class="yboxThumbIMG" alt="" />' +
+                            '<img src="' + yBoxEsc(thumbSrc) + '" class="yboxThumbIMG" alt=""' + thumbAttrs + ' />' +
                           '</button>';
         }
     });
@@ -661,13 +761,14 @@ function yBox_Group(yBoxLink, currentCode) {
     groupItems.forEach(function(el) {
         if (!detailsTooltip && el.dataset.yboxDetailsTooltip) detailsTooltip = el.dataset.yboxDetailsTooltip;
         if (!hasDetails && (el.dataset.yboxDetails || el.dataset.yboxDetailsTitle)) {
+            // A selector copies the HTML of an element already on the page; plain text is escaped
             let dc = el.dataset.yboxDetails || '';
+            let targetEl = null;
             if (dc && (dc.startsWith('#') || dc.startsWith('.'))) {
-                let targetEl = document.querySelector(dc);
-                if (targetEl) dc = targetEl.innerHTML;
+                try { targetEl = document.querySelector(dc); } catch(e) {}
             }
             groupDetailsTitle = el.dataset.yboxDetailsTitle || '';
-            groupDetailsContent = dc;
+            groupDetailsContent = targetEl ? targetEl.innerHTML : yBoxEsc(dc);
             hasDetails = true;
         }
     });
@@ -684,7 +785,7 @@ function yBox_Group(yBoxLink, currentCode) {
             let titleEl = panel.querySelector('.ybox-details-title');
             let bodyEl  = panel.querySelector('.ybox-details-body');
             if (titleEl) {
-                titleEl.innerHTML = groupDetailsTitle;
+                titleEl.textContent = groupDetailsTitle;
                 titleEl.style.display = groupDetailsTitle ? '' : 'none';
             }
             if (bodyEl) bodyEl.innerHTML = groupDetailsContent;
@@ -742,9 +843,10 @@ function attachDragToThumbs() {
 
     updateOverflow();
 
+    if (yBoxThumbsRO) yBoxThumbsRO.disconnect();
     if (typeof ResizeObserver !== 'undefined') {
-        const ro = new ResizeObserver(updateOverflow);
-        ro.observe(wrapper);
+        yBoxThumbsRO = new ResizeObserver(updateOverflow);
+        yBoxThumbsRO.observe(wrapper);
     }
 
     function cancelMomentum() {
@@ -1026,6 +1128,10 @@ document.body.addEventListener('click', function(e) {
 				afterYboxClose(a_or_div);
 			}
 			remove_yBox_placeholder();
+			if (yBoxThumbsRO) {
+				yBoxThumbsRO.disconnect();
+				yBoxThumbsRO = null;
+			}
 			if(overlay) overlay.remove();
 		}, 600);
 	}
@@ -1053,7 +1159,8 @@ function remove_yBox_placeholder() {
 document.addEventListener('keyup', function(e) {
 	if (document.querySelector('.yBoxImg')) {
 		let currentImg = document.querySelector('.yBoxImg');
-		let src = document.querySelector('.yBox[href="' + currentImg.getAttribute('src') + '"], .ybox[href="' + currentImg.getAttribute('src') + '"]');
+		let imgSrc = yBoxCssEsc(currentImg.getAttribute('src'));
+		let src = document.querySelector('.yBox[href="' + imgSrc + '"], .ybox[href="' + imgSrc + '"]');
 		
 		if (e.keyCode === 39) { 
 			if (yBox_lang === 'he') {

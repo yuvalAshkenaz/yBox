@@ -1,4 +1,4 @@
-﻿/*! yBox - v13.2.0 - 13/10/2026
+﻿/*! yBox - v13.2.1 - 13/10/2026
 * By Yuval Ashkenazi
 * https://github.com/yuvalAshkenaz/yBox */
 
@@ -51,6 +51,7 @@
 }
 .yBoxFrame {
     background-color: var(--ybox-frame-bg, #fff);
+    color: var(--ybox-frame-color, #171b1e);
     border-radius: var(--ybox-frame-radius, 12px);
     -webkit-box-shadow: var(--ybox-frame-shadow, 0 25px 50px -12px rgba(0, 0, 0, 0.35));
     box-shadow: var(--ybox-frame-shadow, 0 25px 50px -12px rgba(0, 0, 0, 0.35));
@@ -70,6 +71,7 @@
 .yBoxGroupOverlay .yBoxFrame,
 .yBoxGroupOverlay .yBoxFrame.yBoxIframeWrap {
 	background: none;
+	color: inherit;
 	width: 100%;
 	height: 100%;
 	max-width: 100%;
@@ -78,11 +80,8 @@
 }
 .yBoxOverlay.no-bg .yBoxFrame {
 	background: none;
+	color: inherit;
 	box-shadow: none;
-}
-.yBoxFrame.yBoxContentFrame {
-    background-color: var(--ybox-frame-content-bg, #fff);
-    color: var(--ybox-frame-content-color, #171b1e);
 }
 .yBoxOverlay.active .yBoxFrame {
     -webkit-transform: translate(0, 0) scale(1);
@@ -180,15 +179,8 @@
     -webkit-transform: rotate(45deg);
     transform: rotate(45deg);
 }
-.yBoxFrame.yBoxContentFrame .closeYbox {
-    background: var(--ybox-close-bg, #f3f4f6);
-}
-.yBoxFrame.yBoxContentFrame .closeYbox::after,
-.yBoxFrame.yBoxContentFrame .closeYbox::before {
-    background-color: var(--ybox-close-line-color, #000);
-}
 #ybox-iframe-headline {
-	color: var(--ybox-iframe-headeline-color, #000);
+	color: var(--ybox-iframe-headline-color, #000);
 	margin: 10px 0 15px 0;
 	text-align: center;
 	font-size: 22px;

@@ -401,6 +401,18 @@ button:hover .play {
 .myYboxClass .closeYbox {
     filter: invert(1);
 }
+/* Headings inside popups take the popup text color, not the dark-theme page color */
+.yBoxFrame h3 {
+    color: inherit;
+}
+/* data-ybox-headline-class demo */
+.ybox-img-title.my-headline {
+    font-size: 28px;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    color: #fde68a;
+    white-space: pre-line;
+}
 [lang="he-IL"] .t-en,
 [data-lang="he"] .t-en {
 	display: none !important;

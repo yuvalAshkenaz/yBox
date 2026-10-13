@@ -15,7 +15,7 @@
 
 <main class="layout-wrapper">
 	<section id="overview" style="text-align: center; background: transparent; box-shadow: none; border: none; backdrop-filter: none; padding-top:0;">
-		<h1>yBox <span>v13.2.0</span></h1>
+		<h1>yBox <span>v13.2.1</span></h1>
 		<p style="color: var(--text-secondary); font-size: 1.1rem;">
 			<span class="t-en">A lightweight, flexible, and modern lightbox library.</span>
 			<span class="t-he">ספרייה קלה, גמישה ומודרנית ל-lightbox.</span>
@@ -32,6 +32,7 @@
 				<a href="#html-attributes"><span class="t-en">HTML Attributes</span><span class="t-he">תכונות HTML</span></a>
 				<a href="#targeting"><span class="t-en">Targeting Elements</span><span class="t-he">מיקוד אלמנטים</span></a>
 				<a href="#url-parameters"><span class="t-en">URL Parameters</span><span class="t-he">פרמטרי URL</span></a>
+				<a href="#security"><span class="t-en">Security</span><span class="t-he">אבטחה</span></a>
 				<a href="#js-examples"><span class="t-en">JS Execution Examples</span><span class="t-he">דוגמאות הרצה</span></a>
 				<a href="#event-callbacks"><span class="t-en">Event Callbacks</span><span class="t-he">קולבאקים</span></a>
 				<a href="#nested-ybox"><span class="t-en">Nested yBox</span><span class="t-he">yBox מקונן</span></a>
@@ -79,7 +80,7 @@
 						</tr>
 						<tr>
 							<td class="api-name"><code>.yBox_iframe</code></td>
-							<td class="api-desc"><div class="t-en">Opens the <code>href</code> / <code>data-href</code> link inside an iframe.<br>Not needed for YouTube / Vimeo links, they are detected automatically.</div><div class="t-he">פותח את הקישור שב-<code>href</code> / <code>data-href</code> בתוך iframe.<br>לא נדרש לקישורי YouTube / Vimeo, הם מזוהים אוטומטית.</div><div class="api-code"><span class="tk-tag">&lt;a</span> <span class="tk-attr">href</span>=<span class="tk-str">"https://example.com"</span> <span class="tk-attr">class</span>=<span class="tk-str">"yBox yBox_iframe"</span><span class="tk-tag">&gt;</span>Open site<span class="tk-tag">&lt;/a&gt;</span></div></td>
+							<td class="api-desc"><div class="t-en">Opens the <code>href</code> / <code>data-href</code> link inside an iframe.<br>Not needed for YouTube / Vimeo links, they are detected automatically.<br>Add <code>data-ybox-sandbox</code> to restrict what the iframe can do (see <a href="#security">Security</a>).</div><div class="t-he">פותח את הקישור שב-<code>href</code> / <code>data-href</code> בתוך iframe.<br>לא נדרש לקישורי YouTube / Vimeo, הם מזוהים אוטומטית.<br>הוסיפו <code>data-ybox-sandbox</code> כדי להגביל את מה שה-iframe יכול לעשות (ראו <a href="#security">אבטחה</a>).</div><div class="api-code"><span class="tk-tag">&lt;a</span> <span class="tk-attr">href</span>=<span class="tk-str">"https://example.com"</span> <span class="tk-attr">class</span>=<span class="tk-str">"yBox yBox_iframe"</span><span class="tk-tag">&gt;</span>Open site<span class="tk-tag">&lt;/a&gt;</span></div></td>
 						</tr>
 						<tr>
 							<td class="api-name"><code>.yBox_video</code></td>
@@ -87,7 +88,7 @@
 						</tr>
 						<tr>
 							<td class="api-name"><code>.yBox_ajax</code></td>
-							<td class="api-desc"><div class="t-en">Fetches the content of the <code>href</code> / <code>data-href</code> link via AJAX and shows it in the popup.</div><div class="t-he">טוען את התוכן של הקישור שב-<code>href</code> / <code>data-href</code> באמצעות AJAX ומציג אותו בפופאפ.</div><div class="api-code"><span class="tk-tag">&lt;a</span> <span class="tk-attr">href</span>=<span class="tk-str">"/ajax/content.html"</span> <span class="tk-attr">class</span>=<span class="tk-str">"yBox yBox_ajax"</span><span class="tk-tag">&gt;</span>Load<span class="tk-tag">&lt;/a&gt;</span></div></td>
+							<td class="api-desc"><div class="t-en">Fetches the content of the <code>href</code> / <code>data-href</code> link via AJAX and shows it in the popup.<br>Same-origin only by default. To load from another domain, add <code>data-ybox-allow-cross-origin</code> (the other server must also allow CORS).<br>The response is inserted as HTML, so load only content you trust.</div><div class="t-he">טוען את התוכן של הקישור שב-<code>href</code> / <code>data-href</code> באמצעות AJAX ומציג אותו בפופאפ.<br>כברירת מחדל רק מאותו דומיין. כדי לטעון מדומיין אחר, הוסיפו <code>data-ybox-allow-cross-origin</code> (גם השרת השני צריך לאפשר CORS).<br>התשובה מוזרקת כ-HTML, לכן טענו רק תוכן שאתם סומכים עליו.</div><div class="api-code"><span class="tk-tag">&lt;a</span> <span class="tk-attr">href</span>=<span class="tk-str">"/ajax/content.html"</span> <span class="tk-attr">class</span>=<span class="tk-str">"yBox yBox_ajax"</span><span class="tk-tag">&gt;</span>Load<span class="tk-tag">&lt;/a&gt;</span></div></td>
 						</tr>
 						<tr>
 							<td class="api-name"><code>.yBox_share</code></td>
@@ -115,13 +116,13 @@
 							<td class="api-name"><code>code</code></td>
 							<td class="api-type" data-label-en="Type" data-label-he="סוג"><code>string</code></td>
 							<td class="api-default" data-label-en="Default" data-label-he="ברירת מחדל"><span class="api-none">—</span></td>
-							<td class="api-desc"><div class="t-en">Injects raw HTML into the popup.</div><div class="t-he">מזריק HTML ישירות לפופאפ.</div><div class="api-code"><span class="tk-fn">yBox</span>({ <span class="tk-key">code</span>: <span class="tk-str">'&lt;div&gt;Hello&lt;/div&gt;'</span> });</div></td>
+							<td class="api-desc"><div class="t-en">Injects raw HTML into the popup.<br><strong>Never pass unsanitized user input</strong> — sanitize it first (for example with DOMPurify).</div><div class="t-he">מזריק HTML ישירות לפופאפ.<br><strong>אסור להעביר קלט משתמש בלי סינון</strong> — סננו אותו קודם (למשל עם DOMPurify).</div><div class="api-code"><span class="tk-fn">yBox</span>({ <span class="tk-key">code</span>: <span class="tk-str">'&lt;div&gt;Hello&lt;/div&gt;'</span> });</div></td>
 						</tr>
 						<tr>
 							<td class="api-name"><code>url</code></td>
 							<td class="api-type" data-label-en="Type" data-label-he="סוג"><code>string</code></td>
 							<td class="api-default" data-label-en="Default" data-label-he="ברירת מחדל"><span class="api-none">—</span></td>
-							<td class="api-desc"><div class="t-en">Opens a URL in an iframe.</div><div class="t-he">פותח כתובת URL בתוך iframe.</div><div class="api-code"><span class="tk-fn">yBox</span>({ <span class="tk-key">url</span>: <span class="tk-str">'https://example.com'</span> });</div></td>
+							<td class="api-desc"><div class="t-en">Opens a URL in an iframe.<br>Only <code>http</code>, <code>https</code>, <code>mailto</code>, <code>tel</code> and relative URLs are allowed. <code>javascript:</code>, <code>data:</code> and other protocols are blocked.</div><div class="t-he">פותח כתובת URL בתוך iframe.<br>מותרים רק <code>http</code>, <code>https</code>, <code>mailto</code>, <code>tel</code> וכתובות יחסיות. <code>javascript:</code>, <code>data:</code> ופרוטוקולים אחרים נחסמים.</div><div class="api-code"><span class="tk-fn">yBox</span>({ <span class="tk-key">url</span>: <span class="tk-str">'https://example.com'</span> });</div></td>
 						</tr>
 						<tr>
 							<td class="api-name"><code>self</code></td>
@@ -149,6 +150,18 @@
 							<td class="api-type" data-label-en="Type" data-label-he="סוג"><code>string</code></td>
 							<td class="api-default" data-label-en="Default" data-label-he="ברירת מחדל"><span class="api-none">—</span></td>
 							<td class="api-desc"><div class="t-en">Selector of an element in the page (even a hidden one) to show in the popup.</div><div class="t-he">סלקטור של אלמנט בדף (גם מוסתר) שיוצג בפופאפ.</div><div class="api-code"><span class="tk-fn">yBox</span>({ <span class="tk-key">id</span>: <span class="tk-str">'#my-hidden-div'</span> });</div></td>
+						</tr>
+						<tr>
+							<td class="api-name"><code>headline</code></td>
+							<td class="api-type" data-label-en="Type" data-label-he="סוג"><code>string</code></td>
+							<td class="api-default" data-label-en="Default" data-label-he="ברירת מחדל"><span class="api-none">—</span></td>
+							<td class="api-desc"><div class="t-en">Headline above the iframe when using <code>url</code>. Shown as plain text.</div><div class="t-he">כותרת מעל ה-iframe כשמשתמשים ב-<code>url</code>. מוצגת כטקסט רגיל.</div><div class="api-code"><span class="tk-fn">yBox</span>({ <span class="tk-key">url</span>: <span class="tk-str">'https://example.com'</span>, <span class="tk-key">headline</span>: <span class="tk-str">'Example'</span> });</div></td>
+						</tr>
+						<tr>
+							<td class="api-name"><code>sandbox</code></td>
+							<td class="api-type" data-label-en="Type" data-label-he="סוג"><code>string</code></td>
+							<td class="api-default" data-label-en="Default" data-label-he="ברירת מחדל"><span class="api-none">—</span></td>
+							<td class="api-desc"><div class="t-en">Adds a <code>sandbox</code> attribute to the iframe opened with <code>url</code>. An empty string applies the strictest sandbox.</div><div class="t-he">מוסיף תכונת <code>sandbox</code> ל-iframe שנפתח עם <code>url</code>. מחרוזת ריקה מפעילה את ה-sandbox המחמיר ביותר.</div><div class="api-code"><span class="tk-fn">yBox</span>({ <span class="tk-key">url</span>: <span class="tk-str">'https://example.com'</span>, <span class="tk-key">sandbox</span>: <span class="tk-str">'allow-scripts allow-forms'</span> });</div></td>
 						</tr>
 						</tbody>
 					</table>
@@ -196,7 +209,13 @@
 							<td class="api-name"><code>data-ybox-headline</code></td>
 							<td class="api-type" data-label-en="Value" data-label-he="ערך"><code>string</code></td>
 							<td class="api-default" data-label-en="Default" data-label-he="ברירת מחדל"><span class="api-none">—</span></td>
-							<td class="api-desc"><div class="t-en">Adds an <code>&lt;h2&gt;</code> headline above the content.</div><div class="t-he">מוסיף כותרת <code>&lt;h2&gt;</code> מעל התוכן.</div></td>
+							<td class="api-desc"><div class="t-en">Adds an <code>&lt;h2&gt;</code> headline above the content.<br>Shown as plain text — HTML is escaped for security. To style it, use <code>data-ybox-headline-class</code> (see <a href="#custom-styling">Styling Headlines</a>).</div><div class="t-he">מוסיף כותרת <code>&lt;h2&gt;</code> מעל התוכן.<br>מוצגת כטקסט רגיל — HTML מקודד מטעמי אבטחה. כדי לעצב אותה השתמשו ב-<code>data-ybox-headline-class</code> (ראו <a href="#custom-styling">עיצוב כותרות</a>).</div></td>
+						</tr>
+						<tr>
+							<td class="api-name"><code>data-ybox-headline-class</code></td>
+							<td class="api-type" data-label-en="Value" data-label-he="ערך"><code>string</code></td>
+							<td class="api-default" data-label-en="Default" data-label-he="ברירת מחדל"><span class="api-none">—</span></td>
+							<td class="api-desc"><div class="t-en">Adds a custom class to the headline (<code>data-ybox-headline</code>) so you can style it with CSS.</div><div class="t-he">מוסיף קלאס מותאם לכותרת (<code>data-ybox-headline</code>) כדי לעצב אותה ב-CSS.</div><div class="api-code"><span class="tk-tag">&lt;a</span> <span class="tk-attr">href</span>=<span class="tk-str">"img.jpg"</span> <span class="tk-attr">class</span>=<span class="tk-str">"yBox"</span> <span class="tk-attr">data-ybox-headline</span>=<span class="tk-str">"Sunset"</span> <span class="tk-attr">data-ybox-headline-class</span>=<span class="tk-str">"my-headline"</span><span class="tk-tag">&gt;</span>Open<span class="tk-tag">&lt;/a&gt;</span></div></td>
 						</tr>
 						<tr>
 							<td class="api-name"><code>data-ybox-group</code></td>
@@ -215,19 +234,31 @@
 							<td class="api-name"><code>data-ybox-details</code></td>
 							<td class="api-type" data-label-en="Value" data-label-he="ערך"><span class="t-en">selector / text</span><span class="t-he">סלקטור / טקסט</span></td>
 							<td class="api-default" data-label-en="Default" data-label-he="ברירת מחדל"><span class="api-none">—</span></td>
-							<td class="api-desc"><div class="t-en">Description panel for the whole gallery group. Set it on <strong>one element</strong> in the group, all slides share it.<br>Use <code>#my-id</code> or <code>.my-class</code> to take the content from a hidden element (recommended), or write plain text.</div><div class="t-he">פאנל תיאור לכל קבוצת הגלריה. מגדירים אותו על <strong>אלמנט אחד</strong> בקבוצה, וכל השקופיות חולקות אותו.<br>השתמשו ב-<code>#my-id</code> או <code>.my-class</code> כדי לקחת את התוכן מאלמנט מוסתר (מומלץ), או כתבו טקסט רגיל.</div></td>
+							<td class="api-desc"><div class="t-en">Description panel for the whole gallery group. Set it on <strong>one element</strong> in the group, all slides share it.<br>Use <code>#my-id</code> or <code>.my-class</code> to take the content from a hidden element (recommended), or write plain text.<br>Plain text is shown as text (HTML is escaped). For formatted content, use a selector.</div><div class="t-he">פאנל תיאור לכל קבוצת הגלריה. מגדירים אותו על <strong>אלמנט אחד</strong> בקבוצה, וכל השקופיות חולקות אותו.<br>השתמשו ב-<code>#my-id</code> או <code>.my-class</code> כדי לקחת את התוכן מאלמנט מוסתר (מומלץ), או כתבו טקסט רגיל.<br>טקסט רגיל מוצג כטקסט (HTML מקודד). לתוכן מעוצב השתמשו בסלקטור.</div></td>
 						</tr>
 						<tr>
 							<td class="api-name"><code>data-ybox-details-title</code></td>
 							<td class="api-type" data-label-en="Value" data-label-he="ערך"><code>string</code></td>
 							<td class="api-default" data-label-en="Default" data-label-he="ברירת מחדל"><span class="api-none">—</span></td>
-							<td class="api-desc"><div class="t-en">Title at the top of the details panel. Set it on the same element as <code>data-ybox-details</code>.</div><div class="t-he">כותרת בראש פאנל הפרטים. מגדירים אותה על אותו אלמנט של <code>data-ybox-details</code>.</div></td>
+							<td class="api-desc"><div class="t-en">Title at the top of the details panel. Set it on the same element as <code>data-ybox-details</code>.<br>Shown as plain text (HTML is escaped).</div><div class="t-he">כותרת בראש פאנל הפרטים. מגדירים אותה על אותו אלמנט של <code>data-ybox-details</code>.<br>מוצגת כטקסט רגיל (HTML מקודד).</div></td>
 						</tr>
 						<tr>
 							<td class="api-name"><code>data-ybox-details-tooltip</code></td>
 							<td class="api-type" data-label-en="Value" data-label-he="ערך"><code>string</code></td>
 							<td class="api-default" data-label-en="Default" data-label-he="ברירת מחדל"><code>'More details'</code></td>
 							<td class="api-desc"><div class="t-en">Tooltip of the ℹ button.<br>The default follows the yBox language (<code>פרטים נוספים</code> in Hebrew).</div><div class="t-he">הטולטיפ של כפתור ה-ℹ.<br>ברירת המחדל לפי שפת yBox (<code>פרטים נוספים</code> בעברית).</div></td>
+						</tr>
+						<tr>
+							<td class="api-name"><code>data-ybox-sandbox</code></td>
+							<td class="api-type" data-label-en="Value" data-label-he="ערך"><span class="t-en">sandbox tokens</span><span class="t-he">ערכי sandbox</span></td>
+							<td class="api-default" data-label-en="Default" data-label-he="ברירת מחדל"><span class="api-none">—</span></td>
+							<td class="api-desc"><div class="t-en">Adds a <code>sandbox</code> attribute to the iframe (<code>.yBox_iframe</code>), for external sites you do not fully trust.<br>An empty value applies the strictest sandbox. Do not use it on YouTube / Vimeo, players may stop working.<br>Avoid combining <code>allow-scripts</code> with <code>allow-same-origin</code> for pages on your own domain — it cancels the protection.</div><div class="t-he">מוסיף תכונת <code>sandbox</code> ל-iframe (<code>.yBox_iframe</code>), לאתרים חיצוניים שלא סומכים עליהם לגמרי.<br>ערך ריק מפעיל את ה-sandbox המחמיר ביותר. לא מומלץ על YouTube / Vimeo, הנגנים עלולים להפסיק לעבוד.<br>הימנעו משילוב <code>allow-scripts</code> עם <code>allow-same-origin</code> לדפים מהדומיין שלכם — זה מבטל את ההגנה.</div><div class="api-code"><span class="tk-tag">&lt;a</span> <span class="tk-attr">href</span>=<span class="tk-str">"https://example.com"</span> <span class="tk-attr">class</span>=<span class="tk-str">"yBox yBox_iframe"</span> <span class="tk-attr">data-ybox-sandbox</span>=<span class="tk-str">"allow-scripts allow-forms"</span><span class="tk-tag">&gt;</span>Open<span class="tk-tag">&lt;/a&gt;</span></div></td>
+						</tr>
+						<tr>
+							<td class="api-name"><code>data-ybox-allow-cross-origin</code></td>
+							<td class="api-type" data-label-en="Value" data-label-he="ערך"><span class="t-en">no value</span><span class="t-he">ללא ערך</span></td>
+							<td class="api-default" data-label-en="Default" data-label-he="ברירת מחדל"><span class="api-none">—</span></td>
+							<td class="api-desc"><div class="t-en">Allows <code>.yBox_ajax</code> to load content from another domain. Without it, cross-origin AJAX requests are blocked.</div><div class="t-he">מאפשר ל-<code>.yBox_ajax</code> לטעון תוכן מדומיין אחר. בלעדיו בקשות AJAX לדומיין אחר נחסמות.</div><div class="api-code"><span class="tk-tag">&lt;a</span> <span class="tk-attr">href</span>=<span class="tk-str">"https://api.example.com/box.html"</span> <span class="tk-attr">class</span>=<span class="tk-str">"yBox yBox_ajax"</span> <span class="tk-attr">data-ybox-allow-cross-origin</span><span class="tk-tag">&gt;</span>Load<span class="tk-tag">&lt;/a&gt;</span></div></td>
 						</tr>
 						</tbody>
 					</table>
@@ -278,7 +309,7 @@
 						<tr>
 							<td class="api-name"><code>ybox-id</code></td>
 							<td class="api-type" data-label-en="Value" data-label-he="ערך"><span class="t-en">element ID</span><span class="t-he">ID של אלמנט</span></td>
-							<td class="api-desc"><div class="t-en">Opens the element with this ID when the page loads.</div><div class="t-he">פותח את האלמנט עם ה-ID הזה בטעינת הדף.</div><div class="api-code">https://yourdomain.com/page<span class="tk-str">?ybox-id=my-popup</span></div><div class="api-code"><span class="tk-tag">&lt;div</span> <span class="tk-attr">style</span>=<span class="tk-str">"display: none;"</span><span class="tk-tag">&gt;</span>
+							<td class="api-desc"><div class="t-en">Opens the element with this ID when the page loads.<br>The value is used only as an element ID — never as a selector, URL or HTML. If no element has this ID, nothing opens.</div><div class="t-he">פותח את האלמנט עם ה-ID הזה בטעינת הדף.<br>הערך משמש רק כ-ID של אלמנט — אף פעם לא כסלקטור, URL או HTML. אם אין אלמנט עם ה-ID הזה, שום דבר לא נפתח.</div><div class="api-code">https://yourdomain.com/page<span class="tk-str">?ybox-id=my-popup</span></div><div class="api-code"><span class="tk-tag">&lt;div</span> <span class="tk-attr">style</span>=<span class="tk-str">"display: none;"</span><span class="tk-tag">&gt;</span>
 	<span class="tk-tag">&lt;div</span> <span class="tk-attr">id</span>=<span class="tk-str">"my-popup"</span><span class="tk-tag">&gt;</span>
 		Content opens automatically!
 	<span class="tk-tag">&lt;/div&gt;</span>
@@ -289,6 +320,29 @@
 				</div>
 			</section>
 
+			<!-- Security -->
+			<section id="security">
+				<h3><span class="t-en">Security</span><span class="t-he">אבטחה</span></h3>
+				<p>
+					<span class="t-en">yBox protects against XSS and unsafe links out of the box:</span>
+					<span class="t-he">yBox מגן מפני XSS וקישורים מסוכנים כברירת מחדל:</span>
+				</p>
+				<ul style="line-height: 1.9;">
+					<li><span class="t-en"><strong>Escaped attributes</strong> — <code>data-ybox-alt</code>, <code>data-ybox-title</code>, <code>data-ybox-headline</code>, <code>data-ybox-details-title</code>, classes and URLs are always inserted as text, never as HTML.</span><span class="t-he"><strong>קידוד תכונות</strong> — <code>data-ybox-alt</code>, <code>data-ybox-title</code>, <code>data-ybox-headline</code>, <code>data-ybox-details-title</code>, קלאסים וכתובות תמיד מוזרקים כטקסט, אף פעם לא כ-HTML.</span></li>
+					<li><span class="t-en"><strong>Safe protocols only</strong> — <code>href</code> / <code>data-href</code> / <code>url</code> must be <code>http</code>, <code>https</code>, <code>mailto</code>, <code>tel</code>, a relative path, <code>#id</code> or <code>.class</code>. <code>javascript:</code>, <code>vbscript:</code>, <code>data:</code> etc. are blocked (a warning is shown in the console). <code>data:image</code> is allowed only for thumbnails and posters.</span><span class="t-he"><strong>רק פרוטוקולים בטוחים</strong> — <code>href</code> / <code>data-href</code> / <code>url</code> חייבים להיות <code>http</code>, <code>https</code>, <code>mailto</code>, <code>tel</code>, נתיב יחסי, <code>#id</code> או <code>.class</code>. <code>javascript:</code>, <code>vbscript:</code>, <code>data:</code> וכו' נחסמים (מוצגת אזהרה בקונסול). <code>data:image</code> מותר רק לתמונות ממוזערות ול-poster.</span></li>
+					<li><span class="t-en"><strong>URL parameter</strong> — <code>?ybox-id</code> is treated only as an element ID.</span><span class="t-he"><strong>פרמטר URL</strong> — <code>?ybox-id</code> משמש רק כ-ID של אלמנט.</span></li>
+					<li><span class="t-en"><strong>AJAX</strong> — same-origin only, unless <code>data-ybox-allow-cross-origin</code> is set. Error responses (404, 500) are not inserted.</span><span class="t-he"><strong>AJAX</strong> — רק מאותו דומיין, אלא אם הוגדר <code>data-ybox-allow-cross-origin</code>. תשובות שגיאה (404, 500) לא מוזרקות.</span></li>
+					<li><span class="t-en"><strong>Share windows</strong> — opened without access to <code>window.opener</code> (prevents reverse tabnabbing). The print button does not use a <code>javascript:</code> link, so it works with a strict CSP.</span><span class="t-he"><strong>חלונות שיתוף</strong> — נפתחים בלי גישה ל-<code>window.opener</code> (מונע reverse tabnabbing). כפתור ההדפסה לא משתמש בקישור <code>javascript:</code>, ולכן עובד גם עם CSP קפדני.</span></li>
+					<li><span class="t-en"><strong>Iframe sandbox (opt-in)</strong> — add <code>data-ybox-sandbox</code> to restrict external sites.</span><span class="t-he"><strong>Sandbox ל-iframe (לפי בחירה)</strong> — הוסיפו <code>data-ybox-sandbox</code> כדי להגביל אתרים חיצוניים.</span></li>
+				</ul>
+				<h4><span class="t-en">Your responsibility</span><span class="t-he">באחריותכם</span></h4>
+				<ul style="line-height: 1.9;">
+					<li><span class="t-en"><code>yBox({ code })</code> inserts raw HTML. Never pass unsanitized user input — sanitize it first (for example with DOMPurify).</span><span class="t-he"><code>yBox({ code })</code> מזריק HTML גולמי. אסור להעביר קלט משתמש בלי סינון — סננו אותו קודם (למשל עם DOMPurify).</span></li>
+					<li><span class="t-en">Elements opened by <code>#id</code> / <code>.class</code> and <code>data-ybox-details</code> selectors show existing page HTML as-is — make sure that content is safe.</span><span class="t-he">אלמנטים שנפתחים לפי <code>#id</code> / <code>.class</code> וסלקטורים של <code>data-ybox-details</code> מציגים את ה-HTML הקיים בדף כמו שהוא — ודאו שהתוכן הזה בטוח.</span></li>
+					<li><span class="t-en">AJAX responses are inserted as HTML — load only content you trust.</span><span class="t-he">תשובות AJAX מוזרקות כ-HTML — טענו רק תוכן שאתם סומכים עליו.</span></li>
+					<li><span class="t-en">Clickjacking protection for your own site (<code>X-Frame-Options</code> / CSP <code>frame-ancestors</code>) is set on the server, not in yBox.</span><span class="t-he">הגנה מפני clickjacking לאתר שלכם (<code>X-Frame-Options</code> / CSP <code>frame-ancestors</code>) מוגדרת בשרת, לא ב-yBox.</span></li>
+				</ul>
+			</section>
 			<!-- JS Examples -->
 			<section id="js-examples">
 				<h3><span class="t-en">JavaScript Execution Examples</span><span class="t-he">דוגמאות הרצת JavaScript</span></h3>
@@ -323,7 +377,7 @@ yBox({
 						<tr>
 							<td class="api-name"><code>beforeYboxOpen</code></td>
 							<td class="api-type" data-label-en="Arguments" data-label-he="ארגומנטים"><code>(self)</code></td>
-							<td class="api-desc"><div class="t-en">Runs before the popup opens.</div><div class="t-he">רץ לפני פתיחת הפופאפ.</div><div class="api-code"><span class="tk-kw">function</span> <span class="tk-fn">beforeYboxOpen</span>(self) {
+							<td class="api-desc"><div class="t-en">Runs before the popup opens.<br>Return <code>false</code> to cancel opening.</div><div class="t-he">רץ לפני פתיחת הפופאפ.<br>החזירו <code>false</code> כדי לבטל את הפתיחה.</div><div class="api-code"><span class="tk-kw">function</span> <span class="tk-fn">beforeYboxOpen</span>(self) {
 	<span class="tk-com">// ...</span>
 }</div><button type="button" href="#link1" class="yBox alertBeforeYbox"><span class="t-en">Try Example</span><span class="t-he">נסו דוגמה</span></button></td>
 						</tr>
@@ -421,7 +475,7 @@ yBox({
 				<h3><span class="t-en">Custom Styling & AJAX</span><span class="t-he">עיצוב מותאם ו-AJAX</span></h3>
 				<div style="display: flex; gap: 15px; flex-wrap: wrap;">
 					<button type="button" href="#myLink" data-ybox-class="myYboxClass" class="yBox"><span class="t-en">Custom Class Demo</span><span class="t-he">דמו קלאס מותאם</span></button>
-					<button type="button" href="https://www.google.com" class="yBox yBox_ajax">AJAX Demo</button>
+					<button type="button" href="demo_files/ajax-demo.html" class="yBox yBox_ajax">AJAX Demo</button>
 				</div>
 				<div style="display:none;">
 					<div id="myLink" style="padding:20px;">
@@ -432,6 +486,31 @@ yBox({
 						</p>
 					</div>
 				</div>
+				<h4 style="margin-top: 2rem;"><span class="t-en">Styling Headlines</span><span class="t-he">עיצוב כותרות</span></h4>
+				<p>
+					<span class="t-en">Headlines are plain text for security, so style them with CSS instead of HTML:</span>
+					<span class="t-he">הכותרות הן טקסט רגיל מטעמי אבטחה, לכן מעצבים אותן ב-CSS ולא ב-HTML:</span>
+				</p>
+				<ol style="line-height: 1.9;">
+					<li><span class="t-en"><strong>Custom class</strong> — add <code>data-ybox-headline-class</code> and style it in your CSS.</span><span class="t-he"><strong>קלאס מותאם</strong> — הוסיפו <code>data-ybox-headline-class</code> ועצבו אותו ב-CSS.</span></li>
+					<li><span class="t-en"><strong>Default classes</strong> — <code>.ybox-img-title</code> (images &amp; galleries), <code>#ybox-iframe-headline</code> (iframes), <code>.ybox-inline-headline</code> (hidden elements), <code>.ybox-share-title</code> (share popup), <code>.ybox-details-title</code> (details panel).</span><span class="t-he"><strong>קלאסים קיימים</strong> — <code>.ybox-img-title</code> (תמונות וגלריות), <code>#ybox-iframe-headline</code> (iframe), <code>.ybox-inline-headline</code> (אלמנטים מוסתרים), <code>.ybox-share-title</code> (פופאפ שיתוף), <code>.ybox-details-title</code> (פאנל פרטים).</span></li>
+					<li><span class="t-en"><strong>CSS variables</strong> — <code>--ybox-img-title-color</code>, <code>--ybox-img-title-bg</code>, <code>--ybox-iframe-headline-color</code>, <code>--ybox-share-title-color</code>, <code>--ybox-details-title-color</code>.</span><span class="t-he"><strong>משתני CSS</strong> — <code>--ybox-img-title-color</code>, <code>--ybox-img-title-bg</code>, <code>--ybox-iframe-headline-color</code>, <code>--ybox-share-title-color</code>, <code>--ybox-details-title-color</code>.</span></li>
+					<li><span class="t-en"><strong>Line breaks</strong> — write <code>&amp;#10;</code> in the attribute and add <code>white-space: pre-line</code> to the headline class.</span><span class="t-he"><strong>ירידת שורה</strong> — כתבו <code>&amp;#10;</code> בתוך התכונה והוסיפו <code>white-space: pre-line</code> לקלאס של הכותרת.</span></li>
+					<li><span class="t-en"><strong>Rich content</strong> (bold words, links, icons) — put the headline inside a hidden element and open it with <code>href="#id"</code>, or use <code>data-ybox-details="#id"</code> in galleries.</span><span class="t-he"><strong>תוכן עשיר</strong> (מילים מודגשות, קישורים, אייקונים) — שימו את הכותרת בתוך אלמנט מוסתר ופתחו אותו עם <code>href="#id"</code>, או השתמשו ב-<code>data-ybox-details="#id"</code> בגלריות.</span></li>
+				</ol>
+				<pre><code><span class="blue">&lt;a</span> <span class="red">href</span>=<span class="purple">"photo.jpg"</span> <span class="red">class</span>=<span class="purple">"yBox"</span>
+   <span class="red">data-ybox-headline</span>=<span class="purple">"Sunset&amp;#10;Tel Aviv beach"</span>
+   <span class="red">data-ybox-headline-class</span>=<span class="purple">"my-headline"</span><span class="blue">&gt;</span>Open<span class="blue">&lt;/a&gt;</span>
+
+<span class="blue">&lt;style&gt;</span>
+.ybox-img-title.my-headline {
+	font-size: 28px;
+	font-weight: 700;
+	color: #fde68a;
+	white-space: pre-line;
+}
+<span class="blue">&lt;/style&gt;</span></code></pre>
+				<button type="button" href="demo_files/1.jpg" class="yBox" data-ybox-headline="Sunset&#10;Tel Aviv beach" data-ybox-headline-class="my-headline" data-ybox-alt="Styled headline demo"><span class="t-en">Try Example</span><span class="t-he">נסו דוגמה</span></button>
 			</section>
 
 			<!-- Image -->

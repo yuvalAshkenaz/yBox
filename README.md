@@ -1,4 +1,4 @@
-# yBox.js 13.2.0
+# yBox.js 13.2.1
 
 **yBox** is a lightweight, high-performance, and dependency-free Lightbox library built with modern **Vanilla JavaScript**.  
 It supports images, videos, iframes, AJAX content, and complex HTML layouts with smooth transitions and full accessibility support.
@@ -16,7 +16,24 @@ It supports images, videos, iframes, AJAX content, and complex HTML layouts with
 - **Social Sharing** — Built-in sharing modal with optional custom URL.
 - **`href` or `data-href`** — Both attributes work identically on all trigger elements.
 - **Accessibility** — Keyboard navigation (Arrows, ESC, Tab trap) and full ARIA support.
+- **Secure by Default** — Escaped attributes, blocked `javascript:` links, same-origin AJAX and optional iframe sandbox. See [Security](#-security).
 - **Customizable** — Easy to style via CSS variables and helper classes.
+
+---
+
+## 🆕 What's New in 13.2.1
+
+- **Security hardening** — all `data-ybox-*` values are escaped, unsafe protocols (`javascript:`, `vbscript:`, `data:`) are blocked, AJAX is same-origin by default, share windows open without `window.opener`, and the print button no longer uses a `javascript:` link.
+- **New attributes** — `data-ybox-sandbox` (iframe sandbox) and `data-ybox-allow-cross-origin` (cross-origin AJAX).
+- **New API options** — `headline` and `sandbox`.
+- **Fixes** — `?ybox-id` now opens the element (it showed `false` before), `beforeYboxOpen` can cancel opening with `return false`, `data-ybox-headline-class` now works on images, galleries and iframes, galleries support `data-href`, the Email / Telegram buttons in the share popup now share the page (or custom) URL instead of their own link, and YouTube gallery thumbnails fall back to the next largest size when `maxresdefault.jpg` doesn't exist.
+- **Renamed CSS variable** — `--ybox-iframe-headeline-color` (typo) is now `--ybox-iframe-headline-color`.
+- **Popup text color** — popups with a white background now use dark text by default instead of inheriting the page text color (white text on dark-theme sites). Change it with `--ybox-frame-color`.
+
+> ⚠️ **Breaking changes**
+> - `data-ybox-headline`, `data-ybox-details-title` and plain-text `data-ybox-details` are now shown as **plain text**. HTML inside them is displayed as text. See [Styling Headlines](#-styling-headlines).
+> - Cross-origin `yBox_ajax` links need `data-ybox-allow-cross-origin`.
+> - The CSS variable `--ybox-iframe-headeline-color` was renamed to `--ybox-iframe-headline-color`. The old name no longer works.
 
 ---
 
@@ -96,8 +113,8 @@ Set `data-ybox-details` on **one element** in the group (all slides share it). U
 
 | Attribute | Description |
 |-----------|-------------|
-| `data-ybox-details` | Selector (`#id` / `.class`) or plain text. Set on one element per group. |
-| `data-ybox-details-title` | Optional title shown at the top of the panel. |
+| `data-ybox-details` | Selector (`#id` / `.class`) or plain text. Set on one element per group. Plain text is escaped — use a selector for HTML. |
+| `data-ybox-details-title` | Optional title shown at the top of the panel. Plain text. |
 | `data-ybox-details-tooltip` | Custom tooltip for the ℹ button. Defaults to `"More details"`. |
 
 ---
@@ -117,6 +134,14 @@ yBox automatically detects the content type from the URL.
 <a href="https://example.com/stream/123" class="yBox yBox_video">Video without extension</a>
 <a href="https://example.com" class="yBox yBox_iframe">External Site</a>
 ```
+
+**Iframe sandbox (optional)** — add `data-ybox-sandbox` to restrict what an external site can do inside the iframe. An empty value applies the strictest sandbox.
+
+```html
+<a href="https://example.com" class="yBox yBox_iframe" data-ybox-sandbox="allow-scripts allow-forms">Sandboxed Site</a>
+```
+
+> Don't use it on YouTube / Vimeo (players may stop working), and avoid combining `allow-scripts` with `allow-same-origin` for pages on your own domain — it cancels the protection.
 
 ---
 
@@ -142,6 +167,14 @@ Use `href` or `data-href` to point to hidden content on the page:
 ```html
 <a href="content.html" class="yBox yBox_ajax">Load via AJAX</a>
 ```
+
+AJAX is **same-origin only** by default. To load from another domain, add `data-ybox-allow-cross-origin` (the other server must also allow CORS). Error responses (404, 500) are not inserted.
+
+```html
+<a href="https://api.example.com/box.html" class="yBox yBox_ajax" data-ybox-allow-cross-origin>Load from another domain</a>
+```
+
+> The response is inserted as HTML — load only content you trust.
 
 ---
 
@@ -203,12 +236,14 @@ yBox({ url: 'https://example.com' });
 
 | Parameter | Type | Description |
 |-----------|------|-------------|
-| `code` | `String` | Raw HTML content to display. |
-| `url` | `String` | URL to image, iframe, or CSS selector (`#myDiv`). |
+| `code` | `String` | Raw HTML content to display. ⚠️ Never pass unsanitized user input — sanitize it first (e.g. with DOMPurify). |
+| `url` | `String` | URL to image, iframe, or CSS selector (`#myDiv`). Only `http`, `https`, `mailto`, `tel` and relative URLs are allowed. |
 | `id` | `String` | CSS selector of a hidden DOM element to open. |
 | `self` | `Element/String` | DOM element or selector to inherit `data-` attributes from. |
 | `yBoxClass` | `String` | Custom class added to the main wrapper `.yBoxOverlay`. |
 | `focus` | `String` | Selector of the element to focus after opening. |
+| `headline` | `String` | Headline above the iframe when using `url`. Shown as plain text. |
+| `sandbox` | `String` | `sandbox` attribute for the iframe opened with `url`. An empty string applies the strictest sandbox. |
 
 ---
 
@@ -222,11 +257,60 @@ yBox({ url: 'https://example.com' });
 | `data-ybox-img` | Custom thumbnail for galleries or poster image for videos. |
 | `data-ybox-alt` | `alt` attribute for the opened image. |
 | `data-ybox-title` | `title` attribute for the image or iframe. |
-| `data-ybox-headline` | Adds an `<h2>` headline inside the modal. |
+| `data-ybox-headline` | Adds an `<h2>` headline inside the modal. Plain text — see [Styling Headlines](#-styling-headlines). |
 | `data-ybox-headline-class` | Custom class on the headline element. |
-| `data-ybox-details` | Gallery group description — selector or plain text. Set on one element per group. |
-| `data-ybox-details-title` | Title shown at the top of the details panel (optional). |
+| `data-ybox-details` | Gallery group description — selector or plain text. Set on one element per group. Plain text is escaped; use a selector for HTML. |
+| `data-ybox-details-title` | Title shown at the top of the details panel (optional). Plain text. |
 | `data-ybox-details-tooltip` | Custom tooltip for the ℹ button. Defaults to `"More details"`. |
+| `data-ybox-sandbox` | Adds a `sandbox` attribute to the iframe (`yBox_iframe`). Empty value = strictest sandbox. |
+| `data-ybox-allow-cross-origin` | Allows `yBox_ajax` to load content from another domain. |
+
+---
+
+## 🔤 Styling Headlines
+
+Headlines (`data-ybox-headline`, `data-ybox-details-title`) are plain text for security, so style them with CSS instead of HTML:
+
+1. **Custom class** — add `data-ybox-headline-class` and style it in your CSS.
+2. **Default classes** — `.ybox-img-title` (images & galleries), `#ybox-iframe-headline` (iframes), `.ybox-inline-headline` (hidden elements), `.ybox-share-title` (share popup), `.ybox-details-title` (details panel).
+3. **CSS variables** — `--ybox-img-title-color`, `--ybox-img-title-bg`, `--ybox-iframe-headline-color`, `--ybox-share-title-color`, `--ybox-details-title-color`.
+4. **Line breaks** — write `&#10;` in the attribute and add `white-space: pre-line` to the headline class.
+5. **Rich content** (bold words, links, icons) — put the headline inside a hidden element and open it with `href="#id"`, or use `data-ybox-details="#id"` in galleries.
+
+```html
+<a href="photo.jpg" class="yBox"
+   data-ybox-headline="Sunset&#10;Tel Aviv beach"
+   data-ybox-headline-class="my-headline">Open</a>
+
+<style>
+.ybox-img-title.my-headline {
+	font-size: 28px;
+	font-weight: 700;
+	color: #fde68a;
+	white-space: pre-line;
+}
+</style>
+```
+
+---
+
+## 🔒 Security
+
+yBox protects against XSS and unsafe links out of the box:
+
+- **Escaped attributes** — `data-ybox-alt`, `data-ybox-title`, `data-ybox-headline`, `data-ybox-details-title`, classes and URLs are always inserted as text, never as HTML.
+- **Safe protocols only** — `href` / `data-href` / `url` must be `http`, `https`, `mailto`, `tel`, a relative path, `#id` or `.class`. `javascript:`, `vbscript:`, `data:` etc. are blocked (a warning is shown in the console). `data:image` is allowed only for thumbnails and posters.
+- **URL parameter** — `?ybox-id` is treated only as an element ID.
+- **AJAX** — same-origin only, unless `data-ybox-allow-cross-origin` is set. Error responses are not inserted.
+- **Share windows** — opened without access to `window.opener` (prevents reverse tabnabbing). The print button does not use a `javascript:` link, so it works with a strict CSP.
+- **Iframe sandbox (opt-in)** — add `data-ybox-sandbox` to restrict external sites.
+
+**Your responsibility:**
+
+- `yBox({ code })` inserts raw HTML. Never pass unsanitized user input — sanitize it first (for example with [DOMPurify](https://github.com/cure53/DOMPurify)).
+- Elements opened by `#id` / `.class` and `data-ybox-details` selectors show existing page HTML as-is — make sure that content is safe.
+- AJAX responses are inserted as HTML — load only content you trust.
+- Clickjacking protection for your own site (`X-Frame-Options` / CSP `frame-ancestors`) is set on the server, not in yBox.
 
 ---
 
@@ -262,6 +346,7 @@ https://your-site.com/?ybox-id=myPopup
 ```
 
 This opens the element with `id="myPopup"` when the page loads.
+The value is used only as an element ID — never as a selector, URL or HTML. If no element has this ID, nothing opens.
 
 ---
 
