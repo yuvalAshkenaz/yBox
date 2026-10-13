@@ -1,4 +1,4 @@
-# yBox.js 13.1.4
+# yBox.js 13.2.0
 
 **yBox** is a lightweight, high-performance, and dependency-free Lightbox library built with modern **Vanilla JavaScript**.  
 It supports images, videos, iframes, AJAX content, and complex HTML layouts with smooth transitions and full accessibility support.
@@ -26,8 +26,10 @@ Include the stylesheet and script in your HTML:
 
 ```html
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/yuvalAshkenaz/yBox/dist/css/ybox.min.css" />
-<script src="https://cdn.jsdelivr.net/gh/yuvalAshkenaz/yBox/dist/js/ybox.min.js?lang=he"></script>
+<script src="https://cdn.jsdelivr.net/gh/yuvalAshkenaz/yBox/dist/js/ybox.min.js"></script>
 ```
+
+yBox detects the language automatically from the page's `<html lang>` attribute. To set the language manually, add the `lang` parameter to the script URL, e.g. `ybox.min.js?lang=he`. Supported languages: `he`, `ar` (anything else falls back to English).
 
 Or download the files from [GitHub](https://github.com/yuvalAshkenaz/yBox).
 
@@ -104,13 +106,15 @@ Set `data-ybox-details` on **one element** in the group (all slides share it). U
 
 yBox automatically detects the content type from the URL.
 
-- **YouTube / Vimeo** — Paste the video link, yBox handles the embed.
-- **HTML5 Video (`.mp4` / `.webm`)** — Opens in a native video player.
+- **YouTube / Vimeo** — Paste the video link, yBox handles the embed. Supports YouTube watch, embed, shorts and `youtu.be` links, and unlisted Vimeo videos (`vimeo.com/ID/HASH` or `?h=HASH`).
+- **HTML5 Video (`.mp4` / `.m4v` / `.webm` / `.ogv` / `.ogg` / `.mov`)** — Opens in a native video player, even when the link has query parameters (`video.mp4?v=2`). For video links without an extension, add the `yBox_video` class.
 - **External Sites** — Use the `yBox_iframe` class to open any URL in an iframe.
 
 ```html
 <a href="https://www.youtube.com/watch?v=VIDEO_ID" class="yBox">YouTube</a>
 <a href="video.mp4" class="yBox">MP4</a>
+<a href="https://vimeo.com/VIDEO_ID/HASH" class="yBox">Unlisted Vimeo</a>
+<a href="https://example.com/stream/123" class="yBox yBox_video">Video without extension</a>
 <a href="https://example.com" class="yBox yBox_iframe">External Site</a>
 ```
 

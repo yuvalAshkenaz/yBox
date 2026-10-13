@@ -1,4 +1,4 @@
-﻿/*! yBox - v13.1.4 - 13/10/2026
+﻿/*! yBox - v13.2.0 - 13/10/2026
 * By Yuval Ashkenazi
 * https://github.com/yuvalAshkenaz/yBox */
 
@@ -326,6 +326,17 @@ function yBoxYoutubeID(url) {
 	return match ? match[1] : '';
 }
 
+function yBoxVimeoSrc(url) {
+	let match = url.match(/(?:vimeo\.com|vimeopro\.com)\/(?:.*?\/)??(\d+)(?:\/([0-9a-f]+))?/i);
+	if (!match) return '';
+	let hash = match[2] || (url.match(/[?&]h=([0-9a-f]+)/i) || [])[1];
+	return 'https://player.vimeo.com/video/' + match[1] + (hash ? '?h=' + hash + '&' : '?');
+}
+
+function yBoxIsVideoFile(url) {
+	return /\.(mp4|m4v|webm|ogv|ogg|mov)(?:[?#]|$)/i.test(url);
+}
+
 function ybox_iframe(obj) {
 	let attrs = '';
 	let iframe_headline = '';
@@ -356,10 +367,10 @@ function ybox_iframe(obj) {
 		obj.url = 'https://www.youtube.com/embed/' + youtube_id + '?wmode=transparent&rel=0&autoplay=1&hl=' + yBox_lang;
 		frame.classList.add('yBoxVideoWrap');
 	} else if (obj.url.toLowerCase().indexOf('vimeo') > -1) {
-		let vimeoMatch = obj.url.match(/(?:vimeo\.com|player\.vimeo\.com|vimeopro\.com)\/(?:.*\/)?(\d+)/i);
+		let vimeoSrc = yBoxVimeoSrc(obj.url);
 		
-		if (vimeoMatch && vimeoMatch[1]) {
-			obj.url = 'https://player.vimeo.com/video/' + vimeoMatch[1] + '?autoplay=1&background=1';
+		if (vimeoSrc) {
+			obj.url = vimeoSrc + 'autoplay=1&background=1';
 			frame.classList.add('yBoxVideoWrap');
 		}
 	}
@@ -382,7 +393,7 @@ function insert_yBox_html(obj) {
 			insertArea.innerHTML = obj.code;
 		} else {
 			let isIframe = obj.self.classList.contains('yBox_iframe') || obj.self.classList.contains('ybox_iframe') || (obj.url && (obj.url.toLowerCase().includes('youtube') || obj.url.toLowerCase().includes('youtu.be') || obj.url.toLowerCase().includes('vimeo')));
-			let isVideo = obj.self.classList.contains('yBox_video') || obj.self.classList.contains('ybox_video') || (obj.url && obj.url.toLowerCase().match(/\.(mp4|webm)$/i));
+			let isVideo = obj.self.classList.contains('yBox_video') || obj.self.classList.contains('ybox_video') || (obj.url && yBoxIsVideoFile(obj.url));
 
 			if (isIframe) {
 				obj.code = ybox_iframe(obj);
@@ -392,7 +403,7 @@ function insert_yBox_html(obj) {
 			} else if (isVideo) {
 				frame.classList.add('yBoxIframeWrap', 'yBoxVideoWrap');
 				let poster = (obj.self && obj.self.dataset.yboxImg) ? 'poster="' + obj.self.dataset.yboxImg + '"' : '';
-				let code = '<video class="yBoxVideo" ' + poster + ' autoplay controls preload plays-inline playsinline><source src="' + obj.url + '" type="video/mp4" /></video>';
+				let code = '<video class="yBoxVideo" ' + poster + ' autoplay controls preload plays-inline playsinline><source src="' + obj.url + '" /></video>';
 				code = yBox_Group(obj.self, code);
 				insertArea.innerHTML = code;
 				attachDragToThumbs();
@@ -566,7 +577,7 @@ function setYboxFocus(obj) {
 function getYboxSlideContent(el, url) {
     let code = '';
     let isIframe = el.classList.contains('yBox_iframe') || el.classList.contains('ybox_iframe') || (url && (url.toLowerCase().includes('youtube') || url.toLowerCase().includes('youtu.be') || url.toLowerCase().includes('vimeo')));
-    let isVideo = el.classList.contains('yBox_video') || el.classList.contains('ybox_video') || (url && url.toLowerCase().match(/\.(mp4|webm)$/i));
+    let isVideo = el.classList.contains('yBox_video') || el.classList.contains('ybox_video') || (url && yBoxIsVideoFile(url));
     let alt = el.dataset.yboxAlt || '';
     let title = el.dataset.yboxTitle ? 'title="' + el.dataset.yboxTitle + '"' : '';
     let headline = '';
@@ -580,16 +591,16 @@ function getYboxSlideContent(el, url) {
             let youtube_id = yBoxYoutubeID(src);
             src = 'https://www.youtube.com/embed/' + youtube_id + '?wmode=transparent&rel=0&autoplay=0&hl=' + (typeof yBox_lang !== 'undefined' ? yBox_lang : 'en');
         } else if (src.toLowerCase().indexOf('vimeo') > -1) {
-            let vimeoMatch = src.match(/(?:vimeo\.com|player\.vimeo\.com|vimeopro\.com)\/(?:.*\/)?(\d+)/i);
+            let vimeoSrc = yBoxVimeoSrc(src);
             
-            if (vimeoMatch && vimeoMatch[1]) {
-                src = 'https://player.vimeo.com/video/' + vimeoMatch[1] + '?autoplay=0';
+            if (vimeoSrc) {
+                src = vimeoSrc + 'autoplay=0';
             }
         }
         code = '<iframe src="' + src + '" frameborder="0" wmode="Opaque" allowfullscreen class="yBoxIframe"></iframe>';
     } else if (isVideo) {
         let poster = el.dataset.yboxImg ? 'poster="' + el.dataset.yboxImg + '"' : '';
-        code = '<video class="yBoxVideo" ' + poster + ' controls preload playsinline><source src="' + url + '" type="video/mp4" /></video>';
+        code = '<video class="yBoxVideo" ' + poster + ' controls preload playsinline><source src="' + url + '" /></video>';
     } else {
         code = '<div class="yBoxImgWrap2"><img src="' + url + '" alt="' + alt + '" ' + title + ' class="yBoxImg" />' + headline + '</div>';
     }
@@ -624,7 +635,7 @@ function yBox_Group(yBoxLink, currentCode) {
             if (url.toLowerCase().indexOf('youtube') > -1 || url.toLowerCase().indexOf('youtu.be') > -1) {
                 let youtube_id = yBoxYoutubeID(url);
                 thumbSrc = 'https://img.youtube.com/vi/' + youtube_id + '/maxresdefault.jpg';
-            } else if (el.classList.contains('yBox_iframe') || el.classList.contains('ybox_iframe') || el.classList.contains('yBox_video') || el.classList.contains('ybox_video') || url.toLowerCase().match(/\.(mp4|webm)$/i)) {
+            } else if (el.classList.contains('yBox_iframe') || el.classList.contains('ybox_iframe') || el.classList.contains('yBox_video') || el.classList.contains('ybox_video') || yBoxIsVideoFile(url)) {
                 let imgInside = el.querySelector('img');
                 thumbSrc = imgInside ? imgInside.getAttribute('src') : '';
             } else {

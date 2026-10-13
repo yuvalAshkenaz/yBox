@@ -15,7 +15,7 @@
 
 <main class="layout-wrapper">
 	<section id="overview" style="text-align: center; background: transparent; box-shadow: none; border: none; backdrop-filter: none; padding-top:0;">
-		<h1>yBox <span>v13.1.4</span></h1>
+		<h1>yBox <span>v13.2.0</span></h1>
 		<p style="color: var(--text-secondary); font-size: 1.1rem;">
 			<span class="t-en">A lightweight, flexible, and modern lightbox library.</span>
 			<span class="t-he">ספרייה קלה, גמישה ומודרנית ל-lightbox.</span>
@@ -76,10 +76,17 @@
 						</div>
 					</div>
 					<div class="param-item">
-						<div class="param-name">.yBox_ifarme</div>
+						<div class="param-name">.yBox_iframe</div>
 						<div class="param-desc">
-							<span class="t-en">Opens the <code>href</code> / <code>data-href</code> link inside an iframe container.</span>
-							<span class="t-he">פותח את הקישור שב-<code>href</code> / <code>data-href</code> בתוך iframe.</span>
+							<span class="t-en">Opens the <code>href</code> / <code>data-href</code> link inside an iframe container.<br>Not needed for YouTube / Vimeo links, they are detected automatically.</span>
+							<span class="t-he">פותח את הקישור שב-<code>href</code> / <code>data-href</code> בתוך iframe.<br>לא נדרש לקישורי YouTube / Vimeo, הם מזוהים אוטומטית.</span>
+						</div>
+					</div>
+					<div class="param-item">
+						<div class="param-name">.yBox_video</div>
+						<div class="param-desc">
+							<span class="t-en">Opens the <code>href</code> / <code>data-href</code> link in a native HTML5 video player.<br>Not needed when the link ends with a video extension (<code>.mp4</code>, <code>.m4v</code>, <code>.webm</code>, <code>.ogv</code>, <code>.ogg</code>, <code>.mov</code>), even with query parameters.<br>Use it only for video links without an extension.</span>
+							<span class="t-he">פותח את הקישור שב-<code>href</code> / <code>data-href</code> בנגן וידאו HTML5.<br>לא נדרש כשהקישור מסתיים בסיומת וידאו (<code>.mp4</code>, <code>.m4v</code>, <code>.webm</code>, <code>.ogv</code>, <code>.ogg</code>, <code>.mov</code>), גם אם יש אחריה פרמטרים.<br>יש להשתמש בו רק לקישורי וידאו בלי סיומת.</span>
 						</div>
 					</div>
 					<div class="param-item">
@@ -379,6 +386,10 @@ yBox({
 			<!-- Media Embeds -->
 			<section id="media-embeds" class="iframeSection">
 				<h3><span class="t-en">Media Embeds</span><span class="t-he">הטמעת מדיה</span></h3>
+				<p>
+					<span class="t-en">yBox detects the media type from the link, no extra class is needed:<br>YouTube (watch, embed, shorts, youtu.be) and Vimeo links, including unlisted Vimeo videos (<code>vimeo.com/ID/HASH</code> or <code>?h=HASH</code>).<br>Video files ending with <code>.mp4</code>, <code>.m4v</code>, <code>.webm</code>, <code>.ogv</code>, <code>.ogg</code> or <code>.mov</code>, even with query parameters.</span>
+					<span class="t-he">yBox מזהה את סוג המדיה לפי הקישור, בלי צורך בקלאס נוסף:<br>קישורי YouTube (watch, embed, shorts, youtu.be) ו-Vimeo, כולל סרטוני Vimeo לא-רשומים (<code>vimeo.com/ID/HASH</code> או <code>?h=HASH</code>).<br>קבצי וידאו שמסתיימים ב-<code>.mp4</code>, <code>.m4v</code>, <code>.webm</code>, <code>.ogv</code>, <code>.ogg</code> או <code>.mov</code>, גם אם יש אחריהם פרמטרים.</span>
+				</p>
 
 				<div style="display: flex;width:100%; gap: 20px; flex-wrap: wrap;">
 					<div style="flex:1; min-width: 300px;">
