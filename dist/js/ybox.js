@@ -1,9 +1,14 @@
-﻿/*! yBox - v13.1.3 - 30/09/2026
+﻿/*! yBox - v13.1.4 - 13/10/2026
 * By Yuval Ashkenazi
 * https://github.com/yuvalAshkenaz/yBox */
 
 const yBoxUrl = new URL(document.currentScript.src);
-let yBox_lang = yBoxUrl.searchParams.get("lang") || '';
+const yBoxSrcLang = yBoxUrl.searchParams.get("lang") || '';
+const yBoxHtmlLang = (document.documentElement.getAttribute('lang') || '').split(/[-_]/)[0].toLowerCase();
+if (yBoxSrcLang && yBoxHtmlLang && yBoxSrcLang.split(/[-_]/)[0].toLowerCase() !== yBoxHtmlLang) {
+	console.warn('yBox: the yBox language "' + yBoxSrcLang + '" is different from the site language "' + yBoxHtmlLang + '". Remove the lang parameter from the yBox script tag to use the site language automatically.');
+}
+let yBox_lang = yBoxSrcLang || yBoxHtmlLang || '';
 let yBoxIsDragging = false;
 let isRTL = false;
 
