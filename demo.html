@@ -67,170 +67,170 @@
 			<!-- Helper Classes -->
 			<section id="helper-classes">
 				<h3><span class="t-en">Helper Classes</span><span class="t-he">קלאסים עיקריים</span></h3>
-				<div class="param-list">
-					<div class="param-item">
-						<div class="param-name">.yBox <span style="font-weight:400; font-size:0.85em;">or</span> .ybox</div>
-						<div class="param-desc">
-							<span class="t-en">Required on every trigger element to activate the library.<br>Add this class to any element with a <b><code>href</code></b> or <b><code>data-href</code></b> to open it in the lightbox.</span>
-							<span class="t-he">נדרש על כל אלמנט טריגר.<br>הוסף קלאס זה לכל אלמנט עם <b><code>href</code></b> או <b><code>data-href</code></b> כדי לפתוח אותו בלייטבוקס.</span>
-						</div>
-					</div>
-					<div class="param-item">
-						<div class="param-name">.yBox_iframe</div>
-						<div class="param-desc">
-							<span class="t-en">Opens the <code>href</code> / <code>data-href</code> link inside an iframe container.<br>Not needed for YouTube / Vimeo links, they are detected automatically.</span>
-							<span class="t-he">פותח את הקישור שב-<code>href</code> / <code>data-href</code> בתוך iframe.<br>לא נדרש לקישורי YouTube / Vimeo, הם מזוהים אוטומטית.</span>
-						</div>
-					</div>
-					<div class="param-item">
-						<div class="param-name">.yBox_video</div>
-						<div class="param-desc">
-							<span class="t-en">Opens the <code>href</code> / <code>data-href</code> link in a native HTML5 video player.<br>Not needed when the link ends with a video extension (<code>.mp4</code>, <code>.m4v</code>, <code>.webm</code>, <code>.ogv</code>, <code>.ogg</code>, <code>.mov</code>), even with query parameters.<br>Use it only for video links without an extension.</span>
-							<span class="t-he">פותח את הקישור שב-<code>href</code> / <code>data-href</code> בנגן וידאו HTML5.<br>לא נדרש כשהקישור מסתיים בסיומת וידאו (<code>.mp4</code>, <code>.m4v</code>, <code>.webm</code>, <code>.ogv</code>, <code>.ogg</code>, <code>.mov</code>), גם אם יש אחריה פרמטרים.<br>יש להשתמש בו רק לקישורי וידאו בלי סיומת.</span>
-						</div>
-					</div>
-					<div class="param-item">
-						<div class="param-name">.yBox_ajax</div>
-						<div class="param-desc">
-							<span class="t-en">Fetches content via AJAX from the <code>href</code> / <code>data-href</code> attribute.</span>
-							<span class="t-he">טוען תוכן באמצעות AJAX מה-<code>href</code> / <code>data-href</code>.</span>
-						</div>
-					</div>
-					<div class="param-item">
-						<div class="param-name">.yBox_share</div>
-						<div class="param-desc">
-							<span class="t-en">Opens a built-in social media sharing modal.<br>By default shares the current page URL.<br>Use <b><code>href</code></b> or <b><code>data-href</code></b> to share a custom URL instead.</span>
-							<span class="t-he">פותח מודאל שיתוף ברשתות חברתיות.<br>כברירת מחדל משתף את כתובת הדף הנוכחי.<br>השתמש ב-<b><code>href</code></b> או <b><code>data-href</code></b> לשיתוף כתובת מותאמת.</span>
-						</div>
-					</div>
+				<div class="api-table-wrap">
+					<table class="api-table">
+						<thead>
+							<tr><th><span class="t-en">Class</span><span class="t-he">קלאס</span></th><th><span class="t-en">Description</span><span class="t-he">תיאור</span></th></tr>
+						</thead>
+						<tbody>
+						<tr>
+							<td class="api-name"><code>.yBox</code><br><code>.ybox</code></td>
+							<td class="api-desc"><div class="t-en">Required on every trigger element.<br>Add it to any element with <code>href</code> or <code>data-href</code> to open the link in the lightbox.</div><div class="t-he">נדרש על כל אלמנט טריגר.<br>הוסיפו אותו לכל אלמנט עם <code>href</code> או <code>data-href</code> כדי לפתוח את הקישור בלייטבוקס.</div><div class="api-code"><span class="tk-tag">&lt;a</span> <span class="tk-attr">href</span>=<span class="tk-str">"#popup"</span> <span class="tk-attr">class</span>=<span class="tk-str">"yBox"</span><span class="tk-tag">&gt;</span>Open<span class="tk-tag">&lt;/a&gt;</span></div></td>
+						</tr>
+						<tr>
+							<td class="api-name"><code>.yBox_iframe</code></td>
+							<td class="api-desc"><div class="t-en">Opens the <code>href</code> / <code>data-href</code> link inside an iframe.<br>Not needed for YouTube / Vimeo links, they are detected automatically.</div><div class="t-he">פותח את הקישור שב-<code>href</code> / <code>data-href</code> בתוך iframe.<br>לא נדרש לקישורי YouTube / Vimeo, הם מזוהים אוטומטית.</div><div class="api-code"><span class="tk-tag">&lt;a</span> <span class="tk-attr">href</span>=<span class="tk-str">"https://example.com"</span> <span class="tk-attr">class</span>=<span class="tk-str">"yBox yBox_iframe"</span><span class="tk-tag">&gt;</span>Open site<span class="tk-tag">&lt;/a&gt;</span></div></td>
+						</tr>
+						<tr>
+							<td class="api-name"><code>.yBox_video</code></td>
+							<td class="api-desc"><div class="t-en">Opens the <code>href</code> / <code>data-href</code> link in a native HTML5 video player.<br>Not needed when the link ends with a video extension (<code>.mp4</code>, <code>.m4v</code>, <code>.webm</code>, <code>.ogv</code>, <code>.ogg</code>, <code>.mov</code>), even with query parameters.<br>Use it only for video links without an extension.</div><div class="t-he">פותח את הקישור שב-<code>href</code> / <code>data-href</code> בנגן וידאו HTML5.<br>לא נדרש כשהקישור מסתיים בסיומת וידאו (<code>.mp4</code>, <code>.m4v</code>, <code>.webm</code>, <code>.ogv</code>, <code>.ogg</code>, <code>.mov</code>), גם אם יש אחריה פרמטרים.<br>יש להשתמש בו רק לקישורי וידאו בלי סיומת.</div><div class="api-code"><span class="tk-tag">&lt;a</span> <span class="tk-attr">href</span>=<span class="tk-str">"https://example.com/stream/123"</span> <span class="tk-attr">class</span>=<span class="tk-str">"yBox yBox_video"</span><span class="tk-tag">&gt;</span>Play<span class="tk-tag">&lt;/a&gt;</span></div></td>
+						</tr>
+						<tr>
+							<td class="api-name"><code>.yBox_ajax</code></td>
+							<td class="api-desc"><div class="t-en">Fetches the content of the <code>href</code> / <code>data-href</code> link via AJAX and shows it in the popup.</div><div class="t-he">טוען את התוכן של הקישור שב-<code>href</code> / <code>data-href</code> באמצעות AJAX ומציג אותו בפופאפ.</div><div class="api-code"><span class="tk-tag">&lt;a</span> <span class="tk-attr">href</span>=<span class="tk-str">"/ajax/content.html"</span> <span class="tk-attr">class</span>=<span class="tk-str">"yBox yBox_ajax"</span><span class="tk-tag">&gt;</span>Load<span class="tk-tag">&lt;/a&gt;</span></div></td>
+						</tr>
+						<tr>
+							<td class="api-name"><code>.yBox_share</code></td>
+							<td class="api-desc"><div class="t-en">Opens a built-in social sharing popup.<br>By default it shares the current page URL.<br>Use <code>href</code> or <code>data-href</code> to share a different URL.</div><div class="t-he">פותח פופאפ שיתוף ברשתות חברתיות.<br>כברירת מחדל משתף את כתובת הדף הנוכחי.<br>השתמשו ב-<code>href</code> או <code>data-href</code> כדי לשתף כתובת אחרת.</div><div class="api-code"><span class="tk-tag">&lt;button</span> <span class="tk-attr">type</span>=<span class="tk-str">"button"</span> <span class="tk-attr">class</span>=<span class="tk-str">"yBox yBox_share"</span><span class="tk-tag">&gt;</span>Share<span class="tk-tag">&lt;/button&gt;</span></div></td>
+						</tr>
+						</tbody>
+					</table>
 				</div>
 			</section>
 
 			<!-- JS API -->
 			<section id="js-api">
 				<h3><span class="t-en">JavaScript API Parameters</span><span class="t-he">פרמטרי JavaScript API</span></h3>
-				<div class="param-list">
-					<div class="param-item">
-						<div class="param-name">code</div>
-						<div class="param-desc">
-							<span class="t-en">Inject raw HTML directly.<br><code>yBox({ code: '&lt;div&gt;Hello&lt;/div&gt;' });</code></span>
-							<span class="t-he">הזרקת HTML ישירות.<br><code>yBox({ code: '&lt;div&gt;שלום&lt;/div&gt;' });</code></span>
-						</div>
-					</div>
-					<div class="param-item">
-						<div class="param-name">url</div>
-						<div class="param-desc">
-							<span class="t-en">Open a specific URL in an iframe.<br><code>yBox({ url: 'https://example.com' });</code></span>
-							<span class="t-he">פתיחת כתובת URL ב-iframe.<br><code>yBox({ url: 'https://example.com' });</code></span>
-						</div>
-					</div>
-					<div class="param-item">
-						<div class="param-name">self</div>
-						<div class="param-desc">
-							<span class="t-en">Pass a DOM element (usually the clicked element) to inherit its attributes.<br>
-							<code><span class="blue">&lt;a</span> <span class="red">href</span>=<span class="purple">"#popup"</span> <span class="red">class</span>=<span class="purple">"yBox <b>my-link</b>"</span><span class="blue">&gt;</span>The link<span class="blue">&lt;/a&gt;</span><br /><span class="blue">&lt;script&gt;</span> yBox({ self: '.my-link' }); <span class="blue">&lt;/script&gt;</span></code></span>
-							<span class="t-he">העברת אלמנט DOM (בד"כ הכפתור שנלחץ) לירושת התכונות שלו.<br>
-							<code><span class="blue">&lt;a</span> <span class="red">href</span>=<span class="purple">"#popup"</span> <span class="red">class</span>=<span class="purple">"yBox <b>my-link</b>"</span><span class="blue">&gt;</span>הקישור<span class="blue">&lt;/a&gt;</span><br /><span class="blue">&lt;script&gt;</span> yBox({ self: '.my-link' }); <span class="blue">&lt;/script&gt;</span></code></span>
-						</div>
-					</div>
-					<div class="param-item">
-						<div class="param-name">yBoxClass</div>
-						<div class="param-desc">
-							<span class="t-en">Add a custom class to the main wrapper <code>.yBoxOverlay</code>.<br><code>yBox({ yBoxClass: 'custom-theme' });</code></span>
-							<span class="t-he">הוספת קלאס מותאם ל-wrapper הראשי <code>.yBoxOverlay</code>.<br><code>yBox({ yBoxClass: 'custom-theme' });</code></span>
-						</div>
-					</div>
-					<div class="param-item">
-						<div class="param-name">focus</div>
-						<div class="param-desc">
-							<span class="t-en">CSS selector of an element to focus on after opening.<br><code>yBox({ focus: '.input-field' });</code></span>
-							<span class="t-he">selector של אלמנט שיקבל פוקוס לאחר הפתיחה.<br><code>yBox({ focus: '.input-field' });</code></span>
-						</div>
-					</div>
-					<div class="param-item">
-						<div class="param-name">id</div>
-						<div class="param-desc">
-							<span class="t-en">Select an element from the DOM (even if hidden) and show it.<br><code>yBox({ id: '#my-hidden-div' });</code></span>
-							<span class="t-he">בחירת אלמנט מה-DOM (גם אם מוסתר) והצגתו.<br><code>yBox({ id: '#my-hidden-div' });</code></span>
-						</div>
-					</div>
+				<p>
+					<span class="t-en">Options you can pass to <code>yBox({ ... })</code>.</span>
+					<span class="t-he">אפשרויות שאפשר להעביר ל-<code>yBox({ ... })</code>.</span>
+				</p>
+				<div class="api-table-wrap">
+					<table class="api-table">
+						<thead>
+							<tr><th><span class="t-en">Parameter</span><span class="t-he">פרמטר</span></th><th><span class="t-en">Type</span><span class="t-he">סוג</span></th><th><span class="t-en">Default</span><span class="t-he">ברירת מחדל</span></th><th><span class="t-en">Description</span><span class="t-he">תיאור</span></th></tr>
+						</thead>
+						<tbody>
+						<tr>
+							<td class="api-name"><code>code</code></td>
+							<td class="api-type" data-label-en="Type" data-label-he="סוג"><code>string</code></td>
+							<td class="api-default" data-label-en="Default" data-label-he="ברירת מחדל"><span class="api-none">—</span></td>
+							<td class="api-desc"><div class="t-en">Injects raw HTML into the popup.</div><div class="t-he">מזריק HTML ישירות לפופאפ.</div><div class="api-code"><span class="tk-fn">yBox</span>({ <span class="tk-key">code</span>: <span class="tk-str">'&lt;div&gt;Hello&lt;/div&gt;'</span> });</div></td>
+						</tr>
+						<tr>
+							<td class="api-name"><code>url</code></td>
+							<td class="api-type" data-label-en="Type" data-label-he="סוג"><code>string</code></td>
+							<td class="api-default" data-label-en="Default" data-label-he="ברירת מחדל"><span class="api-none">—</span></td>
+							<td class="api-desc"><div class="t-en">Opens a URL in an iframe.</div><div class="t-he">פותח כתובת URL בתוך iframe.</div><div class="api-code"><span class="tk-fn">yBox</span>({ <span class="tk-key">url</span>: <span class="tk-str">'https://example.com'</span> });</div></td>
+						</tr>
+						<tr>
+							<td class="api-name"><code>self</code></td>
+							<td class="api-type" data-label-en="Type" data-label-he="סוג"><code>HTMLElement | string</code></td>
+							<td class="api-default" data-label-en="Default" data-label-he="ברירת מחדל"><span class="api-none">—</span></td>
+							<td class="api-desc"><div class="t-en">A trigger element (or its selector).<br>The popup is built from its <code>href</code> / <code>data-href</code> and <code>data-ybox-*</code> attributes.</div><div class="t-he">אלמנט טריגר (או הסלקטור שלו).<br>הפופאפ נבנה לפי ה-<code>href</code> / <code>data-href</code> ותכונות ה-<code>data-ybox-*</code> שלו.</div><div class="api-code"><span class="tk-tag">&lt;a</span> <span class="tk-attr">href</span>=<span class="tk-str">"#popup"</span> <span class="tk-attr">class</span>=<span class="tk-str">"yBox my-link"</span><span class="tk-tag">&gt;</span>The link<span class="tk-tag">&lt;/a&gt;</span>
+<span class="tk-tag">&lt;script&gt;</span>
+	<span class="tk-fn">yBox</span>({ <span class="tk-key">self</span>: <span class="tk-str">'.my-link'</span> });
+<span class="tk-tag">&lt;/script&gt;</span></div></td>
+						</tr>
+						<tr>
+							<td class="api-name"><code>yBoxClass</code></td>
+							<td class="api-type" data-label-en="Type" data-label-he="סוג"><code>string</code></td>
+							<td class="api-default" data-label-en="Default" data-label-he="ברירת מחדל"><code>''</code></td>
+							<td class="api-desc"><div class="t-en">Adds a custom class to the main wrapper <code>.yBoxOverlay</code>.</div><div class="t-he">מוסיף קלאס מותאם ל-wrapper הראשי <code>.yBoxOverlay</code>.</div><div class="api-code"><span class="tk-fn">yBox</span>({ <span class="tk-key">yBoxClass</span>: <span class="tk-str">'custom-theme'</span> });</div></td>
+						</tr>
+						<tr>
+							<td class="api-name"><code>focus</code></td>
+							<td class="api-type" data-label-en="Type" data-label-he="סוג"><code>string</code></td>
+							<td class="api-default" data-label-en="Default" data-label-he="ברירת מחדל"><span class="t-en">Close button</span><span class="t-he">כפתור הסגירה</span></td>
+							<td class="api-desc"><div class="t-en">CSS selector of the element that gets focus after the popup opens.</div><div class="t-he">סלקטור CSS של האלמנט שיקבל פוקוס אחרי פתיחת הפופאפ.</div><div class="api-code"><span class="tk-fn">yBox</span>({ <span class="tk-key">focus</span>: <span class="tk-str">'.input-field'</span> });</div></td>
+						</tr>
+						<tr>
+							<td class="api-name"><code>id</code></td>
+							<td class="api-type" data-label-en="Type" data-label-he="סוג"><code>string</code></td>
+							<td class="api-default" data-label-en="Default" data-label-he="ברירת מחדל"><span class="api-none">—</span></td>
+							<td class="api-desc"><div class="t-en">Selector of an element in the page (even a hidden one) to show in the popup.</div><div class="t-he">סלקטור של אלמנט בדף (גם מוסתר) שיוצג בפופאפ.</div><div class="api-code"><span class="tk-fn">yBox</span>({ <span class="tk-key">id</span>: <span class="tk-str">'#my-hidden-div'</span> });</div></td>
+						</tr>
+						</tbody>
+					</table>
 				</div>
 			</section>
 
 			<!-- HTML Attributes -->
 			<section id="html-attributes">
 				<h3><span class="t-en">HTML Attributes</span><span class="t-he">תכונות HTML</span></h3>
-				<div class="param-list">
-					<div class="param-item">
-						<div class="param-name">href <span style="font-weight:400; font-size:0.85em;">or</span> data-href</div>
-						<div class="param-desc">
-							<span class="t-en">The target URL or selector to open.<br>Both work identically — use <b><code>data-href</code></b> when <code>href</code> is semantically incorrect (e.g. on a <code>&lt;div&gt;</code> or <code>&lt;button&gt;</code>).<br><code>href="#my-popup"</code> &nbsp;/&nbsp; <code>data-href="#my-popup"</code></span>
-							<span class="t-he">כתובת ה-URL או הסלקטור לפתיחה.<br>שניהם עובדים זהה — השתמש ב-<b><code>data-href</code></b> כשאין משמעות סמנטית ל-<code>href</code> (למשל על <code>&lt;div&gt;</code> או <code>&lt;button&gt;</code>).<br><code>href="#my-popup"</code> &nbsp;/&nbsp; <code>data-href="#my-popup"</code></span>
-						</div>
-					</div>
-					<div class="param-item">
-						<div class="param-name">data-ybox-class</div>
-						<div class="param-desc">
-							<span class="t-en">Adds a custom class to the popup window.<br>Use <code>"no-bg"</code> to remove the default white background.</span>
-							<span class="t-he">מוסיף קלאס מותאם לחלון הפופאפ.<br>השתמש ב-<code>"no-bg"</code> להסרת הרקע הלבן.</span>
-						</div>
-					</div>
-					<div class="param-item">
-						<div class="param-name">data-ybox-alt</div>
-						<div class="param-desc">
-							<span class="t-en">Sets the <code>alt</code> attribute for the opened image.</span>
-							<span class="t-he">קובע את תכונת ה-<code>alt</code> לתמונה שנפתחת.</span>
-						</div>
-					</div>
-					<div class="param-item">
-						<div class="param-name">data-ybox-title</div>
-						<div class="param-desc">
-							<span class="t-en">Sets the <code>title</code> attribute for iframe or image.</span>
-							<span class="t-he">קובע את תכונת ה-<code>title</code> ל-iframe או תמונה.</span>
-						</div>
-					</div>
-					<div class="param-item">
-						<div class="param-name">data-ybox-headline</div>
-						<div class="param-desc">
-							<span class="t-en">Adds an <code>&lt;h2&gt;</code> headline above the content.</span>
-							<span class="t-he">מוסיף כותרת <code>&lt;h2&gt;</code> מעל התוכן.</span>
-						</div>
-					</div>
-					<div class="param-item">
-						<div class="param-name">data-ybox-group</div>
-						<div class="param-desc">
-							<span class="t-en">Groups multiple links into a gallery (next/prev buttons).</span>
-							<span class="t-he">מקבץ מספר קישורים לגלריה (כפתורי הבא/קודם).</span>
-						</div>
-					</div>
-					<div class="param-item">
-						<div class="param-name">data-ybox-img</div>
-						<div class="param-desc">
-							<span class="t-en">Sets a custom thumbnail for galleries or a poster image for videos.</span>
-							<span class="t-he">קובע תמונת ממוזערת מותאמת לגלריות או תמונת poster לסרטונים.</span>
-						</div>
-					</div>
-					<div class="param-item">
-						<div class="param-name">data-ybox-details</div>
-						<div class="param-desc">
-							<span class="t-en">Description for the whole gallery group. Set on <strong>one element</strong> in the group — all slides share it. Use <code>"#my-id"</code> or <code>".my-class"</code> to pull content from a hidden element (recommended), or write a plain text string directly.</span>
-							<span class="t-he">תיאור לכל קבוצת הגלריה. מוגדר על <strong>אלמנט אחד</strong> בקבוצה — כל השקופיות חולקות אותו. השתמש ב-<code>"#my-id"</code> או <code>".my-class"</code> למשיכת תוכן מאלמנט מוסתר (מומלץ), או כתוב טקסט ישירות.</span>
-						</div>
-					</div>
-					<div class="param-item">
-						<div class="param-name">data-ybox-details-title</div>
-						<div class="param-desc">
-							<span class="t-en">Title shown at the top of the details panel. Set on the same element as <code>data-ybox-details</code> (optional).</span>
-							<span class="t-he">כותרת שתוצג בראש פאנל הפרטים. מוגדר על אותו אלמנט כמו <code>data-ybox-details</code> (אופציונלי).</span>
-						</div>
-					</div>
-					<div class="param-item">
-						<div class="param-name">data-ybox-details-tooltip</div>
-						<div class="param-desc">
-							<span class="t-en">Custom tooltip for the ℹ button. Defaults to <code>"More details"</code> / <code>"פרטים נוספים"</code>.</span>
-							<span class="t-he">טולטיפ מותאם לכפתור ℹ. ברירת מחדל: <code>"פרטים נוספים"</code>.</span>
-						</div>
-					</div>
+				<p>
+					<span class="t-en">Attributes you can add to a trigger element.</span>
+					<span class="t-he">תכונות שאפשר להוסיף לאלמנט הטריגר.</span>
+				</p>
+				<div class="api-table-wrap">
+					<table class="api-table">
+						<thead>
+							<tr><th><span class="t-en">Attribute</span><span class="t-he">תכונה</span></th><th><span class="t-en">Value</span><span class="t-he">ערך</span></th><th><span class="t-en">Default</span><span class="t-he">ברירת מחדל</span></th><th><span class="t-en">Description</span><span class="t-he">תיאור</span></th></tr>
+						</thead>
+						<tbody>
+						<tr>
+							<td class="api-name"><code>href</code><br><code>data-href</code></td>
+							<td class="api-type" data-label-en="Value" data-label-he="ערך"><span class="t-en">URL / selector</span><span class="t-he">URL / סלקטור</span></td>
+							<td class="api-default" data-label-en="Default" data-label-he="ברירת מחדל"><span class="api-none">—</span></td>
+							<td class="api-desc"><div class="t-en">The URL or selector to open. Both attributes work the same.<br>Use <code>data-href</code> when <code>href</code> is not valid on the element (for example on a <code>&lt;div&gt;</code> or <code>&lt;button&gt;</code>).</div><div class="t-he">כתובת ה-URL או הסלקטור לפתיחה. שתי התכונות עובדות אותו דבר.<br>השתמשו ב-<code>data-href</code> כש-<code>href</code> לא מתאים לאלמנט (למשל על <code>&lt;div&gt;</code> או <code>&lt;button&gt;</code>).</div><div class="api-code"><span class="tk-tag">&lt;button</span> <span class="tk-attr">type</span>=<span class="tk-str">"button"</span> <span class="tk-attr">data-href</span>=<span class="tk-str">"#my-popup"</span> <span class="tk-attr">class</span>=<span class="tk-str">"yBox"</span><span class="tk-tag">&gt;</span>Open<span class="tk-tag">&lt;/button&gt;</span></div></td>
+						</tr>
+						<tr>
+							<td class="api-name"><code>data-ybox-class</code></td>
+							<td class="api-type" data-label-en="Value" data-label-he="ערך"><code>string</code></td>
+							<td class="api-default" data-label-en="Default" data-label-he="ברירת מחדל"><span class="api-none">—</span></td>
+							<td class="api-desc"><div class="t-en">Adds a custom class to the popup.<br>Use <code>no-bg</code> to remove the default white background.</div><div class="t-he">מוסיף קלאס מותאם לפופאפ.<br>השתמשו ב-<code>no-bg</code> כדי להסיר את הרקע הלבן.</div><div class="api-code"><span class="tk-tag">&lt;a</span> <span class="tk-attr">href</span>=<span class="tk-str">"#popup"</span> <span class="tk-attr">class</span>=<span class="tk-str">"yBox"</span> <span class="tk-attr">data-ybox-class</span>=<span class="tk-str">"no-bg"</span><span class="tk-tag">&gt;</span>Open<span class="tk-tag">&lt;/a&gt;</span></div></td>
+						</tr>
+						<tr>
+							<td class="api-name"><code>data-ybox-alt</code></td>
+							<td class="api-type" data-label-en="Value" data-label-he="ערך"><code>string</code></td>
+							<td class="api-default" data-label-en="Default" data-label-he="ברירת מחדל"><span class="api-none">—</span></td>
+							<td class="api-desc"><div class="t-en">Sets the <code>alt</code> of the opened image.</div><div class="t-he">קובע את ה-<code>alt</code> של התמונה שנפתחת.</div></td>
+						</tr>
+						<tr>
+							<td class="api-name"><code>data-ybox-title</code></td>
+							<td class="api-type" data-label-en="Value" data-label-he="ערך"><code>string</code></td>
+							<td class="api-default" data-label-en="Default" data-label-he="ברירת מחדל"><span class="api-none">—</span></td>
+							<td class="api-desc"><div class="t-en">Sets the <code>title</code> of the iframe or image.</div><div class="t-he">קובע את ה-<code>title</code> של ה-iframe או התמונה.</div></td>
+						</tr>
+						<tr>
+							<td class="api-name"><code>data-ybox-headline</code></td>
+							<td class="api-type" data-label-en="Value" data-label-he="ערך"><code>string</code></td>
+							<td class="api-default" data-label-en="Default" data-label-he="ברירת מחדל"><span class="api-none">—</span></td>
+							<td class="api-desc"><div class="t-en">Adds an <code>&lt;h2&gt;</code> headline above the content.</div><div class="t-he">מוסיף כותרת <code>&lt;h2&gt;</code> מעל התוכן.</div></td>
+						</tr>
+						<tr>
+							<td class="api-name"><code>data-ybox-group</code></td>
+							<td class="api-type" data-label-en="Value" data-label-he="ערך"><code>string</code></td>
+							<td class="api-default" data-label-en="Default" data-label-he="ברירת מחדל"><span class="api-none">—</span></td>
+							<td class="api-desc"><div class="t-en">Links with the same group name open as a gallery with next / prev buttons.</div><div class="t-he">קישורים עם אותו שם קבוצה נפתחים כגלריה עם כפתורי הבא / הקודם.</div><div class="api-code"><span class="tk-tag">&lt;a</span> <span class="tk-attr">href</span>=<span class="tk-str">"img1.jpg"</span> <span class="tk-attr">class</span>=<span class="tk-str">"yBox"</span> <span class="tk-attr">data-ybox-group</span>=<span class="tk-str">"nature"</span><span class="tk-tag">&gt;</span>Image 1<span class="tk-tag">&lt;/a&gt;</span>
+<span class="tk-tag">&lt;a</span> <span class="tk-attr">href</span>=<span class="tk-str">"img2.jpg"</span> <span class="tk-attr">class</span>=<span class="tk-str">"yBox"</span> <span class="tk-attr">data-ybox-group</span>=<span class="tk-str">"nature"</span><span class="tk-tag">&gt;</span>Image 2<span class="tk-tag">&lt;/a&gt;</span></div></td>
+						</tr>
+						<tr>
+							<td class="api-name"><code>data-ybox-img</code></td>
+							<td class="api-type" data-label-en="Value" data-label-he="ערך"><span class="t-en">URL</span><span class="t-he">URL</span></td>
+							<td class="api-default" data-label-en="Default" data-label-he="ברירת מחדל"><span class="api-none">—</span></td>
+							<td class="api-desc"><div class="t-en">Custom thumbnail in a gallery, or poster image for a video.</div><div class="t-he">תמונה ממוזערת מותאמת בגלריה, או תמונת poster לסרטון.</div></td>
+						</tr>
+						<tr>
+							<td class="api-name"><code>data-ybox-details</code></td>
+							<td class="api-type" data-label-en="Value" data-label-he="ערך"><span class="t-en">selector / text</span><span class="t-he">סלקטור / טקסט</span></td>
+							<td class="api-default" data-label-en="Default" data-label-he="ברירת מחדל"><span class="api-none">—</span></td>
+							<td class="api-desc"><div class="t-en">Description panel for the whole gallery group. Set it on <strong>one element</strong> in the group, all slides share it.<br>Use <code>#my-id</code> or <code>.my-class</code> to take the content from a hidden element (recommended), or write plain text.</div><div class="t-he">פאנל תיאור לכל קבוצת הגלריה. מגדירים אותו על <strong>אלמנט אחד</strong> בקבוצה, וכל השקופיות חולקות אותו.<br>השתמשו ב-<code>#my-id</code> או <code>.my-class</code> כדי לקחת את התוכן מאלמנט מוסתר (מומלץ), או כתבו טקסט רגיל.</div></td>
+						</tr>
+						<tr>
+							<td class="api-name"><code>data-ybox-details-title</code></td>
+							<td class="api-type" data-label-en="Value" data-label-he="ערך"><code>string</code></td>
+							<td class="api-default" data-label-en="Default" data-label-he="ברירת מחדל"><span class="api-none">—</span></td>
+							<td class="api-desc"><div class="t-en">Title at the top of the details panel. Set it on the same element as <code>data-ybox-details</code>.</div><div class="t-he">כותרת בראש פאנל הפרטים. מגדירים אותה על אותו אלמנט של <code>data-ybox-details</code>.</div></td>
+						</tr>
+						<tr>
+							<td class="api-name"><code>data-ybox-details-tooltip</code></td>
+							<td class="api-type" data-label-en="Value" data-label-he="ערך"><code>string</code></td>
+							<td class="api-default" data-label-en="Default" data-label-he="ברירת מחדל"><code>'More details'</code></td>
+							<td class="api-desc"><div class="t-en">Tooltip of the ℹ button.<br>The default follows the yBox language (<code>פרטים נוספים</code> in Hebrew).</div><div class="t-he">הטולטיפ של כפתור ה-ℹ.<br>ברירת המחדל לפי שפת yBox (<code>פרטים נוספים</code> בעברית).</div></td>
+						</tr>
+						</tbody>
+					</table>
 				</div>
 			</section>
 
@@ -238,34 +238,27 @@
 			<section id="targeting">
 				<h3><span class="t-en">Targeting Elements (href / data-href)</span><span class="t-he">מיקוד אלמנטים (href / data-href)</span></h3>
 				<p>
-					<span class="t-en">Use <code>href</code> or <code>data-href</code> on your trigger element to target specific hidden elements or URLs. Both attributes work identically.</span>
-					<span class="t-he">השתמש ב-<code>href</code> או <code>data-href</code> על אלמנט הטריגר כדי למקד אלמנטים מוסתרים או כתובות URL. שתי התכונות עובדות באופן זהה.</span>
+					<span class="t-en">Use <code>href</code> or <code>data-href</code> on the trigger element to open hidden elements or URLs. Both attributes work the same.</span>
+					<span class="t-he">השתמשו ב-<code>href</code> או <code>data-href</code> על אלמנט הטריגר כדי לפתוח אלמנטים מוסתרים או כתובות URL. שתי התכונות עובדות אותו דבר.</span>
 				</p>
-				<div class="param-list">
-					<div class="param-item">
-						<div class="param-name"><span class="t-en">ID Target</span><span class="t-he">מיקוד לפי ID</span></div>
-						<div class="param-desc">
-							<code>href="#my-popup"</code> &nbsp;/&nbsp; <code>data-href="#my-popup"</code><br>
-							<span class="t-en">Opens the element with the exact ID. If the ID is not found, yBox automatically falls back to searching for a class named <code>.my-popup</code>.</span>
-							<span class="t-he">פותח את האלמנט עם ה-ID המדויק. אם לא נמצא, yBox עובר אוטומטית לחיפוש קלאס בשם <code>.my-popup</code>.</span>
-						</div>
-					</div>
-					<div class="param-item">
-						<div class="param-name"><span class="t-en">Class Target</span><span class="t-he">מיקוד לפי קלאס</span></div>
-						<div class="param-desc">
-							<code>href=".my-popup"</code> &nbsp;/&nbsp; <code>data-href=".my-popup"</code><br>
-							<span class="t-en">Opens an element by its class. Perfect for dynamic content loops (like product cards or blog posts).<br>
-							<ol style="margin-top: 5px; padding-left: 20px;">
-								<li>First, yBox looks for the class <strong>inside</strong> the clicked button.</li>
-								<li>If not found, it opens the element that matches the <strong>index</strong> of the clicked button.</li>
-							</ol></span>
-							<span class="t-he">פותח אלמנט לפי הקלאס שלו. מושלם ללולאות דינמיות (כגון כרטיסי מוצר או פוסטים).<br>
-							<ol style="margin-top: 5px; padding-right: 20px;">
-								<li>תחילה yBox מחפש את הקלאס <strong>בתוך</strong> הכפתור שנלחץ.</li>
-								<li>אם לא נמצא, פותח את האלמנט שתואם ל-<strong>אינדקס</strong> של הכפתור.</li>
-							</ol></span>
-						</div>
-					</div>
+				<div class="api-table-wrap">
+					<table class="api-table">
+						<thead>
+							<tr><th><span class="t-en">Target</span><span class="t-he">מיקוד</span></th><th><span class="t-en">Example</span><span class="t-he">דוגמה</span></th><th><span class="t-en">Description</span><span class="t-he">תיאור</span></th></tr>
+						</thead>
+						<tbody>
+						<tr>
+							<td class="api-name"><span class="t-en">ID</span><span class="t-he">ID</span></td>
+							<td class="api-type" data-label-en="Example" data-label-he="דוגמה"><code>href="#my-popup"</code><br><code>data-href="#my-popup"</code></td>
+							<td class="api-desc"><div class="t-en">Opens the element with this ID.<br>If no such ID exists, yBox looks for the class <code>.my-popup</code> instead.</div><div class="t-he">פותח את האלמנט עם ה-ID הזה.<br>אם אין ID כזה, yBox מחפש במקומו את הקלאס <code>.my-popup</code>.</div></td>
+						</tr>
+						<tr>
+							<td class="api-name"><span class="t-en">Class</span><span class="t-he">קלאס</span></td>
+							<td class="api-type" data-label-en="Example" data-label-he="דוגמה"><code>href=".my-popup"</code><br><code>data-href=".my-popup"</code></td>
+							<td class="api-desc"><div class="t-en">Opens an element by its class. Useful in loops such as product cards or posts:<ol><li>yBox first looks for the class <strong>inside</strong> the clicked element.</li><li>If not found, it opens the element with the same <strong>index</strong> as the clicked element.</li></ol></div><div class="t-he">פותח אלמנט לפי הקלאס שלו. שימושי בלולאות כמו כרטיסי מוצר או פוסטים:<ol><li>yBox מחפש קודם את הקלאס <strong>בתוך</strong> האלמנט שנלחץ.</li><li>אם לא נמצא, נפתח האלמנט עם אותו <strong>אינדקס</strong> של האלמנט שנלחץ.</li></ol></div></td>
+						</tr>
+						</tbody>
+					</table>
 				</div>
 			</section>
 
@@ -273,28 +266,26 @@
 			<section id="url-parameters">
 				<h3><span class="t-en">URL Parameters</span><span class="t-he">פרמטרי URL</span></h3>
 				<p>
-					<span class="t-en">You can trigger yBox automatically on page load by adding parameters to the URL query string.</span>
-					<span class="t-he">ניתן להפעיל את yBox אוטומטית בטעינת הדף על ידי הוספת פרמטרים ל-query string של ה-URL.</span>
+					<span class="t-en">Open yBox automatically on page load by adding a parameter to the page URL.</span>
+					<span class="t-he">אפשר לפתוח את yBox אוטומטית בטעינת הדף על ידי הוספת פרמטר לכתובת הדף.</span>
 				</p>
-				<div class="param-list">
-					<div class="param-item">
-						<div class="param-name">?ybox-id=element-id</div>
-						<div class="param-desc">
-							<span class="t-en">Automatically opens a specific element when the page loads.<br><br>
-							<strong>URL Example:</strong><br>
-							<code>https://yourdomain.com/page<span class="purple">?ybox-id=my-popup</span></code><br><br>
-							<strong>Required HTML structure:</strong></span>
-							<span class="t-he">פותח אוטומטית אלמנט ספציפי בטעינת הדף.<br><br>
-							<strong>דוגמת URL:</strong><br>
-							<code>https://yourdomain.com/page<span class="purple">?ybox-id=my-popup</span></code><br><br>
-							<strong>מבנה HTML נדרש:</strong></span>
-							<pre style="margin-top: 10px;"><code><span class="blue">&lt;div</span> <span class="red">style</span>=<span class="purple">"display:none;"</span><span class="blue">&gt;</span>
-	<span class="blue">&lt;div</span> <span class="red">id</span>=<span class="purple">"my-popup"</span><span class="blue">&gt;</span>
+				<div class="api-table-wrap">
+					<table class="api-table">
+						<thead>
+							<tr><th><span class="t-en">Parameter</span><span class="t-he">פרמטר</span></th><th><span class="t-en">Value</span><span class="t-he">ערך</span></th><th><span class="t-en">Description</span><span class="t-he">תיאור</span></th></tr>
+						</thead>
+						<tbody>
+						<tr>
+							<td class="api-name"><code>ybox-id</code></td>
+							<td class="api-type" data-label-en="Value" data-label-he="ערך"><span class="t-en">element ID</span><span class="t-he">ID של אלמנט</span></td>
+							<td class="api-desc"><div class="t-en">Opens the element with this ID when the page loads.</div><div class="t-he">פותח את האלמנט עם ה-ID הזה בטעינת הדף.</div><div class="api-code">https://yourdomain.com/page<span class="tk-str">?ybox-id=my-popup</span></div><div class="api-code"><span class="tk-tag">&lt;div</span> <span class="tk-attr">style</span>=<span class="tk-str">"display: none;"</span><span class="tk-tag">&gt;</span>
+	<span class="tk-tag">&lt;div</span> <span class="tk-attr">id</span>=<span class="tk-str">"my-popup"</span><span class="tk-tag">&gt;</span>
 		Content opens automatically!
-	<span class="blue">&lt;/div&gt;</span>
-<span class="blue">&lt;/div&gt;</span></code></pre>
-						</div>
-					</div>
+	<span class="tk-tag">&lt;/div&gt;</span>
+<span class="tk-tag">&lt;/div&gt;</span></div></td>
+						</tr>
+						</tbody>
+					</table>
 				</div>
 			</section>
 
@@ -320,42 +311,45 @@ yBox({
 			<section id="event-callbacks">
 				<h3><span class="t-en">Event Callbacks</span><span class="t-he">קולבאקים</span></h3>
 				<p>
-					<span class="t-en">Hook into the lifecycle of the modal.</span>
-					<span class="t-he">התחבר למחזור החיים של המודאל.</span>
+					<span class="t-en">Define these global functions to hook into the popup lifecycle. <code>self</code> is the trigger element.</span>
+					<span class="t-he">הגדירו את הפונקציות הגלובליות האלה כדי להתחבר למחזור החיים של הפופאפ. <code>self</code> הוא אלמנט הטריגר.</span>
 				</p>
-				<div class="param-list">
-					<div class="param-item">
-						<div class="param-name">beforeYboxOpen</div>
-						<div class="param-desc">
-							<pre style="margin:0; padding:10px;"><code><span class="blue">function</span> beforeYboxOpen(self){ ... }</code></pre>
-							<br>
-							<button type="button" href="#link1" class="yBox alertBeforeYbox"><span class="t-en">Try Example</span><span class="t-he">נסה דוגמה</span></button>
-						</div>
-					</div>
-					<div class="param-item">
-						<div class="param-name">afterYboxOpen</div>
-						<div class="param-desc">
-							<pre style="margin:0; padding:10px;"><code><span class="blue">function</span> afterYboxOpen(self){ ... }</code></pre>
-							<br>
-							<button type="button" href="#link1" class="yBox alertAfterYbox"><span class="t-en">Try Example</span><span class="t-he">נסה דוגמה</span></button>
-						</div>
-					</div>
-					<div class="param-item">
-						<div class="param-name">beforeYboxClose</div>
-						<div class="param-desc">
-							<pre style="margin:0; padding:10px;"><code><span class="blue">function</span> beforeYboxClose(self){ ... }</code></pre>
-							<br>
-							<button type="button" href="#link1" class="yBox alertBeforeClose"><span class="t-en">Try Example (Confirm)</span><span class="t-he">נסה דוגמה (אישור)</span></button>
-						</div>
-					</div>
-					<div class="param-item">
-						<div class="param-name">afterYboxClose</div>
-						<div class="param-desc">
-							<pre style="margin:0; padding:10px;"><code><span class="blue">function</span> afterYboxClose(self){ ... }</code></pre>
-							<br>
-							<button type="button" href="#link1" class="yBox alertAfterClose"><span class="t-en">Try Example</span><span class="t-he">נסה דוגמה</span></button>
-						</div>
-					</div>
+				<div class="api-table-wrap">
+					<table class="api-table">
+						<thead>
+							<tr><th><span class="t-en">Name</span><span class="t-he">שם</span></th><th><span class="t-en">Arguments</span><span class="t-he">ארגומנטים</span></th><th><span class="t-en">Description</span><span class="t-he">תיאור</span></th></tr>
+						</thead>
+						<tbody>
+						<tr>
+							<td class="api-name"><code>beforeYboxOpen</code></td>
+							<td class="api-type" data-label-en="Arguments" data-label-he="ארגומנטים"><code>(self)</code></td>
+							<td class="api-desc"><div class="t-en">Runs before the popup opens.</div><div class="t-he">רץ לפני פתיחת הפופאפ.</div><div class="api-code"><span class="tk-kw">function</span> <span class="tk-fn">beforeYboxOpen</span>(self) {
+	<span class="tk-com">// ...</span>
+}</div><button type="button" href="#link1" class="yBox alertBeforeYbox"><span class="t-en">Try Example</span><span class="t-he">נסו דוגמה</span></button></td>
+						</tr>
+						<tr>
+							<td class="api-name"><code>afterYboxOpen</code></td>
+							<td class="api-type" data-label-en="Arguments" data-label-he="ארגומנטים"><code>(self)</code></td>
+							<td class="api-desc"><div class="t-en">Runs after the popup opens.</div><div class="t-he">רץ אחרי פתיחת הפופאפ.</div><div class="api-code"><span class="tk-kw">function</span> <span class="tk-fn">afterYboxOpen</span>(self) {
+	<span class="tk-com">// ...</span>
+}</div><button type="button" href="#link1" class="yBox alertAfterYbox"><span class="t-en">Try Example</span><span class="t-he">נסו דוגמה</span></button></td>
+						</tr>
+						<tr>
+							<td class="api-name"><code>beforeYboxClose</code></td>
+							<td class="api-type" data-label-en="Arguments" data-label-he="ארגומנטים"><code>(self)</code></td>
+							<td class="api-desc"><div class="t-en">Runs before the popup closes.<br>Return <code>false</code> to keep it open.</div><div class="t-he">רץ לפני סגירת הפופאפ.<br>החזירו <code>false</code> כדי להשאיר אותו פתוח.</div><div class="api-code"><span class="tk-kw">function</span> <span class="tk-fn">beforeYboxClose</span>(self) {
+	<span class="tk-com">// ...</span>
+}</div><button type="button" href="#link1" class="yBox alertBeforeClose"><span class="t-en">Try Example (Confirm)</span><span class="t-he">נסו דוגמה (אישור)</span></button></td>
+						</tr>
+						<tr>
+							<td class="api-name"><code>afterYboxClose</code></td>
+							<td class="api-type" data-label-en="Arguments" data-label-he="ארגומנטים"><code>(self)</code></td>
+							<td class="api-desc"><div class="t-en">Runs after the popup closes.</div><div class="t-he">רץ אחרי סגירת הפופאפ.</div><div class="api-code"><span class="tk-kw">function</span> <span class="tk-fn">afterYboxClose</span>(self) {
+	<span class="tk-com">// ...</span>
+}</div><button type="button" href="#link1" class="yBox alertAfterClose"><span class="t-en">Try Example</span><span class="t-he">נסו דוגמה</span></button></td>
+						</tr>
+						</tbody>
+					</table>
 				</div>
 			</section>
 
