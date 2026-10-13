@@ -8,76 +8,82 @@ const yBoxHtmlLang = (document.documentElement.getAttribute('lang') || '').split
 if (yBoxSrcLang && yBoxHtmlLang && yBoxSrcLang.split(/[-_]/)[0].toLowerCase() !== yBoxHtmlLang) {
 	console.warn('yBox: the yBox language "' + yBoxSrcLang + '" is different from the site language "' + yBoxHtmlLang + '". Remove the lang parameter from the yBox script tag to use the site language automatically.');
 }
-let yBox_lang = yBoxSrcLang || yBoxHtmlLang || '';
+let yBox_lang = '';
 let yBoxIsDragging = false;
 let isRTL = false;
+let strings = {};
 
-let strings = {
-	close: 'Close',
-	next: 'Next',
-	prev: 'Prev',
-	press_tab_again_to_return_to_the_first_button: 'Press Tab again to return to the first button',
-	share_page: 'Share the page',
-	share_facebook: 'Share the page on Facebook',
-	share_x: 'Share the page on X',
-	share_pinterest: 'Share the page on Pinterest',
-	share_whatsapp: 'Share the page on Whatsapp',
-	share_linkedin: 'Share the page on Linkedin',
-	share_email: 'Share the page on Email',
-	share_telegram: 'Share the page on Telegram',
-	print: 'Print the page',
-	copy_link: 'Copy the page link',
-	link_copied: 'Link copied',
-	share_with: 'I want to share a link with you.',
-	details: 'More details'
-};
+function yBoxSetLang() {
+	yBox_lang = yBoxSrcLang || (document.documentElement.getAttribute('lang') || '').split(/[-_]/)[0].toLowerCase() || '';
+	isRTL = false;
+	strings = {
+		close: 'Close',
+		next: 'Next',
+		prev: 'Prev',
+		press_tab_again_to_return_to_the_first_button: 'Press Tab again to return to the first button',
+		share_page: 'Share the page',
+		share_facebook: 'Share the page on Facebook',
+		share_x: 'Share the page on X',
+		share_pinterest: 'Share the page on Pinterest',
+		share_whatsapp: 'Share the page on Whatsapp',
+		share_linkedin: 'Share the page on Linkedin',
+		share_email: 'Share the page on Email',
+		share_telegram: 'Share the page on Telegram',
+		print: 'Print the page',
+		copy_link: 'Copy the page link',
+		link_copied: 'Link copied',
+		share_with: 'I want to share a link with you.',
+		details: 'More details'
+	};
 
-if (yBox_lang === 'he' || yBox_lang === 'he-IL' || yBox_lang === 'he_IL') {
-	isRTL = true;
-	yBox_lang = 'he';
-	strings = {
-		close: 'סגירה',
-		next: 'הבא',
-		prev: 'הקודם',
-		press_tab_again_to_return_to_the_first_button: 'לחצו שוב על טאב כדי לחזור לכפתור הראשון',
-		share_page: 'שיתוף הדף',
-		share_facebook: 'שיתוף הדף בפייסבוק',
-		share_x: 'שיתוף הדף ב-X',
-		share_pinterest: 'שיתוף הדף בפינטרסט',
-		share_whatsapp: 'שיתוף הדף בוואטסאפ',
-		share_linkedin: 'שיתוף הדף בלינקדאין',
-		share_email: 'שיתוף הדף באימייל',
-		share_telegram: 'שיתוף הדף בטלגרם',
-		print: 'הדפסת הדף',
-		copy_link: 'העתקת הקישור של הדף',
-		link_copied: 'הקישור הועתק',
-		share_with: 'אני רוצה לשתף איתך קישור',
-		details: 'פרטים נוספים'
-	};
+	if (yBox_lang === 'he' || yBox_lang === 'he-IL' || yBox_lang === 'he_IL') {
+		isRTL = true;
+		yBox_lang = 'he';
+		strings = {
+			close: 'סגירה',
+			next: 'הבא',
+			prev: 'הקודם',
+			press_tab_again_to_return_to_the_first_button: 'לחצו שוב על טאב כדי לחזור לכפתור הראשון',
+			share_page: 'שיתוף הדף',
+			share_facebook: 'שיתוף הדף בפייסבוק',
+			share_x: 'שיתוף הדף ב-X',
+			share_pinterest: 'שיתוף הדף בפינטרסט',
+			share_whatsapp: 'שיתוף הדף בוואטסאפ',
+			share_linkedin: 'שיתוף הדף בלינקדאין',
+			share_email: 'שיתוף הדף באימייל',
+			share_telegram: 'שיתוף הדף בטלגרם',
+			print: 'הדפסת הדף',
+			copy_link: 'העתקת הקישור של הדף',
+			link_copied: 'הקישור הועתק',
+			share_with: 'אני רוצה לשתף איתך קישור',
+			details: 'פרטים נוספים'
+		};
+	}
+	if (yBox_lang === 'ar' || yBox_lang === 'ar-ar') {
+		isRTL = true;
+		yBox_lang = 'ar';
+		strings = {
+			close: 'لإغلاق',
+			next: 'التالي',
+			prev: 'السابق',
+			press_tab_again_to_return_to_the_first_button: 'اضغط على Tab مرة أخرى للرجوع إلى الزر الأول',
+			share_page: 'شارك الصفحة',
+			share_facebook: 'شارك الصفحة على فيسبوك',
+			share_x: 'شارك الصفحة على X',
+			share_pinterest: 'شارك الصفحة على موقع Pinterest',
+			share_whatsapp: 'شارك الصفحة على واتساب',
+			share_linkedin: 'مشاركة الصفحة على لينكد إن',
+			share_email: 'شارك الصفحة عبر البريد الإلكتروني',
+			share_telegram: 'شارك الصفحة على تيليجرام',
+			print: 'اطبع الصفحة',
+			copy_link: 'انسخ رابط الصفحة',
+			link_copied: 'تم نسخ الرابط',
+			share_with: 'أريد أن أشارك معك رابطاً.',
+			details: 'مزيد من التفاصيل'
+		};
+	}
 }
-if (yBox_lang === 'ar' || yBox_lang === 'ar-ar') {
-	isRTL = true;
-	yBox_lang = 'ar';
-	strings = {
-		close: 'لإغلاق',
-		next: 'التالي',
-		prev: 'السابق',
-		press_tab_again_to_return_to_the_first_button: 'اضغط على Tab مرة أخرى للرجوع إلى الزر الأول',
-		share_page: 'شارك الصفحة',
-		share_facebook: 'شارك الصفحة على فيسبوك',
-		share_x: 'شارك الصفحة على X',
-		share_pinterest: 'شارك الصفحة على موقع Pinterest',
-		share_whatsapp: 'شارك الصفحة على واتساب',
-		share_linkedin: 'مشاركة الصفحة على لينكد إن',
-		share_email: 'شارك الصفحة عبر البريد الإلكتروني',
-		share_telegram: 'شارك الصفحة على تيليجرام',
-		print: 'اطبع الصفحة',
-		copy_link: 'انسخ رابط الصفحة',
-		link_copied: 'تم نسخ الرابط',
-		share_with: 'أريد أن أشارك معك رابطاً.',
-		details: 'مزيد من التفاصيل'
-	};
-}
+yBoxSetLang();
 
 // 1. Thumb Click Listener
 document.body.addEventListener('click', function(e) {
@@ -239,6 +245,7 @@ document.body.addEventListener('click', function(e) {
 });
 
 function yBox( obj = {} ) {
+	yBoxSetLang();
 	if (typeof obj.self === 'string') {
 		obj.self = document.querySelector(obj.self);
 	}
@@ -314,6 +321,11 @@ function yBox( obj = {} ) {
 	}
 }
 
+function yBoxYoutubeID(url) {
+	let match = url.match(/(?:youtu\.be\/|youtube(?:-nocookie)?\.com\/(?:shorts\/|embed\/|live\/|v\/|.*[?&]v=))([A-Za-z0-9_-]{11})/i);
+	return match ? match[1] : '';
+}
+
 function ybox_iframe(obj) {
 	let attrs = '';
 	let iframe_headline = '';
@@ -340,8 +352,7 @@ function ybox_iframe(obj) {
 	}
 	
 	if (obj.url.toLowerCase().indexOf('youtube') > -1 || obj.url.toLowerCase().indexOf('youtu.be') > -1) {
-		let youtubeMatch = obj.url.match(/(?:youtu\.be\/|youtube(?:-nocookie)?\.com\/(?:shorts\/|embed\/|live\/|v\/|.*[?&]v=))([A-Za-z0-9_-]{11})/i);
-		let youtube_id = youtubeMatch ? youtubeMatch[1] : '';
+		let youtube_id = yBoxYoutubeID(obj.url);
 		obj.url = 'https://www.youtube.com/embed/' + youtube_id + '?wmode=transparent&rel=0&autoplay=1&hl=' + yBox_lang;
 		frame.classList.add('yBoxVideoWrap');
 	} else if (obj.url.toLowerCase().indexOf('vimeo') > -1) {
@@ -566,7 +577,7 @@ function getYboxSlideContent(el, url) {
     if (isIframe || url.indexOf('youtube') > -1 || url.indexOf('vimeo') > -1) {
         let src = url;
         if (src.toLowerCase().indexOf('youtube') > -1 || src.toLowerCase().indexOf('youtu.be') > -1) {
-            let youtube_id = src.replace(/.*youtube\.com\/shorts\/([A-Za-z0-9_-]{11}).*/, '$1').replace(/^[^v]+v.(.{11}).*/, "$1").replace('https://youtu.be/', '').replace(/.*youtube.com\/embed\//, '').replace(/[^A-Za-z0-9_-].*/, '');
+            let youtube_id = yBoxYoutubeID(src);
             src = 'https://www.youtube.com/embed/' + youtube_id + '?wmode=transparent&rel=0&autoplay=0&hl=' + (typeof yBox_lang !== 'undefined' ? yBox_lang : 'en');
         } else if (src.toLowerCase().indexOf('vimeo') > -1) {
             let vimeoMatch = src.match(/(?:vimeo\.com|player\.vimeo\.com|vimeopro\.com)\/(?:.*\/)?(\d+)/i);
@@ -611,7 +622,7 @@ function yBox_Group(yBoxLink, currentCode) {
         
         if (!thumbSrc) {
             if (url.toLowerCase().indexOf('youtube') > -1 || url.toLowerCase().indexOf('youtu.be') > -1) {
-                let youtube_id = url.replace(/.*youtube\.com\/shorts\/([A-Za-z0-9_-]{11}).*/, '$1').replace(/^[^v]+v.(.{11}).*/, "$1").replace('https://youtu.be/', '').replace(/.*youtube.com\/embed\//, '').replace(/[^A-Za-z0-9_-].*/, '');
+                let youtube_id = yBoxYoutubeID(url);
                 thumbSrc = 'https://img.youtube.com/vi/' + youtube_id + '/maxresdefault.jpg';
             } else if (el.classList.contains('yBox_iframe') || el.classList.contains('ybox_iframe') || el.classList.contains('yBox_video') || el.classList.contains('ybox_video') || url.toLowerCase().match(/\.(mp4|webm)$/i)) {
                 let imgInside = el.querySelector('img');
