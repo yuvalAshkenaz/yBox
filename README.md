@@ -1,4 +1,4 @@
-# yBox.js 13.2.1
+# yBox.js 13.3.0
 
 **yBox** is a lightweight, high-performance, and dependency-free Lightbox library built with modern **Vanilla JavaScript**.  
 It supports images, videos, iframes, AJAX content, and complex HTML layouts with smooth transitions and full accessibility support.
@@ -21,6 +21,11 @@ It supports images, videos, iframes, AJAX content, and complex HTML layouts with
 
 ---
 
+## 🆕 What's New in 13.3.0
+
+- **Lowercase, hyphenated class names** — `ybox`, `ybox-iframe`, `ybox-video`, `ybox-ajax` and `ybox-share` are now the documented class names. The old names (`yBox`, `yBox_iframe`, `ybox_iframe` and so on) still work.
+
+---
 ## 🆕 What's New in 13.2.1
 
 - **Security hardening** — all `data-ybox-*` values are escaped, unsafe protocols (`javascript:`, `vbscript:`, `data:`) are blocked, AJAX is same-origin by default, share windows open without `window.opener`, and the print button no longer uses a `javascript:` link.
@@ -32,7 +37,7 @@ It supports images, videos, iframes, AJAX content, and complex HTML layouts with
 
 > ⚠️ **Breaking changes**
 > - `data-ybox-headline`, `data-ybox-details-title` and plain-text `data-ybox-details` are now shown as **plain text**. HTML inside them is displayed as text. See [Styling Headlines](#-styling-headlines).
-> - Cross-origin `yBox_ajax` links need `data-ybox-allow-cross-origin`.
+> - Cross-origin `ybox-ajax` links need `data-ybox-allow-cross-origin`.
 > - The CSS variable `--ybox-iframe-headeline-color` was renamed to `--ybox-iframe-headline-color`. The old name no longer works.
 
 ---
@@ -60,10 +65,10 @@ Both work identically on every trigger element.
 Use `data-href` when `href` is semantically incorrect (e.g. on a `<div>` or `<button>`).
 
 ```html
-<a href="image.jpg" class="yBox">Open</a>
+<a href="image.jpg" class="ybox">Open</a>
 
 <!-- same result, semantically correct on a <button> -->
-<button type="button" class="yBox" data-href="image.jpg">Open</button>
+<button type="button" class="ybox" data-href="image.jpg">Open</button>
 ```
 
 ---
@@ -71,7 +76,7 @@ Use `data-href` when `href` is semantically incorrect (e.g. on a `<div>` or `<bu
 ### 1. Single Image
 
 ```html
-<a href="image.jpg" class="yBox" data-ybox-alt="Image Description">
+<a href="image.jpg" class="ybox" data-ybox-alt="Image Description">
     <img src="thumbnail.jpg" alt="Thumb" />
 </a>
 ```
@@ -83,9 +88,9 @@ Use `data-href` when `href` is semantically incorrect (e.g. on a `<div>` or `<bu
 Add `data-ybox-group="groupName"` to multiple items to create a gallery with navigation.
 
 ```html
-<a href="img1.jpg" class="yBox" data-ybox-group="myGallery">Item 1</a>
-<a href="img2.jpg" class="yBox" data-ybox-group="myGallery">Item 2</a>
-<a href="img3.jpg" class="yBox" data-ybox-group="myGallery">Item 3</a>
+<a href="img1.jpg" class="ybox" data-ybox-group="myGallery">Item 1</a>
+<a href="img2.jpg" class="ybox" data-ybox-group="myGallery">Item 2</a>
+<a href="img3.jpg" class="ybox" data-ybox-group="myGallery">Item 3</a>
 ```
 
 ---
@@ -97,12 +102,12 @@ Add a shared description to an entire gallery group. An ℹ button appears below
 Set `data-ybox-details` on **one element** in the group (all slides share it). Use a `#id` or `.class` selector to pull content from a hidden element — no HTML encoding needed.
 
 ```html
-<a href="img1.jpg" class="yBox" data-ybox-group="myGallery"
+<a href="img1.jpg" class="ybox" data-ybox-group="myGallery"
    data-ybox-details="#gallery-desc"
    data-ybox-details-title="Gallery Title"
    data-ybox-details-tooltip="About this gallery">Item 1</a>
-<a href="img2.jpg" class="yBox" data-ybox-group="myGallery">Item 2</a>
-<a href="img3.jpg" class="yBox" data-ybox-group="myGallery">Item 3</a>
+<a href="img2.jpg" class="ybox" data-ybox-group="myGallery">Item 2</a>
+<a href="img3.jpg" class="ybox" data-ybox-group="myGallery">Item 3</a>
 
 <div style="display:none">
   <div id="gallery-desc">
@@ -124,21 +129,21 @@ Set `data-ybox-details` on **one element** in the group (all slides share it). U
 yBox automatically detects the content type from the URL.
 
 - **YouTube / Vimeo** — Paste the video link, yBox handles the embed. Supports YouTube watch, embed, shorts and `youtu.be` links, and unlisted Vimeo videos (`vimeo.com/ID/HASH` or `?h=HASH`).
-- **HTML5 Video (`.mp4` / `.m4v` / `.webm` / `.ogv` / `.ogg` / `.mov`)** — Opens in a native video player, even when the link has query parameters (`video.mp4?v=2`). For video links without an extension, add the `yBox_video` class.
-- **External Sites** — Use the `yBox_iframe` class to open any URL in an iframe.
+- **HTML5 Video (`.mp4` / `.m4v` / `.webm` / `.ogv` / `.ogg` / `.mov`)** — Opens in a native video player, even when the link has query parameters (`video.mp4?v=2`). For video links without an extension, add the `ybox-video` class.
+- **External Sites** — Use the `ybox-iframe` class to open any URL in an iframe.
 
 ```html
-<a href="https://www.youtube.com/watch?v=VIDEO_ID" class="yBox">YouTube</a>
-<a href="video.mp4" class="yBox">MP4</a>
-<a href="https://vimeo.com/VIDEO_ID/HASH" class="yBox">Unlisted Vimeo</a>
-<a href="https://example.com/stream/123" class="yBox yBox_video">Video without extension</a>
-<a href="https://example.com" class="yBox yBox_iframe">External Site</a>
+<a href="https://www.youtube.com/watch?v=VIDEO_ID" class="ybox">YouTube</a>
+<a href="video.mp4" class="ybox">MP4</a>
+<a href="https://vimeo.com/VIDEO_ID/HASH" class="ybox">Unlisted Vimeo</a>
+<a href="https://example.com/stream/123" class="ybox ybox-video">Video without extension</a>
+<a href="https://example.com" class="ybox ybox-iframe">External Site</a>
 ```
 
 **Iframe sandbox (optional)** — add `data-ybox-sandbox` to restrict what an external site can do inside the iframe. An empty value applies the strictest sandbox.
 
 ```html
-<a href="https://example.com" class="yBox yBox_iframe" data-ybox-sandbox="allow-scripts allow-forms">Sandboxed Site</a>
+<a href="https://example.com" class="ybox ybox-iframe" data-ybox-sandbox="allow-scripts allow-forms">Sandboxed Site</a>
 ```
 
 > Don't use it on YouTube / Vimeo (players may stop working), and avoid combining `allow-scripts` with `allow-same-origin` for pages on your own domain — it cancels the protection.
@@ -165,13 +170,13 @@ Use `href` or `data-href` to point to hidden content on the page:
 ### 6. AJAX Content
 
 ```html
-<a href="content.html" class="yBox yBox_ajax">Load via AJAX</a>
+<a href="content.html" class="ybox ybox-ajax">Load via AJAX</a>
 ```
 
 AJAX is **same-origin only** by default. To load from another domain, add `data-ybox-allow-cross-origin` (the other server must also allow CORS). Error responses (404, 500) are not inserted.
 
 ```html
-<a href="https://api.example.com/box.html" class="yBox yBox_ajax" data-ybox-allow-cross-origin>Load from another domain</a>
+<a href="https://api.example.com/box.html" class="ybox ybox-ajax" data-ybox-allow-cross-origin>Load from another domain</a>
 ```
 
 > The response is inserted as HTML — load only content you trust.
@@ -180,20 +185,20 @@ AJAX is **same-origin only** by default. To load from another domain, add `data-
 
 ### 7. Social Sharing
 
-Add `.yBox_share` to open the built-in sharing modal.
+Add `.ybox-share` to open the built-in sharing modal.
 
 **Default** — shares the current page URL:
 
 ```html
-<button type="button" class="yBox yBox_share">Share this page</button>
+<button type="button" class="ybox ybox-share">Share this page</button>
 ```
 
 **Custom URL** — use `href` or `data-href` to share a specific URL:
 
 ```html
-<button type="button" class="yBox yBox_share" href="https://example.com/product/123">Share</button>
+<button type="button" class="ybox ybox-share" href="https://example.com/product/123">Share</button>
 <!-- or -->
-<button type="button" class="yBox yBox_share" data-href="https://example.com/product/123">Share</button>
+<button type="button" class="ybox ybox-share" data-href="https://example.com/product/123">Share</button>
 ```
 
 **Inline share buttons** — place individual share buttons directly in the page (no popup).  
@@ -262,8 +267,8 @@ yBox({ url: 'https://example.com' });
 | `data-ybox-details` | Gallery group description — selector or plain text. Set on one element per group. Plain text is escaped; use a selector for HTML. |
 | `data-ybox-details-title` | Title shown at the top of the details panel (optional). Plain text. |
 | `data-ybox-details-tooltip` | Custom tooltip for the ℹ button. Defaults to `"More details"`. |
-| `data-ybox-sandbox` | Adds a `sandbox` attribute to the iframe (`yBox_iframe`). Empty value = strictest sandbox. |
-| `data-ybox-allow-cross-origin` | Allows `yBox_ajax` to load content from another domain. |
+| `data-ybox-sandbox` | Adds a `sandbox` attribute to the iframe (`ybox-iframe`). Empty value = strictest sandbox. |
+| `data-ybox-allow-cross-origin` | Allows `ybox-ajax` to load content from another domain. |
 
 ---
 
@@ -278,7 +283,7 @@ Headlines (`data-ybox-headline`, `data-ybox-details-title`) are plain text for s
 5. **Rich content** (bold words, links, icons) — put the headline inside a hidden element and open it with `href="#id"`, or use `data-ybox-details="#id"` in galleries.
 
 ```html
-<a href="photo.jpg" class="yBox"
+<a href="photo.jpg" class="ybox"
    data-ybox-headline="Sunset&#10;Tel Aviv beach"
    data-ybox-headline-class="my-headline">Open</a>
 

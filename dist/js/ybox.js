@@ -1,4 +1,4 @@
-﻿/*! yBox - v13.2.1 - 13/10/2026
+﻿/*! yBox - v13.3.0 - 14/10/2026
 * By Yuval Ashkenazi
 * https://github.com/yuvalAshkenaz/yBox */
 
@@ -293,7 +293,7 @@ function yBox( obj = {} ) {
 			obj.yBoxClass = obj.self.dataset.yboxClass || '';
 			obj.url = yBoxHref(obj.self) || obj.url || '';
 
-			if (obj.self.classList.contains('yBox_share') || obj.self.classList.contains('ybox_share')) {
+			if (yBoxHasType(obj.self, 'share')) {
 				obj.yBoxClass += ' ybox-share-btns';
 			}
 		}
@@ -310,7 +310,7 @@ function yBox( obj = {} ) {
 		}
 
 		// AJAX is same-origin only, unless the trigger has data-ybox-allow-cross-origin
-		if (obj.hasSelf && obj.url && (obj.self.classList.contains('yBox_ajax') || obj.self.classList.contains('ybox_ajax')) && !obj.self.hasAttribute('data-ybox-allow-cross-origin')) {
+		if (obj.hasSelf && obj.url && (yBoxHasType(obj.self, 'ajax')) && !obj.self.hasAttribute('data-ybox-allow-cross-origin')) {
 			let ajaxUrl = null;
 			try { ajaxUrl = new URL(obj.url, location.href); } catch(err) {}
 			if (!ajaxUrl || ajaxUrl.origin !== location.origin) {
@@ -375,6 +375,10 @@ function yBox( obj = {} ) {
 			}
 		}
 	}
+}
+
+function yBoxHasType(el, type) {
+	return el.classList.contains('ybox-' + type) || el.classList.contains('yBox_' + type) || el.classList.contains('ybox_' + type);
 }
 
 function yBoxYoutubeID(url) {
@@ -477,8 +481,8 @@ function insert_yBox_html(obj) {
 		if (obj.code) {
 			insertArea.innerHTML = obj.code;
 		} else {
-			let isIframe = obj.self.classList.contains('yBox_iframe') || obj.self.classList.contains('ybox_iframe') || (obj.url && (obj.url.toLowerCase().includes('youtube') || obj.url.toLowerCase().includes('youtu.be') || obj.url.toLowerCase().includes('vimeo')));
-			let isVideo = obj.self.classList.contains('yBox_video') || obj.self.classList.contains('ybox_video') || (obj.url && yBoxIsVideoFile(obj.url));
+			let isIframe = yBoxHasType(obj.self, 'iframe') || (obj.url && (obj.url.toLowerCase().includes('youtube') || obj.url.toLowerCase().includes('youtu.be') || obj.url.toLowerCase().includes('vimeo')));
+			let isVideo = yBoxHasType(obj.self, 'video') || (obj.url && yBoxIsVideoFile(obj.url));
 
 			if (isIframe) {
 				obj.code = ybox_iframe(obj);
@@ -494,7 +498,7 @@ function insert_yBox_html(obj) {
 				insertArea.innerHTML = code;
 				attachDragToThumbs();
 				attachSwipeToSlides();
-			} else if (obj.self.classList.contains('yBox_ajax') || obj.self.classList.contains('ybox_ajax')) {
+			} else if (yBoxHasType(obj.self, 'ajax')) {
 				fetch(obj.url)
 					.then(function(response) {
 						if (!response.ok) throw new Error('HTTP ' + response.status);
@@ -505,7 +509,7 @@ function insert_yBox_html(obj) {
 						insertArea.innerHTML = data;
 					})
 					.catch(function(err) { console.error('yBox Ajax Error:', err); });
-			} else if (obj.self.classList.contains('yBox_share') || obj.self.classList.contains('ybox_share')) {
+			} else if (yBoxHasType(obj.self, 'share')) {
 				let titleText = strings.share_page;
 				let titleClass = 'ybox-share-title';
 				if (obj.self.dataset.yboxHeadline) titleText += obj.self.dataset.yboxHeadline;
@@ -668,8 +672,8 @@ function setYboxFocus(obj) {
 
 function getYboxSlideContent(el, url) {
     let code = '';
-    let isIframe = el.classList.contains('yBox_iframe') || el.classList.contains('ybox_iframe') || (url && (url.toLowerCase().includes('youtube') || url.toLowerCase().includes('youtu.be') || url.toLowerCase().includes('vimeo')));
-    let isVideo = el.classList.contains('yBox_video') || el.classList.contains('ybox_video') || (url && yBoxIsVideoFile(url));
+    let isIframe = yBoxHasType(el, 'iframe') || (url && (url.toLowerCase().includes('youtube') || url.toLowerCase().includes('youtu.be') || url.toLowerCase().includes('vimeo')));
+    let isVideo = yBoxHasType(el, 'video') || (url && yBoxIsVideoFile(url));
     let alt = el.dataset.yboxAlt || '';
     let title = el.dataset.yboxTitle ? 'title="' + yBoxEsc(el.dataset.yboxTitle) + '"' : '';
     let headline = '';
@@ -734,7 +738,7 @@ function yBox_Group(yBoxLink, currentCode) {
                 let youtube_id = yBoxYoutubeID(url);
                 thumbSrc = 'https://img.youtube.com/vi/' + youtube_id + '/maxresdefault.jpg';
                 thumbAttrs = ' data-ybox-youtube-thumb';
-            } else if (el.classList.contains('yBox_iframe') || el.classList.contains('ybox_iframe') || el.classList.contains('yBox_video') || el.classList.contains('ybox_video') || yBoxIsVideoFile(url)) {
+            } else if (yBoxHasType(el, 'iframe') || yBoxHasType(el, 'video') || yBoxIsVideoFile(url)) {
                 let imgInside = el.querySelector('img');
                 thumbSrc = imgInside ? imgInside.getAttribute('src') : '';
             } else {

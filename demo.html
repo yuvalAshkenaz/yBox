@@ -3,7 +3,33 @@
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=1" />
-	<title>yBox Documentation</title>
+	<title>yBox – Free JavaScript Lightbox &amp; Popup (Fancybox Alternative)</title>
+	<meta name="description" content="yBox is a free, dependency-free JavaScript lightbox and popup library for images, galleries, YouTube, Vimeo, video, iframes and AJAX. RTL ready." />
+	<link rel="canonical" href="https://y-tools.dooble.us/ybox/" />
+	<script type="application/ld+json">
+	{
+		"@context": "https://schema.org",
+		"@type": "SoftwareApplication",
+		"name": "yBox",
+		"description": "A free, lightweight JavaScript lightbox and modal popup library for images, galleries, YouTube, Vimeo, HTML5 video, iframes and AJAX, with no dependencies.",
+		"applicationCategory": "DeveloperApplication",
+		"operatingSystem": "Any",
+		"softwareVersion": "13.3.0",
+		"url": "https://y-tools.dooble.us/ybox/",
+		"downloadUrl": "https://github.com/yuvalAshkenaz/yBox",
+		"license": "https://opensource.org/licenses/MIT",
+		"isAccessibleForFree": true,
+		"author": {
+			"@type": "Person",
+			"name": "Yuval Ashkenazi"
+		},
+		"offers": {
+			"@type": "Offer",
+			"price": "0",
+			"priceCurrency": "USD"
+		}
+	}
+	</script>
 	<link rel="stylesheet" href="demo_files/demo.css" />
 	<link rel="stylesheet" href="demo_files/demo-standalone.css" />
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -15,10 +41,10 @@
 
 <main class="layout-wrapper">
 	<section id="overview" style="text-align: center; background: transparent; box-shadow: none; border: none; backdrop-filter: none; padding-top:0;">
-		<h1>yBox <span>v13.2.1</span></h1>
+		<h1>yBox <span>v13.3.0</span><small class="h1-tagline t-en">JavaScript Lightbox &amp; Popup Library</small><small class="h1-tagline t-he">ספריית Lightbox ופופאפים ב-JavaScript</small></h1>
 		<p style="color: var(--text-secondary); font-size: 1.1rem;">
-			<span class="t-en">A lightweight, flexible, and modern lightbox library.</span>
-			<span class="t-he">ספרייה קלה, גמישה ומודרנית ל-lightbox.</span>
+			<span class="t-en">yBox is a free, lightweight JavaScript lightbox and modal popup library for images, galleries, YouTube and Vimeo videos, HTML5 video, iframes, AJAX content and hidden page elements.<br>It is written in vanilla JavaScript with no dependencies (no jQuery), supports RTL with built-in Hebrew and Arabic, and is MIT licensed for personal and commercial use.</span>
+			<span class="t-he">yBox היא ספריית lightbox ופופאפים חינמית וקלה ב-JavaScript, לתמונות, גלריות, סרטוני YouTube ו-Vimeo, וידאו HTML5, iframe, תוכן AJAX ואלמנטים מוסתרים בדף.<br>היא כתובה ב-JavaScript נקי בלי תלויות (בלי jQuery), תומכת ב-RTL עם עברית וערבית מובנות, ומופצת ברישיון MIT לשימוש אישי ומסחרי.</span>
 		</p>
 	</section>
 
@@ -26,6 +52,7 @@
 		<aside class="sidebar">
 			<nav>
 				<a href="#overview"><span class="t-en">Overview</span><span class="t-he">סקירה כללית</span></a>
+				<a href="#why-ybox"><span class="t-en">Why yBox?</span><span class="t-he">למה yBox?</span></a>
 				<a href="#installation"><span class="t-en">Installation & Files</span><span class="t-he">התקנה וקבצים</span></a>
 				<a href="#helper-classes"><span class="t-en">Helper Classes</span><span class="t-he">קלאסים עיקריים</span></a>
 				<a href="#js-api"><span class="t-en">JavaScript API Parameters</span><span class="t-he">פרמטרי JavaScript API</span></a>
@@ -45,6 +72,46 @@
 			</nav>
 		</aside>
 		<div class="sections-wrap">
+
+			<!-- Why yBox -->
+			<section id="why-ybox">
+				<h3><span class="t-en">Why yBox? A free Fancybox alternative</span><span class="t-he">למה yBox? חלופה חינמית ל-Fancybox</span></h3>
+				<p>
+					<span class="t-en">yBox covers the common lightbox and popup needs, images, galleries, video, iframes, AJAX and inline content, for free and without jQuery.<br>Fancybox requires a paid license for every live website, and Lightbox2 requires jQuery.</span>
+					<span class="t-he">yBox מכסה את הצרכים הנפוצים של lightbox ופופאפים, תמונות, גלריות, וידאו, iframe, AJAX ותוכן מהדף, בחינם ובלי jQuery.<br>Fancybox דורשת רישיון בתשלום לכל אתר חי, ו-Lightbox2 דורשת jQuery.</span>
+				</p>
+				<div class="api-table-wrap">
+					<table class="api-table compare-table">
+						<thead>
+							<tr><th><span class="t-en">Feature</span><span class="t-he">מאפיין</span></th><th>yBox</th><th>Fancybox</th><th>Lightbox2</th></tr>
+						</thead>
+						<tbody>
+						<tr>
+							<td class="api-name"><span class="t-en">Price</span><span class="t-he">מחיר</span></td>
+							<td data-label-en="yBox" data-label-he="yBox"><span class="t-en"><strong class="compare-yes">Free</strong></span><span class="t-he"><strong class="compare-yes">חינם</strong></span></td>
+							<td data-label-en="Fancybox" data-label-he="Fancybox"><span class="t-en">Paid license for live sites (from €29)</span><span class="t-he">רישיון בתשלום לאתרים חיים (החל מ-€29)</span></td>
+							<td data-label-en="Lightbox2" data-label-he="Lightbox2"><span class="t-en">Free</span><span class="t-he">חינם</span></td>
+						</tr>
+						<tr>
+							<td class="api-name"><span class="t-en">License</span><span class="t-he">רישיון</span></td>
+							<td data-label-en="yBox" data-label-he="yBox">MIT</td>
+							<td data-label-en="Fancybox" data-label-he="Fancybox"><span class="t-en">Commercial</span><span class="t-he">מסחרי</span></td>
+							<td data-label-en="Lightbox2" data-label-he="Lightbox2"><span class="t-en">MIT (attribution required)</span><span class="t-he">MIT (חובת קרדיט)</span></td>
+						</tr>
+						<tr>
+							<td class="api-name"><span class="t-en">jQuery required</span><span class="t-he">נדרש jQuery</span></td>
+							<td data-label-en="yBox" data-label-he="yBox"><span class="t-en"><strong class="compare-yes">No</strong></span><span class="t-he"><strong class="compare-yes">לא</strong></span></td>
+							<td data-label-en="Fancybox" data-label-he="Fancybox"><span class="t-en">No</span><span class="t-he">לא</span></td>
+							<td data-label-en="Lightbox2" data-label-he="Lightbox2"><span class="t-en">Yes</span><span class="t-he">כן</span></td>
+						</tr>
+						</tbody>
+					</table>
+				</div>
+				<p class="compare-note">
+					<span class="t-en">Based on the official Fancybox and Lightbox2 websites, October 2026.</span>
+					<span class="t-he">לפי האתרים הרשמיים של Fancybox ו-Lightbox2, אוקטובר 2026.</span>
+				</p>
+			</section>
 
 			<!-- Installation -->
 			<section id="installation">
@@ -75,24 +142,24 @@
 						</thead>
 						<tbody>
 						<tr>
-							<td class="api-name"><code>.yBox</code><br><code>.ybox</code></td>
-							<td class="api-desc"><div class="t-en">Required on every trigger element.<br>Add it to any element with <code>href</code> or <code>data-href</code> to open the link in the lightbox.</div><div class="t-he">נדרש על כל אלמנט טריגר.<br>הוסיפו אותו לכל אלמנט עם <code>href</code> או <code>data-href</code> כדי לפתוח את הקישור בלייטבוקס.</div><div class="api-code"><span class="tk-tag">&lt;a</span> <span class="tk-attr">href</span>=<span class="tk-str">"#popup"</span> <span class="tk-attr">class</span>=<span class="tk-str">"yBox"</span><span class="tk-tag">&gt;</span>Open<span class="tk-tag">&lt;/a&gt;</span></div></td>
+							<td class="api-name"><code>.ybox</code></td>
+							<td class="api-desc"><div class="t-en">Required on every trigger element.<br>Add it to any element with <code>href</code> or <code>data-href</code> to open the link in the lightbox.</div><div class="t-he">נדרש על כל אלמנט טריגר.<br>הוסיפו אותו לכל אלמנט עם <code>href</code> או <code>data-href</code> כדי לפתוח את הקישור בלייטבוקס.</div><div class="api-code"><span class="tk-tag">&lt;a</span> <span class="tk-attr">href</span>=<span class="tk-str">"#popup"</span> <span class="tk-attr">class</span>=<span class="tk-str">"ybox"</span><span class="tk-tag">&gt;</span>Open<span class="tk-tag">&lt;/a&gt;</span></div></td>
 						</tr>
 						<tr>
-							<td class="api-name"><code>.yBox_iframe</code></td>
-							<td class="api-desc"><div class="t-en">Opens the <code>href</code> / <code>data-href</code> link inside an iframe.<br>Not needed for YouTube / Vimeo links, they are detected automatically.<br>Add <code>data-ybox-sandbox</code> to restrict what the iframe can do (see <a href="#security">Security</a>).</div><div class="t-he">פותח את הקישור שב-<code>href</code> / <code>data-href</code> בתוך iframe.<br>לא נדרש לקישורי YouTube / Vimeo, הם מזוהים אוטומטית.<br>הוסיפו <code>data-ybox-sandbox</code> כדי להגביל את מה שה-iframe יכול לעשות (ראו <a href="#security">אבטחה</a>).</div><div class="api-code"><span class="tk-tag">&lt;a</span> <span class="tk-attr">href</span>=<span class="tk-str">"https://example.com"</span> <span class="tk-attr">class</span>=<span class="tk-str">"yBox yBox_iframe"</span><span class="tk-tag">&gt;</span>Open site<span class="tk-tag">&lt;/a&gt;</span></div></td>
+							<td class="api-name"><code>.ybox-iframe</code></td>
+							<td class="api-desc"><div class="t-en">Opens the <code>href</code> / <code>data-href</code> link inside an iframe.<br>Not needed for YouTube / Vimeo links, they are detected automatically.<br>Add <code>data-ybox-sandbox</code> to restrict what the iframe can do (see <a href="#security">Security</a>).</div><div class="t-he">פותח את הקישור שב-<code>href</code> / <code>data-href</code> בתוך iframe.<br>לא נדרש לקישורי YouTube / Vimeo, הם מזוהים אוטומטית.<br>הוסיפו <code>data-ybox-sandbox</code> כדי להגביל את מה שה-iframe יכול לעשות (ראו <a href="#security">אבטחה</a>).</div><div class="api-code"><span class="tk-tag">&lt;a</span> <span class="tk-attr">href</span>=<span class="tk-str">"https://example.com"</span> <span class="tk-attr">class</span>=<span class="tk-str">"ybox ybox-iframe"</span><span class="tk-tag">&gt;</span>Open site<span class="tk-tag">&lt;/a&gt;</span></div></td>
 						</tr>
 						<tr>
-							<td class="api-name"><code>.yBox_video</code></td>
-							<td class="api-desc"><div class="t-en">Opens the <code>href</code> / <code>data-href</code> link in a native HTML5 video player.<br>Not needed when the link ends with a video extension (<code>.mp4</code>, <code>.m4v</code>, <code>.webm</code>, <code>.ogv</code>, <code>.ogg</code>, <code>.mov</code>), even with query parameters.<br>Use it only for video links without an extension.</div><div class="t-he">פותח את הקישור שב-<code>href</code> / <code>data-href</code> בנגן וידאו HTML5.<br>לא נדרש כשהקישור מסתיים בסיומת וידאו (<code>.mp4</code>, <code>.m4v</code>, <code>.webm</code>, <code>.ogv</code>, <code>.ogg</code>, <code>.mov</code>), גם אם יש אחריה פרמטרים.<br>יש להשתמש בו רק לקישורי וידאו בלי סיומת.</div><div class="api-code"><span class="tk-tag">&lt;a</span> <span class="tk-attr">href</span>=<span class="tk-str">"https://example.com/stream/123"</span> <span class="tk-attr">class</span>=<span class="tk-str">"yBox yBox_video"</span><span class="tk-tag">&gt;</span>Play<span class="tk-tag">&lt;/a&gt;</span></div></td>
+							<td class="api-name"><code>.ybox-video</code></td>
+							<td class="api-desc"><div class="t-en">Opens the <code>href</code> / <code>data-href</code> link in a native HTML5 video player.<br>Not needed when the link ends with a video extension (<code>.mp4</code>, <code>.m4v</code>, <code>.webm</code>, <code>.ogv</code>, <code>.ogg</code>, <code>.mov</code>), even with query parameters.<br>Use it only for video links without an extension.</div><div class="t-he">פותח את הקישור שב-<code>href</code> / <code>data-href</code> בנגן וידאו HTML5.<br>לא נדרש כשהקישור מסתיים בסיומת וידאו (<code>.mp4</code>, <code>.m4v</code>, <code>.webm</code>, <code>.ogv</code>, <code>.ogg</code>, <code>.mov</code>), גם אם יש אחריה פרמטרים.<br>יש להשתמש בו רק לקישורי וידאו בלי סיומת.</div><div class="api-code"><span class="tk-tag">&lt;a</span> <span class="tk-attr">href</span>=<span class="tk-str">"https://example.com/stream/123"</span> <span class="tk-attr">class</span>=<span class="tk-str">"ybox ybox-video"</span><span class="tk-tag">&gt;</span>Play<span class="tk-tag">&lt;/a&gt;</span></div></td>
 						</tr>
 						<tr>
-							<td class="api-name"><code>.yBox_ajax</code></td>
-							<td class="api-desc"><div class="t-en">Fetches the content of the <code>href</code> / <code>data-href</code> link via AJAX and shows it in the popup.<br>Same-origin only by default. To load from another domain, add <code>data-ybox-allow-cross-origin</code> (the other server must also allow CORS).<br>The response is inserted as HTML, so load only content you trust.</div><div class="t-he">טוען את התוכן של הקישור שב-<code>href</code> / <code>data-href</code> באמצעות AJAX ומציג אותו בפופאפ.<br>כברירת מחדל רק מאותו דומיין. כדי לטעון מדומיין אחר, הוסיפו <code>data-ybox-allow-cross-origin</code> (גם השרת השני צריך לאפשר CORS).<br>התשובה מוזרקת כ-HTML, לכן טענו רק תוכן שאתם סומכים עליו.</div><div class="api-code"><span class="tk-tag">&lt;a</span> <span class="tk-attr">href</span>=<span class="tk-str">"/ajax/content.html"</span> <span class="tk-attr">class</span>=<span class="tk-str">"yBox yBox_ajax"</span><span class="tk-tag">&gt;</span>Load<span class="tk-tag">&lt;/a&gt;</span></div></td>
+							<td class="api-name"><code>.ybox-ajax</code></td>
+							<td class="api-desc"><div class="t-en">Fetches the content of the <code>href</code> / <code>data-href</code> link via AJAX and shows it in the popup.<br>Same-origin only by default. To load from another domain, add <code>data-ybox-allow-cross-origin</code> (the other server must also allow CORS).<br>The response is inserted as HTML, so load only content you trust.</div><div class="t-he">טוען את התוכן של הקישור שב-<code>href</code> / <code>data-href</code> באמצעות AJAX ומציג אותו בפופאפ.<br>כברירת מחדל רק מאותו דומיין. כדי לטעון מדומיין אחר, הוסיפו <code>data-ybox-allow-cross-origin</code> (גם השרת השני צריך לאפשר CORS).<br>התשובה מוזרקת כ-HTML, לכן טענו רק תוכן שאתם סומכים עליו.</div><div class="api-code"><span class="tk-tag">&lt;a</span> <span class="tk-attr">href</span>=<span class="tk-str">"/ajax/content.html"</span> <span class="tk-attr">class</span>=<span class="tk-str">"ybox ybox-ajax"</span><span class="tk-tag">&gt;</span>Load<span class="tk-tag">&lt;/a&gt;</span></div></td>
 						</tr>
 						<tr>
-							<td class="api-name"><code>.yBox_share</code></td>
-							<td class="api-desc"><div class="t-en">Opens a built-in social sharing popup.<br>By default it shares the current page URL.<br>Use <code>href</code> or <code>data-href</code> to share a different URL.</div><div class="t-he">פותח פופאפ שיתוף ברשתות חברתיות.<br>כברירת מחדל משתף את כתובת הדף הנוכחי.<br>השתמשו ב-<code>href</code> או <code>data-href</code> כדי לשתף כתובת אחרת.</div><div class="api-code"><span class="tk-tag">&lt;button</span> <span class="tk-attr">type</span>=<span class="tk-str">"button"</span> <span class="tk-attr">class</span>=<span class="tk-str">"yBox yBox_share"</span><span class="tk-tag">&gt;</span>Share<span class="tk-tag">&lt;/button&gt;</span></div></td>
+							<td class="api-name"><code>.ybox-share</code></td>
+							<td class="api-desc"><div class="t-en">Opens a built-in social sharing popup.<br>By default it shares the current page URL.<br>Use <code>href</code> or <code>data-href</code> to share a different URL.</div><div class="t-he">פותח פופאפ שיתוף ברשתות חברתיות.<br>כברירת מחדל משתף את כתובת הדף הנוכחי.<br>השתמשו ב-<code>href</code> או <code>data-href</code> כדי לשתף כתובת אחרת.</div><div class="api-code"><span class="tk-tag">&lt;button</span> <span class="tk-attr">type</span>=<span class="tk-str">"button"</span> <span class="tk-attr">class</span>=<span class="tk-str">"ybox ybox-share"</span><span class="tk-tag">&gt;</span>Share<span class="tk-tag">&lt;/button&gt;</span></div></td>
 						</tr>
 						</tbody>
 					</table>
@@ -128,7 +195,7 @@
 							<td class="api-name"><code>self</code></td>
 							<td class="api-type" data-label-en="Type" data-label-he="סוג"><code>HTMLElement | string</code></td>
 							<td class="api-default" data-label-en="Default" data-label-he="ברירת מחדל"><span class="api-none">—</span></td>
-							<td class="api-desc"><div class="t-en">A trigger element (or its selector).<br>The popup is built from its <code>href</code> / <code>data-href</code> and <code>data-ybox-*</code> attributes.</div><div class="t-he">אלמנט טריגר (או הסלקטור שלו).<br>הפופאפ נבנה לפי ה-<code>href</code> / <code>data-href</code> ותכונות ה-<code>data-ybox-*</code> שלו.</div><div class="api-code"><span class="tk-tag">&lt;a</span> <span class="tk-attr">href</span>=<span class="tk-str">"#popup"</span> <span class="tk-attr">class</span>=<span class="tk-str">"yBox my-link"</span><span class="tk-tag">&gt;</span>The link<span class="tk-tag">&lt;/a&gt;</span>
+							<td class="api-desc"><div class="t-en">A trigger element (or its selector).<br>The popup is built from its <code>href</code> / <code>data-href</code> and <code>data-ybox-*</code> attributes.</div><div class="t-he">אלמנט טריגר (או הסלקטור שלו).<br>הפופאפ נבנה לפי ה-<code>href</code> / <code>data-href</code> ותכונות ה-<code>data-ybox-*</code> שלו.</div><div class="api-code"><span class="tk-tag">&lt;a</span> <span class="tk-attr">href</span>=<span class="tk-str">"#popup"</span> <span class="tk-attr">class</span>=<span class="tk-str">"ybox my-link"</span><span class="tk-tag">&gt;</span>The link<span class="tk-tag">&lt;/a&gt;</span>
 <span class="tk-tag">&lt;script&gt;</span>
 	<span class="tk-fn">yBox</span>({ <span class="tk-key">self</span>: <span class="tk-str">'.my-link'</span> });
 <span class="tk-tag">&lt;/script&gt;</span></div></td>
@@ -185,13 +252,13 @@
 							<td class="api-name"><code>href</code><br><code>data-href</code></td>
 							<td class="api-type" data-label-en="Value" data-label-he="ערך"><span class="t-en">URL / selector</span><span class="t-he">URL / סלקטור</span></td>
 							<td class="api-default" data-label-en="Default" data-label-he="ברירת מחדל"><span class="api-none">—</span></td>
-							<td class="api-desc"><div class="t-en">The URL or selector to open. Both attributes work the same.<br>Use <code>data-href</code> when <code>href</code> is not valid on the element (for example on a <code>&lt;div&gt;</code> or <code>&lt;button&gt;</code>).</div><div class="t-he">כתובת ה-URL או הסלקטור לפתיחה. שתי התכונות עובדות אותו דבר.<br>השתמשו ב-<code>data-href</code> כש-<code>href</code> לא מתאים לאלמנט (למשל על <code>&lt;div&gt;</code> או <code>&lt;button&gt;</code>).</div><div class="api-code"><span class="tk-tag">&lt;button</span> <span class="tk-attr">type</span>=<span class="tk-str">"button"</span> <span class="tk-attr">data-href</span>=<span class="tk-str">"#my-popup"</span> <span class="tk-attr">class</span>=<span class="tk-str">"yBox"</span><span class="tk-tag">&gt;</span>Open<span class="tk-tag">&lt;/button&gt;</span></div></td>
+							<td class="api-desc"><div class="t-en">The URL or selector to open. Both attributes work the same.<br>Use <code>data-href</code> when <code>href</code> is not valid on the element (for example on a <code>&lt;div&gt;</code> or <code>&lt;button&gt;</code>).</div><div class="t-he">כתובת ה-URL או הסלקטור לפתיחה. שתי התכונות עובדות אותו דבר.<br>השתמשו ב-<code>data-href</code> כש-<code>href</code> לא מתאים לאלמנט (למשל על <code>&lt;div&gt;</code> או <code>&lt;button&gt;</code>).</div><div class="api-code"><span class="tk-tag">&lt;button</span> <span class="tk-attr">type</span>=<span class="tk-str">"button"</span> <span class="tk-attr">data-href</span>=<span class="tk-str">"#my-popup"</span> <span class="tk-attr">class</span>=<span class="tk-str">"ybox"</span><span class="tk-tag">&gt;</span>Open<span class="tk-tag">&lt;/button&gt;</span></div></td>
 						</tr>
 						<tr>
 							<td class="api-name"><code>data-ybox-class</code></td>
 							<td class="api-type" data-label-en="Value" data-label-he="ערך"><code>string</code></td>
 							<td class="api-default" data-label-en="Default" data-label-he="ברירת מחדל"><span class="api-none">—</span></td>
-							<td class="api-desc"><div class="t-en">Adds a custom class to the popup.<br>Use <code>no-bg</code> to remove the default white background.</div><div class="t-he">מוסיף קלאס מותאם לפופאפ.<br>השתמשו ב-<code>no-bg</code> כדי להסיר את הרקע הלבן.</div><div class="api-code"><span class="tk-tag">&lt;a</span> <span class="tk-attr">href</span>=<span class="tk-str">"#popup"</span> <span class="tk-attr">class</span>=<span class="tk-str">"yBox"</span> <span class="tk-attr">data-ybox-class</span>=<span class="tk-str">"no-bg"</span><span class="tk-tag">&gt;</span>Open<span class="tk-tag">&lt;/a&gt;</span></div></td>
+							<td class="api-desc"><div class="t-en">Adds a custom class to the popup.<br>Use <code>no-bg</code> to remove the default white background.</div><div class="t-he">מוסיף קלאס מותאם לפופאפ.<br>השתמשו ב-<code>no-bg</code> כדי להסיר את הרקע הלבן.</div><div class="api-code"><span class="tk-tag">&lt;a</span> <span class="tk-attr">href</span>=<span class="tk-str">"#popup"</span> <span class="tk-attr">class</span>=<span class="tk-str">"ybox"</span> <span class="tk-attr">data-ybox-class</span>=<span class="tk-str">"no-bg"</span><span class="tk-tag">&gt;</span>Open<span class="tk-tag">&lt;/a&gt;</span></div></td>
 						</tr>
 						<tr>
 							<td class="api-name"><code>data-ybox-alt</code></td>
@@ -215,14 +282,14 @@
 							<td class="api-name"><code>data-ybox-headline-class</code></td>
 							<td class="api-type" data-label-en="Value" data-label-he="ערך"><code>string</code></td>
 							<td class="api-default" data-label-en="Default" data-label-he="ברירת מחדל"><span class="api-none">—</span></td>
-							<td class="api-desc"><div class="t-en">Adds a custom class to the headline (<code>data-ybox-headline</code>) so you can style it with CSS.</div><div class="t-he">מוסיף קלאס מותאם לכותרת (<code>data-ybox-headline</code>) כדי לעצב אותה ב-CSS.</div><div class="api-code"><span class="tk-tag">&lt;a</span> <span class="tk-attr">href</span>=<span class="tk-str">"img.jpg"</span> <span class="tk-attr">class</span>=<span class="tk-str">"yBox"</span> <span class="tk-attr">data-ybox-headline</span>=<span class="tk-str">"Sunset"</span> <span class="tk-attr">data-ybox-headline-class</span>=<span class="tk-str">"my-headline"</span><span class="tk-tag">&gt;</span>Open<span class="tk-tag">&lt;/a&gt;</span></div></td>
+							<td class="api-desc"><div class="t-en">Adds a custom class to the headline (<code>data-ybox-headline</code>) so you can style it with CSS.</div><div class="t-he">מוסיף קלאס מותאם לכותרת (<code>data-ybox-headline</code>) כדי לעצב אותה ב-CSS.</div><div class="api-code"><span class="tk-tag">&lt;a</span> <span class="tk-attr">href</span>=<span class="tk-str">"img.jpg"</span> <span class="tk-attr">class</span>=<span class="tk-str">"ybox"</span> <span class="tk-attr">data-ybox-headline</span>=<span class="tk-str">"Sunset"</span> <span class="tk-attr">data-ybox-headline-class</span>=<span class="tk-str">"my-headline"</span><span class="tk-tag">&gt;</span>Open<span class="tk-tag">&lt;/a&gt;</span></div></td>
 						</tr>
 						<tr>
 							<td class="api-name"><code>data-ybox-group</code></td>
 							<td class="api-type" data-label-en="Value" data-label-he="ערך"><code>string</code></td>
 							<td class="api-default" data-label-en="Default" data-label-he="ברירת מחדל"><span class="api-none">—</span></td>
-							<td class="api-desc"><div class="t-en">Links with the same group name open as a gallery with next / prev buttons.</div><div class="t-he">קישורים עם אותו שם קבוצה נפתחים כגלריה עם כפתורי הבא / הקודם.</div><div class="api-code"><span class="tk-tag">&lt;a</span> <span class="tk-attr">href</span>=<span class="tk-str">"img1.jpg"</span> <span class="tk-attr">class</span>=<span class="tk-str">"yBox"</span> <span class="tk-attr">data-ybox-group</span>=<span class="tk-str">"nature"</span><span class="tk-tag">&gt;</span>Image 1<span class="tk-tag">&lt;/a&gt;</span>
-<span class="tk-tag">&lt;a</span> <span class="tk-attr">href</span>=<span class="tk-str">"img2.jpg"</span> <span class="tk-attr">class</span>=<span class="tk-str">"yBox"</span> <span class="tk-attr">data-ybox-group</span>=<span class="tk-str">"nature"</span><span class="tk-tag">&gt;</span>Image 2<span class="tk-tag">&lt;/a&gt;</span></div></td>
+							<td class="api-desc"><div class="t-en">Links with the same group name open as a gallery with next / prev buttons.</div><div class="t-he">קישורים עם אותו שם קבוצה נפתחים כגלריה עם כפתורי הבא / הקודם.</div><div class="api-code"><span class="tk-tag">&lt;a</span> <span class="tk-attr">href</span>=<span class="tk-str">"img1.jpg"</span> <span class="tk-attr">class</span>=<span class="tk-str">"ybox"</span> <span class="tk-attr">data-ybox-group</span>=<span class="tk-str">"nature"</span><span class="tk-tag">&gt;</span>Image 1<span class="tk-tag">&lt;/a&gt;</span>
+<span class="tk-tag">&lt;a</span> <span class="tk-attr">href</span>=<span class="tk-str">"img2.jpg"</span> <span class="tk-attr">class</span>=<span class="tk-str">"ybox"</span> <span class="tk-attr">data-ybox-group</span>=<span class="tk-str">"nature"</span><span class="tk-tag">&gt;</span>Image 2<span class="tk-tag">&lt;/a&gt;</span></div></td>
 						</tr>
 						<tr>
 							<td class="api-name"><code>data-ybox-img</code></td>
@@ -252,13 +319,13 @@
 							<td class="api-name"><code>data-ybox-sandbox</code></td>
 							<td class="api-type" data-label-en="Value" data-label-he="ערך"><span class="t-en">sandbox tokens</span><span class="t-he">ערכי sandbox</span></td>
 							<td class="api-default" data-label-en="Default" data-label-he="ברירת מחדל"><span class="api-none">—</span></td>
-							<td class="api-desc"><div class="t-en">Adds a <code>sandbox</code> attribute to the iframe (<code>.yBox_iframe</code>), for external sites you do not fully trust.<br>An empty value applies the strictest sandbox. Do not use it on YouTube / Vimeo, players may stop working.<br>Avoid combining <code>allow-scripts</code> with <code>allow-same-origin</code> for pages on your own domain — it cancels the protection.</div><div class="t-he">מוסיף תכונת <code>sandbox</code> ל-iframe (<code>.yBox_iframe</code>), לאתרים חיצוניים שלא סומכים עליהם לגמרי.<br>ערך ריק מפעיל את ה-sandbox המחמיר ביותר. לא מומלץ על YouTube / Vimeo, הנגנים עלולים להפסיק לעבוד.<br>הימנעו משילוב <code>allow-scripts</code> עם <code>allow-same-origin</code> לדפים מהדומיין שלכם — זה מבטל את ההגנה.</div><div class="api-code"><span class="tk-tag">&lt;a</span> <span class="tk-attr">href</span>=<span class="tk-str">"https://example.com"</span> <span class="tk-attr">class</span>=<span class="tk-str">"yBox yBox_iframe"</span> <span class="tk-attr">data-ybox-sandbox</span>=<span class="tk-str">"allow-scripts allow-forms"</span><span class="tk-tag">&gt;</span>Open<span class="tk-tag">&lt;/a&gt;</span></div></td>
+							<td class="api-desc"><div class="t-en">Adds a <code>sandbox</code> attribute to the iframe (<code>.ybox-iframe</code>), for external sites you do not fully trust.<br>An empty value applies the strictest sandbox. Do not use it on YouTube / Vimeo, players may stop working.<br>Avoid combining <code>allow-scripts</code> with <code>allow-same-origin</code> for pages on your own domain — it cancels the protection.</div><div class="t-he">מוסיף תכונת <code>sandbox</code> ל-iframe (<code>.ybox-iframe</code>), לאתרים חיצוניים שלא סומכים עליהם לגמרי.<br>ערך ריק מפעיל את ה-sandbox המחמיר ביותר. לא מומלץ על YouTube / Vimeo, הנגנים עלולים להפסיק לעבוד.<br>הימנעו משילוב <code>allow-scripts</code> עם <code>allow-same-origin</code> לדפים מהדומיין שלכם — זה מבטל את ההגנה.</div><div class="api-code"><span class="tk-tag">&lt;a</span> <span class="tk-attr">href</span>=<span class="tk-str">"https://example.com"</span> <span class="tk-attr">class</span>=<span class="tk-str">"ybox ybox-iframe"</span> <span class="tk-attr">data-ybox-sandbox</span>=<span class="tk-str">"allow-scripts allow-forms"</span><span class="tk-tag">&gt;</span>Open<span class="tk-tag">&lt;/a&gt;</span></div></td>
 						</tr>
 						<tr>
 							<td class="api-name"><code>data-ybox-allow-cross-origin</code></td>
 							<td class="api-type" data-label-en="Value" data-label-he="ערך"><span class="t-en">no value</span><span class="t-he">ללא ערך</span></td>
 							<td class="api-default" data-label-en="Default" data-label-he="ברירת מחדל"><span class="api-none">—</span></td>
-							<td class="api-desc"><div class="t-en">Allows <code>.yBox_ajax</code> to load content from another domain. Without it, cross-origin AJAX requests are blocked.</div><div class="t-he">מאפשר ל-<code>.yBox_ajax</code> לטעון תוכן מדומיין אחר. בלעדיו בקשות AJAX לדומיין אחר נחסמות.</div><div class="api-code"><span class="tk-tag">&lt;a</span> <span class="tk-attr">href</span>=<span class="tk-str">"https://api.example.com/box.html"</span> <span class="tk-attr">class</span>=<span class="tk-str">"yBox yBox_ajax"</span> <span class="tk-attr">data-ybox-allow-cross-origin</span><span class="tk-tag">&gt;</span>Load<span class="tk-tag">&lt;/a&gt;</span></div></td>
+							<td class="api-desc"><div class="t-en">Allows <code>.ybox-ajax</code> to load content from another domain. Without it, cross-origin AJAX requests are blocked.</div><div class="t-he">מאפשר ל-<code>.ybox-ajax</code> לטעון תוכן מדומיין אחר. בלעדיו בקשות AJAX לדומיין אחר נחסמות.</div><div class="api-code"><span class="tk-tag">&lt;a</span> <span class="tk-attr">href</span>=<span class="tk-str">"https://api.example.com/box.html"</span> <span class="tk-attr">class</span>=<span class="tk-str">"ybox ybox-ajax"</span> <span class="tk-attr">data-ybox-allow-cross-origin</span><span class="tk-tag">&gt;</span>Load<span class="tk-tag">&lt;/a&gt;</span></div></td>
 						</tr>
 						</tbody>
 					</table>
@@ -379,28 +446,28 @@ yBox({
 							<td class="api-type" data-label-en="Arguments" data-label-he="ארגומנטים"><code>(self)</code></td>
 							<td class="api-desc"><div class="t-en">Runs before the popup opens.<br>Return <code>false</code> to cancel opening.</div><div class="t-he">רץ לפני פתיחת הפופאפ.<br>החזירו <code>false</code> כדי לבטל את הפתיחה.</div><div class="api-code"><span class="tk-kw">function</span> <span class="tk-fn">beforeYboxOpen</span>(self) {
 	<span class="tk-com">// ...</span>
-}</div><button type="button" href="#link1" class="yBox alertBeforeYbox"><span class="t-en">Try Example</span><span class="t-he">נסו דוגמה</span></button></td>
+}</div><button type="button" href="#link1" class="ybox alertBeforeYbox"><span class="t-en">Try Example</span><span class="t-he">נסו דוגמה</span></button></td>
 						</tr>
 						<tr>
 							<td class="api-name"><code>afterYboxOpen</code></td>
 							<td class="api-type" data-label-en="Arguments" data-label-he="ארגומנטים"><code>(self)</code></td>
 							<td class="api-desc"><div class="t-en">Runs after the popup opens.</div><div class="t-he">רץ אחרי פתיחת הפופאפ.</div><div class="api-code"><span class="tk-kw">function</span> <span class="tk-fn">afterYboxOpen</span>(self) {
 	<span class="tk-com">// ...</span>
-}</div><button type="button" href="#link1" class="yBox alertAfterYbox"><span class="t-en">Try Example</span><span class="t-he">נסו דוגמה</span></button></td>
+}</div><button type="button" href="#link1" class="ybox alertAfterYbox"><span class="t-en">Try Example</span><span class="t-he">נסו דוגמה</span></button></td>
 						</tr>
 						<tr>
 							<td class="api-name"><code>beforeYboxClose</code></td>
 							<td class="api-type" data-label-en="Arguments" data-label-he="ארגומנטים"><code>(self)</code></td>
 							<td class="api-desc"><div class="t-en">Runs before the popup closes.<br>Return <code>false</code> to keep it open.</div><div class="t-he">רץ לפני סגירת הפופאפ.<br>החזירו <code>false</code> כדי להשאיר אותו פתוח.</div><div class="api-code"><span class="tk-kw">function</span> <span class="tk-fn">beforeYboxClose</span>(self) {
 	<span class="tk-com">// ...</span>
-}</div><button type="button" href="#link1" class="yBox alertBeforeClose"><span class="t-en">Try Example (Confirm)</span><span class="t-he">נסו דוגמה (אישור)</span></button></td>
+}</div><button type="button" href="#link1" class="ybox alertBeforeClose"><span class="t-en">Try Example (Confirm)</span><span class="t-he">נסו דוגמה (אישור)</span></button></td>
 						</tr>
 						<tr>
 							<td class="api-name"><code>afterYboxClose</code></td>
 							<td class="api-type" data-label-en="Arguments" data-label-he="ארגומנטים"><code>(self)</code></td>
 							<td class="api-desc"><div class="t-en">Runs after the popup closes.</div><div class="t-he">רץ אחרי סגירת הפופאפ.</div><div class="api-code"><span class="tk-kw">function</span> <span class="tk-fn">afterYboxClose</span>(self) {
 	<span class="tk-com">// ...</span>
-}</div><button type="button" href="#link1" class="yBox alertAfterClose"><span class="t-en">Try Example</span><span class="t-he">נסו דוגמה</span></button></td>
+}</div><button type="button" href="#link1" class="ybox alertAfterClose"><span class="t-en">Try Example</span><span class="t-he">נסו דוגמה</span></button></td>
 						</tr>
 						</tbody>
 					</table>
@@ -410,7 +477,7 @@ yBox({
 			<!-- Nested yBox -->
 			<section id="nested-ybox">
 				<h3><span class="t-en">Nested yBox (Modal inside Modal)</span><span class="t-he">yBox מקונן (מודאל בתוך מודאל)</span></h3>
-				<button type="button" href="#link1" class="yBox"><span class="t-en">Open Modal</span><span class="t-he">פתח מודאל</span></button>
+				<button type="button" href="#link1" class="ybox"><span class="t-en">Open Modal</span><span class="t-he">פתח מודאל</span></button>
 
 				<div style="display:none;">
 					<div id="link1">
@@ -418,7 +485,7 @@ yBox({
 							<h3><span class="t-en">Step 1</span><span class="t-he">שלב 1</span></h3>
 							<p><span class="t-en">This is the first window.</span><span class="t-he">זהו החלון הראשון.</span></p>
 							<div style="padding-top:10px;">
-								<button type="button" href="#link2" class="yBox"><span class="t-en">Go to Step 2 &rarr;</span><span class="t-he">&larr; עבור לשלב 2</span></button>
+								<button type="button" href="#link2" class="ybox"><span class="t-en">Go to Step 2 &rarr;</span><span class="t-he">&larr; עבור לשלב 2</span></button>
 							</div>
 						</div>
 					</div>
@@ -442,7 +509,7 @@ yBox({
 				<div style="display: flex;width:100%; gap: 20px; flex-wrap: wrap;">
 					<div style="flex:1; min-width: 300px;">
 						<h4><span class="t-en">YouTube / Vimeo (Iframe)</span><span class="t-he">YouTube / Vimeo (Iframe)</span></h4>
-						<button type="button" href="https://www.youtube.com/watch?v=eEMpCcLm6NI" class="yBox" title="Click Here" data-ybox-headline="Cool Video" data-ybox-title="YouTube Video">
+						<button type="button" href="https://www.youtube.com/watch?v=eEMpCcLm6NI" class="ybox" title="Click Here" data-ybox-headline="Cool Video" data-ybox-title="YouTube Video">
 							<div style="position:absolute;top:0;left:0;width:100%;height:100%;">
 								<img src="https://img.youtube.com/vi/eEMpCcLm6NI/0.jpg" alt="" style="width:100%; display:block;" />
 								<div class="play"></div>
@@ -451,7 +518,7 @@ yBox({
 					</div>
 					<div style="flex:1; min-width: 300px;">
 						<h4><span class="t-en">Self-Hosted Video (MP4)</span><span class="t-he">סרטון מאוחסן עצמאית (MP4)</span></h4>
-						<button type="button" href="demo_files/mov_bbb.mp4" class="yBox" title="Click Here">
+						<button type="button" href="demo_files/mov_bbb.mp4" class="ybox" title="Click Here">
 							<div style="position:absolute;top:0;left:0;width:100%;height:100%;">
 								<img src="demo_files/movie_img.jpg" alt="" style="width:100%; display:block;" />
 								<div class="play"></div>
@@ -460,7 +527,7 @@ yBox({
 					</div>
 					<div style="flex:1; min-width: 300px;">
 						<h4>YouTube Shorts</h4>
-						<button type="button" href="https://www.youtube.com/shorts/Y46Z0xuZrXQ" class="yBox" title="Click Here">
+						<button type="button" href="https://www.youtube.com/shorts/Y46Z0xuZrXQ" class="ybox" title="Click Here">
 							<div style="position:absolute;top:0;left:0;width:100%;height:100%;">
 								<img src="https://img.youtube.com/vi/Y46Z0xuZrXQ/0.jpg" alt="" style="width:100%; display:block;" />
 								<div class="play"></div>
@@ -474,8 +541,8 @@ yBox({
 			<section id="custom-styling">
 				<h3><span class="t-en">Custom Styling & AJAX</span><span class="t-he">עיצוב מותאם ו-AJAX</span></h3>
 				<div style="display: flex; gap: 15px; flex-wrap: wrap;">
-					<button type="button" href="#myLink" data-ybox-class="myYboxClass" class="yBox"><span class="t-en">Custom Class Demo</span><span class="t-he">דמו קלאס מותאם</span></button>
-					<button type="button" href="demo_files/ajax-demo.html" class="yBox yBox_ajax">AJAX Demo</button>
+					<button type="button" href="#myLink" data-ybox-class="myYboxClass" class="ybox"><span class="t-en">Custom Class Demo</span><span class="t-he">דמו קלאס מותאם</span></button>
+					<button type="button" href="demo_files/ajax-demo.html" class="ybox ybox-ajax">AJAX Demo</button>
 				</div>
 				<div style="display:none;">
 					<div id="myLink" style="padding:20px;">
@@ -498,7 +565,7 @@ yBox({
 					<li><span class="t-en"><strong>Line breaks</strong> — write <code>&amp;#10;</code> in the attribute and add <code>white-space: pre-line</code> to the headline class.</span><span class="t-he"><strong>ירידת שורה</strong> — כתבו <code>&amp;#10;</code> בתוך התכונה והוסיפו <code>white-space: pre-line</code> לקלאס של הכותרת.</span></li>
 					<li><span class="t-en"><strong>Rich content</strong> (bold words, links, icons) — put the headline inside a hidden element and open it with <code>href="#id"</code>, or use <code>data-ybox-details="#id"</code> in galleries.</span><span class="t-he"><strong>תוכן עשיר</strong> (מילים מודגשות, קישורים, אייקונים) — שימו את הכותרת בתוך אלמנט מוסתר ופתחו אותו עם <code>href="#id"</code>, או השתמשו ב-<code>data-ybox-details="#id"</code> בגלריות.</span></li>
 				</ol>
-				<pre><code><span class="blue">&lt;a</span> <span class="red">href</span>=<span class="purple">"photo.jpg"</span> <span class="red">class</span>=<span class="purple">"yBox"</span>
+				<pre><code><span class="blue">&lt;a</span> <span class="red">href</span>=<span class="purple">"photo.jpg"</span> <span class="red">class</span>=<span class="purple">"ybox"</span>
    <span class="red">data-ybox-headline</span>=<span class="purple">"Sunset&amp;#10;Tel Aviv beach"</span>
    <span class="red">data-ybox-headline-class</span>=<span class="purple">"my-headline"</span><span class="blue">&gt;</span>Open<span class="blue">&lt;/a&gt;</span>
 
@@ -510,14 +577,14 @@ yBox({
 	white-space: pre-line;
 }
 <span class="blue">&lt;/style&gt;</span></code></pre>
-				<button type="button" href="demo_files/1.jpg" class="yBox" data-ybox-headline="Sunset&#10;Tel Aviv beach" data-ybox-headline-class="my-headline" data-ybox-alt="Styled headline demo"><span class="t-en">Try Example</span><span class="t-he">נסו דוגמה</span></button>
+				<button type="button" href="demo_files/1.jpg" class="ybox" data-ybox-headline="Sunset&#10;Tel Aviv beach" data-ybox-headline-class="my-headline" data-ybox-alt="Styled headline demo"><span class="t-en">Try Example</span><span class="t-he">נסו דוגמה</span></button>
 			</section>
 
 			<!-- Image -->
 			<section id="image-demo">
 				<h3><span class="t-en">Image</span><span class="t-he">תמונה</span></h3>
 				<div class="group-wrap">
-					<button type="button" href="demo_files/1.jpg" class="yBox" data-ybox-alt="Image Alt 1" style="max-width:300px;">
+					<button type="button" href="demo_files/1.jpg" class="ybox" data-ybox-alt="Image Alt 1" style="max-width:300px;">
 						<img src="demo_files/1.jpg" alt="Nature 1" style="max-width:100%;" />
 					</button>
 				</div>
@@ -533,50 +600,50 @@ yBox({
 
 				<h4><span class="t-en">Nature Collection (Group 1)</span><span class="t-he">אוסף טבע (קבוצה 1)</span></h4>
 				<div class="group-wrap">
-					<button type="button" href="demo_files/1.jpg" class="yBox" data-ybox-headline="Image Title 1" data-ybox-alt="Image Alt 1" data-ybox-group="group1">
+					<button type="button" href="demo_files/1.jpg" class="ybox" data-ybox-headline="Image Title 1" data-ybox-alt="Image Alt 1" data-ybox-group="group1">
 						<img src="demo_files/1.jpg" alt="Nature 1" />
 					</button>
-					<button type="button" href="demo_files/2.jpg" class="yBox" data-ybox-headline="Image Title 2" data-ybox-alt="Image Alt 2" data-ybox-group="group1">
+					<button type="button" href="demo_files/2.jpg" class="ybox" data-ybox-headline="Image Title 2" data-ybox-alt="Image Alt 2" data-ybox-group="group1">
 						<img src="demo_files/2.jpg" alt="Nature 2" />
 					</button>
-					<button type="button" href="demo_files/3.jpg" class="yBox" data-ybox-headline="Image Title 3" data-ybox-alt="Image Alt 3" data-ybox-group="group1">
+					<button type="button" href="demo_files/3.jpg" class="ybox" data-ybox-headline="Image Title 3" data-ybox-alt="Image Alt 3" data-ybox-group="group1">
 						<img src="demo_files/3.jpg" alt="Nature 3" />
 					</button>
 				</div>
 
 				<h4 style="margin-top:30px;"><span class="t-en">Mixed Media (Group 2)</span><span class="t-he">מדיה מעורבת (קבוצה 2)</span></h4>
 				<div class="group-wrap">
-					<button type="button" href="demo_files/4.jpg" class="yBox" data-ybox-group="group2">
+					<button type="button" href="demo_files/4.jpg" class="ybox" data-ybox-group="group2">
 						<img src="demo_files/4.jpg" alt="Urban" />
 					</button>
-					<button type="button" href="demo_files/5.jpg" class="yBox" data-ybox-group="group2">
+					<button type="button" href="demo_files/5.jpg" class="ybox" data-ybox-group="group2">
 						<img src="demo_files/5.jpg" alt="Urban" />
 					</button>
-					<button type="button" href="https://www.youtube.com/watch?v=eEMpCcLm6NI" class="yBox" data-ybox-alt="Video" data-ybox-group="group2">
+					<button type="button" href="https://www.youtube.com/watch?v=eEMpCcLm6NI" class="ybox" data-ybox-alt="Video" data-ybox-group="group2">
 						<img src="https://img.youtube.com/vi/eEMpCcLm6NI/0.jpg" alt="Video" />
 						<div class="play"></div>
 					</button>
-					<button type="button" href="demo_files/mov_bbb.mp4" class="yBox" data-ybox-img="demo_files/movie_img.jpg" data-ybox-group="group2">
+					<button type="button" href="demo_files/mov_bbb.mp4" class="ybox" data-ybox-img="demo_files/movie_img.jpg" data-ybox-group="group2">
 						<div style="position:absolute;top:0;left:0;width:100%;height:100%;">
 							<img src="demo_files/movie_img.jpg" alt="" style="width:100%; display:block;">
 							<div class="play"></div>
 						</div>
 					</button>
 					<div style="display:none;">
-						<button type="button" href="demo_files/4.jpg" class="yBox" data-ybox-group="group2"></button>
-						<button type="button" href="demo_files/5.jpg" class="yBox" data-ybox-group="group2"></button>
-						<button type="button" href="demo_files/4.jpg" class="yBox" data-ybox-group="group2"></button>
-						<button type="button" href="demo_files/5.jpg" class="yBox" data-ybox-group="group2"></button>
-						<button type="button" href="demo_files/4.jpg" class="yBox" data-ybox-group="group2"></button>
-						<button type="button" href="demo_files/5.jpg" class="yBox" data-ybox-group="group2"></button>
-						<button type="button" href="demo_files/4.jpg" class="yBox" data-ybox-group="group2"></button>
-						<button type="button" href="demo_files/5.jpg" class="yBox" data-ybox-group="group2"></button>
-						<button type="button" href="demo_files/4.jpg" class="yBox" data-ybox-group="group2"></button>
-						<button type="button" href="demo_files/5.jpg" class="yBox" data-ybox-group="group2"></button>
-						<button type="button" href="demo_files/4.jpg" class="yBox" data-ybox-group="group2"></button>
-						<button type="button" href="demo_files/5.jpg" class="yBox" data-ybox-group="group2"></button>
-						<button type="button" href="demo_files/4.jpg" class="yBox" data-ybox-group="group2"></button>
-						<button type="button" href="demo_files/5.jpg" class="yBox" data-ybox-group="group2"></button>
+						<button type="button" href="demo_files/4.jpg" class="ybox" data-ybox-group="group2"></button>
+						<button type="button" href="demo_files/5.jpg" class="ybox" data-ybox-group="group2"></button>
+						<button type="button" href="demo_files/4.jpg" class="ybox" data-ybox-group="group2"></button>
+						<button type="button" href="demo_files/5.jpg" class="ybox" data-ybox-group="group2"></button>
+						<button type="button" href="demo_files/4.jpg" class="ybox" data-ybox-group="group2"></button>
+						<button type="button" href="demo_files/5.jpg" class="ybox" data-ybox-group="group2"></button>
+						<button type="button" href="demo_files/4.jpg" class="ybox" data-ybox-group="group2"></button>
+						<button type="button" href="demo_files/5.jpg" class="ybox" data-ybox-group="group2"></button>
+						<button type="button" href="demo_files/4.jpg" class="ybox" data-ybox-group="group2"></button>
+						<button type="button" href="demo_files/5.jpg" class="ybox" data-ybox-group="group2"></button>
+						<button type="button" href="demo_files/4.jpg" class="ybox" data-ybox-group="group2"></button>
+						<button type="button" href="demo_files/5.jpg" class="ybox" data-ybox-group="group2"></button>
+						<button type="button" href="demo_files/4.jpg" class="ybox" data-ybox-group="group2"></button>
+						<button type="button" href="demo_files/5.jpg" class="ybox" data-ybox-group="group2"></button>
 					</div>
 				</div>
 			</section>
@@ -590,19 +657,19 @@ yBox({
 				</p>
 
 				<div class="group-wrap">
-					<button type="button" href="demo_files/1.jpg" class="yBox"
+					<button type="button" href="demo_files/1.jpg" class="ybox"
 						data-ybox-group="group-details"
 						data-ybox-alt="Sunlit Forest"
 						data-ybox-details-title="Gallery Title"
 						data-ybox-details="#gallery-details-content">
 						<img src="demo_files/1.jpg" alt="Nature 1" />
 					</button>
-					<button type="button" href="demo_files/2.jpg" class="yBox"
+					<button type="button" href="demo_files/2.jpg" class="ybox"
 						data-ybox-group="group-details"
 						data-ybox-alt="Mountain Lake">
 						<img src="demo_files/2.jpg" alt="Nature 2" />
 					</button>
-					<button type="button" href="demo_files/3.jpg" class="yBox"
+					<button type="button" href="demo_files/3.jpg" class="ybox"
 						data-ybox-group="group-details"
 						data-ybox-alt="Coastal Cliffs">
 						<img src="demo_files/3.jpg" alt="Nature 3" />
@@ -625,12 +692,12 @@ yBox({
 				</div>
 
 				<pre style="margin-top:1.5rem;"><code><span style="color:#6a9fb5;">/* Set data-ybox-details on ONE element — the whole group shares it */</span>
-<span class="blue">&lt;a</span> <span class="red">href</span>=<span class="purple">"1.jpg"</span> <span class="red">class</span>=<span class="purple">"yBox"</span> <span class="red">data-ybox-group</span>=<span class="purple">"my-gallery"</span>
+<span class="blue">&lt;a</span> <span class="red">href</span>=<span class="purple">"1.jpg"</span> <span class="red">class</span>=<span class="purple">"ybox"</span> <span class="red">data-ybox-group</span>=<span class="purple">"my-gallery"</span>
    <span class="red">data-ybox-details</span>=<span class="purple">"#gallery-desc"</span>
    <span class="red">data-ybox-details-title</span>=<span class="purple">"Gallery Title"</span>
    <span class="red">data-ybox-details-tooltip</span>=<span class="purple">"About this gallery"</span><span class="blue">&gt;&lt;img</span> <span class="red">src</span>=<span class="purple">"1.jpg"</span> <span class="red">alt</span>=<span class="purple">""</span><span class="blue">/&gt;&lt;/a&gt;</span>
-<span class="blue">&lt;a</span> <span class="red">href</span>=<span class="purple">"2.jpg"</span> <span class="red">class</span>=<span class="purple">"yBox"</span> <span class="red">data-ybox-group</span>=<span class="purple">"my-gallery"</span><span class="blue">&gt;&lt;img</span> <span class="red">src</span>=<span class="purple">"2.jpg"</span> <span class="red">alt</span>=<span class="purple">""</span><span class="blue">/&gt;&lt;/a&gt;</span>
-<span class="blue">&lt;a</span> <span class="red">href</span>=<span class="purple">"3.jpg"</span> <span class="red">class</span>=<span class="purple">"yBox"</span> <span class="red">data-ybox-group</span>=<span class="purple">"my-gallery"</span><span class="blue">&gt;&lt;img</span> <span class="red">src</span>=<span class="purple">"3.jpg"</span> <span class="red">alt</span>=<span class="purple">""</span><span class="blue">/&gt;&lt;/a&gt;</span>
+<span class="blue">&lt;a</span> <span class="red">href</span>=<span class="purple">"2.jpg"</span> <span class="red">class</span>=<span class="purple">"ybox"</span> <span class="red">data-ybox-group</span>=<span class="purple">"my-gallery"</span><span class="blue">&gt;&lt;img</span> <span class="red">src</span>=<span class="purple">"2.jpg"</span> <span class="red">alt</span>=<span class="purple">""</span><span class="blue">/&gt;&lt;/a&gt;</span>
+<span class="blue">&lt;a</span> <span class="red">href</span>=<span class="purple">"3.jpg"</span> <span class="red">class</span>=<span class="purple">"ybox"</span> <span class="red">data-ybox-group</span>=<span class="purple">"my-gallery"</span><span class="blue">&gt;&lt;img</span> <span class="red">src</span>=<span class="purple">"3.jpg"</span> <span class="red">alt</span>=<span class="purple">""</span><span class="blue">/&gt;&lt;/a&gt;</span>
 
 <span class="blue">&lt;div</span> <span class="red">style</span>=<span class="purple">"display:none"</span><span class="blue">&gt;</span>
   <span class="blue">&lt;div</span> <span class="red">id</span>=<span class="purple">"gallery-desc"</span><span class="blue">&gt;</span>
@@ -657,23 +724,23 @@ yBox({
 					<li><strong><span class="t-en">Inline buttons</span><span class="t-he">כפתורים מוטמעים</span></strong> — <span class="t-en">share icons placed directly in the page layout, always visible (e.g. on a product card).</span><span class="t-he">אייקוני שיתוף מוטמעים ישירות בדף, תמיד גלויים (למשל על כרטיס מוצר).</span></li>
 				</ol>
 
-				<h4><span class="t-en">Option 1: Share popup (<code>.yBox_share</code>)</span><span class="t-he">אפשרות 1: פופאפ שיתוף (<code>.yBox_share</code>)</span></h4>
+				<h4><span class="t-en">Option 1: Share popup (<code>.ybox-share</code>)</span><span class="t-he">אפשרות 1: פופאפ שיתוף (<code>.ybox-share</code>)</span></h4>
 				<p style="margin: 0.4rem 0 0.6rem; color: var(--text-secondary);">
 					<span class="t-en">A single trigger button opens a modal with all sharing options.<br>By default shares the current page URL.<br>Add <b><code>href</code></b> or <b><code>data-href</code></b> to share a specific URL instead.</span>
 					<span class="t-he">כפתור טריגר אחד פותח מודאל עם כל אפשרויות השיתוף.<br>כברירת מחדל משתף את כתובת הדף הנוכחי.<br>הוסף <b><code>href</code></b> או <b><code>data-href</code></b> לשיתוף כתובת ספציפית.</span>
 				</p>
 				<pre><code><span style="color:#6a9fb5;">/* Default — shares the current page URL */</span>
-<span class="blue">&lt;button</span> <span class="red">type</span>=<span class="purple">"button"</span> <span class="red">class</span>=<span class="purple">"yBox yBox_share"</span><span class="blue">&gt;</span>Share<span class="blue">&lt;/button&gt;</span>
+<span class="blue">&lt;button</span> <span class="red">type</span>=<span class="purple">"button"</span> <span class="red">class</span>=<span class="purple">"ybox ybox-share"</span><span class="blue">&gt;</span>Share<span class="blue">&lt;/button&gt;</span>
 
 <span style="color:#6a9fb5;">/* Share a specific URL */</span>
-<span class="blue">&lt;button</span> <span class="red">type</span>=<span class="purple">"button"</span> <span class="red">class</span>=<span class="purple">"yBox yBox_share"</span> <span class="red">href</span>=<span class="purple">"https://example.com/product/123"</span><span class="blue">&gt;</span>Share<span class="blue">&lt;/button&gt;</span>
+<span class="blue">&lt;button</span> <span class="red">type</span>=<span class="purple">"button"</span> <span class="red">class</span>=<span class="purple">"ybox ybox-share"</span> <span class="red">href</span>=<span class="purple">"https://example.com/product/123"</span><span class="blue">&gt;</span>Share<span class="blue">&lt;/button&gt;</span>
 <span style="color:#6a9fb5;">/* or with data-href */</span>
-<span class="blue">&lt;button</span> <span class="red">type</span>=<span class="purple">"button"</span> <span class="red">class</span>=<span class="purple">"yBox yBox_share"</span> <span class="red">data-href</span>=<span class="purple">"https://example.com/product/123"</span><span class="blue">&gt;</span>Share<span class="blue">&lt;/button&gt;</span></code></pre>
+<span class="blue">&lt;button</span> <span class="red">type</span>=<span class="purple">"button"</span> <span class="red">class</span>=<span class="purple">"ybox ybox-share"</span> <span class="red">data-href</span>=<span class="purple">"https://example.com/product/123"</span><span class="blue">&gt;</span>Share<span class="blue">&lt;/button&gt;</span></code></pre>
 
 				<div style="display: flex; gap: 12px; flex-wrap: wrap; align-items: center; margin-top: 1rem;">
-					<button type="button" class="yBox yBox_share"><span class="t-en">Share current page</span><span class="t-he">שתף את הדף הנוכחי</span></button>
-					<button type="button" class="yBox yBox_share" href="https://github.com/yuvalAshkenaz/yBox"><span class="t-en">Share custom URL (href)</span><span class="t-he">שתף URL מותאם (href)</span></button>
-					<button type="button" class="yBox yBox_share" data-href="https://github.com/yuvalAshkenaz/yBox"><span class="t-en">Share custom URL (data-href)</span><span class="t-he">שתף URL מותאם (data-href)</span></button>
+					<button type="button" class="ybox ybox-share"><span class="t-en">Share current page</span><span class="t-he">שתף את הדף הנוכחי</span></button>
+					<button type="button" class="ybox ybox-share" href="https://github.com/yuvalAshkenaz/yBox"><span class="t-en">Share custom URL (href)</span><span class="t-he">שתף URL מותאם (href)</span></button>
+					<button type="button" class="ybox ybox-share" data-href="https://github.com/yuvalAshkenaz/yBox"><span class="t-en">Share custom URL (data-href)</span><span class="t-he">שתף URL מותאם (data-href)</span></button>
 				</div>
 
 				<h4 style="margin-top: 2.5rem;"><span class="t-en">Option 2: Inline share buttons</span><span class="t-he">אפשרות 2: כפתורי שיתוף מוטמעים</span></h4>

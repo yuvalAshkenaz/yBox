@@ -121,6 +121,24 @@ h1 span {
     vertical-align: top;
     -webkit-text-fill-color: var(--text-secondary);
 }
+h1 .h1-tagline {
+	display: block;
+	margin-top: 8px;
+	font-size: 1.5rem;
+	font-weight: 600;
+	line-height: 1.3;
+	text-align: center;
+	color: var(--text-main);
+	-webkit-text-fill-color: var(--text-main);
+}
+.compare-yes {
+	color: var(--success);
+}
+.compare-note {
+	margin-bottom: 0;
+	font-size: 0.85rem;
+	color: var(--text-secondary);
+}
 h2, h3 {
 	width: 100%;
     color: var(--text-main);
@@ -244,7 +262,7 @@ code.code-example { color: #ce9178; }
 .api-table ol {
 	margin: 6px 0 0;
 }
-.api-table .yBox {
+.api-table .ybox {
 	margin-top: 12px;
 }
 .api-code {
@@ -303,7 +321,7 @@ code.code-example { color: #ce9178; }
 .tk-com {
 	color: #94a3b8;
 }
-a.yBox, button.yBox {
+a.ybox, button.ybox {
     display: inline-flex;
     align-items: center;
     justify-content: center;
@@ -318,7 +336,7 @@ a.yBox, button.yBox {
     cursor: pointer;
     font-size: 15px;
 }
-a.yBox:hover, button.yBox:hover {
+a.ybox:hover, button.ybox:hover {
     filter: brightness(1.1);
 }
 .group-wrap {
@@ -401,11 +419,9 @@ button:hover .play {
 .myYboxClass .closeYbox {
     filter: invert(1);
 }
-/* Headings inside popups take the popup text color, not the dark-theme page color */
 .yBoxFrame h3 {
     color: inherit;
 }
-/* data-ybox-headline-class demo */
 .ybox-img-title.my-headline {
     font-size: 28px;
     font-weight: 700;
@@ -480,6 +496,9 @@ span {
 		font-weight: 400;
 	}
     h1 { font-size: 2.2rem; }
+	h1 .h1-tagline {
+		font-size: 1.1rem;
+	}
 	.api-table-wrap {
 		overflow: visible;
 		border: none;
