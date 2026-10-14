@@ -1,0 +1,37 @@
+{
+  "name": "yboxjs",
+  "version": "13.3.0",
+  "description": "Free, lightweight, dependency-free JavaScript lightbox and popup library. Images, galleries, YouTube, Vimeo, HTML5 video, iframes and AJAX, with RTL support. A free Fancybox alternative.",
+  "main": "dist/js/ybox.js",
+  "style": "dist/css/ybox.min.css",
+  "files": [
+    "dist/"
+  ],
+  "keywords": [
+    "lightbox",
+    "popup",
+    "modal",
+    "gallery",
+    "fancybox-alternative",
+    "vanilla-js",
+    "zero-dependency",
+    "accessible",
+    "rtl",
+    "images",
+    "video",
+    "youtube",
+    "vimeo",
+    "iframe",
+    "ajax"
+  ],
+  "author": "Yuval Ashkenazi",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/yuvalAshkenaz/yBox.git"
+  },
+  "homepage": "https://y-tools.dooble.us/ybox/",
+  "bugs": {
+    "url": "https://github.com/yuvalAshkenaz/yBox/issues"
+  }
+}

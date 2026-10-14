@@ -47,9 +47,17 @@ It supports images, videos, iframes, AJAX content, and complex HTML layouts with
 Include the stylesheet and script in your HTML:
 
 ```html
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/yuvalAshkenaz/yBox/dist/css/ybox.min.css" />
-<script src="https://cdn.jsdelivr.net/gh/yuvalAshkenaz/yBox/dist/js/ybox.min.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/yboxjs@13/dist/css/ybox.min.css" />
+<script src="https://cdn.jsdelivr.net/npm/yboxjs@13/dist/js/ybox.min.js"></script>
 ```
+
+Or install from [npm](https://www.npmjs.com/package/yboxjs):
+
+```bash
+npm install yboxjs
+```
+
+The files are in `node_modules/yboxjs/dist/`.
 
 yBox detects the language automatically from the page's `<html lang>` attribute. To set the language manually, add the `lang` parameter to the script URL, e.g. `ybox.min.js?lang=he`. Supported languages: `he`, `ar` (anything else falls back to English).
 
