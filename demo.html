@@ -14,7 +14,7 @@
 		"description": "A free, lightweight JavaScript lightbox and modal popup library for images, galleries, YouTube, Vimeo, HTML5 video, iframes and AJAX, with no dependencies.",
 		"applicationCategory": "DeveloperApplication",
 		"operatingSystem": "Any",
-		"softwareVersion": "13.4.0",
+		"softwareVersion": "13.4.1",
 		"url": "https://y-tools.dooble.us/ybox/",
 		"downloadUrl": "https://github.com/yuvalAshkenaz/yBox",
 		"license": "https://opensource.org/licenses/MIT",
@@ -41,7 +41,7 @@
 
 <main class="layout-wrapper">
 	<section id="overview" style="text-align: center; background: transparent; box-shadow: none; border: none; backdrop-filter: none; padding-top:0;">
-		<h1>yBox <span>v13.4.0</span><small class="h1-tagline t-en">JavaScript Lightbox &amp; Popup Library</small><small class="h1-tagline t-he">ספריית Lightbox ופופאפים ב-JavaScript</small></h1>
+		<h1>yBox <span>v13.4.1</span><small class="h1-tagline t-en">JavaScript Lightbox &amp; Popup Library</small><small class="h1-tagline t-he">ספריית Lightbox ופופאפים ב-JavaScript</small></h1>
 		<p style="color: var(--text-secondary); font-size: 1.1rem;">
 			<span class="t-en">yBox is a free, lightweight JavaScript lightbox and modal popup library for images, galleries, YouTube and Vimeo videos, HTML5 video, iframes, AJAX content and hidden page elements.<br>It is written in vanilla JavaScript with no dependencies (no jQuery), supports RTL with built-in Hebrew and Arabic, and is MIT licensed for personal and commercial use.</span>
 			<span class="t-he">yBox היא ספריית lightbox ופופאפים חינמית וקלה ב-JavaScript, לתמונות, גלריות, סרטוני YouTube ו-Vimeo, וידאו HTML5, iframe, תוכן AJAX ואלמנטים מוסתרים בדף.<br>היא כתובה ב-JavaScript נקי בלי תלויות (בלי jQuery), תומכת ב-RTL עם עברית וערבית מובנות, ומופצת ברישיון MIT לשימוש אישי ומסחרי.</span>
@@ -738,14 +738,11 @@ yBox({
 				<pre><code><span style="color:#6a9fb5;">/* Default — shares the current page URL */</span>
 <span class="blue">&lt;button</span> <span class="red">type</span>=<span class="purple">"button"</span> <span class="red">class</span>=<span class="purple">"ybox ybox-share"</span><span class="blue">&gt;</span>Share<span class="blue">&lt;/button&gt;</span>
 
-<span style="color:#6a9fb5;">/* Share a specific URL */</span>
-<span class="blue">&lt;button</span> <span class="red">type</span>=<span class="purple">"button"</span> <span class="red">class</span>=<span class="purple">"ybox ybox-share"</span> <span class="red">href</span>=<span class="purple">"https://example.com/product/123"</span><span class="blue">&gt;</span>Share<span class="blue">&lt;/button&gt;</span>
-<span style="color:#6a9fb5;">/* or with data-href */</span>
+<span style="color:#6a9fb5;">/* Share a specific URL with data-href */</span>
 <span class="blue">&lt;button</span> <span class="red">type</span>=<span class="purple">"button"</span> <span class="red">class</span>=<span class="purple">"ybox ybox-share"</span> <span class="red">data-href</span>=<span class="purple">"https://example.com/product/123"</span><span class="blue">&gt;</span>Share<span class="blue">&lt;/button&gt;</span></code></pre>
 
 				<div style="display: flex; gap: 12px; flex-wrap: wrap; align-items: center; margin-top: 1rem;">
 					<button type="button" class="ybox ybox-share"><span class="t-en">Share current page</span><span class="t-he">שתף את הדף הנוכחי</span></button>
-					<button type="button" class="ybox ybox-share" href="https://github.com/yuvalAshkenaz/yBox"><span class="t-en">Share custom URL (href)</span><span class="t-he">שתף URL מותאם (href)</span></button>
 					<button type="button" class="ybox ybox-share" data-href="https://github.com/yuvalAshkenaz/yBox"><span class="t-en">Share custom URL (data-href)</span><span class="t-he">שתף URL מותאם (data-href)</span></button>
 				</div>
 

@@ -1,6 +1,6 @@
 {
   "name": "yboxjs",
-  "version": "13.4.0",
+  "version": "13.4.1",
   "description": "Free, lightweight, dependency-free JavaScript lightbox and popup library. Images, galleries, YouTube, Vimeo, HTML5 video, iframes and AJAX, with RTL support. A free Fancybox alternative.",
   "main": "dist/js/ybox.js",
   "style": "dist/css/ybox.min.css",

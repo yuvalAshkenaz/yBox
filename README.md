@@ -1,4 +1,4 @@
-# yBox.js 13.4.0
+# yBox.js 13.4.1
 
 **yBox** is a lightweight, high-performance, and dependency-free Lightbox library built with modern **Vanilla JavaScript**.  
 It supports images, videos, iframes, AJAX content, and complex HTML layouts with smooth transitions and full accessibility support.
@@ -18,6 +18,14 @@ It supports images, videos, iframes, AJAX content, and complex HTML layouts with
 - **Accessibility** — Keyboard navigation (Arrows, ESC, Tab trap) and full ARIA support.
 - **Secure by Default** — Escaped attributes, blocked `javascript:` links, same-origin AJAX and optional iframe sandbox. See [Security](#-security).
 - **Customizable** — Easy to style via CSS variables and helper classes.
+
+---
+
+## 🆕 What's New in 13.4.1
+
+- **Gallery** — a gap between slides, a slower and smoother slide transition, and videos can be dragged to the next slide (except over the controls bar).
+- **Zoom** — the headline and its shadow zoom together with the image, and pinching a single image out shrinks its whole frame (no white background left behind).
+- **Cursor** — a grab cursor on images and a grabbing cursor while dragging.
 
 ---
 
@@ -217,11 +225,9 @@ Add `.ybox-share` to open the built-in sharing modal. On phones and tablets it o
 <button type="button" class="ybox ybox-share">Share this page</button>
 ```
 
-**Custom URL** — use `href` or `data-href` to share a specific URL:
+**Custom URL** — use `data-href` (or `href`) to share a specific URL:
 
 ```html
-<button type="button" class="ybox ybox-share" href="https://example.com/product/123">Share</button>
-<!-- or -->
 <button type="button" class="ybox ybox-share" data-href="https://example.com/product/123">Share</button>
 ```
 

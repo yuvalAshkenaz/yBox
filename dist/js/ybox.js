@@ -1,4 +1,4 @@
-﻿/*! yBox - v13.4.0 - 15/10/2026
+﻿/*! yBox - v13.4.1 - 15/10/2026
 * By Yuval Ashkenazi
 * https://github.com/yuvalAshkenaz/yBox */
 
@@ -1301,7 +1301,7 @@ function yBoxLayoutSlides(dragX, animate) {
 		let near = Math.abs(off) <= 1;
 		slide.style.visibility = near ? 'visible' : 'hidden';
 		slide.style.transition = (animate && near && Math.abs(off - prevOff) <= 1) ? '' : 'none';
-		slide.style.transform = 'translateX(calc(' + (off * dir * 100) + '% + ' + (dragX || 0) + 'px))';
+		slide.style.transform = 'translateX(calc(' + (off * dir * 100) + '% + ' + (off * dir * 20 + (dragX || 0)) + 'px))';
 		slide.dataset.off = off;
 	});
 }
@@ -1313,9 +1313,9 @@ function yBoxUpdateCounter() {
 }
 
 function yBoxResetZoom() {
-	document.querySelectorAll('.yBoxOverlay img.yBoxImg').forEach(function(img) {
-		img.style.transform = '';
-		img.style.transition = '';
+	document.querySelectorAll('.yBoxOverlay .yBoxImgWrap2, .yBoxOverlay img.yBoxImg').forEach(function(el) {
+		el.style.transform = '';
+		el.style.transition = '';
 	});
 	document.querySelectorAll('.ybox-zoomed').forEach(function(el) {
 		el.classList.remove('ybox-zoomed');
@@ -1352,10 +1352,12 @@ function attachSwipeToSlides() {
 		let scope = isGallery ? wrap.querySelector('.yBoxSlide.active') : wrap;
 		return scope ? scope.querySelector('img.yBoxImg') : null;
 	}
+	// Zoom the image together with its headline, so the headline and its shadow scale with it
 	function syncZoomImg() {
 		let img = activeImg();
-		if (zoom.img !== img) zoom = { img: img, s: 1, x: 0, y: 0 };
-		return img;
+		let el = img ? (img.closest('.yBoxImgWrap2') || img) : null;
+		if (zoom.img !== el) zoom = { img: el, s: 1, x: 0, y: 0 };
+		return el;
 	}
 	// A single image moves together with its frame, so the frame background does not stay behind
 	function closeTarget() {
@@ -1363,8 +1365,17 @@ function attachSwipeToSlides() {
 	}
 	function applyZoom(animate) {
 		if (!zoom.img) return;
-		zoom.img.style.transition = animate ? 'transform 0.25s ease' : 'none';
-		zoom.img.style.transform = (zoom.s === 1 && !zoom.x && !zoom.y) ? '' : 'translate(' + zoom.x + 'px, ' + zoom.y + 'px) scale(' + zoom.s + ')';
+		// Pinching a single image out shrinks the whole frame, so its background shrinks with the image
+		let frame = isGallery ? null : wrap.closest('.yBoxFrame');
+		let shrinkFrame = frame && zoom.s < 1;
+		let target = shrinkFrame ? frame : zoom.img;
+		let other = shrinkFrame ? zoom.img : frame;
+		if (other) {
+			other.style.transition = animate ? 'transform 0.25s ease' : 'none';
+			other.style.transform = '';
+		}
+		target.style.transition = animate ? 'transform 0.25s ease' : 'none';
+		target.style.transform = (zoom.s === 1 && !zoom.x && !zoom.y) ? '' : 'translate(' + zoom.x + 'px, ' + zoom.y + 'px) scale(' + zoom.s + ')';
 		wrap.classList.toggle('ybox-zoomed', zoom.s > 1);
 	}
 	function clampZoom() {
@@ -1376,7 +1387,7 @@ function attachSwipeToSlides() {
 	}
 	function zoomAt(px, py, newS) {
 		let r = zoom.img.getBoundingClientRect();
-		let wr = wrap.getBoundingClientRect();
+		let wr = (isGallery ? wrap : wrap.parentElement).getBoundingClientRect();
 		// The image is centered in the wrapper; the wrapper does not move while a slide is still animating
 		let cx = wr.left + wr.width / 2 + zoom.x;
 		let cy = r.top + r.height / 2;
@@ -1421,7 +1432,10 @@ function attachSwipeToSlides() {
 	wrap.addEventListener('pointerdown', function(e) {
 		lastPointerType = e.pointerType;
 		if (e.pointerType === 'mouse' && e.button !== 0) return;
-		if (e.target.closest('iframe, video, button, a, .ybox-img-title')) return;
+		if (e.target.closest('iframe, button, a, .ybox-img-title')) return;
+		// Videos can be dragged, except over their controls bar
+		let video = e.target.closest('video');
+		if (video && e.clientY > video.getBoundingClientRect().bottom - 60) return;
 		pointers.set(e.pointerId, { x: e.clientX, y: e.clientY });
 		if (pointers.size === 2) {
 			if (!syncZoomImg()) return;
