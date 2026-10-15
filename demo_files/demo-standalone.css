@@ -1,5 +1,5 @@
 body {
-	background: radial-gradient(circle at 15% 50%, #1e1b4b, #0f172a 60%);
+	background: radial-gradient(circle at 15% 50%, #231b5c, #0f172a 60%);
 	background-attachment: fixed;
 	font-family: 'Inter', sans-serif;
 	color: var(--text-main);
