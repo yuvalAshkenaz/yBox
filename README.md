@@ -1,4 +1,4 @@
-# yBox.js 13.3.0
+# yBox.js 13.4.0
 
 **yBox** is a lightweight, high-performance, and dependency-free Lightbox library built with modern **Vanilla JavaScript**.  
 It supports images, videos, iframes, AJAX content, and complex HTML layouts with smooth transitions and full accessibility support.
@@ -12,12 +12,23 @@ It supports images, videos, iframes, AJAX content, and complex HTML layouts with
 - **Zero Dependencies** — Pure JavaScript (ES6+). No external libraries required.
 - **Lightweight** — Optimized for speed and performance.
 - **Media Support** — Images, YouTube/Vimeo, HTML5 Video, Iframes, and AJAX.
-- **Gallery Mode** — Group content with Next/Prev navigation and optional details panel.
+- **Gallery Mode** — Group content with Next/Prev navigation, a carousel you can drag or swipe, pinch and double tap zoom, drag or pinch out to close, an image counter and an optional details panel.
 - **Social Sharing** — Built-in sharing modal with optional custom URL.
 - **`href` or `data-href`** — Both attributes work identically on all trigger elements.
 - **Accessibility** — Keyboard navigation (Arrows, ESC, Tab trap) and full ARIA support.
 - **Secure by Default** — Escaped attributes, blocked `javascript:` links, same-origin AJAX and optional iframe sandbox. See [Security](#-security).
 - **Customizable** — Easy to style via CSS variables and helper classes.
+
+---
+
+## 🆕 What's New in 13.4.0
+
+- **Gallery carousel** — drag or swipe the image to move between slides, with a smooth carousel effect.
+- **Zoom** — pinch or double click / double tap an image to zoom, and drag to move around it.
+- **Drag to close** — drag an image up or down, or pinch out, to close the popup.
+- **Image counter** — galleries show the current image number (for example `2 / 10`).
+- **Native sharing on mobile** — on phones and tablets, `ybox-share` opens the device share menu with all the installed apps.
+- **Share fixes** — the copy button uses the Clipboard API, the email button no longer opens an empty tab, and Telegram / Facebook buttons open the right share screen on mobile.
 
 ---
 
@@ -94,6 +105,11 @@ Use `data-href` when `href` is semantically incorrect (e.g. on a `<div>` or `<bu
 ### 2. Gallery (Grouping)
 
 Add `data-ybox-group="groupName"` to multiple items to create a gallery with navigation.
+
+- Drag or swipe the image to move between slides, like a carousel.
+- Double click / double tap or pinch to zoom, then drag to move around the image.
+- Drag the image up or down, or pinch out, to close.
+- The counter shows the current image number (for example `2 / 10`). Style it with `--ybox-counter-bg` and `--ybox-counter-color`.
 
 ```html
 <a href="img1.jpg" class="ybox" data-ybox-group="myGallery">Item 1</a>
@@ -193,7 +209,7 @@ AJAX is **same-origin only** by default. To load from another domain, add `data-
 
 ### 7. Social Sharing
 
-Add `.ybox-share` to open the built-in sharing modal.
+Add `.ybox-share` to open the built-in sharing modal. On phones and tablets it opens the device share menu instead (with all the installed apps), and falls back to the modal if the browser does not support it.
 
 **Default** — shares the current page URL:
 

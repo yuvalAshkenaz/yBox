@@ -14,7 +14,7 @@
 		"description": "A free, lightweight JavaScript lightbox and modal popup library for images, galleries, YouTube, Vimeo, HTML5 video, iframes and AJAX, with no dependencies.",
 		"applicationCategory": "DeveloperApplication",
 		"operatingSystem": "Any",
-		"softwareVersion": "13.3.0",
+		"softwareVersion": "13.4.0",
 		"url": "https://y-tools.dooble.us/ybox/",
 		"downloadUrl": "https://github.com/yuvalAshkenaz/yBox",
 		"license": "https://opensource.org/licenses/MIT",
@@ -41,7 +41,7 @@
 
 <main class="layout-wrapper">
 	<section id="overview" style="text-align: center; background: transparent; box-shadow: none; border: none; backdrop-filter: none; padding-top:0;">
-		<h1>yBox <span>v13.3.0</span><small class="h1-tagline t-en">JavaScript Lightbox &amp; Popup Library</small><small class="h1-tagline t-he">ספריית Lightbox ופופאפים ב-JavaScript</small></h1>
+		<h1>yBox <span>v13.4.0</span><small class="h1-tagline t-en">JavaScript Lightbox &amp; Popup Library</small><small class="h1-tagline t-he">ספריית Lightbox ופופאפים ב-JavaScript</small></h1>
 		<p style="color: var(--text-secondary); font-size: 1.1rem;">
 			<span class="t-en">yBox is a free, lightweight JavaScript lightbox and modal popup library for images, galleries, YouTube and Vimeo videos, HTML5 video, iframes, AJAX content and hidden page elements.<br>It is written in vanilla JavaScript with no dependencies (no jQuery), supports RTL with built-in Hebrew and Arabic, and is MIT licensed for personal and commercial use.</span>
 			<span class="t-he">yBox היא ספריית lightbox ופופאפים חינמית וקלה ב-JavaScript, לתמונות, גלריות, סרטוני YouTube ו-Vimeo, וידאו HTML5, iframe, תוכן AJAX ואלמנטים מוסתרים בדף.<br>היא כתובה ב-JavaScript נקי בלי תלויות (בלי jQuery), תומכת ב-RTL עם עברית וערבית מובנות, ומופצת ברישיון MIT לשימוש אישי ומסחרי.</span>
@@ -159,7 +159,7 @@
 						</tr>
 						<tr>
 							<td class="api-name"><code>.ybox-share</code></td>
-							<td class="api-desc"><div class="t-en">Opens a built-in social sharing popup.<br>By default it shares the current page URL.<br>Use <code>href</code> or <code>data-href</code> to share a different URL.</div><div class="t-he">פותח פופאפ שיתוף ברשתות חברתיות.<br>כברירת מחדל משתף את כתובת הדף הנוכחי.<br>השתמשו ב-<code>href</code> או <code>data-href</code> כדי לשתף כתובת אחרת.</div><div class="api-code"><span class="tk-tag">&lt;button</span> <span class="tk-attr">type</span>=<span class="tk-str">"button"</span> <span class="tk-attr">class</span>=<span class="tk-str">"ybox ybox-share"</span><span class="tk-tag">&gt;</span>Share<span class="tk-tag">&lt;/button&gt;</span></div></td>
+							<td class="api-desc"><div class="t-en">Opens a built-in social sharing popup.<br>On phones and tablets it opens the device share menu instead, with all the installed apps (falls back to the popup if the browser does not support it).<br>By default it shares the current page URL.<br>Use <code>href</code> or <code>data-href</code> to share a different URL.</div><div class="t-he">פותח פופאפ שיתוף ברשתות חברתיות.<br>בטלפונים ובטאבלטים נפתח במקומו תפריט השיתוף של המכשיר, עם כל האפליקציות המותקנות (אם הדפדפן לא תומך בזה, נפתח הפופאפ).<br>כברירת מחדל משתף את כתובת הדף הנוכחי.<br>השתמשו ב-<code>href</code> או <code>data-href</code> כדי לשתף כתובת אחרת.</div><div class="api-code"><span class="tk-tag">&lt;button</span> <span class="tk-attr">type</span>=<span class="tk-str">"button"</span> <span class="tk-attr">class</span>=<span class="tk-str">"ybox ybox-share"</span><span class="tk-tag">&gt;</span>Share<span class="tk-tag">&lt;/button&gt;</span></div></td>
 						</tr>
 						</tbody>
 					</table>
@@ -597,6 +597,12 @@ yBox({
 					<span class="t-en">Add <code><b>data-ybox-group="groupname"</b></code> to create a gallery.</span>
 					<span class="t-he">הוסף <code><b>data-ybox-group="groupname"</b></code> ליצירת גלריה.</span>
 				</p>
+				<ul>
+					<li><span class="t-en">Drag or swipe the image to move between slides, like a carousel.</span><span class="t-he">גוררים את התמונה עם העכבר או האצבע כדי לעבור בין השקופיות, כמו בקרוסלה.</span></li>
+					<li><span class="t-en">Double click / double tap or pinch to zoom, then drag to move around the image.</span><span class="t-he">לחיצה כפולה או צביטה מגדילות את התמונה, ואז אפשר לגרור כדי לזוז בתוכה.</span></li>
+					<li><span class="t-en">Drag the image up or down, or pinch out, to close.</span><span class="t-he">גרירה של התמונה למעלה או למטה, או צביטה החוצה, סוגרות את החלון.</span></li>
+					<li><span class="t-en">The counter shows the current image number (for example 2 / 10).</span><span class="t-he">המונה מציג את מספר התמונה מתוך כמה תמונות (למשל 2 / 10).</span></li>
+				</ul>
 
 				<h4><span class="t-en">Nature Collection (Group 1)</span><span class="t-he">אוסף טבע (קבוצה 1)</span></h4>
 				<div class="group-wrap">

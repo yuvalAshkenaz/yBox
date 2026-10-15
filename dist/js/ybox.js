@@ -1,4 +1,4 @@
-﻿/*! yBox - v13.3.0 - 14/10/2026
+﻿/*! yBox - v13.4.0 - 15/10/2026
 * By Yuval Ashkenazi
 * https://github.com/yuvalAshkenaz/yBox */
 
@@ -119,6 +119,45 @@ function yBoxOpenWindow(url, target, specs) {
 	if (w) w.opener = null;
 	return w;
 }
+// Phones and tablets, including iPads that report a desktop user agent
+function yBoxIsMobile() {
+	if (navigator.userAgentData && navigator.userAgentData.mobile) return true;
+	return /Android|iPhone|iPad|iPod|Mobile|Tablet/i.test(navigator.userAgent) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+}
+// Opens an app link, and the web URL if the app did not open (not installed)
+function yBoxOpenApp(appUrl, webUrl) {
+	let fallback = setTimeout(function() {
+		if (!document.hidden) window.location.href = webUrl;
+	}, 1500);
+	document.addEventListener('visibilitychange', function onHide() {
+		if (document.hidden) {
+			clearTimeout(fallback);
+			document.removeEventListener('visibilitychange', onHide);
+		}
+	});
+	window.location.href = appUrl;
+}
+function yBoxCopyText(text) {
+	if (navigator.clipboard && window.isSecureContext) {
+		return navigator.clipboard.writeText(text).catch(function() {
+			yBoxCopyFallback(text);
+		});
+	}
+	yBoxCopyFallback(text);
+	return Promise.resolve();
+}
+function yBoxCopyFallback(text) {
+	let temp = document.createElement('textarea');
+	temp.value = text;
+	temp.setAttribute('readonly', '');
+	temp.style.position = 'fixed';
+	temp.style.opacity = '0';
+	document.body.appendChild(temp);
+	temp.select();
+	temp.setSelectionRange(0, text.length);
+	document.execCommand('copy');
+	temp.remove();
+}
 let yBoxThumbsRO = null;
 
 // 1. Thumb Click Listener
@@ -150,7 +189,12 @@ document.body.addEventListener('click', function(e) {
         return;
     }
     if(e.target.closest('.ybox-facebook-share-btn')) {
-        shareUrl = 'https://www.facebook.com/sharer/sharer.php?u=' + encodeURIComponent(shareHref);
+        shareUrl = (yBoxIsMobile() ? 'https://m.facebook.com/sharer.php?u=' : 'https://www.facebook.com/sharer/sharer.php?u=') + encodeURIComponent(shareHref);
+    }
+    else if(e.target.closest('.ybox-telegram-share-btn') && yBoxIsMobile()) {
+        e.preventDefault();
+        const tgQuery = 'url=' + encodeURIComponent(shareHref) + '&text=' + encodeURIComponent(strings.share_with);
+        yBoxOpenApp('tg://msg_url?' + tgQuery, 'https://t.me/share/url?' + tgQuery);
     }
 	else if(e.target.closest('.ybox-whatsapp-share-btn')) {
 		const whatsappUrl = `https://api.whatsapp.com/send?text=${encodeURIComponent(shareHref)}`;
@@ -183,18 +227,13 @@ document.body.addEventListener('click', function(e) {
         yBoxOpenWindow(shareUrl, '', windowSpecs);
     }
     else if(e.target.closest('.ybox-copy-text-btn')) {
-        let temp = document.createElement("input");
-        document.body.appendChild(temp);
-        temp.value = shareHref;
-        temp.select();
-        document.execCommand("copy");
-        temp.remove();
-
         let btn = e.target.closest('.ybox-copy-text-btn');
-        btn.classList.add('active');
-        setTimeout(function() {
-            btn.classList.remove('active');
-        }, 3000);
+        yBoxCopyText(shareHref).then(function() {
+            btn.classList.add('active');
+            setTimeout(function() {
+                btn.classList.remove('active');
+            }, 3000);
+        });
     }
 });
 
@@ -279,6 +318,14 @@ function yBox( obj = {} ) {
 	yBoxSetLang();
 	if (typeof obj.self === 'string') {
 		obj.self = document.querySelector(obj.self);
+	}
+	// On phones and tablets the share button opens the device share sheet instead of the popup
+	if (obj.self && yBoxHasType(obj.self, 'share') && !obj.noNativeShare && yBoxIsMobile() && navigator.share) {
+		const nativeShareUrl = yBoxSafeUrl(yBoxHref(obj.self)) || location.href;
+		navigator.share({ title: document.title, url: nativeShareUrl }).catch(function(err) {
+			if (err && err.name !== 'AbortError') yBox({ self: obj.self, noNativeShare: true });
+		});
+		return;
 	}
 	if (!document.querySelector('.yBoxOverlay:not(.active)')) {
 		let a_or_div;
@@ -524,7 +571,7 @@ function insert_yBox_html(obj) {
 							'<li><button type="button" class="ybox-share-btn ybox-twitter-share-btn" aria-label="' + strings.share_x + '" title="' + strings.share_x + '"><svg viewBox="0 0 24 24"><g><path d="M21.742 21.75l-7.563-11.179 7.056-8.321h-2.456l-5.691 6.714-4.54-6.714H2.359l7.29 10.776L2.25 21.75h2.456l6.035-7.118 4.818 7.118h6.191-.008zM7.739 3.818L18.81 20.182h-2.447L5.29 3.818h2.447z"></path></g></svg></button></li>' +
 							'<li><button type="button" class="ybox-share-btn ybox-linkedin-share-btn" aria-label="' + strings.share_linkedin + '" title="' + strings.share_linkedin + '"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M4.98 3.5c0 1.381-1.11 2.5-2.48 2.5s-2.48-1.119-2.48-2.5c0-1.38 1.11-2.5 2.48-2.5s2.48 1.12 2.48 2.5zm.02 4.5h-5v16h5v-16zm7.982 0h-4.968v16h4.969v-8.399c0-4.67 6.029-5.052 6.029 0v8.399h4.988v-10.131c0-7.88-8.922-7.593-11.018-3.714v-2.155z"/></svg></button></li>' +
 							'<li><button type="button" class="ybox-share-btn ybox-pinterest-share-btn" aria-label="' + strings.share_pinterest + '" title="' + strings.share_pinterest + '"><svg viewBox="0 0 512 512"><path d="M255.998,0.001c-141.384,0 -255.998,114.617 -255.998,255.998c0,108.456 67.475,201.171 162.707,238.471c-2.24,-20.255 -4.261,-51.405 0.889,-73.518c4.65,-19.978 30.018,-127.248 30.018,-127.248c0,0 -7.659,-15.334 -7.659,-38.008c0,-35.596 20.632,-62.171 46.323,-62.171c21.839,0 32.391,16.399 32.391,36.061c0,21.966 -13.984,54.803 -21.203,85.235c-6.03,25.482 12.779,46.261 37.909,46.261c45.503,0 80.477,-47.976 80.477,-117.229c0,-61.293 -44.045,-104.149 -106.932,-104.149c-72.841,0 -115.597,54.634 -115.597,111.095c0,22.004 8.475,45.596 19.052,58.421c2.09,2.535 2.398,4.758 1.776,7.343c-1.945,8.087 -6.262,25.474 -7.111,29.032c-1.117,4.686 -3.711,5.681 -8.561,3.424c-31.974,-14.884 -51.963,-61.627 -51.963,-99.174c0,-80.755 58.672,-154.915 169.148,-154.915c88.806,0 157.821,63.279 157.821,147.85c0,88.229 -55.629,159.232 -132.842,159.232c-25.94,0 -50.328,-13.476 -58.674,-29.394c0,0 -12.838,48.878 -15.95,60.856c-5.782,22.237 -21.382,50.109 -31.818,67.11c23.955,7.417 49.409,11.416 75.797,11.416c141.389,0 256.003,-114.612 256.003,-256.001c0,-141.381 -114.614,-255.998 -256.003,-255.998Z"/></g></svg></button></li>' +
-							'<li><a href="mailto:?subject=' + encodeURIComponent(strings.share_with) + '&amp;body=' + encodeURIComponent(resolvedHref) + '" class="ybox-share-btn" target="_blank" aria-label="' + strings.share_email + '" title="' + strings.share_email + '"><svg viewBox="0 0 24 24"><path d="M0 3v18h24v-18h-24zm6.623 7.929l-4.623 5.712v-9.458l4.623 3.746zm-4.141-5.929h19.035l-9.517 7.713-9.518-7.713zm5.694 7.188l3.824 3.099 3.83-3.104 5.612 6.817h-18.779l5.513-6.812zm9.208-1.264l4.616-3.741v9.348l-4.616-5.607z"/></svg></a></li>' +
+							'<li><a href="mailto:?subject=' + encodeURIComponent(strings.share_with) + '&amp;body=' + encodeURIComponent(resolvedHref) + '" class="ybox-share-btn ybox-email-share-btn" aria-label="' + strings.share_email + '" title="' + strings.share_email + '"><svg viewBox="0 0 24 24"><path d="M0 3v18h24v-18h-24zm6.623 7.929l-4.623 5.712v-9.458l4.623 3.746zm-4.141-5.929h19.035l-9.517 7.713-9.518-7.713zm5.694 7.188l3.824 3.099 3.83-3.104 5.612 6.817h-18.779l5.513-6.812zm9.208-1.264l4.616-3.741v9.348l-4.616-5.607z"/></svg></a></li>' +
 							'<li><a href="https://t.me/share/url?url=' + encodeURIComponent(resolvedHref) + '&amp;text=' + encodeURIComponent(strings.share_with) + '" class="ybox-share-btn ybox-telegram-share-btn" target="_blank" rel="noopener noreferrer" aria-label="' + strings.share_telegram + '" title="' + strings.share_telegram + '"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" xmlns:serif="http://www.serif.com/" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:1.41421;"><path id="telegram-1" d="M18.384,22.779c0.322,0.228 0.737,0.285 1.107,0.145c0.37,-0.141 0.642,-0.457 0.724,-0.84c0.869,-4.084 2.977,-14.421 3.768,-18.136c0.06,-0.28 -0.04,-0.571 -0.26,-0.758c-0.22,-0.187 -0.525,-0.241 -0.797,-0.14c-4.193,1.552 -17.106,6.397 -22.384,8.35c-0.335,0.124 -0.553,0.446 -0.542,0.799c0.012,0.354 0.25,0.661 0.593,0.764c2.367,0.708 5.474,1.693 5.474,1.693c0,0 1.452,4.385 2.209,6.615c0.095,0.28 0.314,0.5 0.603,0.576c0.288,0.075 0.596,-0.004 0.811,-0.207c1.216,-1.148 3.096,-2.923 3.096,-2.923c0,0 3.572,2.619 5.598,4.062Zm-11.01,-8.677l1.679,5.538l0.373,-3.507c0,0 6.487,-5.851 10.185,-9.186c0.108,-0.098 0.123,-0.262 0.033,-0.377c-0.089,-0.115 -0.253,-0.142 -0.376,-0.064c-4.286,2.737 -11.894,7.596 -11.894,7.596Z"/></svg></a></li>' +
 							'<li><button type="button" class="ybox-share-btn ybox-print" aria-label="' + strings.print + '" title="' + strings.print + '"><svg viewBox="0 0 24 24"><path d="M16 17h-8v-1h8v1zm8-12v13h-4.048c-.404 2.423-3.486 6-6.434 6h-9.518v-6h-4v-13h4v-5h16v5h4zm-18 0h12v-3h-12v3zm12 9h-12v8h6.691c3.469 0 2-3.352 2-3.352s3.309 1.594 3.309-2v-2.648zm4-7h-20v9h2v-4h16v4h2v-9zm-9 11h-5v1h5v-1zm7.5-10c-.276 0-.5.224-.5.5s.224.5.5.5.5-.224.5-.5-.224-.5-.5-.5z"/></svg></button></li>' +
 							'<li><button type="button" class="ybox-share-btn ybox-copy-text-btn" aria-label="' + strings.copy_link + '" title="' + strings.copy_link + '"><svg class="ybox-copy-hide-on-check" viewBox="0 0 24 24"><path d="m6 18h-3c-.48 0-1-.379-1-1v-14c0-.481.38-1 1-1h14c.621 0 1 .522 1 1v3h3c.621 0 1 .522 1 1v14c0 .621-.522 1-1 1h-14c-.48 0-1-.379-1-1zm1.5-10.5v13h13v-13zm9-1.5v-2.5h-13v13h2.5v-9.5c0-.481.38-1 1-1z"/></svg><svg class="ybox-copy-show-on-check" viewBox="0 0 24 24"><path d="M0 12.116l2.053-1.897c2.401 1.162 3.924 2.045 6.622 3.969 5.073-5.757 8.426-8.678 14.657-12.555l.668 1.536c-5.139 4.484-8.902 9.479-14.321 19.198-3.343-3.936-5.574-6.446-9.679-10.251z"/></svg><div class="ybox-copy-show-text-on-check">' + strings.link_copied + '</div></button></li>' +
@@ -799,6 +846,11 @@ function yBox_Group(yBoxLink, currentCode) {
         }
     }
 
+    let overlay = document.querySelector('.yBoxOverlay');
+    let oldCounter = overlay.querySelector('.yBoxCounter');
+    if (oldCounter) oldCounter.remove();
+    overlay.insertAdjacentHTML('beforeend', '<div class="yBoxCounter" aria-live="polite"><span class="yBoxCounterCurrent">' + (groupItems.indexOf(yBoxLink) + 1) + '</span> / ' + groupItems.length + '</div>');
+
     let insertArea = document.querySelector('.insertYboxAjaxHere');
     if(insertArea) {
         insertArea.innerHTML = slidesHTML + thumbsHTML;
@@ -1041,6 +1093,9 @@ function changeSlide(index) {
         thumbs[index].classList.add('active');
         scrollThumbIntoView(index);
     }
+    yBoxResetZoom();
+    yBoxLayoutSlides(0, true);
+    yBoxUpdateCounter();
 }
 
 // Details Button Handler
@@ -1216,65 +1271,315 @@ document.addEventListener('keydown', function(e) {
 	}
 });
 
+// A click right after a drag, swipe or pinch must not close the popup or trigger a button
+let yBoxSuppressClick = false;
+document.addEventListener('click', function(e) {
+	if (yBoxSuppressClick) {
+		yBoxSuppressClick = false;
+		e.preventDefault();
+		e.stopPropagation();
+	}
+}, true);
+
+// Places the gallery slides side by side around the active one, so they move like a carousel
+function yBoxLayoutSlides(dragX, animate) {
+	let wrap = document.querySelector('.yBoxSlidesWrap');
+	if (!wrap) return;
+	let slides = Array.from(wrap.querySelectorAll('.yBoxSlide'));
+	let total = slides.length;
+	let active = slides.findIndex(function(s) { return s.classList.contains('active'); });
+	if (active < 0) return;
+	let dir = wrap.closest('.yBoxRTL') ? -1 : 1;
+	wrap.classList.add('ybox-carousel');
+	slides.forEach(function(slide, i) {
+		let off = i - active;
+		if (total > 2) {
+			if (off > total / 2) off -= total;
+			if (off < -total / 2) off += total;
+		}
+		let prevOff = slide.dataset.off === undefined ? off : parseInt(slide.dataset.off, 10);
+		let near = Math.abs(off) <= 1;
+		slide.style.visibility = near ? 'visible' : 'hidden';
+		slide.style.transition = (animate && near && Math.abs(off - prevOff) <= 1) ? '' : 'none';
+		slide.style.transform = 'translateX(calc(' + (off * dir * 100) + '% + ' + (dragX || 0) + 'px))';
+		slide.dataset.off = off;
+	});
+}
+
+function yBoxUpdateCounter() {
+	let counter = document.querySelector('.yBoxCounterCurrent');
+	let active = document.querySelector('.yBoxSlide.active');
+	if (counter && active) counter.textContent = parseInt(active.dataset.id, 10) + 1;
+}
+
+function yBoxResetZoom() {
+	document.querySelectorAll('.yBoxOverlay img.yBoxImg').forEach(function(img) {
+		img.style.transform = '';
+		img.style.transition = '';
+	});
+	document.querySelectorAll('.ybox-zoomed').forEach(function(el) {
+		el.classList.remove('ybox-zoomed');
+	});
+}
+
+// Gallery and image gestures: drag between slides, pinch / double tap to zoom, drag up or down / pinch out to close
 function attachSwipeToSlides() {
-    const wrapper = document.querySelector('.yBoxSlidesWrap');
-    if (!wrapper) return;
+	let wrap = document.querySelector('.yBoxSlidesWrap');
+	let isGallery = !!wrap;
+	if (!wrap) wrap = document.querySelector('.yBoxImgWrap .yBoxImgWrap2');
+	if (!wrap || wrap.dataset.yboxGestures) return;
+	wrap.dataset.yboxGestures = '1';
+	if (isGallery) {
+		yBoxLayoutSlides(0, false);
+		yBoxUpdateCounter();
+	}
 
-    // wrapper.querySelectorAll('img').forEach(function(img) {
-        // img.addEventListener('dragstart', function(e) {
-            // e.preventDefault();
-        // });
-    // });
+	let pointers = new Map();
+	let mode = '';
+	let start = { x: 0, y: 0, t: 0 };
+	let last = { x: 0, y: 0, t: 0 };
+	let velocity = 0;
+	let zoom = { img: null, s: 1, x: 0, y: 0 };
+	let pinch = null;
+	let pan = null;
+	let lastTap = { t: 0, x: 0, y: 0 };
+	let overlayBg = null;
+	let lastPointerType = '';
 
-    let touchStartX = 0;
-    let touchStartY = 0;
-    let touchEndX = 0;
-    let touchEndY = 0;
+	wrap.addEventListener('dragstart', function(e) { e.preventDefault(); });
 
-    wrapper.addEventListener('touchstart', function(e) {
-        touchStartX = e.changedTouches[0].clientX;
-        touchStartY = e.changedTouches[0].clientY;
-    }, {passive: true});
+	function activeImg() {
+		let scope = isGallery ? wrap.querySelector('.yBoxSlide.active') : wrap;
+		return scope ? scope.querySelector('img.yBoxImg') : null;
+	}
+	function syncZoomImg() {
+		let img = activeImg();
+		if (zoom.img !== img) zoom = { img: img, s: 1, x: 0, y: 0 };
+		return img;
+	}
+	// A single image moves together with its frame, so the frame background does not stay behind
+	function closeTarget() {
+		return isGallery ? wrap.querySelector('.yBoxSlide.active') : (wrap.closest('.yBoxFrame') || wrap);
+	}
+	function applyZoom(animate) {
+		if (!zoom.img) return;
+		zoom.img.style.transition = animate ? 'transform 0.25s ease' : 'none';
+		zoom.img.style.transform = (zoom.s === 1 && !zoom.x && !zoom.y) ? '' : 'translate(' + zoom.x + 'px, ' + zoom.y + 'px) scale(' + zoom.s + ')';
+		wrap.classList.toggle('ybox-zoomed', zoom.s > 1);
+	}
+	function clampZoom() {
+		if (!zoom.img) return;
+		let maxX = zoom.img.offsetWidth * (zoom.s - 1) / 2;
+		let maxY = zoom.img.offsetHeight * (zoom.s - 1) / 2;
+		zoom.x = Math.max(-maxX, Math.min(maxX, zoom.x));
+		zoom.y = Math.max(-maxY, Math.min(maxY, zoom.y));
+	}
+	function zoomAt(px, py, newS) {
+		let r = zoom.img.getBoundingClientRect();
+		let wr = wrap.getBoundingClientRect();
+		// The image is centered in the wrapper; the wrapper does not move while a slide is still animating
+		let cx = wr.left + wr.width / 2 + zoom.x;
+		let cy = r.top + r.height / 2;
+		let dx = px - cx + zoom.x;
+		let dy = py - cy + zoom.y;
+		zoom.x = dx - (dx - zoom.x) * newS / zoom.s;
+		zoom.y = dy - (dy - zoom.y) * newS / zoom.s;
+		zoom.s = newS;
+	}
+	function toggleZoom(px, py) {
+		if (!syncZoomImg()) return;
+		if (zoom.s > 1) {
+			zoom.s = 1;
+			zoom.x = 0;
+			zoom.y = 0;
+		} else {
+			zoomAt(px, py, 2.5);
+			clampZoom();
+		}
+		applyZoom(true);
+	}
+	function setOverlayFade(progress) {
+		let overlay = document.querySelector('.yBoxOverlay');
+		if (!overlay) return;
+		if (overlayBg === null) {
+			let m = getComputedStyle(overlay).backgroundColor.match(/[\d.]+/g) || [0, 0, 0, 1];
+			overlayBg = { rgb: m.slice(0, 3).join(','), a: m[3] === undefined ? 1 : parseFloat(m[3]) };
+		}
+		overlay.style.backgroundColor = progress ? 'rgba(' + overlayBg.rgb + ',' + (overlayBg.a * (1 - Math.min(progress, 1) * 0.7)) + ')' : '';
+	}
+	function closePopup() {
+		let closeBtn = document.querySelector('.yBoxOverlay .closeYbox');
+		if (closeBtn) closeBtn.click();
+	}
+	function distance(a, b) {
+		return Math.hypot(a.x - b.x, a.y - b.y);
+	}
+	function midpoint(a, b) {
+		return { x: (a.x + b.x) / 2, y: (a.y + b.y) / 2 };
+	}
 
-    wrapper.addEventListener('touchend', function(e) {
-        touchEndX = e.changedTouches[0].clientX;
-        touchEndY = e.changedTouches[0].clientY;
-        handleSwipe();
-    }, {passive: true});
+	wrap.addEventListener('pointerdown', function(e) {
+		lastPointerType = e.pointerType;
+		if (e.pointerType === 'mouse' && e.button !== 0) return;
+		if (e.target.closest('iframe, video, button, a, .ybox-img-title')) return;
+		pointers.set(e.pointerId, { x: e.clientX, y: e.clientY });
+		if (pointers.size === 2) {
+			if (!syncZoomImg()) return;
+			let p = Array.from(pointers.values());
+			pinch = { dist: distance(p[0], p[1]), s: zoom.s };
+			mode = 'pinch';
+			if (isGallery) yBoxLayoutSlides(0, true);
+			return;
+		}
+		if (pointers.size === 1) {
+			syncZoomImg();
+			mode = 'pending';
+			start = { x: e.clientX, y: e.clientY, t: Date.now() };
+			last = { x: e.clientX, y: e.clientY, t: start.t };
+			velocity = 0;
+		}
+	});
 
-    function handleSwipe() {
-        const diffX = touchEndX - touchStartX;
-        const diffY = touchEndY - touchStartY;
+	wrap.addEventListener('pointermove', function(e) {
+		if (!pointers.has(e.pointerId)) return;
+		pointers.set(e.pointerId, { x: e.clientX, y: e.clientY });
+		let now = Date.now();
+		let dx = e.clientX - start.x;
+		let dy = e.clientY - start.y;
 
-        if (Math.abs(diffX) > 30 && Math.abs(diffX) > Math.abs(diffY)) {
-            if (diffX > 0) {
-                // ltr
-                if (typeof yBox_lang !== 'undefined' && (yBox_lang === 'he' || yBox_lang === 'ar')) {
-                    yBoxNext();
-                } else {
-                    yBoxPrev();
-                }
-            } else {
-                // rtl
-                if (typeof yBox_lang !== 'undefined' && (yBox_lang === 'he' || yBox_lang === 'ar')) {
-                    yBoxPrev();
-                } else {
-                    yBoxNext();
-                }
-            }
-        }
-    }
+		if (mode === 'pinch' && pointers.size === 2) {
+			let p = Array.from(pointers.values());
+			let newS = Math.max(0.5, Math.min(4, pinch.s * distance(p[0], p[1]) / pinch.dist));
+			let mid = midpoint(p[0], p[1]);
+			zoomAt(mid.x, mid.y, newS);
+			applyZoom(false);
+			setOverlayFade(newS < 1 ? (1 - newS) * 2 : 0);
+			return;
+		}
+		if (mode === 'pending') {
+			if (Math.hypot(dx, dy) < 8) return;
+			if (zoom.s > 1) {
+				mode = 'pan';
+				pan = { x: zoom.x, y: zoom.y };
+			} else if (isGallery && Math.abs(dx) > Math.abs(dy)) {
+				mode = 'swipe';
+			} else {
+				mode = 'close';
+			}
+			if (wrap.setPointerCapture) wrap.setPointerCapture(e.pointerId);
+			wrap.classList.add('ybox-dragging');
+		}
+		if (now > last.t) velocity = (mode === 'close' ? e.clientY - last.y : e.clientX - last.x) / (now - last.t);
+		last = { x: e.clientX, y: e.clientY, t: now };
 
-    let wheelCooldown = false;
-    wrapper.addEventListener('wheel', function(e) {
-        e.preventDefault();
-        if (wheelCooldown) return;
-        wheelCooldown = true;
-        setTimeout(function() { wheelCooldown = false; }, 400);
-        if (e.deltaY > 0) {
-            yBoxNext();
-        } else {
-            yBoxPrev();
-        }
-    }, { passive: false });
+		if (mode === 'swipe') {
+			yBoxLayoutSlides(dx, false);
+		} else if (mode === 'close') {
+			let target = closeTarget();
+			if (target) {
+				target.style.transition = 'none';
+				target.style.transform = 'translate(0, ' + dy + 'px)';
+			}
+			setOverlayFade(Math.abs(dy) / 300);
+		} else if (mode === 'pan') {
+			zoom.x = pan.x + dx;
+			zoom.y = pan.y + dy;
+			clampZoom();
+			applyZoom(false);
+		}
+	});
+
+	function endPointer(e) {
+		if (!pointers.has(e.pointerId)) return;
+		pointers.delete(e.pointerId);
+		let dx = e.clientX - start.x;
+		let dy = e.clientY - start.y;
+
+		if (mode === 'pinch') {
+			if (pointers.size > 0) return;
+			mode = '';
+			if (pinch.s <= 1 && zoom.s < 0.8) {
+				closePopup();
+				return;
+			}
+			yBoxSuppressClick = true;
+			setTimeout(function() { yBoxSuppressClick = false; }, 400);
+			if (zoom.s <= 1) {
+				zoom.s = 1;
+				zoom.x = 0;
+				zoom.y = 0;
+			} else {
+				clampZoom();
+			}
+			setOverlayFade(0);
+			applyZoom(true);
+			return;
+		}
+		if (pointers.size > 0) return;
+
+		if (mode === 'swipe') {
+			let dir = wrap.closest('.yBoxRTL') ? -1 : 1;
+			if (Math.abs(dx) > wrap.clientWidth * 0.18 || Math.abs(velocity) > 0.5) {
+				if (dx * dir < 0) yBoxNext();
+				else yBoxPrev();
+			} else {
+				yBoxLayoutSlides(0, true);
+			}
+		} else if (mode === 'close') {
+			let target = closeTarget();
+			if (Math.abs(dy) > 120 || Math.abs(velocity) > 0.6) {
+				if (target) {
+					target.style.transition = 'transform 0.25s ease';
+					target.style.transform = 'translate(0, ' + (dy > 0 ? '' : '-') + '100vh)';
+				}
+				closePopup();
+			} else {
+				if (target) {
+					target.style.transition = 'transform 0.25s ease';
+					target.style.transform = '';
+				}
+				if (isGallery) yBoxLayoutSlides(0, true);
+				setOverlayFade(0);
+			}
+		} else if (mode === 'pan') {
+			clampZoom();
+			applyZoom(true);
+		} else if (mode === 'pending' && e.pointerType !== 'mouse' && e.type === 'pointerup') {
+			let now = Date.now();
+			if (now - lastTap.t < 300 && Math.hypot(e.clientX - lastTap.x, e.clientY - lastTap.y) < 30) {
+				lastTap.t = 0;
+				if (e.target.closest('img.yBoxImg')) toggleZoom(e.clientX, e.clientY);
+			} else {
+				lastTap = { t: now, x: e.clientX, y: e.clientY };
+			}
+		}
+		if (mode && mode !== 'pending') {
+			yBoxSuppressClick = true;
+			setTimeout(function() { yBoxSuppressClick = false; }, 400);
+		}
+		mode = '';
+		wrap.classList.remove('ybox-dragging');
+	}
+	wrap.addEventListener('pointerup', endPointer);
+	wrap.addEventListener('pointercancel', endPointer);
+
+	wrap.addEventListener('dblclick', function(e) {
+		if (lastPointerType === 'touch') return;
+		if (e.target.closest('img.yBoxImg')) toggleZoom(e.clientX, e.clientY);
+	});
+
+	if (isGallery) {
+		let wheelCooldown = false;
+		wrap.addEventListener('wheel', function(e) {
+			e.preventDefault();
+			if (wheelCooldown || zoom.s > 1) return;
+			wheelCooldown = true;
+			setTimeout(function() { wheelCooldown = false; }, 400);
+			if (e.deltaY > 0) {
+				yBoxNext();
+			} else {
+				yBoxPrev();
+			}
+		}, { passive: false });
+	}
 }

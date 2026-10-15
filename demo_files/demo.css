@@ -189,6 +189,30 @@ pre .purple { color: #c084fc !important; }
 pre .grey { color: #94a3b8 !important; }
 pre .green { color: #34d399 !important; }
 code.code-example { color: #ce9178; }
+.lang-toggle {
+	display: inline-flex;
+	align-items: center;
+	padding: 8px 20px;
+	border: 1px solid rgba(0, 240, 255, 0.45);
+	border-radius: 99px;
+	background: rgba(15, 23, 42, 0.85);
+	-webkit-backdrop-filter: blur(8px);
+	backdrop-filter: blur(8px);
+	color: var(--primary-color);
+	font-weight: 600;
+	text-decoration: none;
+	box-shadow: 0 0 18px rgba(0, 240, 255, 0.15);
+	cursor: pointer;
+	transition: background-color 0.3s, color 0.3s, border-color 0.3s, box-shadow 0.3s;
+}
+.lang-toggle:hover,
+.lang-toggle:focus-visible {
+	border-color: transparent;
+	background: linear-gradient(to right, var(--primary-color), var(--accent-color));
+	color: #0f172a;
+	text-decoration: none;
+	box-shadow: 0 0 22px rgba(255, 0, 234, 0.35);
+}
 .api-table-wrap {
 	width: 100%;
 	overflow-x: auto;
