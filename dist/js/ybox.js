@@ -1,4 +1,4 @@
-﻿/*! yBox - v13.4.1 - 15/10/2026
+﻿/*! yBox - v13.4.2 - 19/10/2026
 * By Yuval Ashkenazi
 * https://github.com/yuvalAshkenaz/yBox */
 
@@ -824,6 +824,8 @@ function yBox_Group(yBoxLink, currentCode) {
         }
     });
     if (hasDetails) {
+        // The counter moves aside so it does not cover the details (i) button
+        document.querySelector('.yBoxOverlay').classList.add('ybox-has-details');
         let detailsBtn = document.querySelector('.ybox-details-btn');
         if (detailsBtn) {
             let label = detailsTooltip || strings.details;
