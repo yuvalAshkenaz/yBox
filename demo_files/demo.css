@@ -215,6 +215,29 @@ code.code-example { color: #ce9178; }
 	outline: 2px solid var(--primary-color);
 	outline-offset: 2px;
 }
+.inline-share-demo {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 10px;
+	margin: 1rem 0 2rem;
+}
+.inline-share-demo button {
+	padding: 8px 16px;
+	border: 1px solid var(--border-color);
+	border-radius: 99px;
+	background: rgba(255, 255, 255, 0.05);
+	color: var(--text-main);
+	font: inherit;
+	font-size: 0.9rem;
+	cursor: pointer;
+}
+.inline-share-demo button:hover {
+	border-color: var(--primary-color);
+	color: var(--primary-color);
+}
+.inline-share-demo svg {
+	fill: currentColor;
+}
 .api-table-wrap {
 	width: 100%;
 	overflow-x: auto;
