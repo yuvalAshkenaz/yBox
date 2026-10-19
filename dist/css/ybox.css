@@ -1,4 +1,4 @@
-﻿/*! yBox - v13.4.2 - 19/10/2026
+﻿/*! yBox - v13.4.3 - 19/10/2026
 * By Yuval Ashkenazi
 * https://github.com/yuvalAshkenaz/yBox */
 
@@ -478,15 +478,25 @@
 }
 .ybox-copy-text-btn {
 	position: relative;
+}
+.ybox-socials-list .ybox-copy-text-btn {
 	line-height: 1px;
 	margin: 33px 0;
 }
 .ybox-copy-show-on-check {
 	position: absolute;
-	left: 0;
-	top: 0;
+	left: 25%;
+	top: 25%;
+	width: 50%;
+	height: 50%;
 	-webkit-transition: all 0.5s ease;
 	transition: all 0.5s ease;
+}
+.ybox-socials-list .ybox-copy-show-on-check {
+	left: 0;
+	top: 0;
+	width: 40px;
+	height: 40px;
 }
 .ybox-copy-hide-on-check,
 .ybox-copy-text-btn.active .ybox-copy-show-on-check {

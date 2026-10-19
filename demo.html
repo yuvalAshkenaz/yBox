@@ -14,7 +14,7 @@
 		"description": "A free, lightweight JavaScript lightbox and modal popup library for images, galleries, YouTube, Vimeo, HTML5 video, iframes and AJAX, with no dependencies.",
 		"applicationCategory": "DeveloperApplication",
 		"operatingSystem": "Any",
-		"softwareVersion": "13.4.2",
+		"softwareVersion": "13.4.3",
 		"url": "https://y-tools.dooble.us/ybox/",
 		"downloadUrl": "https://github.com/yuvalAshkenaz/yBox",
 		"license": "https://opensource.org/licenses/MIT",
@@ -41,7 +41,7 @@
 
 <main class="layout-wrapper">
 	<section id="overview" style="text-align: center; background: transparent; box-shadow: none; border: none; backdrop-filter: none; padding-top:0;">
-		<h1>yBox <span>v13.4.2</span><small class="h1-tagline t-en">JavaScript Lightbox &amp; Popup Library</small><small class="h1-tagline t-he">ספריית Lightbox ופופאפים ב-JavaScript</small></h1>
+		<h1>yBox <span>v13.4.3</span><small class="h1-tagline t-en">JavaScript Lightbox &amp; Popup Library</small><small class="h1-tagline t-he">ספריית Lightbox ופופאפים ב-JavaScript</small></h1>
 		<p style="color: var(--text-secondary); font-size: 1.1rem;">
 			<span class="t-en">yBox is a free, lightweight JavaScript lightbox and modal popup library for images, galleries, YouTube and Vimeo videos, HTML5 video, iframes, AJAX content and hidden page elements.<br>It is written in vanilla JavaScript with no dependencies (no jQuery), supports RTL with built-in Hebrew and Arabic, and is MIT licensed for personal and commercial use.</span>
 			<span class="t-he">yBox היא ספריית lightbox ופופאפים חינמית וקלה ב-JavaScript, לתמונות, גלריות, סרטוני YouTube ו-Vimeo, וידאו HTML5, iframe, תוכן AJAX ואלמנטים מוסתרים בדף.<br>היא כתובה ב-JavaScript נקי בלי תלויות (בלי jQuery), תומכת ב-RTL עם עברית וערבית מובנות, ומופצת ברישיון MIT לשימוש אישי ומסחרי.</span>
@@ -761,11 +761,66 @@ yBox({
   <span class="blue">&lt;li&gt;&lt;button</span> <span class="red">class</span>=<span class="purple">"ybox-whatsapp-share-btn"</span> <span class="red">type</span>=<span class="purple">"button"</span><span class="blue">&gt;</span>...<span class="blue">&lt;/button&gt;&lt;/li&gt;</span>
 <span class="blue">&lt;/ul&gt;</span></code></pre>
 
+				<div class="api-table-wrap">
+					<table class="api-table">
+						<thead>
+							<tr><th><span class="t-en">Class</span><span class="t-he">קלאס</span></th><th><span class="t-en">Action</span><span class="t-he">פעולה</span></th></tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td class="api-name"><code>ybox-facebook-share-btn</code></td>
+								<td class="api-desc"><div class="t-en">Facebook</div><div class="t-he">פייסבוק</div></td>
+							</tr>
+							<tr>
+								<td class="api-name"><code>ybox-whatsapp-share-btn</code></td>
+								<td class="api-desc"><div class="t-en">WhatsApp</div><div class="t-he">וואטסאפ</div></td>
+							</tr>
+							<tr>
+								<td class="api-name"><code>ybox-twitter-share-btn</code></td>
+								<td class="api-desc"><div class="t-en">X (Twitter)</div><div class="t-he">X (טוויטר)</div></td>
+							</tr>
+							<tr>
+								<td class="api-name"><code>ybox-linkedin-share-btn</code></td>
+								<td class="api-desc"><div class="t-en">LinkedIn</div><div class="t-he">לינקדאין</div></td>
+							</tr>
+							<tr>
+								<td class="api-name"><code>ybox-pinterest-share-btn</code></td>
+								<td class="api-desc"><div class="t-en">Pinterest (uses the page <code>og:image</code>)</div><div class="t-he">פינטרסט (משתמש ב-<code>og:image</code> של הדף)</div></td>
+							</tr>
+							<tr>
+								<td class="api-name"><code>ybox-telegram-share-btn</code></td>
+								<td class="api-desc"><div class="t-en">Telegram</div><div class="t-he">טלגרם</div></td>
+							</tr>
+							<tr>
+								<td class="api-name"><code>ybox-email-share-btn</code></td>
+								<td class="api-desc"><div class="t-en">Email (opens the default mail app)</div><div class="t-he">אימייל (פותח את אפליקציית המייל של המכשיר)</div></td>
+							</tr>
+							<tr>
+								<td class="api-name"><code>ybox-copy-text-btn</code></td>
+								<td class="api-desc"><div class="t-en">Copies the link. The check icon and the "Link copied" text are added automatically.</div><div class="t-he">מעתיק את הקישור. אייקון ה-V והטקסט "הקישור הועתק" נוספים אוטומטית.</div></td>
+							</tr>
+							<tr>
+								<td class="api-name"><code>ybox-print</code></td>
+								<td class="api-desc"><div class="t-en">Prints the page</div><div class="t-he">מדפיס את הדף</div></td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
 				<p style="margin-top: 0.8rem; color: var(--text-secondary);">
-					<span class="t-en">Available platform classes:</span>
-					<span class="t-he">קלאסי פלטפורמה זמינים:</span>
-					<code>ybox-facebook-share-btn</code>, <code>ybox-whatsapp-share-btn</code>, <code>ybox-twitter-share-btn</code>, <code>ybox-linkedin-share-btn</code>, <code>ybox-pinterest-share-btn</code>, <code>ybox-telegram-share-btn</code>, <code>ybox-copy-text-btn</code>, <code>ybox-print</code>.
+					<span class="t-en">On phones and tablets the buttons open the platform's app when it is installed, and its website when it is not. On desktop they open a popup window.</span>
+					<span class="t-he">בטלפונים ובטאבלטים הכפתורים פותחים את האפליקציה של הפלטפורמה אם היא מותקנת, ואם לא, את האתר שלה. במחשב הם נפתחים בחלון קופץ.</span>
 				</p>
+				<div class="inline-share-demo">
+					<button type="button" class="ybox-facebook-share-btn">Facebook</button>
+					<button type="button" class="ybox-whatsapp-share-btn">WhatsApp</button>
+					<button type="button" class="ybox-twitter-share-btn">X</button>
+					<button type="button" class="ybox-linkedin-share-btn">LinkedIn</button>
+					<button type="button" class="ybox-pinterest-share-btn">Pinterest</button>
+					<button type="button" class="ybox-telegram-share-btn">Telegram</button>
+					<button type="button" class="ybox-email-share-btn"><span class="t-en">Email</span><span class="t-he">אימייל</span></button>
+					<button type="button" class="ybox-copy-text-btn"><span class="t-en">Copy link</span><span class="t-he">העתקת קישור</span></button>
+					<button type="button" class="ybox-print"><span class="t-en">Print</span><span class="t-he">הדפסה</span></button>
+				</div>
 			</section>
 
 		</div>

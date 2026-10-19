@@ -1,4 +1,4 @@
-﻿/*! yBox - v13.4.2 - 19/10/2026
+﻿/*! yBox - v13.4.3 - 19/10/2026
 * By Yuval Ashkenazi
 * https://github.com/yuvalAshkenaz/yBox */
 
@@ -171,74 +171,109 @@ document.body.addEventListener('click', function(e) {
 });
 
 // 2. Main Share Handlers
-document.body.addEventListener('click', function(e) {
-	let shareUrl = '';
-    let windowSpecs = 'resizable=yes,status=no,location=no,toolbar=no,menubar=no,fullscreen=no,scrollbars=no,dependent=no,width=750,left=200,height=530,top=100';
+// Every share button is found by its platform class, so inline buttons need only that class (plus an optional href / data-href)
+const yBoxShareSelector = '.ybox-facebook-share-btn, .ybox-whatsapp-share-btn, .ybox-twitter-share-btn, .ybox-linkedin-share-btn, .ybox-pinterest-share-btn, .ybox-telegram-share-btn, .ybox-email-share-btn, .ybox-copy-text-btn, .ybox-print, a.ybox-share-btn';
+const yBoxCopyIcon = '<svg class="ybox-copy-hide-on-check" viewBox="0 0 24 24"><path d="m6 18h-3c-.48 0-1-.379-1-1v-14c0-.481.38-1 1-1h14c.621 0 1 .522 1 1v3h3c.621 0 1 .522 1 1v14c0 .621-.522 1-1 1h-14c-.48 0-1-.379-1-1zm1.5-10.5v13h13v-13zm9-1.5v-2.5h-13v13h2.5v-9.5c0-.481.38-1 1-1z"/></svg>';
+const yBoxCheckIcon = '<svg class="ybox-copy-show-on-check" viewBox="0 0 24 24"><path d="M0 12.116l2.053-1.897c2.401 1.162 3.924 2.045 6.622 3.969 5.073-5.757 8.426-8.678 14.657-12.555l.668 1.536c-5.139 4.484-8.902 9.479-14.321 19.198-3.343-3.936-5.574-6.446-9.679-10.251z"/></svg>';
 
-    const shareBtn = e.target.closest('.ybox-share-btn');
-    // On template links (mailto: / ...?url=) href is the share link itself, not the URL to share - only data-href counts there
-    const isShareTemplate = el => el.tagName === 'A' && /^mailto:|[?&](url|body)=/i.test(el.getAttribute('href') || '');
-    const getHref = el => el ? ((!isShareTemplate(el) && el.getAttribute('href')) || el.dataset.href || null) : null;
-    const shareHref = getHref(shareBtn)
-        || getHref(shareBtn?.closest('.ybox-socials-list'))
-        || location.href;
+// Adds the "copied" state (check icon + "Link copied" text) to a copy button that does not have it
+function yBoxPrepareCopyBtn(btn) {
+	if (btn.querySelector('.ybox-copy-show-on-check')) return;
+	let content = btn.innerHTML.trim();
+	btn.innerHTML = (content ? '<span class="ybox-copy-hide-on-check">' + content + '</span>' : yBoxCopyIcon) +
+		yBoxCheckIcon +
+		'<div class="ybox-copy-show-text-on-check">' + yBoxEsc(strings.link_copied) + '</div>';
+	if (!btn.getAttribute('aria-label') && !content) btn.setAttribute('aria-label', strings.copy_link);
+}
 
-    if(e.target.closest('.ybox-print')) {
-        e.preventDefault();
-        window.print();
-        return;
-    }
-    if(e.target.closest('.ybox-facebook-share-btn')) {
-        shareUrl = (yBoxIsMobile() ? 'https://m.facebook.com/sharer.php?u=' : 'https://www.facebook.com/sharer/sharer.php?u=') + encodeURIComponent(shareHref);
-    }
-    else if(e.target.closest('.ybox-telegram-share-btn') && yBoxIsMobile()) {
-        e.preventDefault();
-        const tgQuery = 'url=' + encodeURIComponent(shareHref) + '&text=' + encodeURIComponent(strings.share_with);
-        yBoxOpenApp('tg://msg_url?' + tgQuery, 'https://t.me/share/url?' + tgQuery);
-    }
-	else if(e.target.closest('.ybox-whatsapp-share-btn')) {
-		const whatsappUrl = `https://api.whatsapp.com/send?text=${encodeURIComponent(shareHref)}`;
-		yBoxOpenWindow(whatsappUrl, '_blank');
+// Desktop: a popup window. Phones and tablets: the same tab, so the platform's app opens when it is installed
+// (iOS universal links / Android app links), and its website opens when it is not
+function yBoxOpenShare(url, specs) {
+	if (yBoxIsMobile()) {
+		window.location.href = url;
+	} else {
+		yBoxOpenWindow(url, '', specs || 'resizable=yes,status=no,location=no,toolbar=no,menubar=no,fullscreen=no,scrollbars=no,dependent=no,width=750,left=200,height=530,top=100');
 	}
-    else if(e.target.closest('.ybox-twitter-share-btn')) {
-        shareUrl = `https://x.com/share?url=${encodeURIComponent(shareHref)}&text=${encodeURIComponent(document.title)}`;
-        windowSpecs = 'width=700,height=400';
-    }
-    else if(e.target.closest('.ybox-pinterest-share-btn')) {
-        const ogImage = document.querySelector('meta[property="og:image"]')?.content || '';
-        shareUrl = `https://www.pinterest.com/pin/create/button/?url=${encodeURIComponent(shareHref)}&media=${encodeURIComponent(ogImage)}&description=${encodeURIComponent(document.title)}`;
-    }
-    else if(e.target.closest('.ybox-linkedin-share-btn')) {
-        shareUrl = `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(shareHref)}`;
-    }
-    else if(shareHref !== location.href && e.target.closest('a.ybox-share-btn')) {
-        e.preventDefault();
-        const link = e.target.closest('a.ybox-share-btn');
-        const origHref = yBoxSafeUrl(link.getAttribute('href'));
-        if (!origHref) return;
-        if (origHref.startsWith('mailto:')) {
-            window.location.href = origHref.replace(/body=[^&]*/i, 'body=' + encodeURIComponent(shareHref));
-        } else {
-            yBoxOpenWindow(origHref.replace(/url=[^&]*/i, 'url=' + encodeURIComponent(shareHref)), '_blank');
-        }
-    }
+}
 
-    if (shareUrl) {
-        yBoxOpenWindow(shareUrl, '', windowSpecs);
-    }
-    else if(e.target.closest('.ybox-copy-text-btn')) {
-        let btn = e.target.closest('.ybox-copy-text-btn');
-        yBoxCopyText(shareHref).then(function() {
-            btn.classList.add('active');
-            setTimeout(function() {
-                btn.classList.remove('active');
-            }, 3000);
-        });
-    }
+document.body.addEventListener('click', function(e) {
+	const shareBtn = e.target.closest(yBoxShareSelector);
+	if (!shareBtn) return;
+
+	// On template links (mailto: / ...?url=) href is the share link itself, not the URL to share - only data-href counts there
+	const isShareTemplate = el => el.tagName === 'A' && /^mailto:|[?&](url|body)=/i.test(el.getAttribute('href') || '');
+	const getHref = el => el ? ((!isShareTemplate(el) && el.getAttribute('href')) || el.dataset.href || null) : null;
+	const shareHref = yBoxSafeUrl(getHref(shareBtn) || getHref(shareBtn.closest('.ybox-socials-list')) || '') || location.href;
+	const url = encodeURIComponent(shareHref);
+	const title = encodeURIComponent(document.title);
+	const text = encodeURIComponent(strings.share_with);
+
+	if (shareBtn.matches('.ybox-print')) {
+		e.preventDefault();
+		window.print();
+		return;
+	}
+	if (shareBtn.matches('.ybox-copy-text-btn')) {
+		e.preventDefault();
+		yBoxPrepareCopyBtn(shareBtn);
+		yBoxCopyText(shareHref).then(function() {
+			shareBtn.classList.add('active');
+			setTimeout(function() {
+				shareBtn.classList.remove('active');
+			}, 3000);
+		});
+		return;
+	}
+	if (shareBtn.matches('.ybox-facebook-share-btn')) {
+		e.preventDefault();
+		yBoxOpenShare((yBoxIsMobile() ? 'https://m.facebook.com/sharer.php?u=' : 'https://www.facebook.com/sharer/sharer.php?u=') + url);
+	}
+	else if (shareBtn.matches('.ybox-whatsapp-share-btn')) {
+		e.preventDefault();
+		let whatsappUrl = 'https://api.whatsapp.com/send?text=' + url;
+		if (yBoxIsMobile()) window.location.href = whatsappUrl;
+		else yBoxOpenWindow(whatsappUrl, '_blank');
+	}
+	else if (shareBtn.matches('.ybox-twitter-share-btn')) {
+		e.preventDefault();
+		yBoxOpenShare('https://twitter.com/intent/tweet?url=' + url + '&text=' + title, 'width=700,height=400');
+	}
+	else if (shareBtn.matches('.ybox-linkedin-share-btn')) {
+		e.preventDefault();
+		yBoxOpenShare('https://www.linkedin.com/sharing/share-offsite/?url=' + url);
+	}
+	else if (shareBtn.matches('.ybox-pinterest-share-btn')) {
+		e.preventDefault();
+		const ogImage = document.querySelector('meta[property="og:image"]')?.content || '';
+		yBoxOpenShare('https://www.pinterest.com/pin/create/button/?url=' + url + '&media=' + encodeURIComponent(ogImage) + '&description=' + title);
+	}
+	else if (shareBtn.matches('.ybox-telegram-share-btn')) {
+		e.preventDefault();
+		const tgQuery = 'url=' + url + '&text=' + text;
+		// t.me links make the Telegram app share the t.me link itself, so phones use the app link directly
+		if (yBoxIsMobile()) yBoxOpenApp('tg://msg_url?' + tgQuery, 'https://t.me/share/url?' + tgQuery);
+		else yBoxOpenWindow('https://t.me/share/url?' + tgQuery, '_blank');
+	}
+	else if (shareBtn.matches('.ybox-email-share-btn')) {
+		e.preventDefault();
+		window.location.href = 'mailto:?subject=' + text + '&body=' + url;
+	}
+	else if (shareBtn.matches('a.ybox-share-btn') && shareHref !== location.href) {
+		// A custom template link (mailto: / ...?url=) - put the URL to share into it
+		e.preventDefault();
+		const origHref = yBoxSafeUrl(shareBtn.getAttribute('href'));
+		if (!origHref) return;
+		if (origHref.startsWith('mailto:')) {
+			window.location.href = origHref.replace(/body=[^&]*/i, 'body=' + url);
+		} else {
+			yBoxOpenWindow(origHref.replace(/url=[^&]*/i, 'url=' + url), '_blank');
+		}
+	}
 });
 
 // 3. Init on Load + Preloader
 document.addEventListener('DOMContentLoaded', function() {
+	document.querySelectorAll('.ybox-copy-text-btn').forEach(yBoxPrepareCopyBtn);
 	let url = new URL(window.location.href);
 	// ybox-id is treated strictly as an element ID (never as a selector, URL or HTML)
 	let yBoxID = url.searchParams.get("ybox-id");
@@ -574,7 +609,7 @@ function insert_yBox_html(obj) {
 							'<li><a href="mailto:?subject=' + encodeURIComponent(strings.share_with) + '&amp;body=' + encodeURIComponent(resolvedHref) + '" class="ybox-share-btn ybox-email-share-btn" aria-label="' + strings.share_email + '" title="' + strings.share_email + '"><svg viewBox="0 0 24 24"><path d="M0 3v18h24v-18h-24zm6.623 7.929l-4.623 5.712v-9.458l4.623 3.746zm-4.141-5.929h19.035l-9.517 7.713-9.518-7.713zm5.694 7.188l3.824 3.099 3.83-3.104 5.612 6.817h-18.779l5.513-6.812zm9.208-1.264l4.616-3.741v9.348l-4.616-5.607z"/></svg></a></li>' +
 							'<li><a href="https://t.me/share/url?url=' + encodeURIComponent(resolvedHref) + '&amp;text=' + encodeURIComponent(strings.share_with) + '" class="ybox-share-btn ybox-telegram-share-btn" target="_blank" rel="noopener noreferrer" aria-label="' + strings.share_telegram + '" title="' + strings.share_telegram + '"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" xmlns:serif="http://www.serif.com/" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:1.41421;"><path id="telegram-1" d="M18.384,22.779c0.322,0.228 0.737,0.285 1.107,0.145c0.37,-0.141 0.642,-0.457 0.724,-0.84c0.869,-4.084 2.977,-14.421 3.768,-18.136c0.06,-0.28 -0.04,-0.571 -0.26,-0.758c-0.22,-0.187 -0.525,-0.241 -0.797,-0.14c-4.193,1.552 -17.106,6.397 -22.384,8.35c-0.335,0.124 -0.553,0.446 -0.542,0.799c0.012,0.354 0.25,0.661 0.593,0.764c2.367,0.708 5.474,1.693 5.474,1.693c0,0 1.452,4.385 2.209,6.615c0.095,0.28 0.314,0.5 0.603,0.576c0.288,0.075 0.596,-0.004 0.811,-0.207c1.216,-1.148 3.096,-2.923 3.096,-2.923c0,0 3.572,2.619 5.598,4.062Zm-11.01,-8.677l1.679,5.538l0.373,-3.507c0,0 6.487,-5.851 10.185,-9.186c0.108,-0.098 0.123,-0.262 0.033,-0.377c-0.089,-0.115 -0.253,-0.142 -0.376,-0.064c-4.286,2.737 -11.894,7.596 -11.894,7.596Z"/></svg></a></li>' +
 							'<li><button type="button" class="ybox-share-btn ybox-print" aria-label="' + strings.print + '" title="' + strings.print + '"><svg viewBox="0 0 24 24"><path d="M16 17h-8v-1h8v1zm8-12v13h-4.048c-.404 2.423-3.486 6-6.434 6h-9.518v-6h-4v-13h4v-5h16v5h4zm-18 0h12v-3h-12v3zm12 9h-12v8h6.691c3.469 0 2-3.352 2-3.352s3.309 1.594 3.309-2v-2.648zm4-7h-20v9h2v-4h16v4h2v-9zm-9 11h-5v1h5v-1zm7.5-10c-.276 0-.5.224-.5.5s.224.5.5.5.5-.224.5-.5-.224-.5-.5-.5z"/></svg></button></li>' +
-							'<li><button type="button" class="ybox-share-btn ybox-copy-text-btn" aria-label="' + strings.copy_link + '" title="' + strings.copy_link + '"><svg class="ybox-copy-hide-on-check" viewBox="0 0 24 24"><path d="m6 18h-3c-.48 0-1-.379-1-1v-14c0-.481.38-1 1-1h14c.621 0 1 .522 1 1v3h3c.621 0 1 .522 1 1v14c0 .621-.522 1-1 1h-14c-.48 0-1-.379-1-1zm1.5-10.5v13h13v-13zm9-1.5v-2.5h-13v13h2.5v-9.5c0-.481.38-1 1-1z"/></svg><svg class="ybox-copy-show-on-check" viewBox="0 0 24 24"><path d="M0 12.116l2.053-1.897c2.401 1.162 3.924 2.045 6.622 3.969 5.073-5.757 8.426-8.678 14.657-12.555l.668 1.536c-5.139 4.484-8.902 9.479-14.321 19.198-3.343-3.936-5.574-6.446-9.679-10.251z"/></svg><div class="ybox-copy-show-text-on-check">' + strings.link_copied + '</div></button></li>' +
+							'<li><button type="button" class="ybox-share-btn ybox-copy-text-btn" aria-label="' + strings.copy_link + '" title="' + strings.copy_link + '">' + yBoxCopyIcon + yBoxCheckIcon + '<div class="ybox-copy-show-text-on-check">' + strings.link_copied + '</div></button></li>' +
 						'</ul>';
 				insertArea.innerHTML = code;
 			} else if (obj.url && obj.url.indexOf('#') === -1 && !obj.url.startsWith('.')) {

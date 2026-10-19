@@ -1,4 +1,4 @@
-# yBox.js 13.4.2
+# yBox.js 13.4.3
 
 **yBox** is a lightweight, high-performance, and dependency-free Lightbox library built with modern **Vanilla JavaScript**.  
 It supports images, videos, iframes, AJAX content, and complex HTML layouts with smooth transitions and full accessibility support.
@@ -18,6 +18,15 @@ It supports images, videos, iframes, AJAX content, and complex HTML layouts with
 - **Accessibility** — Keyboard navigation (Arrows, ESC, Tab trap) and full ARIA support.
 - **Secure by Default** — Escaped attributes, blocked `javascript:` links, same-origin AJAX and optional iframe sandbox. See [Security](#-security).
 - **Customizable** — Easy to style via CSS variables and helper classes.
+
+---
+
+## 🆕 What's New in 13.4.3
+
+- **Inline share buttons** — buttons now work with only their platform class, as documented: `href` / `data-href` on the button or on the wrapping `ul` is respected.
+- **Mobile sharing** — on phones and tablets the buttons open the platform's app when it is installed, and its website when it is not.
+- **New `ybox-email-share-btn` class** — shares the link by email.
+- **Copy button** — the check icon and the "Link copied" text are added automatically when missing.
 
 ---
 
@@ -252,7 +261,21 @@ Each button needs only the platform class. Set the URL per-button or once on the
 </ul>
 ```
 
-Available platform classes: `ybox-facebook-share-btn`, `ybox-whatsapp-share-btn`, `ybox-twitter-share-btn`, `ybox-linkedin-share-btn`, `ybox-pinterest-share-btn`, `ybox-telegram-share-btn`, `ybox-copy-text-btn`, `ybox-print`.
+Available classes:
+
+| Class | Action |
+|---|---|
+| `ybox-facebook-share-btn` | Facebook |
+| `ybox-whatsapp-share-btn` | WhatsApp |
+| `ybox-twitter-share-btn` | X (Twitter) |
+| `ybox-linkedin-share-btn` | LinkedIn |
+| `ybox-pinterest-share-btn` | Pinterest (uses the page `og:image`) |
+| `ybox-telegram-share-btn` | Telegram |
+| `ybox-email-share-btn` | Email (opens the default mail app) |
+| `ybox-copy-text-btn` | Copies the link. The check icon and the "Link copied" text are added automatically. |
+| `ybox-print` | Prints the page |
+
+On phones and tablets the buttons open the platform's app when it is installed, and its website when it is not. On desktop they open a popup window.
 
 ---
 
