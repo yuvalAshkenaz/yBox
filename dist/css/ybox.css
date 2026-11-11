@@ -1,4 +1,4 @@
-﻿/*! yBox - v13.4.3 - 19/10/2026
+﻿/*! yBox - v13.4.4 - 11/11/2026
 * By Yuval Ashkenazi
 * https://github.com/yuvalAshkenaz/yBox */
 
@@ -665,16 +665,11 @@
 	direction: ltr;
 	pointer-events: none;
 }
-.yBoxRTL .yBoxCounter {
-	left: auto;
-	right: 20px;
-}
 .ybox-has-details .yBoxCounter {
 	left: 62px;
 }
 .yBoxRTL.ybox-has-details .yBoxCounter {
-	left: auto;
-	right: 112px;
+	left: 20px;
 }
 .yBoxSlide .yBoxIframe {
 	height: 100%;
