@@ -42,4 +42,13 @@ jobs:
 
       - name: Publish
         if: steps.check.outputs.publish == 'true'
-        run: npm publish
+        run: |
+          set +e
+          npm publish > publish.log 2>&1
+          STATUS=$?
+          cat publish.log
+          if [ $STATUS -ne 0 ] && grep -qi "previously published" publish.log; then
+            echo "This version was already published by an earlier run, nothing to do."
+            exit 0
+          fi
+          exit $STATUS
