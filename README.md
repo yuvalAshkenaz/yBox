@@ -1,4 +1,4 @@
-# yBox.js 13.4.4
+# yBox.js 13.4.5
 
 **yBox** is a lightweight, high-performance, and dependency-free Lightbox library built with modern **Vanilla JavaScript**.  
 It supports images, videos, iframes, AJAX content, and complex HTML layouts with smooth transitions and full accessibility support.
@@ -18,6 +18,14 @@ It supports images, videos, iframes, AJAX content, and complex HTML layouts with
 - **Accessibility** — Keyboard navigation (Arrows, ESC, Tab trap) and full ARIA support.
 - **Secure by Default** — Escaped attributes, blocked `javascript:` links, same-origin AJAX and optional iframe sandbox. See [Security](#-security).
 - **Customizable** — Easy to style via CSS variables and helper classes.
+
+---
+
+## 🆕 What's New in 13.4.5
+
+- **Gallery video headlines** — `data-ybox-headline` is now shown above YouTube, Vimeo and HTML5 video slides in galleries (it showed only on images before). Change its color with `--ybox-media-title-color`.
+- **Accessibility** — gallery iframes and videos get an accessible name from `data-ybox-title` or the headline.
+- **Gallery thumbnails** — white background and no border. Change the background with `--ybox-thumb-bg`.
 
 ---
 

@@ -1,4 +1,4 @@
-﻿/*! yBox - v13.4.4 - 11/11/2026
+﻿/*! yBox - v13.4.5 - 11/11/2026
 * By Yuval Ashkenazi
 * https://github.com/yuvalAshkenaz/yBox */
 
@@ -764,6 +764,13 @@ function getYboxSlideContent(el, url) {
         if (el.dataset.yboxHeadlineClass) headlineClass += ' ' + el.dataset.yboxHeadlineClass;
         headline = '<h2 class="' + yBoxEsc(headlineClass) + '">' + yBoxEsc(el.dataset.yboxHeadline) + '</h2>';
     }
+    let mediaName = el.dataset.yboxTitle || el.dataset.yboxHeadline || '';
+    let mediaHeadline = '';
+    if (el.dataset.yboxHeadline) {
+        let mediaHeadlineClass = 'ybox-media-title';
+        if (el.dataset.yboxHeadlineClass) mediaHeadlineClass += ' ' + el.dataset.yboxHeadlineClass;
+        mediaHeadline = '<h2 class="' + yBoxEsc(mediaHeadlineClass) + '">' + yBoxEsc(el.dataset.yboxHeadline) + '</h2>';
+    }
 
     if (isIframe || url.indexOf('youtube') > -1 || url.indexOf('vimeo') > -1) {
         let src = url;
@@ -778,13 +785,18 @@ function getYboxSlideContent(el, url) {
             }
         }
         let sandbox = el.hasAttribute('data-ybox-sandbox') ? ' sandbox="' + yBoxEsc(el.getAttribute('data-ybox-sandbox')) + '"' : '';
-        code = '<iframe src="' + yBoxEsc(src) + '" frameborder="0" wmode="Opaque" allowfullscreen class="yBoxIframe"' + sandbox + '></iframe>';
+        let iframeTitle = mediaName ? ' title="' + yBoxEsc(mediaName) + '"' : '';
+        code = '<iframe src="' + yBoxEsc(src) + '" frameborder="0" wmode="Opaque" allowfullscreen class="yBoxIframe"' + iframeTitle + sandbox + '></iframe>';
     } else if (isVideo) {
         let posterSrc = el.dataset.yboxImg ? yBoxSafeUrl(el.dataset.yboxImg, true) : '';
         let poster = posterSrc ? 'poster="' + yBoxEsc(posterSrc) + '"' : '';
-        code = '<video class="yBoxVideo" ' + poster + ' controls preload playsinline><source src="' + yBoxEsc(url) + '" /></video>';
+        let videoLabel = mediaName ? ' aria-label="' + yBoxEsc(mediaName) + '"' : '';
+        code = '<video class="yBoxVideo" ' + poster + videoLabel + ' controls preload playsinline><source src="' + yBoxEsc(url) + '" /></video>';
     } else {
         code = '<div class="yBoxImgWrap2"><img src="' + yBoxEsc(url) + '" alt="' + yBoxEsc(alt) + '" ' + title + ' class="yBoxImg" />' + headline + '</div>';
+    }
+    if (mediaHeadline && (isIframe || isVideo || url.indexOf('youtube') > -1 || url.indexOf('vimeo') > -1)) {
+        code = '<div class="yBoxMediaWrap">' + mediaHeadline + code + '</div>';
     }
     return code;
 }
