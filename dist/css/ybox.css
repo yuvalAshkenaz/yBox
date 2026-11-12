@@ -1,4 +1,4 @@
-﻿/*! yBox - v13.4.6 - 12/11/2026
+﻿/*! yBox - v13.4.7 - 12/11/2026
 * By Yuval Ashkenazi
 * https://github.com/yuvalAshkenaz/yBox */
 
@@ -239,8 +239,12 @@
 .yBoxGroupOverlay .yBoxFrame.yBoxImgWrap img.yBoxImg {
     max-width: -webkit-calc(100vw - 120px);
     max-width: calc(100vw - 120px);
-	max-height:-webkit-calc(100dvh - 30px);
-	max-height:calc(100dvh - 30px);
+	max-height: -webkit-calc(100dvh - 110px);
+	max-height: calc(100dvh - 110px);
+}
+.admin-bar .yBoxGroupOverlay .yBoxFrame.yBoxImgWrap img.yBoxImg {
+	max-height: -webkit-calc(100dvh - 142px);
+	max-height: calc(100dvh - 142px);
 }
 .yBoxNext,
 .yBoxPrev {
@@ -852,6 +856,8 @@
 	.yBoxGroupOverlay .yBoxFrame.yBoxImgWrap img.yBoxImg {
 		max-width: -webkit-calc(100vw - 20px);
 		max-width: calc(100vw - 20px);
+		max-height: -webkit-calc(100dvh - 120px);
+		max-height: calc(100dvh - 120px);
 	}
 }
 @media screen and (max-width: 479px) {
