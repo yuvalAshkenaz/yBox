@@ -1,4 +1,4 @@
-﻿/*! yBox - v13.4.5 - 11/11/2026
+﻿/*! yBox - v13.4.6 - 12/11/2026
 * By Yuval Ashkenazi
 * https://github.com/yuvalAshkenaz/yBox */
 
@@ -1202,7 +1202,8 @@ document.body.addEventListener('click', function(e) {
 	let isCloseBtn = false;
 	
 	if(e.target.classList.contains('yBoxOverlay') || e.target.classList.contains('yBoxSlidesWrap') ||
-	   e.target.classList.contains('yBoxSlide') || e.target.classList.contains('yBoxImgWrap2')) {
+	   e.target.classList.contains('yBoxSlide') || e.target.classList.contains('yBoxImgWrap2') ||
+	   e.target.classList.contains('yBoxMediaWrap')) {
 		isOverlay = true;
 	}
 
