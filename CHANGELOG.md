@@ -4,6 +4,12 @@ All notable changes to yBox are listed here, newest first.
 
 ---
 
+## 13.4.8
+
+- **WordPress admin bar** — regular (HTML/AJAX) popups now keep `max-height: calc(100dvh - 42px)` with the admin bar, instead of falling back to `calc(100dvh - 20px)`; the same applies to image and iframe popups on screens up to 479px.
+
+---
+
 ## 13.4.7
 
 - **Tall images in galleries** — portrait images are no longer cut at the bottom; they fit the slide above the thumbnails (desktop, mobile and with the WordPress admin bar), so the headline sits on the real bottom of the image.

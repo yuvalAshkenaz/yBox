@@ -1,4 +1,4 @@
-﻿/*! yBox - v13.4.7 - 12/11/2026
+﻿/*! yBox - v13.4.8 - 18/11/2026
 * By Yuval Ashkenazi
 * https://github.com/yuvalAshkenaz/yBox */
 
@@ -91,6 +91,7 @@
 	max-height: -webkit-calc(100dvh - 42px);
 	max-height: calc(100dvh - 42px);
 }
+.admin-bar .insertYboxAjaxHere,
 .admin-bar .yBoxFrame.yBoxImgWrap .insertYboxAjaxHere {
 	max-height: -webkit-calc(100dvh - 42px);
 	max-height: calc(100dvh - 42px);
@@ -321,8 +322,12 @@
     zoom: 1;
 }
 @keyframes yBox-spin {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
+	0% {
+		transform: rotate(0deg);
+	}
+	100% {
+		transform: rotate(360deg);
+	}
 }
 .closeYboxOnFocus {
     width: 0;
@@ -807,10 +812,15 @@
         max-height: calc(100dvh - 20px);
     }
     .yBoxFrame.yBoxIframeWrap .insertYboxAjaxHere {
-        left: 0; right: 0; top: 0; bottom: 0;
-    }
+		left: 0;
+		right: 0;
+		top: 0;
+		bottom: 0;
+	}
 	.ybox-img-title {
-		left: 0; bottom: 0; right: 0;
+		left: 0;
+		bottom: 0;
+		right: 0;
 	}
     .yBoxNext, 
 	.yBoxPrev, 
@@ -827,10 +837,20 @@
 	    left: 9px;
 	    top: 18px;
 	}
-	.yBoxPrev { left: 15px; }
-	.yBoxNext { right: 15px; }
-	.yBoxRTL .yBoxPrev { left: auto; right: 5px; }
-	.yBoxRTL .yBoxNext { right: auto; left: 5px; }
+	.yBoxPrev {
+		left: 15px;
+	}
+	.yBoxNext {
+		right: 15px;
+	}
+	.yBoxRTL .yBoxPrev {
+		left: auto;
+		right: 5px;
+	}
+	.yBoxRTL .yBoxNext {
+		right: auto;
+		left: 5px;
+	}
     .yBoxNext::after,
 	.yBoxPrev::after {
 		border-bottom-width: 2px;
@@ -868,6 +888,13 @@
         max-height: -webkit-calc(100dvh - 20px);
         max-height: calc(100dvh - 20px);
     }
+	.admin-bar .yBoxFrame.yBoxIframeWrap,
+	.admin-bar .yBoxFrame.yBoxIframeWrap .insertYboxAjaxHere,
+	.admin-bar .yBoxFrame.yBoxImgWrap,
+	.admin-bar .yBoxFrame.yBoxImgWrap .insertYboxAjaxHere {
+		max-height: -webkit-calc(100dvh - 42px);
+		max-height: calc(100dvh - 42px);
+	}
 }
 
 .ybox-details-btn {
