@@ -1,6 +1,6 @@
 ﻿/*! yBox - v13.4.9 - 25/11/2026
 * By Yuval Ashkenazi
-* https://github.com/yuvalAshkenaz/yBox */
+* https://y-tools.dooble.us/ybox/ */
 
 const yBoxUrl = new URL(document.currentScript.src);
 const yBoxSrcLang = yBoxUrl.searchParams.get("lang") || '';
