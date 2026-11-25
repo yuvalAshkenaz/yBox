@@ -1,4 +1,4 @@
-﻿/*! yBox - v13.4.8 - 18/11/2026
+﻿/*! yBox - v13.4.9 - 25/11/2026
 * By Yuval Ashkenazi
 * https://github.com/yuvalAshkenaz/yBox */
 
@@ -108,7 +108,18 @@ function yBoxSafeUrl(url, allowDataImage) {
 	return '';
 }
 function yBoxHref(el) {
-	return el ? (el.getAttribute('href') || el.dataset.href || '') : '';
+	return el ? (el.dataset.href || el.getAttribute('href') || '') : '';
+}
+// Same origin + same pathname as the current page (query ignored) with a hash -> '#hash'
+function yBoxSamePageHash(url) {
+	url = String(url || '');
+	const hashPos = url.indexOf('#');
+	if (hashPos < 1 || hashPos === url.length - 1) return url;
+	try {
+		const u = new URL(url, location.href);
+		if (u.origin === location.origin && u.pathname === location.pathname) return url.slice(hashPos);
+	} catch(err) {}
+	return url;
 }
 function yBoxCssEsc(str) {
 	return (window.CSS && CSS.escape) ? CSS.escape(String(str)) : String(str).replace(/["\\]/g, '\\$&');
@@ -373,7 +384,9 @@ function yBox( obj = {} ) {
 		if (typeof obj.self === 'undefined' || !obj.self) obj.hasSelf = false;
 		if (obj.hasSelf) {
 			obj.yBoxClass = obj.self.dataset.yboxClass || '';
-			obj.url = yBoxHref(obj.self) || obj.url || '';
+			let elHref = yBoxHref(obj.self);
+			if (!yBoxHasType(obj.self, 'share')) elHref = yBoxSamePageHash(elHref);
+			obj.url = elHref || obj.url || '';
 
 			if (yBoxHasType(obj.self, 'share')) {
 				obj.yBoxClass += ' ybox-share-btns';
@@ -671,8 +684,8 @@ function insert_yBox_html(obj) {
 					// עדיפות 2: לא נמצא בכפתור? נבדוק מה האינדקס של הכפתור שלחצנו עליו ביחס לכפתורים האחרים שמפעילים את אותו קישור, ונשלוף את הקלאס באותו אינדקס
 					if (!targetEl && obj.self) {
 						try {
-							let sameButtons = document.querySelectorAll('.yBox[href="' + yBoxCssEsc(obj.url) + '"], .ybox[href="' + yBoxCssEsc(obj.url) + '"]');
-							let btnIndex = Array.from(sameButtons).indexOf(obj.self);
+							let sameButtons = Array.from(document.querySelectorAll('.yBox, .ybox')).filter(function(el) { return yBoxSamePageHash(yBoxHref(el)) === obj.url; });
+							let btnIndex = sameButtons.indexOf(obj.self);
 							let targetElements = document.querySelectorAll(selector);
 							
 							if (btnIndex > -1 && targetElements[btnIndex]) {

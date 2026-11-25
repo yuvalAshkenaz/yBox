@@ -1,4 +1,4 @@
-# yBox.js 13.4.8
+# yBox.js 13.4.9
 
 **yBox** is a lightweight, high-performance, and dependency-free Lightbox library built with modern **Vanilla JavaScript**.  
 It supports images, videos, iframes, AJAX content, and complex HTML layouts with smooth transitions and full accessibility support.
@@ -54,7 +54,7 @@ Or download the files from [GitHub](https://github.com/yuvalAshkenaz/yBox).
 
 ### `href` vs `data-href`
 
-Both work identically on every trigger element.  
+Both work identically on every trigger element. If an element has both, `data-href` wins.  
 Use `data-href` when `href` is semantically incorrect (e.g. on a `<div>` or `<button>`).
 
 ```html
@@ -157,6 +157,7 @@ Use `href` or `data-href` to point to hidden content on the page:
 | **ID** | `href="#my-id"` | Opens the element with `id="my-id"` |
 | **ID Fallback** | `href="#my-id"` | If ID not found, looks for `class="my-id"` |
 | **Class** | `href=".my-class"` | Opens element by class |
+| **Same-page URL** | `href="https://site.com/page/?__hstc=1#my-id"` | Same origin and path as the current page (query ignored) + a hash is treated as `#my-id`. Useful when a script such as HubSpot rewrites `#my-id` into a full URL |
 
 **Smart Class Targeting** — when using `href=".my-class"`:
 

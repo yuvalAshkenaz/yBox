@@ -14,7 +14,7 @@
 		"description": "A free, lightweight JavaScript lightbox and modal popup library for images, galleries, YouTube, Vimeo, HTML5 video, iframes and AJAX, with no dependencies.",
 		"applicationCategory": "DeveloperApplication",
 		"operatingSystem": "Any",
-		"softwareVersion": "13.4.8",
+		"softwareVersion": "13.4.9",
 		"url": "https://y-tools.dooble.us/ybox/",
 		"downloadUrl": "https://github.com/yuvalAshkenaz/yBox",
 		"license": "https://opensource.org/licenses/MIT",
@@ -41,7 +41,7 @@
 
 <main class="layout-wrapper">
 	<section id="overview" style="text-align: center; background: transparent; box-shadow: none; border: none; backdrop-filter: none; padding-top:0;">
-		<h1>yBox <span>v13.4.8</span><small class="h1-tagline t-en">JavaScript Lightbox &amp; Popup Library</small><small class="h1-tagline t-he">ספריית Lightbox ופופאפים ב-JavaScript</small></h1>
+		<h1>yBox <span>v13.4.9</span><small class="h1-tagline t-en">JavaScript Lightbox &amp; Popup Library</small><small class="h1-tagline t-he">ספריית Lightbox ופופאפים ב-JavaScript</small></h1>
 		<p style="color: var(--text-secondary); font-size: 1.1rem;">
 			<span class="t-en">yBox is a free, lightweight JavaScript lightbox and modal popup library for images, galleries, YouTube and Vimeo videos, HTML5 video, iframes, AJAX content and hidden page elements.<br>It is written in vanilla JavaScript with no dependencies (no jQuery), supports RTL with built-in Hebrew and Arabic, and is MIT licensed for personal and commercial use.</span>
 			<span class="t-he">yBox היא ספריית lightbox ופופאפים חינמית וקלה ב-JavaScript, לתמונות, גלריות, סרטוני YouTube ו-Vimeo, וידאו HTML5, iframe, תוכן AJAX ואלמנטים מוסתרים בדף.<br>היא כתובה ב-JavaScript נקי בלי תלויות (בלי jQuery), תומכת ב-RTL עם עברית וערבית מובנות, ומופצת ברישיון MIT לשימוש אישי ומסחרי.</span>
@@ -336,8 +336,8 @@
 			<section id="targeting">
 				<h3><span class="t-en">Targeting Elements (href / data-href)</span><span class="t-he">מיקוד אלמנטים (href / data-href)</span></h3>
 				<p>
-					<span class="t-en">Use <code>href</code> or <code>data-href</code> on the trigger element to open hidden elements or URLs. Both attributes work the same.</span>
-					<span class="t-he">השתמשו ב-<code>href</code> או <code>data-href</code> על אלמנט הטריגר כדי לפתוח אלמנטים מוסתרים או כתובות URL. שתי התכונות עובדות אותו דבר.</span>
+					<span class="t-en">Use <code>href</code> or <code>data-href</code> on the trigger element to open hidden elements or URLs. Both attributes work the same. If an element has both, <code>data-href</code> wins.</span>
+					<span class="t-he">השתמשו ב-<code>href</code> או <code>data-href</code> על אלמנט הטריגר כדי לפתוח אלמנטים מוסתרים או כתובות URL. שתי התכונות עובדות אותו דבר. אם לאלמנט יש את שתיהן, <code>data-href</code> מנצח.</span>
 				</p>
 				<div class="api-table-wrap">
 					<table class="api-table">
@@ -354,6 +354,14 @@
 							<td class="api-name"><span class="t-en">Class</span><span class="t-he">קלאס</span></td>
 							<td class="api-type" data-label-en="Example" data-label-he="דוגמה"><code>href=".my-popup"</code><br><code>data-href=".my-popup"</code></td>
 							<td class="api-desc"><div class="t-en">Opens an element by its class. Useful in loops such as product cards or posts:<ol><li>yBox first looks for the class <strong>inside</strong> the clicked element.</li><li>If not found, it opens the element with the same <strong>index</strong> as the clicked element.</li></ol></div><div class="t-he">פותח אלמנט לפי הקלאס שלו. שימושי בלולאות כמו כרטיסי מוצר או פוסטים:<ol><li>yBox מחפש קודם את הקלאס <strong>בתוך</strong> האלמנט שנלחץ.</li><li>אם לא נמצא, נפתח האלמנט עם אותו <strong>אינדקס</strong> של האלמנט שנלחץ.</li></ol></div></td>
+						</tr>
+						<tr>
+							<td class="api-name"><span class="t-en">Same-page URL</span><span class="t-he">כתובת של אותו עמוד</span></td>
+							<td class="api-type" data-label-en="Example" data-label-he="דוגמה"><code>href="https://site.com/page/?__hstc=...#my-popup"</code></td>
+							<td class="api-desc"><div class="t-en">A full URL with the same origin and path as the current page (the query string is ignored) and a hash is treated as <code>#my-popup</code>.<br>Useful when a script such as HubSpot rewrites <code>href="#my-popup"</code> into a full URL.</div><div class="t-he">כתובת מלאה עם אותו origin ואותו נתיב של העמוד הנוכחי (ה-query string מתעלמים ממנו) ועם hash, מטופלת כמו <code>#my-popup</code>.<br>שימושי כשסקריפט כמו HubSpot משכתב את <code>href="#my-popup"</code> לכתובת מלאה.</div>
+								<button type="button" class="ybox" href="?__hstc=demo&amp;__hssc=demo#ybox-same-page-demo"><span class="t-en">Open (rewritten link)</span><span class="t-he">פתח (קישור משוכתב)</span></button>
+								<div style="display: none;"><div id="ybox-same-page-demo"><span class="t-en">Opened from a same-page URL with a query string.</span><span class="t-he">נפתח מכתובת של אותו עמוד עם query string.</span></div></div>
+								<div class="api-code"><span class="tk-tag">&lt;a</span> <span class="tk-attr">class</span>=<span class="tk-str">"ybox"</span> <span class="tk-attr">href</span>=<span class="tk-str">"https://site.com/page/?__hstc=123#my-popup"</span><span class="tk-tag">&gt;</span>Open<span class="tk-tag">&lt;/a&gt;</span></div></td>
 						</tr>
 						</tbody>
 					</table>

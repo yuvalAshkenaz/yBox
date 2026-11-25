@@ -4,6 +4,13 @@ All notable changes to yBox are listed here, newest first.
 
 ---
 
+## 13.4.9
+
+- **Rewritten internal links** — a link whose `href` was rewritten by an external script (e.g. HubSpot adding `?__hstc=...&__hssc=...`) to a full URL with the same origin and path as the current page plus a hash is now treated as `#hash`, instead of opening an empty popup. The query string is ignored.
+- **`data-href` priority** — when an element has both `href` and `data-href`, `data-href` is now used (it was `href` before).
+
+---
+
 ## 13.4.8
 
 - **WordPress admin bar** — regular (HTML/AJAX) popups now keep `max-height: calc(100dvh - 42px)` with the admin bar, instead of falling back to `calc(100dvh - 20px)`; the same applies to image and iframe popups on screens up to 479px.
